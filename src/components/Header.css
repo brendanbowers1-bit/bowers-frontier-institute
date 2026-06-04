@@ -1,0 +1,127 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  height: var(--header-height);
+  transition: background 0.35s ease, border-color 0.35s ease;
+}
+
+.header--scrolled {
+  background: rgba(6, 6, 7, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.header__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.header__mark {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--color-gold);
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--color-border-strong);
+}
+
+.header__name {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--color-ivory-muted);
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .header__name {
+    display: block;
+  }
+}
+
+.header__nav {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .header__nav {
+    display: block;
+  }
+
+  .header__toggle {
+    display: none;
+  }
+}
+
+.header__list {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header__list a {
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-steel-light);
+  transition: color 0.2s ease;
+}
+
+.header__list a:hover {
+  color: var(--color-ivory);
+}
+
+.header__toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.header__toggle-bar {
+  display: block;
+  width: 1.25rem;
+  height: 1px;
+  background: var(--color-ivory);
+  transition: transform 0.25s ease;
+}
+
+@media (max-width: 899px) {
+  .header__nav--open {
+    display: flex;
+    position: fixed;
+    inset: var(--header-height) 0 0;
+    background: var(--color-void);
+    border-top: 1px solid var(--color-border);
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header__nav--open .header__list {
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .header__nav--open .header__list a {
+    font-size: 0.875rem;
+  }
+}

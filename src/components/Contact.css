@@ -1,0 +1,91 @@
+.contact {
+  background: var(--color-black);
+  border-top: 1px solid var(--color-border);
+}
+
+.contact__layout {
+  display: grid;
+  gap: var(--space-2xl);
+}
+
+@media (min-width: 900px) {
+  .contact__layout {
+    grid-template-columns: 1fr 1.1fr;
+    align-items: start;
+  }
+}
+
+.contact__email {
+  margin-top: var(--space-lg);
+  font-size: 1rem;
+}
+
+.contact__email a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  transition: color 0.2s ease;
+}
+
+.contact__email a:hover {
+  color: var(--color-ivory);
+}
+
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.contact__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact__field label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+}
+
+.contact__field input,
+.contact__field select,
+.contact__field textarea {
+  padding: 0.875rem 1rem;
+  background: var(--color-graphite);
+  border: 1px solid var(--color-border);
+  color: var(--color-ivory);
+  transition: border-color 0.2s ease;
+}
+
+.contact__field input::placeholder,
+.contact__field textarea::placeholder {
+  color: var(--color-steel);
+}
+
+.contact__field input:focus,
+.contact__field select:focus,
+.contact__field textarea:focus {
+  outline: none;
+  border-color: rgba(74, 127, 168, 0.4);
+}
+
+.contact__field select {
+  appearance: none;
+  cursor: pointer;
+}
+
+.contact__field textarea {
+  resize: vertical;
+  min-height: 8rem;
+}
+
+.contact__note {
+  font-size: 0.8125rem;
+  color: var(--color-steel);
+  margin: 0;
+  line-height: 1.5;
+}

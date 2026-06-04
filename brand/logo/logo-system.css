@@ -1,0 +1,473 @@
+/* Bowers Frontier Institute — Logo System / Frontier Aperture */
+
+:root {
+  --midnight: #0e1b2d;
+  --charcoal: #1a1a1a;
+  --graphite: #666666;
+  --warm-white: #faf8f4;
+  --silver: #c8c8c8;
+  --silver-line: rgba(200, 200, 200, 0.55);
+
+  --font-wordmark: "Cormorant Garamond", "Source Serif 4", Georgia, serif;
+  --font-display: "Source Serif 4", "Cormorant Garamond", Georgia, serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+
+  --max: 72rem;
+  --stroke-logo: 1.25;
+  --stroke-logo-thin: 0.75;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--charcoal);
+  background: var(--warm-white);
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--midnight);
+}
+
+/* —— Board shell —— */
+.board {
+  min-height: 100vh;
+}
+
+.board-header {
+  padding: var(--space-2xl) var(--space-md) var(--space-xl);
+  border-bottom: 1px solid var(--silver-line);
+  text-align: center;
+}
+
+.board-header__institute {
+  margin: 0;
+  font-family: var(--font-wordmark);
+  font-size: clamp(0.75rem, 1.8vw, 0.875rem);
+  font-weight: 500;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+}
+
+.board-header__title {
+  margin: var(--space-sm) 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--midnight);
+}
+
+.board-header__subtitle {
+  margin: var(--space-sm) 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+.board-main {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding: var(--space-xl) var(--space-md) var(--space-2xl);
+}
+
+/* —— Sections —— */
+.section {
+  padding-block: var(--space-xl);
+  border-bottom: 1px solid var(--silver-line);
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.section__label {
+  margin: 0 0 var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+.section__title {
+  margin: 0 0 var(--space-md);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--midnight);
+}
+
+.section__lead {
+  margin: 0 0 var(--space-lg);
+  max-width: 42rem;
+  font-size: 1.0625rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--graphite);
+}
+
+/* —— Logo display panels —— */
+.panel-grid {
+  display: grid;
+  gap: var(--space-md);
+}
+
+@media (min-width: 720px) {
+  .panel-grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .panel-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.panel {
+  padding: var(--space-lg);
+  border: 1px solid var(--silver-line);
+  background: #fff;
+}
+
+.panel--dark {
+  background: var(--midnight);
+  border-color: rgba(200, 200, 200, 0.15);
+}
+
+.panel--charcoal {
+  background: var(--charcoal);
+  border-color: rgba(200, 200, 200, 0.12);
+}
+
+.panel__caption {
+  margin: var(--space-md) 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+.panel--dark .panel__caption,
+.panel--charcoal .panel__caption {
+  color: var(--silver);
+}
+
+.panel__caption--light {
+  color: rgba(250, 248, 244, 0.55);
+}
+
+/* —— Logo lockups —— */
+.lockup {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.lockup--stacked {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.lockup__symbol {
+  flex-shrink: 0;
+}
+
+.lockup__symbol svg {
+  display: block;
+}
+
+.lockup__wordmark {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.wordmark-line {
+  margin: 0;
+  font-family: var(--font-wordmark);
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.wordmark-line--primary {
+  font-size: clamp(0.65rem, 1.4vw, 0.8rem);
+}
+
+.wordmark-line--stack-main {
+  font-size: clamp(0.7rem, 1.6vw, 0.85rem);
+  letter-spacing: 0.28em;
+}
+
+.wordmark-line--stack-sub {
+  font-size: clamp(0.55rem, 1.2vw, 0.65rem);
+  letter-spacing: 0.42em;
+  color: var(--graphite);
+}
+
+.wordmark--light .wordmark-line {
+  color: var(--warm-white);
+}
+
+.wordmark--light .wordmark-line--stack-sub {
+  color: var(--silver);
+}
+
+/* —— Concept blocks —— */
+.concept {
+  margin-bottom: var(--space-2xl);
+}
+
+.concept:last-child {
+  margin-bottom: 0;
+}
+
+.concept__header {
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--silver-line);
+}
+
+.concept__name {
+  margin: 0 0 var(--space-xs);
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 500;
+  color: var(--midnight);
+}
+
+.concept__code {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+.concept__desc {
+  margin: var(--space-sm) 0 0;
+  max-width: 40rem;
+  font-size: 0.9375rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--graphite);
+}
+
+/* —— Color swatches —— */
+.swatch-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-sm);
+}
+
+.swatch {
+  border: 1px solid var(--silver-line);
+  overflow: hidden;
+}
+
+.swatch__chip {
+  height: 5rem;
+}
+
+.swatch__meta {
+  padding: var(--space-sm);
+  background: #fff;
+}
+
+.swatch__name {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+}
+
+.swatch__hex {
+  margin: 0.25rem 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--graphite);
+}
+
+/* —— Type specimens —— */
+.type-specimen {
+  padding: var(--space-lg);
+  border: 1px solid var(--silver-line);
+  margin-bottom: var(--space-sm);
+}
+
+.type-specimen__role {
+  margin: 0 0 var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+.type-specimen__sample--wordmark {
+  margin: 0;
+  font-family: var(--font-wordmark);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--midnight);
+}
+
+.type-specimen__sample--display {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--midnight);
+}
+
+.type-specimen__sample--body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--charcoal);
+}
+
+.type-specimen__sample--mono {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  color: var(--graphite);
+}
+
+.type-specimen__note {
+  margin: var(--space-sm) 0 0;
+  font-size: 0.8125rem;
+  color: var(--graphite);
+}
+
+/* —— Lists —— */
+.principle-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-sm);
+}
+
+@media (min-width: 640px) {
+  .principle-list--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.principle-list li {
+  padding: var(--space-md);
+  border: 1px solid var(--silver-line);
+  font-size: 0.9375rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--charcoal);
+}
+
+.principle-list li strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--midnight);
+}
+
+.dont-list li {
+  border-color: rgba(26, 26, 26, 0.12);
+  color: var(--graphite);
+}
+
+/* —— Monogram sizes demo —— */
+.size-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-lg);
+}
+
+.size-row__item {
+  text-align: center;
+}
+
+.size-row__item svg {
+  margin-inline: auto;
+}
+
+.size-row__label {
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  color: var(--graphite);
+}
+
+/* SVG shared */
+.logo-stroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+.logo-fill {
+  fill: currentColor;
+}
+
+.symbol-color {
+  color: var(--midnight);
+}
+
+.symbol-color--light {
+  color: var(--warm-white);
+}

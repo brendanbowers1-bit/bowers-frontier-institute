@@ -1,0 +1,29 @@
+.mission {
+  background: var(--color-black);
+  border-block: 1px solid var(--color-border);
+}
+
+.mission__inner {
+  max-width: 52rem;
+}
+
+.mission__quote {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--color-ivory);
+  margin: 0 0 var(--space-lg);
+  padding: 0;
+  border: none;
+}
+
+.mission__support {
+  font-size: 1.0625rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--color-steel-light);
+  margin: 0;
+  max-width: 40rem;
+}
