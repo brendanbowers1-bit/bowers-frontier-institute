@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-02T07:52:09.320Z",
+  "generatedAt": "2026-07-02T07:54:22.999Z",
   "dataRun": {
     "runDate": "2026-07-02",
-    "fetchedAt": "2026-07-02T07:50:23.825Z",
+    "fetchedAt": "2026-07-02T07:54:13.779Z",
     "totalSources": 51,
     "successfulSources": 51,
     "errors": 0
@@ -10,14 +10,14 @@
   "crypto": [
     {
       "symbol": "BTC",
-      "last": 60137,
-      "bid": 60136.9,
-      "ask": 60137,
-      "spreadPct": 0.00016628725457837833,
-      "dayChangePct": 0.28800469612752433,
+      "last": 60090.2,
+      "bid": 60090.2,
+      "ask": 60090.3,
+      "spreadPct": 0.00016641648722390802,
+      "dayChangePct": 0.2099582584971294,
       "dayHigh": 61033.1,
       "dayLow": 59529.6,
-      "volume24h": 3129.99848432,
+      "volume24h": 3129.66891936,
       "orderbookDepth": {
         "asks": 25,
         "bids": 25
@@ -25,14 +25,14 @@
     },
     {
       "symbol": "ETH",
-      "last": 1615.53,
-      "bid": 1615.53,
-      "ask": 1615.54,
-      "spreadPct": 0.0006189919097751763,
-      "dayChangePct": 0.49078151825034655,
+      "last": 1614.52,
+      "bid": 1614.52,
+      "ask": 1614.53,
+      "spreadPct": 0.0006193791343551585,
+      "dayChangePct": 0.4279565076758404,
       "dayHigh": 1640,
       "dayLow": 1595.71,
-      "volume24h": 36973.87213662,
+      "volume24h": 36998.97696155,
       "orderbookDepth": {
         "asks": 25,
         "bids": 25
@@ -40,14 +40,14 @@
     },
     {
       "symbol": "SOL",
-      "last": 78.02,
-      "bid": 78.05,
-      "ask": 78.06,
-      "spreadPct": 0.012812299807822058,
-      "dayChangePct": 0.8270871026104943,
+      "last": 77.95,
+      "bid": 77.9,
+      "ask": 77.91,
+      "spreadPct": 0.012836970474956232,
+      "dayChangePct": 0.7366244507624805,
       "dayHigh": 78.87,
       "dayLow": 76.83,
-      "volume24h": 430846.53041468,
+      "volume24h": 430813.05722408,
       "orderbookDepth": {
         "asks": 25,
         "bids": 25
