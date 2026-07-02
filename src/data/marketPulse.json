@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-02T07:54:22.999Z",
+  "generatedAt": "2026-07-02T10:35:53.519Z",
   "dataRun": {
     "runDate": "2026-07-02",
-    "fetchedAt": "2026-07-02T07:54:13.779Z",
+    "fetchedAt": "2026-07-02T10:35:43.568Z",
     "totalSources": 51,
     "successfulSources": 51,
     "errors": 0
@@ -10,14 +10,14 @@
   "crypto": [
     {
       "symbol": "BTC",
-      "last": 60090.2,
-      "bid": 60090.2,
-      "ask": 60090.3,
-      "spreadPct": 0.00016641648722390802,
-      "dayChangePct": 0.2099582584971294,
-      "dayHigh": 61033.1,
+      "last": 61193.6,
+      "bid": 61193.5,
+      "ask": 61193.6,
+      "spreadPct": 0.00016341604908780313,
+      "dayChangePct": 2.050053114936713,
+      "dayHigh": 61365.7,
       "dayLow": 59529.6,
-      "volume24h": 3129.66891936,
+      "volume24h": 3329.47339358,
       "orderbookDepth": {
         "asks": 25,
         "bids": 25
@@ -25,14 +25,14 @@
     },
     {
       "symbol": "ETH",
-      "last": 1614.52,
-      "bid": 1614.52,
-      "ask": 1614.53,
-      "spreadPct": 0.0006193791343551585,
-      "dayChangePct": 0.4279565076758404,
-      "dayHigh": 1640,
+      "last": 1646.46,
+      "bid": 1645.64,
+      "ask": 1645.65,
+      "spreadPct": 0.0006076663182707581,
+      "dayChangePct": 2.4147197133686604,
+      "dayHigh": 1649,
       "dayLow": 1595.71,
-      "volume24h": 36998.97696155,
+      "volume24h": 37073.61561803,
       "orderbookDepth": {
         "asks": 25,
         "bids": 25
@@ -40,14 +40,14 @@
     },
     {
       "symbol": "SOL",
-      "last": 77.95,
-      "bid": 77.9,
-      "ask": 77.91,
-      "spreadPct": 0.012836970474956232,
-      "dayChangePct": 0.7366244507624805,
-      "dayHigh": 78.87,
+      "last": 80.51,
+      "bid": 80.51,
+      "ask": 80.52,
+      "spreadPct": 0.01242081728976637,
+      "dayChangePct": 4.044972861204458,
+      "dayHigh": 80.64,
       "dayLow": 76.83,
-      "volume24h": 430813.05722408,
+      "volume24h": 498497.74236953,
       "orderbookDepth": {
         "asks": 25,
         "bids": 25
@@ -135,23 +135,23 @@
   "options": [
     {
       "symbol": "SPY",
-      "timestamp": "2026-07-02 06:13:59",
+      "timestamp": "2026-07-02 10:25:58",
       "contracts": 14124
     },
     {
       "symbol": "QQQ",
-      "timestamp": "2026-07-02 05:35:21",
+      "timestamp": "2026-07-02 10:34:03",
       "contracts": 11350
     },
     {
       "symbol": "GLD",
-      "timestamp": "2026-07-02 03:44:33",
-      "contracts": 8246
+      "timestamp": "2026-07-02 09:33:15",
+      "contracts": 8322
     },
     {
       "symbol": "TLT",
-      "timestamp": "2026-07-02 03:44:31",
-      "contracts": 2294
+      "timestamp": "2026-07-02 10:10:57",
+      "contracts": 2344
     }
   ],
   "filings": {

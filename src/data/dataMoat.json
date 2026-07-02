@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-02T10:34:32.233Z",
+  "generatedAt": "2026-07-02T10:35:53.305Z",
   "rawRun": {
     "runDate": "2026-07-02",
-    "fetchedAt": "2026-07-02T07:54:13.779Z",
+    "fetchedAt": "2026-07-02T10:35:43.568Z",
     "sources": 51,
     "successfulSources": 51,
     "errors": 0
@@ -10,7 +10,7 @@
   "processedRun": {
     "path": "data/processed/2026-07-02/",
     "tables": 11,
-    "rows": 21381,
+    "rows": 21385,
     "quality": [
       {
         "filename": "crypto_ohlc_daily.csv",
@@ -62,7 +62,7 @@
       },
       {
         "filename": "options_chain_summary.csv",
-        "rows": 252,
+        "rows": 256,
         "columns": 9,
         "status": "ok"
       },
