@@ -5,11 +5,15 @@ const registryPath = join(process.cwd(), "ops", "lab-os", "labs.json");
 const dryRun = process.argv.includes("--dry-run");
 const dataRoot = process.env.BFI_DATA_ROOT;
 
-const readme = (lab) => `# ${lab.name} data warehouse
+const readme = (vertical) => `# ${vertical.name} data warehouse
 
-This folder is the local heavy-data warehouse for ${lab.name}.
+This folder is the local heavy-data warehouse for ${vertical.name}.
 
-Do not commit private or heavy files to GitHub. Keep code, schemas, tests, docs, and small templates in the lab repo.
+Do not commit private or heavy files to GitHub. Keep code, schemas, tests, docs, and small templates in the vertical's GitHub repos.
+
+Repos in this vertical:
+
+${(vertical.repos ?? []).map((repo) => `- ${repo.githubRepo} - ${repo.purpose}`).join("\n")}
 
 Expected folders:
 
@@ -28,11 +32,12 @@ async function main() {
   const registry = JSON.parse(await readFile(registryPath, "utf8"));
   const root = dataRoot ?? registry.defaultDataRoot;
   const created = [];
+  const verticals = registry.verticals ?? registry.labs ?? [];
 
-  for (const lab of registry.labs) {
-    const labPath = lab.localDataPath.replace(registry.defaultDataRoot, root);
-    for (const folder of lab.dataClasses) {
-      const target = join(labPath, folder);
+  for (const vertical of verticals) {
+    const verticalPath = vertical.localDataPath.replace(registry.defaultDataRoot, root);
+    for (const folder of vertical.dataClasses) {
+      const target = join(verticalPath, folder);
       created.push(target);
       if (!dryRun) {
         await mkdir(target, { recursive: true });
@@ -40,7 +45,7 @@ async function main() {
     }
 
     if (!dryRun) {
-      await writeFile(join(labPath, "README.md"), readme(lab));
+      await writeFile(join(verticalPath, "README.md"), readme(vertical));
     }
   }
 

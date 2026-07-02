@@ -1,6 +1,10 @@
 # BFI Lab Operating System
 
-This scaffold defines how all BFI labs should separate code, heavy data, private data, reports, and cloud-agent work.
+This scaffold defines how BFI work should separate code, heavy data, private data, reports, and cloud-agent work under three simple verticals:
+
+1. **BFI AI Finance**
+2. **BFI T1D**
+3. **BR3N Creative**
 
 ## Operating model
 
@@ -43,11 +47,11 @@ Heavy data:
 /Volumes/BFI/DATA/
 ```
 
-Recommended all-labs layout:
+Recommended all-work layout:
 
 ```text
 /Volumes/BFI/DATA/
-  bfi-ai-lab/
+  bfi-ai-finance/
     raw/
     processed/
     private/
@@ -55,31 +59,7 @@ Recommended all-labs layout:
     artifacts/
     reports/
     archives/
-  bfi-finance-lab/
-    raw/
-    processed/
-    private/
-    databases/
-    artifacts/
-    reports/
-    archives/
-  bfi-t1d-lab/
-    raw/
-    processed/
-    private/
-    databases/
-    artifacts/
-    reports/
-    archives/
-  bfi-quantum-lab/
-    raw/
-    processed/
-    private/
-    databases/
-    artifacts/
-    reports/
-    archives/
-  bfi-data-standards-lab/
+  bfi-t1d/
     raw/
     processed/
     private/
@@ -99,15 +79,32 @@ Recommended all-labs layout:
 
 ## GitHub repo rule
 
-Each lab should have its own private GitHub repo when it contains active code or governed research history:
+Everything should belong to one of three verticals. Repos can be separate when a vertical has distinct products or governed research histories, but they should still be grouped under the owning vertical.
 
-- `bfi-ai-lab`
-- `bfi-finance-lab`
-- `bfi-t1d-lab`
-- `bfi-quantum-lab`
-- `bfi-data-standards-lab`
-- `br3n-creative`
-- `bowers-frontier-institute` for the public website
+Recommended GitHub organization:
+
+```text
+BFI AI Finance
+  brendanbowers1-bit/bfi-ai-finance
+  brendanbowers1-bit/bfi-finance-lab
+  brendanbowers1-bit/bfi-ai-lab
+  brendanbowers1-bit/bowers-frontier-institute
+
+BFI T1D
+  brendanbowers1-bit/bfi-t1d
+  brendanbowers1-bit/bfi-t1d-lab
+
+BR3N Creative
+  brendanbowers1-bit/br3n-creative
+```
+
+If you want maximum simplicity, collapse each vertical to one primary repo:
+
+```text
+brendanbowers1-bit/bfi-ai-finance
+brendanbowers1-bit/bfi-t1d
+brendanbowers1-bit/br3n-creative
+```
 
 Do not commit heavy data or private exports to GitHub. Use `.gitignore` rules from `gitignore-template.txt`.
 

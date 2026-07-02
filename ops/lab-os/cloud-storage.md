@@ -26,16 +26,21 @@ Choose one:
 Suggested buckets:
 
 ```text
-bfi-labs-raw
-bfi-labs-processed
-bfi-labs-reports
-bfi-labs-archives
+bfi-ai-finance-raw
+bfi-ai-finance-processed
+bfi-t1d-raw
+bfi-t1d-processed
+br3n-creative-assets
+bfi-shared-reports
+bfi-shared-archives
 ```
 
 Keep private account exports in a separate restricted bucket only if needed:
 
 ```text
-bfi-labs-private
+bfi-ai-finance-private
+bfi-t1d-private
+br3n-creative-private
 ```
 
 ### Stage 3 - cloud-agent access

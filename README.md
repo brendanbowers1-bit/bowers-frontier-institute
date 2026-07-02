@@ -58,16 +58,20 @@ npm run data:refresh
 
 This pulls refreshable public seeds for crypto, ETF benchmarks, macro/rates, SEC fundamentals, options chains, futures snapshots, market structure, and headlines into `data/raw/YYYY-MM-DD/`, normalizes analysis-ready tables into `data/processed/YYYY-MM-DD/`, then generates compact summaries at `src/data/marketPulse.json` and `src/data/dataMoat.json`. Raw and processed data files are intentionally ignored by git; see `data/README.md` and `data/catalog.json`.
 
-## BFI Lab operating system
+## BFI vertical operating system
 
-All-labs repo/data setup guidance lives under `ops/lab-os/`.
+Three-vertical repo/data setup guidance lives under `ops/lab-os/`:
+
+- BFI AI Finance
+- BFI T1D
+- BR3N Creative
 
 ```bash
 BFI_DATA_ROOT=/Volumes/BFI/DATA npm run labs:storage:init -- --dry-run
 BFI_DATA_ROOT=/Volumes/BFI/DATA npm run labs:storage:init
 ```
 
-Use GitHub for lab repos and `/Volumes/BFI/DATA/` for heavy data. Cloud object storage can be added later for backup and cloud-agent access.
+Use GitHub for vertical repos and `/Volumes/BFI/DATA/` for heavy data. Cloud object storage can be added later for backup and cloud-agent access.
 
 ## Sections
 
