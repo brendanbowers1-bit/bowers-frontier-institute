@@ -46,17 +46,25 @@ Core public dataset seeds for finance intelligence research are defined under `d
 
 ```bash
 npm run data:fetch
+npm run data:summarize
 ```
 
-This pulls refreshable public seeds for crypto, ETF benchmarks, macro/rates, SEC fundamentals, options chains, futures snapshots, market structure, and headlines into `data/raw/YYYY-MM-DD/`. Raw data files are intentionally ignored by git; see `data/README.md` and `data/catalog.json`.
+Or run both steps together:
+
+```bash
+npm run data:refresh
+```
+
+This pulls refreshable public seeds for crypto, ETF benchmarks, macro/rates, SEC fundamentals, options chains, futures snapshots, market structure, and headlines into `data/raw/YYYY-MM-DD/`, then generates the compact dashboard summary at `src/data/marketPulse.json`. Raw data files are intentionally ignored by git; see `data/README.md` and `data/catalog.json`.
 
 ## Sections
 
 1. Hero — title, tagline, body, CTAs
 2. What We Do — three capability cards
-3. Labs — six laboratory names
-4. Founder — Brendan Bowers
-5. Contact — form UI + email placeholder (no backend)
+3. Market Pulse — first data dashboard from public/free sources
+4. Labs — six laboratory names
+5. Founder — Brendan Bowers
+6. Contact — form UI + email placeholder (no backend)
 
 ## Factuality
 

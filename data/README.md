@@ -12,6 +12,12 @@ Run:
 npm run data:fetch
 ```
 
+To fetch the raw public seeds and regenerate the compact site dashboard summary in one command:
+
+```bash
+npm run data:refresh
+```
+
 The fetcher writes timestamped public seed data into:
 
 ```text
@@ -33,6 +39,7 @@ Fetched public seeds:
 - Yahoo Finance and CoinDesk RSS headline feeds
 
 Each run writes a `manifest.json` with source URLs, file names, byte counts, and errors.
+The dashboard summary is written to `src/data/marketPulse.json`.
 
 Normal mode allows partial success because public data sources can time out or rate-limit. Use strict mode when every configured source must succeed:
 
