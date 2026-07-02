@@ -1,9 +1,7 @@
-const LABS = [
-  { index: "01", id: "AI", name: "BFI AI Lab", focus: "Intelligence systems & evaluation" },
-  { index: "02", id: "T1D", name: "BFI T1D Lab", focus: "Diabetes research infrastructure" },
-  { index: "03", id: "QNT", name: "BFI Quantum Lab", focus: "Scientific computing experiments" },
-  { index: "04", id: "BR3N", name: "BR3N Creative", focus: "Visual systems & research design" },
-];
+import { labs } from "../data/labs";
+
+const labCode = (id) => id.toUpperCase();
+const labIndex = (index) => String(index + 1).padStart(2, "0");
 
 export function Labs() {
   return (
@@ -15,19 +13,34 @@ export function Labs() {
             Research index
           </h2>
           <p className="section-lead">
-            Four focused labs. Each maintains its own methods, datasets, and review standards.
+            Six focused labs. Each maintains its own methods, datasets, and review standards.
           </p>
         </header>
         <ol className="lab-index">
-          {LABS.map((lab) => (
+          {labs.map((lab, index) => (
             <li key={lab.id}>
-              <article className="lab-index__card">
+              <article
+                className={[
+                  "lab-index__card",
+                  lab.accent ? "lab-index__card--accent" : "",
+                  lab.creative ? "lab-index__card--creative" : "",
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+              >
                 <div className="lab-index__meta">
-                  <span className="lab-index__num">{lab.index}</span>
-                  <span className="lab-index__id">{lab.id}</span>
+                  <span className="lab-index__num">{labIndex(index)}</span>
+                  <span className="lab-index__id">{labCode(lab.id)}</span>
                 </div>
                 <h3 className="lab-index__name">{lab.name}</h3>
-                <p className="lab-index__focus">{lab.focus}</p>
+                <p className="lab-index__focus">{lab.description}</p>
+                {lab.focusAreas?.length > 0 && (
+                  <ul className="lab-index__tags" aria-label={`${lab.name} focus areas`}>
+                    {lab.focusAreas.map((focusArea) => (
+                      <li key={focusArea}>{focusArea}</li>
+                    ))}
+                  </ul>
+                )}
               </article>
             </li>
           ))}

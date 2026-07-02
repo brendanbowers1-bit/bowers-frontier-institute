@@ -1,7 +1,7 @@
 const ITEMS = [
   {
-    title: "AI Systems",
-    text: "Research-grade workflows, model evaluation, and intelligence tools.",
+    title: "Finance Intelligence Systems",
+    text: "Risk models, investment research, cryptoasset analysis, hedge logic, and trading-decision workflows.",
   },
   {
     title: "Data Standards",

@@ -1,6 +1,6 @@
 # Bowers Frontier Institute
 
-Simple one-page landing site for **Bowers Frontier Institute (BFI)**.
+Simple one-page landing site for **Bowers Frontier Institute (BFI)**, with a finance-first AI lab emphasis.
 
 **Tagline:** Frontier intelligence, built with discipline.
 
@@ -44,7 +44,7 @@ GITHUB_PAGES=true npm run build
 
 1. Hero — title, tagline, body, CTAs
 2. What We Do — three capability cards
-3. Labs — four laboratory names
+3. Labs — six laboratory names
 4. Founder — Brendan Bowers
 5. Contact — form UI + email placeholder (no backend)
 

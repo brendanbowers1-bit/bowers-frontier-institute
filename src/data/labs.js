@@ -3,7 +3,8 @@ export const labs = [
     id: "ai",
     name: "BFI AI Lab",
     description:
-      "Research-grade AI workflows, model evaluation, data architecture, and intelligence systems.",
+      "A finance intelligence lab for risk analysis, investment research, cryptoasset questions, hedge design, and trading-system evaluation.",
+    focusAreas: ["Risk", "Investments", "Crypto", "Hedging", "Trading"],
     accent: true,
   },
   {
