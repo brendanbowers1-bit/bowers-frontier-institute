@@ -40,6 +40,16 @@ GitHub Pages production build:
 GITHUB_PAGES=true npm run build
 ```
 
+## BFI AI Lab data foundation
+
+Core public dataset seeds for finance intelligence research are defined under `data/`.
+
+```bash
+npm run data:fetch
+```
+
+This pulls refreshable public seeds for crypto, ETF benchmark, macro, and rates research into `data/raw/YYYY-MM-DD/`. Raw data files are intentionally ignored by git; see `data/README.md` and `data/catalog.json`.
+
 ## Sections
 
 1. Hero — title, tagline, body, CTAs
