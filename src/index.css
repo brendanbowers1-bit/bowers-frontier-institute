@@ -455,14 +455,14 @@ a {
 
 @media (min-width: 1100px) {
   .lab-index {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 .lab-index__card {
   display: flex;
   flex-direction: column;
-  min-height: 11rem;
+  min-height: 14rem;
   padding: 1.75rem 1.5rem;
   background: var(--void);
   border: 1px solid var(--border);
@@ -477,6 +477,14 @@ a {
   background: var(--graphite);
   border-left-color: var(--gold);
   transform: translateY(-2px);
+}
+
+.lab-index__card--accent {
+  border-left-color: rgba(184, 143, 74, 0.85);
+}
+
+.lab-index__card--creative {
+  border-left-color: var(--gold);
 }
 
 .lab-index__meta {
@@ -517,7 +525,7 @@ a {
   margin-top: auto;
   font-size: 0.8125rem;
   font-weight: 300;
-  line-height: 1.55;
+  line-height: 1.65;
   color: var(--steel);
 }
 
