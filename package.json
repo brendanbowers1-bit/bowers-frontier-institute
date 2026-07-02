@@ -12,6 +12,8 @@
     "data:summarize": "node scripts/generate-market-pulse.mjs",
     "data:refresh": "npm run data:fetch && npm run data:normalize && npm run data:summarize",
     "data:fetch:strict": "node scripts/fetch-core-datasets.mjs --strict",
+    "labs:code:init": "node scripts/create-vertical-code-layout.mjs",
+    "labs:init": "npm run labs:code:init && npm run labs:storage:init",
     "labs:storage:init": "node scripts/create-lab-storage-layout.mjs",
     "lint": "eslint .",
     "preview": "vite preview"

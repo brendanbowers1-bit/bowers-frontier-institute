@@ -52,7 +52,7 @@ async function main() {
   if (dryRun) {
     console.log("Dry run. Would create:");
   } else {
-    console.log("Created or confirmed BFI lab storage folders:");
+    console.log("Created or confirmed BFI vertical storage folders:");
   }
 
   for (const target of created) {

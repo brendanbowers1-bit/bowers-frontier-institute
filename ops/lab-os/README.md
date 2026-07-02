@@ -134,16 +134,36 @@ Finance-specific defaults:
 From this repo, run on the Mac that has `/Volumes/BFI` mounted:
 
 ```bash
+BFI_CODE_ROOT=/Volumes/BFI/01_ACTIVE_PROJECTS node scripts/create-vertical-code-layout.mjs
 BFI_DATA_ROOT=/Volumes/BFI/DATA node scripts/create-lab-storage-layout.mjs
 ```
 
 Dry run:
 
 ```bash
+BFI_CODE_ROOT=/Volumes/BFI/01_ACTIVE_PROJECTS node scripts/create-vertical-code-layout.mjs --dry-run
 BFI_DATA_ROOT=/Volumes/BFI/DATA node scripts/create-lab-storage-layout.mjs --dry-run
 ```
 
-This only creates directories and starter README files. It does not move data.
+Or run both code and data setup together:
+
+```bash
+BFI_CODE_ROOT=/Volumes/BFI/01_ACTIVE_PROJECTS BFI_DATA_ROOT=/Volumes/BFI/DATA npm run labs:init
+```
+
+These commands only create directories and starter README/.gitignore/.env.example files. They do not move data and do not create GitHub repos.
+
+## GitHub setup
+
+Create the three primary private repos on GitHub:
+
+```bash
+gh repo create brendanbowers1-bit/bfi-ai-finance --private
+gh repo create brendanbowers1-bit/bfi-t1d --private
+gh repo create brendanbowers1-bit/br3n-creative --private
+```
+
+The cloud agent here cannot run those write operations with `gh`; run them locally or create them through GitHub's web UI.
 
 ## Cloud setup status
 

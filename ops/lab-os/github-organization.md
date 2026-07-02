@@ -19,6 +19,16 @@ brendanbowers1-bit/
 
 This is the cleanest long-term structure.
 
+Create them as private repos:
+
+```bash
+gh repo create brendanbowers1-bit/bfi-ai-finance --private
+gh repo create brendanbowers1-bit/bfi-t1d --private
+gh repo create brendanbowers1-bit/br3n-creative --private
+```
+
+If a repo already exists, do not recreate it. Move or merge local project folders into the correct vertical deliberately.
+
 ## Transitional layout
 
 If existing work needs separate repos during migration:
@@ -64,6 +74,10 @@ Cloud object storage can mirror selected non-private folders later.
    - `bfi-ai-finance`
    - `bfi-t1d`
    - `br3n-creative`
-2. Put every active project under one of those verticals.
-3. Move or archive old standalone lab repos only after their phase history is preserved.
-4. Keep the website repo under BFI AI Finance unless you decide it should become a neutral institute repo later.
+2. Run the local workspace setup:
+   ```bash
+   BFI_CODE_ROOT=/Volumes/BFI/01_ACTIVE_PROJECTS BFI_DATA_ROOT=/Volumes/BFI/DATA npm run labs:init
+   ```
+3. Put every active project under one of those verticals.
+4. Move or archive old standalone lab repos only after their phase history is preserved.
+5. Keep the website repo under BFI AI Finance unless you decide it should become a neutral institute repo later.

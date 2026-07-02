@@ -67,7 +67,9 @@ Three-vertical repo/data setup guidance lives under `ops/lab-os/`:
 - BR3N Creative
 
 ```bash
+BFI_CODE_ROOT=/Volumes/BFI/01_ACTIVE_PROJECTS npm run labs:code:init -- --dry-run
 BFI_DATA_ROOT=/Volumes/BFI/DATA npm run labs:storage:init -- --dry-run
+BFI_CODE_ROOT=/Volumes/BFI/01_ACTIVE_PROJECTS BFI_DATA_ROOT=/Volumes/BFI/DATA npm run labs:init
 BFI_DATA_ROOT=/Volumes/BFI/DATA npm run labs:storage:init
 ```
 
@@ -78,7 +80,7 @@ Use GitHub for vertical repos and `/Volumes/BFI/DATA/` for heavy data. Cloud obj
 1. Hero — title, tagline, body, CTAs
 2. What We Do — three capability cards
 3. Market Pulse — first data dashboard from public/free sources
-4. Labs — six laboratory names
+4. Verticals — BFI AI Finance, BFI T1D, BR3N Creative
 5. Founder — Brendan Bowers
 6. Contact — form UI + email placeholder (no backend)
 
