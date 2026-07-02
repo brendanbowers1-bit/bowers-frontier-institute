@@ -13,8 +13,8 @@ export function Hero() {
           </h1>
           <p className="hero__tagline">Frontier intelligence, built with discipline.</p>
           <p className="hero__body">
-            Independent research and intelligence systems for AI, finance, health,
-            science, and data.
+            Independent research and intelligence systems for finance, AI, risk,
+            health, science, and data.
           </p>
           <div className="hero__actions">
             <a href="#institute" className="btn btn--primary">

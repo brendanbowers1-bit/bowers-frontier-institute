@@ -34,6 +34,13 @@ export function Labs() {
                 </div>
                 <h3 className="lab-index__name">{lab.name}</h3>
                 <p className="lab-index__focus">{lab.description}</p>
+                {lab.focusAreas?.length > 0 && (
+                  <ul className="lab-index__tags" aria-label={`${lab.name} focus areas`}>
+                    {lab.focusAreas.map((focusArea) => (
+                      <li key={focusArea}>{focusArea}</li>
+                    ))}
+                  </ul>
+                )}
               </article>
             </li>
           ))}

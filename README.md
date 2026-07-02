@@ -1,6 +1,6 @@
 # Bowers Frontier Institute
 
-Simple one-page landing site for **Bowers Frontier Institute (BFI)**.
+Simple one-page landing site for **Bowers Frontier Institute (BFI)**, with a finance-first AI lab emphasis.
 
 **Tagline:** Frontier intelligence, built with discipline.
 
