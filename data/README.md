@@ -12,7 +12,7 @@ Run:
 npm run data:fetch
 ```
 
-To fetch the raw public seeds and regenerate the compact site dashboard summary in one command:
+To fetch raw public seeds, normalize them into research tables, and regenerate the compact site dashboard summary in one command:
 
 ```bash
 npm run data:refresh
@@ -40,6 +40,40 @@ Fetched public seeds:
 
 Each run writes a `manifest.json` with source URLs, file names, byte counts, and errors.
 The dashboard summary is written to `src/data/marketPulse.json`.
+The normalized data moat summary is written to `src/data/dataMoat.json`.
+
+## Data moat layer
+
+Raw endpoints are not the moat. The moat starts when raw vendor-shaped files are converted into reproducible, analysis-ready tables with quality checks.
+
+Run:
+
+```bash
+npm run data:normalize
+```
+
+This writes normalized CSV tables into:
+
+```text
+data/processed/YYYY-MM-DD/
+```
+
+Processed tables currently include:
+
+- `crypto_ohlc_daily.csv`
+- `crypto_ohlc_hourly.csv`
+- `crypto_orderbook_top25.csv`
+- `crypto_recent_trades.csv`
+- `etf_prices_daily.csv`
+- `treasury_curve.csv`
+- `sofr.csv`
+- `macro_bls.csv`
+- `options_chain_summary.csv`
+- `sec_company_summary.csv`
+- `kraken_futures_tickers.csv`
+- `quality_report.json`
+
+`data/processed/` is ignored by git because it is generated and refreshable. The compact quality report is tracked at `src/data/dataMoat.json`.
 
 Normal mode allows partial success because public data sources can time out or rate-limit. Use strict mode when every configured source must succeed:
 
@@ -54,6 +88,7 @@ npm run data:fetch:strict
 - `data/catalog.json`
 - this README
 - `scripts/fetch-core-datasets.mjs`
+- `scripts/normalize-research-datasets.mjs`
 
 This keeps the data process reproducible without turning git into data storage.
 

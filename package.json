@@ -8,8 +8,9 @@
     "dev": "vite",
     "build": "vite build",
     "data:fetch": "node scripts/fetch-core-datasets.mjs",
+    "data:normalize": "node scripts/normalize-research-datasets.mjs",
     "data:summarize": "node scripts/generate-market-pulse.mjs",
-    "data:refresh": "npm run data:fetch && npm run data:summarize",
+    "data:refresh": "npm run data:fetch && npm run data:normalize && npm run data:summarize",
     "data:fetch:strict": "node scripts/fetch-core-datasets.mjs --strict",
     "lint": "eslint .",
     "preview": "vite preview"

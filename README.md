@@ -46,6 +46,7 @@ Core public dataset seeds for finance intelligence research are defined under `d
 
 ```bash
 npm run data:fetch
+npm run data:normalize
 npm run data:summarize
 ```
 
@@ -55,7 +56,7 @@ Or run both steps together:
 npm run data:refresh
 ```
 
-This pulls refreshable public seeds for crypto, ETF benchmarks, macro/rates, SEC fundamentals, options chains, futures snapshots, market structure, and headlines into `data/raw/YYYY-MM-DD/`, then generates the compact dashboard summary at `src/data/marketPulse.json`. Raw data files are intentionally ignored by git; see `data/README.md` and `data/catalog.json`.
+This pulls refreshable public seeds for crypto, ETF benchmarks, macro/rates, SEC fundamentals, options chains, futures snapshots, market structure, and headlines into `data/raw/YYYY-MM-DD/`, normalizes analysis-ready tables into `data/processed/YYYY-MM-DD/`, then generates compact summaries at `src/data/marketPulse.json` and `src/data/dataMoat.json`. Raw and processed data files are intentionally ignored by git; see `data/README.md` and `data/catalog.json`.
 
 ## Sections
 

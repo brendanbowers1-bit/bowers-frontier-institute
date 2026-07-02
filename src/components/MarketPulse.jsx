@@ -1,4 +1,5 @@
 import marketPulse from "../data/marketPulse.json";
+import dataMoat from "../data/dataMoat.json";
 
 const currency = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -54,6 +55,8 @@ export function MarketPulse() {
 
         <div className="market-pulse__status">
           <span>{marketPulse.dataRun.successfulSources}/{marketPulse.dataRun.totalSources} sources fetched</span>
+          <span>{dataMoat.processedRun.tables} normalized tables</span>
+          <span>{compactNumber.format(dataMoat.processedRun.rows)} processed rows</span>
           <span>Data run {marketPulse.dataRun.runDate}</span>
           <span>Research support only</span>
         </div>
@@ -154,6 +157,11 @@ export function MarketPulse() {
                 label="Headline feeds"
                 value={marketPulse.headlines.reduce((total, feed) => total + feed.items, 0)}
                 detail={marketPulse.headlines.map((feed) => feed.source).join(", ")}
+              />
+              <Metric
+                label="Quality checks"
+                value={dataMoat.processedRun.quality.filter((table) => table.status === "ok").length}
+                detail={`${dataMoat.processedRun.tables} processed tables ready`}
               />
             </div>
           </div>
