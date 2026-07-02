@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "updated": "2026-07-02",
+  "defaultCodeRoot": "/Volumes/BFI/01_ACTIVE_PROJECTS",
+  "defaultDataRoot": "/Volumes/BFI/DATA",
+  "labs": [
+    {
+      "id": "bfi-ai-lab",
+      "name": "BFI AI Lab",
+      "githubRepo": "brendanbowers1-bit/bfi-ai-lab",
+      "localCodePath": "/Volumes/BFI/01_ACTIVE_PROJECTS/bfi-ai-lab",
+      "localDataPath": "/Volumes/BFI/DATA/bfi-ai-lab",
+      "dataClasses": ["raw", "processed", "private", "databases", "artifacts", "reports", "archives"],
+      "notes": "AI-native research systems, model evaluation, and finance intelligence workflows."
+    },
+    {
+      "id": "bfi-finance-lab",
+      "name": "BFI Finance Lab",
+      "githubRepo": "brendanbowers1-bit/bfi-finance-lab",
+      "localCodePath": "/Volumes/BFI/01_ACTIVE_PROJECTS/bfi-finance-lab",
+      "localDataPath": "/Volumes/BFI/DATA/bfi-finance-lab",
+      "dataClasses": ["raw", "processed", "private", "databases", "artifacts", "reports", "archives"],
+      "governance": {
+        "researchOnly": true,
+        "noLiveTrading": true,
+        "noAutomaticExecution": true,
+        "sqlitePilotAuthoritative": true
+      },
+      "notes": "Finance, macro, FX, hedge research, and trade-candidate analysis."
+    },
+    {
+      "id": "bfi-t1d-lab",
+      "name": "BFI T1D Lab",
+      "githubRepo": "brendanbowers1-bit/bfi-t1d-lab",
+      "localCodePath": "/Volumes/BFI/01_ACTIVE_PROJECTS/bfi-t1d-lab",
+      "localDataPath": "/Volumes/BFI/DATA/bfi-t1d-lab",
+      "dataClasses": ["raw", "processed", "private", "databases", "artifacts", "reports", "archives"],
+      "notes": "Diabetes research infrastructure and AI-ready clinical data standards."
+    },
+    {
+      "id": "bfi-quantum-lab",
+      "name": "BFI Quantum Lab",
+      "githubRepo": "brendanbowers1-bit/bfi-quantum-lab",
+      "localCodePath": "/Volumes/BFI/01_ACTIVE_PROJECTS/bfi-quantum-lab",
+      "localDataPath": "/Volumes/BFI/DATA/bfi-quantum-lab",
+      "dataClasses": ["raw", "processed", "private", "databases", "artifacts", "reports", "archives"],
+      "notes": "Scientific-computing prototypes, benchmark datasets, and quantum-inspired experiments."
+    },
+    {
+      "id": "bfi-data-standards-lab",
+      "name": "BFI Data Standards Lab",
+      "githubRepo": "brendanbowers1-bit/bfi-data-standards-lab",
+      "localCodePath": "/Volumes/BFI/01_ACTIVE_PROJECTS/bfi-data-standards-lab",
+      "localDataPath": "/Volumes/BFI/DATA/bfi-data-standards-lab",
+      "dataClasses": ["raw", "processed", "private", "databases", "artifacts", "reports", "archives"],
+      "notes": "Data-quality constitutions, reproducibility protocols, and model-risk frameworks."
+    },
+    {
+      "id": "br3n-creative",
+      "name": "BR3N Creative",
+      "githubRepo": "brendanbowers1-bit/br3n-creative",
+      "localCodePath": "/Volumes/BFI/01_ACTIVE_PROJECTS/br3n-creative",
+      "localDataPath": "/Volumes/BFI/DATA/br3n-creative",
+      "dataClasses": ["raw", "processed", "private", "databases", "artifacts", "reports", "archives"],
+      "notes": "Photography, visual systems, diagrams, research posters, and creative technology."
+    },
+    {
+      "id": "bowers-frontier-institute",
+      "name": "Bowers Frontier Institute Website",
+      "githubRepo": "brendanbowers1-bit/bowers-frontier-institute",
+      "localCodePath": "/Volumes/BFI/01_ACTIVE_PROJECTS/bowers-frontier-institute",
+      "localDataPath": "/Volumes/BFI/DATA/bowers-frontier-institute",
+      "dataClasses": ["artifacts", "reports", "archives"],
+      "notes": "Public web presence and institute-level documentation."
+    }
+  ]
+}
