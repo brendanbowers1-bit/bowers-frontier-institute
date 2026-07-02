@@ -48,7 +48,7 @@ Core public dataset seeds for finance intelligence research are defined under `d
 npm run data:fetch
 ```
 
-This pulls refreshable public seeds for crypto, ETF benchmark, macro, and rates research into `data/raw/YYYY-MM-DD/`. Raw data files are intentionally ignored by git; see `data/README.md` and `data/catalog.json`.
+This pulls refreshable public seeds for crypto, ETF benchmarks, macro/rates, SEC fundamentals, options chains, futures snapshots, market structure, and headlines into `data/raw/YYYY-MM-DD/`. Raw data files are intentionally ignored by git; see `data/README.md` and `data/catalog.json`.
 
 ## Sections
 

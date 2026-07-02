@@ -22,10 +22,15 @@ Fetched public seeds:
 
 - Kraken crypto spot ticker snapshot for BTC/USD, ETH/USD, and SOL/USD
 - Kraken daily OHLC for BTC/USD, ETH/USD, and SOL/USD
+- Kraken hourly OHLC, order-book depth, and recent trades for BTC/USD, ETH/USD, and SOL/USD
+- Kraken Futures public ticker data
 - Yahoo Finance daily ETF chart data for SPY, QQQ, IWM, GLD, TLT, and UUP
 - U.S. Treasury daily yield curve CSV for the current year
 - New York Fed SOFR history
 - BLS CPI-U and unemployment-rate series
+- SEC EDGAR company submissions and XBRL company facts for AAPL, MSFT, NVDA, TSLA, AMZN, GOOGL, META, JPM, COIN, and MSTR
+- Cboe delayed options chains for SPY, QQQ, GLD, and TLT
+- Yahoo Finance and CoinDesk RSS headline feeds
 
 Each run writes a `manifest.json` with source URLs, file names, byte counts, and errors.
 
@@ -45,44 +50,54 @@ npm run data:fetch:strict
 
 This keeps the data process reproducible without turning git into data storage.
 
+## Private data templates
+
+Templates for private datasets live in `data/templates/`:
+
+- `positions_template.csv`
+- `transactions_template.csv`
+- `watchlist_template.csv`
+
+Actual account exports, holdings, transactions, and broker files should go under `data/private/`, which is ignored by git.
+
 ## Research use cases supported by the current seeds
 
 The current public datasets are enough for early research notebooks or scripts such as:
 
 - crypto volatility and drawdown studies
 - BTC/ETH/SOL trend comparison
+- order-book, spread, liquidity, and recent-trade inspection
 - equity benchmark return analysis
 - risk-on/risk-off proxy analysis using SPY, QQQ, TLT, GLD, and UUP
 - rate-regime overlays using the Treasury curve and SOFR
 - macro context overlays using CPI and unemployment
+- company-level fundamental and filing review
+- delayed options-chain hedge prototyping
+- market and crypto headline review
 
 The Yahoo Finance ETF seeds are for prototyping. Confirm usage rights or replace them with a licensed provider before distributing production research.
 
 ## Still needed for a serious finance lab
 
-The public seeds are a start, not a complete institutional research stack. Next datasets should be added deliberately:
+The public seeds now cover most starter categories, but they are not a complete institutional research stack. Remaining gaps:
 
-1. Company fundamentals and filings
-   - Candidate source: SEC EDGAR company facts and filings
-   - Needed for equity research, screens, and earnings risk
-
-2. Portfolio holdings and transactions
-   - Source: private brokerage, exchange, or portfolio exports
-   - Needed for portfolio risk, hedge sizing, and P&L attribution
+1. Private portfolio holdings and transactions
+   - Use the templates in `data/templates/`
+   - Put real exports in `data/private/`
    - Never commit account-level data
 
-3. News and sentiment
-   - Source: licensed or API-key provider
-   - Needed for event studies and risk alerts
-   - Confirm usage rights before model ingestion
+2. Licensed news and sentiment
+   - RSS headlines are useful for context, not a full sentiment corpus
+   - Confirm rights before training models, storing article bodies, or redistributing outputs
 
-4. Higher-resolution crypto market structure
-   - Source: exchange APIs or data vendors
-   - Needed for spread, liquidity, slippage, and execution research
+3. Production-grade options, futures, and equities data
+   - Public options chains are delayed and snapshot-based
+   - CFTC public futures-positioning endpoints were blocked by browser verification from this environment
+   - Institutional backtesting needs licensed history, corporate actions, survivorship-bias controls, and vendor terms
 
-5. Options and derivatives data
-   - Source: licensed provider
-   - Needed for volatility surfaces, hedge design, and scenario testing
+4. Real-time execution data
+   - Public snapshots are not enough for live execution research
+   - Use exchange or broker APIs with explicit rate-limit, storage, and compliance rules
 
 ## Minimum research standards
 

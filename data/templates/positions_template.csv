@@ -1,0 +1,2 @@
+as_of_date,account_id,account_type,asset_class,symbol,description,quantity,market_value,currency,cost_basis,source,notes
+2026-07-02,paper-main,paper,crypto,BTC,Bitcoin,0,0,USD,0,manual,Example row only; do not commit private account exports.
