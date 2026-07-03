@@ -193,7 +193,7 @@ a {
 
 .site-nav {
   display: flex;
-  gap: 2rem;
+  gap: clamp(0.9rem, 3vw, 2rem);
 }
 
 .site-nav a {
@@ -203,11 +203,28 @@ a {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--steel);
+  white-space: nowrap;
   transition: color 0.2s ease;
 }
 
 .site-nav a:hover {
   color: var(--ivory);
+}
+
+@media (max-width: 560px) {
+  .site-header__inner {
+    gap: 1rem;
+  }
+
+  .site-nav {
+    gap: 0.75rem;
+    overflow-x: auto;
+  }
+
+  .site-nav a {
+    font-size: 0.5625rem;
+    letter-spacing: 0.1em;
+  }
 }
 
 /* —— Buttons —— */
@@ -429,6 +446,145 @@ a {
   font-size: 0.9375rem;
   font-weight: 300;
   line-height: 1.7;
+  color: var(--steel);
+}
+
+/* —— Weekly trade discovery —— */
+.section--trade-discovery {
+  border-block: 1px solid var(--border);
+  background:
+    radial-gradient(circle at 18% 22%, rgba(154, 143, 110, 0.08), transparent 28rem),
+    var(--black);
+}
+
+.trade-discovery__layout {
+  display: grid;
+  gap: clamp(2rem, 6vw, 4rem);
+  align-items: start;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+
+@media (min-width: 900px) {
+  .trade-discovery__layout {
+    grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.8fr);
+  }
+}
+
+.trade-discovery__header {
+  margin-bottom: 0;
+}
+
+.trade-discovery__output {
+  padding: clamp(1.5rem, 3vw, 2rem);
+  background: rgba(5, 5, 6, 0.78);
+  border: 1px solid var(--border-strong);
+  border-left: 2px solid var(--gold);
+}
+
+.trade-discovery__eyebrow {
+  margin: 0 0 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.trade-discovery__output h3 {
+  margin: 0 0 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--ivory);
+}
+
+.trade-discovery__output p {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--steel);
+}
+
+.trade-discovery__output ul,
+.trade-process__card ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.trade-discovery__output li,
+.trade-process__card li {
+  padding: 0.35rem 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--border);
+  background: rgba(184, 143, 74, 0.08);
+}
+
+.trade-process {
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+@media (min-width: 820px) {
+  .trade-process {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.trade-process__card {
+  min-height: 100%;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  background: var(--graphite);
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.trade-process__card:hover {
+  background: var(--graphite-hover);
+  transform: translateY(-2px);
+}
+
+.trade-process__step {
+  display: block;
+  margin-bottom: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  color: var(--gold-dim);
+}
+
+.trade-process__card h3 {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--ivory);
+}
+
+.trade-process__card p {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 1.65;
   color: var(--steel);
 }
 

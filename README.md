@@ -44,13 +44,16 @@ GITHUB_PAGES=true npm run build
 
 1. Hero — title, tagline, body, CTAs
 2. What We Do — three capability cards
-3. Labs — six laboratory names
-4. Founder — Brendan Bowers
-5. Contact — form UI + email placeholder (no backend)
+3. Weekly Trade Discovery — research workflow for ranking a weekly trade setup
+4. Labs — six laboratory names
+5. Founder — Brendan Bowers
+6. Contact — form UI + email placeholder (no backend)
 
 ## Factuality
 
 Do not add unverified partnerships, grants, awards, university affiliations, clinical results, or regulatory claims without evidence.
+
+Trading references should describe research process, risk controls, and candidate selection. Do not present static site copy as personalized financial advice or guaranteed performance.
 
 ## Note on dependencies
 
