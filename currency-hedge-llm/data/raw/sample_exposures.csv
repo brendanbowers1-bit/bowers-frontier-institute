@@ -1,0 +1,4 @@
+exposure_id,date,entity,currency,base_currency,amount,hedge_policy_min_ratio,hedge_policy_max_ratio,tenor_days
+AR-EUR-001,2025-04-30,Western Union Europe Treasury,EUR,USD,12500000,0.50,0.90,90
+AP-EUR-002,2025-04-30,Western Union Digital Payments,EUR,USD,-4200000,0.40,0.80,60
+ROY-EUR-003,2025-04-30,Western Union Retail Network,EUR,USD,7800000,0.25,0.75,120
