@@ -10,6 +10,7 @@ from currency_hedge_llm.hedge_recommender import generate_recommendations
 from currency_hedge_llm.memo_writer import write_memo
 from currency_hedge_llm.risk_reports import generate_risk_reports
 from currency_hedge_llm.train_model import train_model
+from currency_hedge_llm.validation import validate_outputs
 
 
 def main() -> None:
@@ -38,6 +39,11 @@ def main() -> None:
         "risk", help="Generate backtest, scenario, and VaR/CVaR reports."
     )
     risk_parser.add_argument("--config", required=True, help="Path to YAML config.")
+
+    validate_parser = subparsers.add_parser(
+        "validate", help="Validate generated workflow artifacts."
+    )
+    validate_parser.add_argument("--config", required=True, help="Path to YAML config.")
 
     memo_parser = subparsers.add_parser("memo", help="Generate a hedge memo.")
     memo_parser.add_argument("--config", required=True, help="Path to YAML config.")
@@ -80,6 +86,15 @@ def main() -> None:
             f"scenario_rows={result.scenario_rows}, "
             f"risk_summary_rows={result.risk_summary_rows}"
         )
+    elif args.command == "validate":
+        result = validate_outputs(config)
+        print(
+            "Validation complete: "
+            f"passed_checks={result.passed_checks}, "
+            f"warning_count={result.warning_count}"
+        )
+        for warning in result.warnings:
+            print(f"Validation warning: {warning}")
     elif args.command == "memo":
         result = write_memo(config, llm_provider=args.llm_provider)
         print(

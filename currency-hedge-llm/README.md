@@ -150,6 +150,14 @@ Reports include:
 - configured FX shock scenarios on residual unhedged exposure
 - VaR/CVaR-style residual-risk estimates for treasury review
 
+## Validate generated workflow outputs
+
+```bash
+python -m currency_hedge_llm.cli validate --config config/config.example.yaml
+```
+
+The validation gate checks that required artifacts exist, hedge ratios stay within policy bounds, confidence scores are between 0 and 1, scenario shocks match config, VaR/CVaR values are non-negative and ordered correctly, and the memo contains required decision-support safety language.
+
 ## Generate a hedge memo
 
 No LLM required:
@@ -182,7 +190,21 @@ reports/hedge_memo.md
 bash scripts/run_demo.sh
 ```
 
-The demo installs the package, trains the model, nets exposures, generates recommendations, writes risk reports, and creates a memo with `--llm-provider none`.
+The demo installs the package, trains the model, nets exposures, generates recommendations, writes risk reports, creates a memo with `--llm-provider none`, and validates the generated workflow outputs.
+
+## Run the self-improvement loop
+
+```bash
+bash scripts/self_improve.sh 2
+```
+
+The loop is intentionally bounded. Each iteration runs:
+
+1. `python -m pytest`
+2. `bash scripts/run_demo.sh`
+3. the built-in workflow validation gate
+
+The script stops at the first failed test, demo command, or validation check so issues can be fixed before the next iteration.
 
 ## Replace sample data with real work data
 

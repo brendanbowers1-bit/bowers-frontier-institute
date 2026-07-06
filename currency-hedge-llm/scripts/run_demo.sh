@@ -11,6 +11,7 @@ PYTHON_BIN="${PYTHON_BIN:-python3}"
 "$PYTHON_BIN" -m currency_hedge_llm.cli recommend --config config/config.example.yaml
 "$PYTHON_BIN" -m currency_hedge_llm.cli risk --config config/config.example.yaml
 "$PYTHON_BIN" -m currency_hedge_llm.cli memo --config config/config.example.yaml --llm-provider none
+"$PYTHON_BIN" -m currency_hedge_llm.cli validate --config config/config.example.yaml
 
 echo "Demo complete."
 echo "Netting: reports/netted_exposures.csv"
