@@ -30,9 +30,23 @@ class RecommendationConfig(BaseModel):
     """Policy and output settings for hedge recommendations."""
 
     recommendation_path: Path = Path("reports/hedge_recommendations.csv")
+    netted_exposures_path: Path = Path("reports/netted_exposures.csv")
     adverse_forecast_threshold: float = 0.0015
     low_confidence_threshold: float = 0.35
     max_ratio_adjustment: float = 0.15
+    default_minimum_trade_size: float = 250_000.0
+    approval_confidence_threshold: float = 0.50
+    max_unhedged_amount_warning: float = 5_000_000.0
+
+
+class RiskConfig(BaseModel):
+    """Backtesting and scenario-risk report settings."""
+
+    backtest_path: Path = Path("reports/model_backtest.csv")
+    scenario_path: Path = Path("reports/scenario_analysis.csv")
+    risk_summary_path: Path = Path("reports/risk_summary.csv")
+    var_confidence_level: float = 0.95
+    scenario_shocks: list[float] = Field(default_factory=lambda: [-0.05, -0.025, 0.025, 0.05])
 
 
 class MemoConfig(BaseModel):
@@ -59,6 +73,7 @@ class AppConfig(BaseModel):
     data: DataConfig
     model: ModelConfig = Field(default_factory=ModelConfig)
     recommendation: RecommendationConfig = Field(default_factory=RecommendationConfig)
+    risk: RiskConfig = Field(default_factory=RiskConfig)
     memo: MemoConfig = Field(default_factory=MemoConfig)
     llm: LLMConfig = Field(default_factory=LLMConfig)
     project_root: Path
@@ -82,6 +97,14 @@ def load_config(config_path: str | Path) -> AppConfig:
     config.model.model_path = _resolve_path(project_root, config.model.model_path)
     config.recommendation.recommendation_path = _resolve_path(
         project_root, config.recommendation.recommendation_path
+    )
+    config.recommendation.netted_exposures_path = _resolve_path(
+        project_root, config.recommendation.netted_exposures_path
+    )
+    config.risk.backtest_path = _resolve_path(project_root, config.risk.backtest_path)
+    config.risk.scenario_path = _resolve_path(project_root, config.risk.scenario_path)
+    config.risk.risk_summary_path = _resolve_path(
+        project_root, config.risk.risk_summary_path
     )
     config.memo.memo_path = _resolve_path(project_root, config.memo.memo_path)
     return config

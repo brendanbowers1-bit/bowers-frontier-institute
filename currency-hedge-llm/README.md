@@ -16,6 +16,9 @@ Treasury FX hedging decision support that trains a simple quantitative model, ge
   - forward-points signal
 - Trains a baseline `RandomForestRegressor` to forecast next-period FX return.
 - Converts the forecast into a hedge recommendation using policy bounds and signed exposure direction.
+- Nets exposures by entity, currency, tenor bucket, hedge program, and accounting designation.
+- Produces backtest, scenario-shock, and VaR/CVaR-style residual-risk reports.
+- Adds review controls for minimum trade size, counterparty limits, approval status, and hedge-accounting documentation.
 - Produces a hedge memo in treasury language.
 - Supports three memo modes:
   - `none`: deterministic memo text, no API key or local model required.
@@ -110,6 +113,42 @@ Recommendation logic:
 3. Decrease the hedge ratio when confidence is low.
 4. Clamp the final hedge ratio inside policy bounds.
 5. Never recommend outside approved policy minimum and maximum ratios.
+6. Add human-review flags for minimum trade size, counterparty capacity, confidence, residual exposure, and hedge-accounting documentation.
+
+## Net exposures
+
+```bash
+python -m currency_hedge_llm.cli netting --config config/config.example.yaml
+```
+
+This writes:
+
+```text
+reports/netted_exposures.csv
+```
+
+The netting report groups exposures by entity, currency pair, tenor bucket, hedge program, and accounting designation. It reports gross exposure, net exposure, netting benefit, conservative policy intersections, and review notes.
+
+## Generate backtest and risk reports
+
+```bash
+python -m currency_hedge_llm.cli risk --config config/config.example.yaml
+```
+
+This writes:
+
+```text
+reports/model_backtest.csv
+reports/scenario_analysis.csv
+reports/risk_summary.csv
+```
+
+Reports include:
+
+- historical predicted versus realized next-period FX returns
+- direction-hit indicator and absolute forecast error
+- configured FX shock scenarios on residual unhedged exposure
+- VaR/CVaR-style residual-risk estimates for treasury review
 
 ## Generate a hedge memo
 
@@ -143,7 +182,7 @@ reports/hedge_memo.md
 bash scripts/run_demo.sh
 ```
 
-The demo installs the package, trains the model, generates recommendations, and writes a memo with `--llm-provider none`.
+The demo installs the package, trains the model, nets exposures, generates recommendations, writes risk reports, and creates a memo with `--llm-provider none`.
 
 ## Replace sample data with real work data
 
@@ -169,23 +208,41 @@ Exposures must include:
 exposure_id,date,entity,currency,base_currency,amount,hedge_policy_min_ratio,hedge_policy_max_ratio,tenor_days
 ```
 
+Recommended operational columns:
+
+```text
+hedge_program,accounting_designation,liquidity_bucket,counterparty_limit,minimum_trade_size,approval_status,reviewer
+```
+
 Use signed exposure amounts:
 
 - positive amount: long foreign-currency exposure, such as a receivable or forecasted inflow
 - negative amount: short foreign-currency exposure, such as a payable or forecasted outflow
+
+For a Western Union-style workflow, map your exposure file to legal entity, hedge program, accounting designation, forecast tenor, policy min/max, counterparty capacity, and minimum execution size before running the demo.
+
+## Expanded workflow controls
+
+The project now includes scaffolding for:
+
+- exposure netting
+- backtesting
+- scenario analysis
+- VaR / CVaR-style residual-risk estimates
+- hedge-accounting documentation review flags
+- approval status and reviewer fields
+- minimum trade size and counterparty limit review flags
+
+These controls are reporting and review aids only. They do not execute hedges.
 
 ## Suggested next improvements
 
 - Bloomberg ingestion
 - Snowflake integration
 - FX forward curve data
-- Exposure netting
-- Backtesting
-- Scenario analysis
-- VaR / CVaR
-- Hedge accounting documentation support
+- richer hedge effectiveness testing
 - Dashboard
-- Approval workflow
+- persistent approval workflow with audit log and signoffs
 
 ## Safety notes
 

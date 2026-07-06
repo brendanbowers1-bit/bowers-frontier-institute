@@ -123,6 +123,7 @@ def _render_memo(
         recommendations,
         [
             "exposure_id",
+            "entity",
             "exposure_currency",
             "base_currency",
             "exposure_amount",
@@ -130,9 +131,25 @@ def _render_memo(
             "rolling_20d_volatility",
             "suggested_hedge_ratio",
             "suggested_hedge_amount",
+            "residual_unhedged_amount",
             "confidence_level",
             "policy_min_ratio",
             "policy_max_ratio",
+            "review_flags",
+        ],
+    )
+    review_table = _markdown_table(
+        recommendations,
+        [
+            "exposure_id",
+            "hedge_program",
+            "accounting_designation",
+            "liquidity_bucket",
+            "minimum_trade_size",
+            "counterparty_limit",
+            "approval_status",
+            "reviewer",
+            "recommended_next_step",
         ],
     )
 
@@ -150,6 +167,10 @@ def _render_memo(
 
 {recommendation_table}
 
+## Operational Review Controls
+
+{review_table}
+
 ## Risk Factors
 
 - FX spot rates may gap beyond recent realized-volatility ranges.
@@ -162,6 +183,7 @@ def _render_memo(
 - Exposure amounts are signed in exposure currency.
 - Positive exposure amounts represent long foreign-currency exposure; negative amounts represent payable or short exposure.
 - Policy minimum and maximum hedge ratios are approved bounds and must not be exceeded.
+- Minimum trade size, counterparty limit, approval status, and hedge-accounting fields are review controls only.
 - Any final hedge instrument, tenor, counterparty, and execution timing require Treasury approval.
 
 ## Model Limitations
@@ -185,7 +207,11 @@ def _markdown_table(frame: pd.DataFrame, columns: list[str]) -> str:
 
 
 def _format_table_value(column: str, value: object) -> str:
+    if pd.isna(value):
+        return ""
     if isinstance(value, float) and column.endswith("_amount"):
+        return f"{value:,.2f}"
+    if isinstance(value, float) and column in {"minimum_trade_size", "counterparty_limit"}:
         return f"{value:,.2f}"
     if isinstance(value, float) and (
         column.endswith("_ratio")

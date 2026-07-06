@@ -5,8 +5,10 @@ from __future__ import annotations
 import argparse
 
 from currency_hedge_llm.config import load_config
+from currency_hedge_llm.exposure_netting import generate_netted_exposures
 from currency_hedge_llm.hedge_recommender import generate_recommendations
 from currency_hedge_llm.memo_writer import write_memo
+from currency_hedge_llm.risk_reports import generate_risk_reports
 from currency_hedge_llm.train_model import train_model
 
 
@@ -26,6 +28,16 @@ def main() -> None:
         "recommend", help="Generate hedge recommendations."
     )
     recommend_parser.add_argument("--config", required=True, help="Path to YAML config.")
+
+    netting_parser = subparsers.add_parser(
+        "netting", help="Generate a netted exposure report."
+    )
+    netting_parser.add_argument("--config", required=True, help="Path to YAML config.")
+
+    risk_parser = subparsers.add_parser(
+        "risk", help="Generate backtest, scenario, and VaR/CVaR reports."
+    )
+    risk_parser.add_argument("--config", required=True, help="Path to YAML config.")
 
     memo_parser = subparsers.add_parser("memo", help="Generate a hedge memo.")
     memo_parser.add_argument("--config", required=True, help="Path to YAML config.")
@@ -53,6 +65,20 @@ def main() -> None:
         print(
             "Recommendations complete: "
             f"{result.rows_written} rows written to {result.recommendation_path}"
+        )
+    elif args.command == "netting":
+        result = generate_netted_exposures(config)
+        print(
+            "Netting complete: "
+            f"{result.rows_written} rows written to {result.netted_exposures_path}"
+        )
+    elif args.command == "risk":
+        result = generate_risk_reports(config)
+        print(
+            "Risk reports complete: "
+            f"backtest_rows={result.backtest_rows}, "
+            f"scenario_rows={result.scenario_rows}, "
+            f"risk_summary_rows={result.risk_summary_rows}"
         )
     elif args.command == "memo":
         result = write_memo(config, llm_provider=args.llm_provider)

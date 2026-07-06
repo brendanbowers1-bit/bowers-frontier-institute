@@ -1,4 +1,5 @@
-exposure_id,date,entity,currency,base_currency,amount,hedge_policy_min_ratio,hedge_policy_max_ratio,tenor_days
-AR-EUR-001,2025-04-30,Western Union Europe Treasury,EUR,USD,12500000,0.50,0.90,90
-AP-EUR-002,2025-04-30,Western Union Digital Payments,EUR,USD,-4200000,0.40,0.80,60
-ROY-EUR-003,2025-04-30,Western Union Retail Network,EUR,USD,7800000,0.25,0.75,120
+exposure_id,date,entity,currency,base_currency,amount,hedge_policy_min_ratio,hedge_policy_max_ratio,tenor_days,hedge_program,accounting_designation,liquidity_bucket,counterparty_limit,minimum_trade_size,approval_status,reviewer
+AR-EUR-001,2025-04-30,Western Union Europe Treasury,EUR,USD,12500000,0.50,0.90,90,cash_flow,hedge_accounting_candidate,major,20000000,500000,draft,Treasury Director
+AP-EUR-002,2025-04-30,Western Union Digital Payments,EUR,USD,-4200000,0.40,0.80,60,balance_sheet,undesignated,major,10000000,250000,draft,Assistant Treasurer
+ROY-EUR-003,2025-04-30,Western Union Retail Network,EUR,USD,7800000,0.25,0.75,120,forecasted_revenue,hedge_accounting_candidate,major,15000000,500000,draft,Treasury Director
+IC-EUR-004,2025-04-30,Western Union Europe Treasury,EUR,USD,-3100000,0.50,0.90,85,cash_flow,hedge_accounting_candidate,major,20000000,500000,draft,Treasury Director

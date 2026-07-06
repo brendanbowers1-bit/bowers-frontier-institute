@@ -19,6 +19,15 @@ EXPOSURE_REQUIRED_COLUMNS = {
     "hedge_policy_max_ratio",
     "tenor_days",
 }
+OPTIONAL_EXPOSURE_DEFAULTS = {
+    "hedge_program": "unassigned",
+    "accounting_designation": "undesignated",
+    "liquidity_bucket": "standard",
+    "counterparty_limit": pd.NA,
+    "minimum_trade_size": pd.NA,
+    "approval_status": "draft",
+    "reviewer": "unassigned",
+}
 
 
 def load_fx_rates(path: str | Path) -> pd.DataFrame:
@@ -36,9 +45,21 @@ def load_exposures(path: str | Path) -> pd.DataFrame:
 
     frame = pd.read_csv(path)
     _require_columns(frame, EXPOSURE_REQUIRED_COLUMNS, "exposures")
+    for column, default in OPTIONAL_EXPOSURE_DEFAULTS.items():
+        if column not in frame.columns:
+            frame[column] = default
     frame["date"] = pd.to_datetime(frame["date"])
     frame["currency"] = frame["currency"].str.upper()
     frame["base_currency"] = frame["base_currency"].str.upper()
+    for column in [
+        "hedge_policy_min_ratio",
+        "hedge_policy_max_ratio",
+        "amount",
+        "tenor_days",
+        "counterparty_limit",
+        "minimum_trade_size",
+    ]:
+        frame[column] = pd.to_numeric(frame[column], errors="coerce")
     return frame.sort_values(["date", "exposure_id"]).reset_index(drop=True)
 
 
