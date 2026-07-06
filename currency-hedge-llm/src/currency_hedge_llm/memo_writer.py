@@ -105,7 +105,7 @@ def _build_fallback_explanation(recommendations: pd.DataFrame) -> str:
                 currency=row["exposure_currency"],
                 base=row["base_currency"],
                 amount=row["suggested_hedge_amount"],
-                direction=row["forecast_direction"],
+                direction=str(row["forecast_direction"]).replace("_", " "),
                 confidence=row["confidence_level"],
                 vol=row["rolling_20d_volatility"],
             )
@@ -180,11 +180,18 @@ def _render_memo(
 def _markdown_table(frame: pd.DataFrame, columns: list[str]) -> str:
     rows = [columns, ["---"] * len(columns)]
     for record in frame[columns].to_dict(orient="records"):
-        rows.append([_format_table_value(record[column]) for column in columns])
+        rows.append([_format_table_value(column, record[column]) for column in columns])
     return "\n".join("| " + " | ".join(map(str, row)) + " |" for row in rows)
 
 
-def _format_table_value(value: object) -> str:
-    if isinstance(value, float):
-        return f"{value:.6f}"
+def _format_table_value(column: str, value: object) -> str:
+    if isinstance(value, float) and column.endswith("_amount"):
+        return f"{value:,.2f}"
+    if isinstance(value, float) and (
+        column.endswith("_ratio")
+        or column == "confidence_level"
+        or column == "rolling_20d_volatility"
+        or column == "model_forecast_next_return"
+    ):
+        return f"{value:.2%}"
     return str(value)
