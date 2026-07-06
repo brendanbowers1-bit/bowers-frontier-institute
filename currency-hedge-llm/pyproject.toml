@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "currency-hedge-llm"
+version = "0.1.0"
+description = "Treasury FX hedging decision support with separated quant modeling and LLM memo writing."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas",
+    "numpy",
+    "scikit-learn",
+    "pydantic",
+    "pyyaml",
+    "python-dotenv",
+    "requests",
+    "joblib",
+    "pytest",
+]
+
+[project.optional-dependencies]
+fine-tuning = [
+    "transformers",
+    "datasets",
+    "accelerate",
+    "peft",
+]
+
+[project.scripts]
+currency-hedge-llm = "currency_hedge_llm.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

@@ -1,0 +1,28 @@
+data:
+  fx_rates_path: data/raw/sample_fx_rates.csv
+  exposures_path: data/raw/sample_exposures.csv
+  processed_features_path: data/processed/fx_features.csv
+
+model:
+  model_path: models/hedge_model.joblib
+  n_estimators: 200
+  random_state: 42
+  target_horizon_days: 1
+
+recommendation:
+  recommendation_path: reports/hedge_recommendations.csv
+  adverse_forecast_threshold: 0.0015
+  low_confidence_threshold: 0.35
+  max_ratio_adjustment: 0.15
+
+memo:
+  memo_path: reports/hedge_memo.md
+  next_review_days: 30
+
+llm:
+  provider: none
+  local_model: qwen2.5:7b-instruct
+  local_url: http://localhost:11434/api/generate
+  openai_model: gpt-4.1-mini
+  openai_url: https://api.openai.com/v1/responses
+  temperature: 0.2
