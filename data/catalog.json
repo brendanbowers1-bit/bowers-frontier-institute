@@ -1,0 +1,153 @@
+{
+  "name": "BFI AI Lab Core Dataset Catalog",
+  "version": 1,
+  "lastUpdated": "2026-07-02",
+  "purpose": "Core dataset inventory for finance intelligence research: risk, investment research, cryptoasset analysis, hedge design, and trading-system evaluation.",
+  "storagePolicy": {
+    "rawDataPath": "data/raw/",
+    "commitRawData": false,
+    "reason": "Raw market and macro files should be refreshed, timestamped, and reproducible without bloating git history.",
+    "trackedArtifacts": ["data/catalog.json", "data/README.md", "scripts/fetch-core-datasets.mjs"]
+  },
+  "datasets": [
+    {
+      "id": "crypto_ohlc_kraken",
+      "name": "Crypto daily OHLC",
+      "status": "seedable-public",
+      "assetClass": "crypto",
+      "source": "Kraken public market data",
+      "coverage": ["BTC/USD", "ETH/USD", "SOL/USD"],
+      "cadence": "daily",
+      "fetcher": "npm run data:fetch",
+      "researchUses": ["crypto trend analysis", "volatility estimates", "drawdown studies", "cross-asset crypto risk"]
+    },
+    {
+      "id": "crypto_ticker_kraken",
+      "name": "Crypto spot ticker snapshot",
+      "status": "seedable-public",
+      "assetClass": "crypto",
+      "source": "Kraken public market data",
+      "coverage": ["BTC/USD", "ETH/USD", "SOL/USD"],
+      "cadence": "on demand",
+      "fetcher": "npm run data:fetch",
+      "researchUses": ["current market snapshot", "spread checks", "price reference"]
+    },
+    {
+      "id": "crypto_market_structure_kraken",
+      "name": "Crypto market-structure snapshots",
+      "status": "seedable-public",
+      "assetClass": "crypto",
+      "source": "Kraken public market data",
+      "coverage": ["BTC/USD", "ETH/USD", "SOL/USD"],
+      "cadence": "on demand",
+      "fetcher": "npm run data:fetch",
+      "researchUses": ["order-book depth", "near-book liquidity", "recent trade tape", "slippage research", "short-horizon volatility"]
+    },
+    {
+      "id": "crypto_futures_kraken",
+      "name": "Crypto futures ticker data",
+      "status": "seedable-public",
+      "assetClass": "crypto-derivatives",
+      "source": "Kraken Futures public API",
+      "coverage": ["Kraken listed futures tickers"],
+      "cadence": "on demand",
+      "fetcher": "npm run data:fetch",
+      "researchUses": ["basis checks", "futures market overview", "hedge candidate screening"]
+    },
+    {
+      "id": "market_etf_prices_yahoo",
+      "name": "Public ETF daily chart data",
+      "status": "seedable-public",
+      "assetClass": "equities",
+      "source": "Yahoo Finance public chart endpoint",
+      "coverage": ["SPY", "QQQ", "IWM", "GLD", "TLT", "UUP"],
+      "cadence": "daily",
+      "fetcher": "npm run data:fetch",
+      "researchUses": ["benchmark returns", "macro proxy baskets", "hedge comparison", "risk-on/risk-off context"],
+      "notes": "Suitable as a public seed for prototyping. Confirm usage rights or replace with a licensed provider before production research distribution."
+    },
+    {
+      "id": "macro_rates_public",
+      "name": "Public macro and rates series",
+      "status": "seedable-public",
+      "assetClass": "macro",
+      "source": "U.S. Treasury, New York Fed, and BLS public APIs",
+      "coverage": ["Treasury yield curve", "SOFR", "CPI-U", "unemployment rate"],
+      "cadence": "daily/monthly by series",
+      "fetcher": "npm run data:fetch",
+      "researchUses": ["rate regime analysis", "inflation context", "employment context", "cash-rate context"]
+    },
+    {
+      "id": "sec_company_filings",
+      "name": "Company filings and fundamentals",
+      "status": "seedable-public",
+      "assetClass": "equities",
+      "source": "SEC EDGAR company facts and filings",
+      "coverage": ["AAPL", "MSFT", "NVDA", "TSLA", "AMZN", "GOOGL", "META", "JPM", "COIN", "MSTR"],
+      "cadence": "filing based",
+      "fetcher": "npm run data:fetch",
+      "researchUses": ["fundamental screens", "earnings risk", "company-level research"],
+      "notes": "Fetcher uses SEC public endpoints with a configurable SEC_USER_AGENT environment variable. Expand the ticker universe deliberately."
+    },
+    {
+      "id": "options_chain_cboe",
+      "name": "Delayed options chains",
+      "status": "seedable-public",
+      "assetClass": "options",
+      "source": "Cboe delayed quotes API",
+      "coverage": ["SPY", "QQQ", "GLD", "TLT"],
+      "cadence": "on demand",
+      "fetcher": "npm run data:fetch",
+      "researchUses": ["volatility surface prototypes", "put-spread and collar research", "hedge design", "scenario analysis"],
+      "notes": "Delayed public data for prototyping. Replace with licensed options data before production-grade strategy research."
+    },
+    {
+      "id": "news_headlines_public",
+      "name": "Public market and crypto headlines",
+      "status": "seedable-public",
+      "assetClass": "news",
+      "source": "Yahoo Finance RSS and CoinDesk RSS",
+      "coverage": ["market headlines", "ETF headlines", "crypto headlines"],
+      "cadence": "on demand",
+      "fetcher": "npm run data:fetch",
+      "researchUses": ["event watchlists", "headline context", "manual risk review"],
+      "notes": "Headline feeds are not a licensed sentiment corpus. Confirm usage rights before model training or redistribution."
+    },
+    {
+      "id": "portfolio_positions_private",
+      "name": "Portfolio positions and transactions",
+      "status": "template-ready-private",
+      "assetClass": "portfolio",
+      "source": "User-provided brokerage, exchange, or portfolio exports",
+      "coverage": ["positions", "transactions", "cash", "fees"],
+      "cadence": "as exported",
+      "fetcher": "data/templates/*.csv",
+      "researchUses": ["portfolio risk", "hedge sizing", "P&L attribution", "tax lots"],
+      "notes": "Templates are tracked; actual private data belongs in data/private/ and must not be committed to git."
+    },
+    {
+      "id": "futures_positioning_cftc",
+      "name": "Futures positioning",
+      "status": "blocked-public-source",
+      "assetClass": "futures",
+      "source": "CFTC public reports",
+      "coverage": ["commitments of traders"],
+      "cadence": "weekly",
+      "fetcher": "not configured",
+      "researchUses": ["crowding analysis", "macro positioning", "contrarian futures signals"],
+      "notes": "CFTC endpoint returned a browser-verification block from this environment. Use a mirror, manual download, or licensed provider."
+    },
+    {
+      "id": "institutional_market_data",
+      "name": "Licensed institutional market data",
+      "status": "requires-provider",
+      "assetClass": "multi-asset",
+      "source": "Licensed vendor or broker API",
+      "coverage": ["real-time equities", "full options history", "futures curves", "corporate actions", "survivorship-bias-free fundamentals"],
+      "cadence": "vendor dependent",
+      "fetcher": "not configured",
+      "researchUses": ["production research", "live risk", "execution modeling", "institutional backtesting"],
+      "notes": "Requires provider selection, credentials, usage-rights review, and budget approval."
+    }
+  ]
+}

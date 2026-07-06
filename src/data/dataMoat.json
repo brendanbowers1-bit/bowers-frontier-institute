@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-07-02T10:35:53.305Z",
+  "rawRun": {
+    "runDate": "2026-07-02",
+    "fetchedAt": "2026-07-02T10:35:43.568Z",
+    "sources": 51,
+    "successfulSources": 51,
+    "errors": 0
+  },
+  "processedRun": {
+    "path": "data/processed/2026-07-02/",
+    "tables": 11,
+    "rows": 21385,
+    "quality": [
+      {
+        "filename": "crypto_ohlc_daily.csv",
+        "rows": 2163,
+        "columns": 12,
+        "status": "ok"
+      },
+      {
+        "filename": "crypto_ohlc_hourly.csv",
+        "rows": 2163,
+        "columns": 12,
+        "status": "ok"
+      },
+      {
+        "filename": "crypto_orderbook_top25.csv",
+        "rows": 150,
+        "columns": 7,
+        "status": "ok"
+      },
+      {
+        "filename": "crypto_recent_trades.csv",
+        "rows": 3000,
+        "columns": 9,
+        "status": "ok"
+      },
+      {
+        "filename": "etf_prices_daily.csv",
+        "rows": 9792,
+        "columns": 9,
+        "status": "ok"
+      },
+      {
+        "filename": "treasury_curve.csv",
+        "rows": 1750,
+        "columns": 4,
+        "status": "ok"
+      },
+      {
+        "filename": "sofr.csv",
+        "rows": 1621,
+        "columns": 7,
+        "status": "ok"
+      },
+      {
+        "filename": "macro_bls.csv",
+        "rows": 154,
+        "columns": 5,
+        "status": "ok"
+      },
+      {
+        "filename": "options_chain_summary.csv",
+        "rows": 256,
+        "columns": 9,
+        "status": "ok"
+      },
+      {
+        "filename": "sec_company_summary.csv",
+        "rows": 10,
+        "columns": 7,
+        "status": "ok"
+      },
+      {
+        "filename": "kraken_futures_tickers.csv",
+        "rows": 326,
+        "columns": 8,
+        "status": "ok"
+      }
+    ]
+  },
+  "coverage": {
+    "cryptoAssets": [
+      "BTC",
+      "ETH",
+      "SOL"
+    ],
+    "marketProxies": [
+      "SPY",
+      "QQQ",
+      "IWM",
+      "GLD",
+      "TLT",
+      "UUP"
+    ],
+    "optionUnderlyings": [
+      "SPY",
+      "QQQ",
+      "GLD",
+      "TLT"
+    ],
+    "secCompanies": [
+      "AAPL",
+      "MSFT",
+      "NVDA",
+      "TSLA",
+      "AMZN",
+      "GOOGL",
+      "META",
+      "JPM",
+      "COIN",
+      "MSTR"
+    ],
+    "macroSeries": [
+      "Treasury curve",
+      "SOFR",
+      "CPI-U",
+      "Unemployment Rate"
+    ]
+  },
+  "moatPrinciples": [
+    "Raw vendor-shaped payloads are preserved locally and ignored by git.",
+    "Processed tables normalize timestamps, symbols, units, and source labels.",
+    "Every refresh produces row counts and quality status for auditability.",
+    "Private portfolio data stays in data/private/ and is never committed."
+  ],
+  "nextMoatLayers": [
+    "Add point-in-time corporate actions and splits.",
+    "Store processed tables in DuckDB or Postgres for query speed.",
+    "Add licensed history for options, futures positioning, and news sentiment.",
+    "Add reproducible feature tables for risk scores and trade scanners."
+  ]
+}

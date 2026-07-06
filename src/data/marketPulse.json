@@ -1,0 +1,191 @@
+{
+  "generatedAt": "2026-07-02T10:35:53.519Z",
+  "dataRun": {
+    "runDate": "2026-07-02",
+    "fetchedAt": "2026-07-02T10:35:43.568Z",
+    "totalSources": 51,
+    "successfulSources": 51,
+    "errors": 0
+  },
+  "crypto": [
+    {
+      "symbol": "BTC",
+      "last": 61193.6,
+      "bid": 61193.5,
+      "ask": 61193.6,
+      "spreadPct": 0.00016341604908780313,
+      "dayChangePct": 2.050053114936713,
+      "dayHigh": 61365.7,
+      "dayLow": 59529.6,
+      "volume24h": 3329.47339358,
+      "orderbookDepth": {
+        "asks": 25,
+        "bids": 25
+      }
+    },
+    {
+      "symbol": "ETH",
+      "last": 1646.46,
+      "bid": 1645.64,
+      "ask": 1645.65,
+      "spreadPct": 0.0006076663182707581,
+      "dayChangePct": 2.4147197133686604,
+      "dayHigh": 1649,
+      "dayLow": 1595.71,
+      "volume24h": 37073.61561803,
+      "orderbookDepth": {
+        "asks": 25,
+        "bids": 25
+      }
+    },
+    {
+      "symbol": "SOL",
+      "last": 80.51,
+      "bid": 80.51,
+      "ask": 80.52,
+      "spreadPct": 0.01242081728976637,
+      "dayChangePct": 4.044972861204458,
+      "dayHigh": 80.64,
+      "dayLow": 76.83,
+      "volume24h": 498497.74236953,
+      "orderbookDepth": {
+        "asks": 25,
+        "bids": 25
+      }
+    }
+  ],
+  "markets": [
+    {
+      "symbol": "SPY",
+      "role": "US equity benchmark",
+      "date": "2026-07-01",
+      "last": 745.760009765625,
+      "volume": 46886600,
+      "return30dPct": 0.962564829968364,
+      "returnYtdPct": 9.161706225564652
+    },
+    {
+      "symbol": "QQQ",
+      "role": "Growth benchmark",
+      "date": "2026-07-01",
+      "last": 725.1699829101562,
+      "volume": 40258000,
+      "return30dPct": 2.7327559774902817,
+      "returnYtdPct": 18.275376547057856
+    },
+    {
+      "symbol": "IWM",
+      "role": "Small-cap benchmark",
+      "date": "2026-07-01",
+      "last": 299.32000732421875,
+      "volume": 20580600,
+      "return30dPct": 8.461066782705046,
+      "returnYtdPct": 20.315141407231064
+    },
+    {
+      "symbol": "GLD",
+      "role": "Gold hedge proxy",
+      "date": "2026-07-01",
+      "last": 370.6000061035156,
+      "volume": 9034500,
+      "return30dPct": -11.43082174066965,
+      "returnYtdPct": -6.949882685703194
+    },
+    {
+      "symbol": "TLT",
+      "role": "Duration hedge proxy",
+      "date": "2026-07-01",
+      "last": 85.5199966430664,
+      "volume": 28090200,
+      "return30dPct": 2.345618886714627,
+      "returnYtdPct": -1.7350363752845135
+    },
+    {
+      "symbol": "UUP",
+      "role": "US dollar proxy",
+      "date": "2026-07-01",
+      "last": 28.489999771118164,
+      "volume": 1996400,
+      "return30dPct": 2.851981900432548,
+      "returnYtdPct": 5.090369345988391
+    }
+  ],
+  "rates": {
+    "date": "07/01/2026",
+    "oneMonth": 3.67,
+    "twoYear": 4.17,
+    "tenYear": 4.48,
+    "thirtyYear": 4.97,
+    "tenYearMinusTwoYearBps": 31,
+    "sofr": {
+      "date": "2026-06-30",
+      "rate": 3.68
+    }
+  },
+  "macro": {
+    "cpi": {
+      "date": "May 2026",
+      "value": 335.123
+    },
+    "unemployment": {
+      "date": "May 2026",
+      "value": 4.3
+    }
+  },
+  "options": [
+    {
+      "symbol": "SPY",
+      "timestamp": "2026-07-02 10:25:58",
+      "contracts": 14124
+    },
+    {
+      "symbol": "QQQ",
+      "timestamp": "2026-07-02 10:34:03",
+      "contracts": 11350
+    },
+    {
+      "symbol": "GLD",
+      "timestamp": "2026-07-02 09:33:15",
+      "contracts": 8322
+    },
+    {
+      "symbol": "TLT",
+      "timestamp": "2026-07-02 10:10:57",
+      "contracts": 2344
+    }
+  ],
+  "filings": {
+    "companies": [
+      "AAPL",
+      "MSFT",
+      "NVDA",
+      "TSLA",
+      "AMZN",
+      "GOOGL",
+      "META",
+      "JPM",
+      "COIN",
+      "MSTR"
+    ],
+    "companyCount": 10,
+    "datasetsPerCompany": [
+      "submissions",
+      "companyfacts"
+    ]
+  },
+  "headlines": [
+    {
+      "source": "Yahoo Finance",
+      "items": 20
+    },
+    {
+      "source": "CoinDesk",
+      "items": 25
+    }
+  ],
+  "limits": [
+    "Public/free data is suitable for prototypes and research support, not investment advice.",
+    "ETF, options, and headline feeds may require rights review before distribution or model training.",
+    "Private portfolio files belong in data/private/ and should not be committed."
+  ]
+}

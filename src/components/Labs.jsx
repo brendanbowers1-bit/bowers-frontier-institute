@@ -8,12 +8,13 @@ export function Labs() {
     <section id="labs" className="section section--labs" aria-labelledby="labs-title">
       <div className="container">
         <header className="section-header">
-          <p className="section-label">Laboratories</p>
+          <p className="section-label">Verticals</p>
           <h2 id="labs-title" className="section-title">
-            Research index
+            Three operating verticals
           </h2>
           <p className="section-lead">
-            Six focused labs. Each maintains its own methods, datasets, and review standards.
+            Every BFI project, repo, dataset, and report belongs under BFI AI Finance,
+            BFI T1D, or BR3N Creative.
           </p>
         </header>
         <ol className="lab-index">

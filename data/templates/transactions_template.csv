@@ -1,0 +1,2 @@
+trade_date,settlement_date,account_id,asset_class,symbol,side,quantity,price,fees,currency,venue,order_id,notes
+2026-07-02,2026-07-02,paper-main,crypto,BTC,buy,0,0,0,USD,paper,,Example row only; do not commit private transaction exports.

@@ -1,0 +1,45 @@
+# BFI lab data and secrets
+.env
+.env.*
+!.env.example
+
+# Heavy generated data
+data/raw/
+data/processed/
+data/private/
+data/databases/
+data/artifacts/
+data/archives/
+
+# Local warehouse symlinks or mounts
+warehouse/
+external_data/
+
+# Databases
+*.sqlite
+*.sqlite3
+*.db
+*.duckdb
+*.parquet
+*.feather
+
+# Private exports and vendor drops
+*.ofx
+*.qfx
+*.csv.private
+broker_exports/
+portfolio_exports/
+
+# Secrets and credentials
+credentials/
+secrets/
+*.pem
+*.key
+*.p12
+service-account*.json
+
+# Keep small templates/samples explicitly
+!data/templates/
+!data/templates/**
+!data/samples/
+!data/samples/**

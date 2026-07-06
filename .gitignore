@@ -12,6 +12,14 @@ dist
 dist-ssr
 *.local
 
+# Research data outputs
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/private/*
+!data/private/.gitkeep
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -40,13 +40,49 @@ GitHub Pages production build:
 GITHUB_PAGES=true npm run build
 ```
 
+## BFI AI Lab data foundation
+
+Core public dataset seeds for finance intelligence research are defined under `data/`.
+
+```bash
+npm run data:fetch
+npm run data:normalize
+npm run data:summarize
+```
+
+Or run both steps together:
+
+```bash
+npm run data:refresh
+```
+
+This pulls refreshable public seeds for crypto, ETF benchmarks, macro/rates, SEC fundamentals, options chains, futures snapshots, market structure, and headlines into `data/raw/YYYY-MM-DD/`, normalizes analysis-ready tables into `data/processed/YYYY-MM-DD/`, then generates compact summaries at `src/data/marketPulse.json` and `src/data/dataMoat.json`. Raw and processed data files are intentionally ignored by git; see `data/README.md` and `data/catalog.json`.
+
+## BFI vertical operating system
+
+Three-vertical repo/data setup guidance lives under `ops/lab-os/`:
+
+- BFI AI Finance
+- BFI T1D
+- BR3N Creative
+
+```bash
+BFI_CODE_ROOT=/Volumes/BFI/01_ACTIVE_PROJECTS npm run labs:code:init -- --dry-run
+BFI_DATA_ROOT=/Volumes/BFI/DATA npm run labs:storage:init -- --dry-run
+BFI_CODE_ROOT=/Volumes/BFI/01_ACTIVE_PROJECTS BFI_DATA_ROOT=/Volumes/BFI/DATA npm run labs:init
+BFI_DATA_ROOT=/Volumes/BFI/DATA npm run labs:storage:init
+```
+
+Use GitHub for vertical repos and `/Volumes/BFI/DATA/` for heavy data. Cloud object storage can be added later for backup and cloud-agent access.
+
 ## Sections
 
 1. Hero — title, tagline, body, CTAs
 2. What We Do — three capability cards
-3. Labs — six laboratory names
-4. Founder — Brendan Bowers
-5. Contact — form UI + email placeholder (no backend)
+3. Market Pulse — first data dashboard from public/free sources
+4. Verticals — BFI AI Finance, BFI T1D, BR3N Creative
+5. Founder — Brendan Bowers
+6. Contact — form UI + email placeholder (no backend)
 
 ## Factuality
 
