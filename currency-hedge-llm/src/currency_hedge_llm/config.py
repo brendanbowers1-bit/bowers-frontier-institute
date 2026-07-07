@@ -14,6 +14,7 @@ class DataConfig(BaseModel):
 
     fx_rates_path: Path
     exposures_path: Path
+    forward_curve_path: Path | None = Path("data/raw/sample_forward_curve.csv")
     processed_features_path: Path = Path("data/processed/fx_features.csv")
 
 
@@ -39,6 +40,17 @@ class RecommendationConfig(BaseModel):
     max_unhedged_amount_warning: float = 5_000_000.0
 
 
+class IngestionConfig(BaseModel):
+    """Source export and normalized output settings."""
+
+    bloomberg_fx_export_path: Path | None = None
+    bloomberg_forward_curve_export_path: Path | None = None
+    snowflake_exposures_export_path: Path | None = None
+    normalized_fx_rates_path: Path = Path("data/processed/normalized_fx_rates.csv")
+    normalized_forward_curve_path: Path = Path("data/processed/normalized_forward_curve.csv")
+    normalized_exposures_path: Path = Path("data/processed/normalized_exposures.csv")
+
+
 class RiskConfig(BaseModel):
     """Backtesting and scenario-risk report settings."""
 
@@ -56,6 +68,19 @@ class MemoConfig(BaseModel):
     next_review_days: int = 30
 
 
+class DashboardConfig(BaseModel):
+    """Static dashboard output settings."""
+
+    dashboard_path: Path = Path("reports/dashboard.html")
+
+
+class ApprovalConfig(BaseModel):
+    """Approval workflow output settings."""
+
+    approval_status_path: Path = Path("reports/approval_status.csv")
+    audit_log_path: Path = Path("reports/approval_audit_log.csv")
+
+
 class LLMConfig(BaseModel):
     """LLM provider configuration."""
 
@@ -71,10 +96,13 @@ class AppConfig(BaseModel):
     """Complete application configuration."""
 
     data: DataConfig
+    ingestion: IngestionConfig = Field(default_factory=IngestionConfig)
     model: ModelConfig = Field(default_factory=ModelConfig)
     recommendation: RecommendationConfig = Field(default_factory=RecommendationConfig)
     risk: RiskConfig = Field(default_factory=RiskConfig)
     memo: MemoConfig = Field(default_factory=MemoConfig)
+    dashboard: DashboardConfig = Field(default_factory=DashboardConfig)
+    approval: ApprovalConfig = Field(default_factory=ApprovalConfig)
     llm: LLMConfig = Field(default_factory=LLMConfig)
     project_root: Path
 
@@ -91,8 +119,29 @@ def load_config(config_path: str | Path) -> AppConfig:
     config = AppConfig(**raw_config)
     config.data.fx_rates_path = _resolve_path(project_root, config.data.fx_rates_path)
     config.data.exposures_path = _resolve_path(project_root, config.data.exposures_path)
+    config.data.forward_curve_path = _resolve_optional_path(
+        project_root, config.data.forward_curve_path
+    )
     config.data.processed_features_path = _resolve_path(
         project_root, config.data.processed_features_path
+    )
+    config.ingestion.bloomberg_fx_export_path = _resolve_optional_path(
+        project_root, config.ingestion.bloomberg_fx_export_path
+    )
+    config.ingestion.bloomberg_forward_curve_export_path = _resolve_optional_path(
+        project_root, config.ingestion.bloomberg_forward_curve_export_path
+    )
+    config.ingestion.snowflake_exposures_export_path = _resolve_optional_path(
+        project_root, config.ingestion.snowflake_exposures_export_path
+    )
+    config.ingestion.normalized_fx_rates_path = _resolve_path(
+        project_root, config.ingestion.normalized_fx_rates_path
+    )
+    config.ingestion.normalized_forward_curve_path = _resolve_path(
+        project_root, config.ingestion.normalized_forward_curve_path
+    )
+    config.ingestion.normalized_exposures_path = _resolve_path(
+        project_root, config.ingestion.normalized_exposures_path
     )
     config.model.model_path = _resolve_path(project_root, config.model.model_path)
     config.recommendation.recommendation_path = _resolve_path(
@@ -107,6 +156,13 @@ def load_config(config_path: str | Path) -> AppConfig:
         project_root, config.risk.risk_summary_path
     )
     config.memo.memo_path = _resolve_path(project_root, config.memo.memo_path)
+    config.dashboard.dashboard_path = _resolve_path(
+        project_root, config.dashboard.dashboard_path
+    )
+    config.approval.approval_status_path = _resolve_path(
+        project_root, config.approval.approval_status_path
+    )
+    config.approval.audit_log_path = _resolve_path(project_root, config.approval.audit_log_path)
     return config
 
 
@@ -118,3 +174,9 @@ def _infer_project_root(config_path: Path) -> Path:
 
 def _resolve_path(project_root: Path, path: Path) -> Path:
     return path if path.is_absolute() else project_root / path
+
+
+def _resolve_optional_path(project_root: Path, path: Path | None) -> Path | None:
+    if path is None:
+        return None
+    return _resolve_path(project_root, path)

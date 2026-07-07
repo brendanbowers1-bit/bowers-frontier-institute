@@ -31,7 +31,10 @@ def validate_outputs(config: AppConfig) -> ValidationResult:
     _require_file(config.risk.backtest_path, failures)
     _require_file(config.risk.scenario_path, failures)
     _require_file(config.risk.risk_summary_path, failures)
+    _require_file(config.approval.approval_status_path, failures)
+    _require_file(config.approval.audit_log_path, failures)
     _require_file(config.memo.memo_path, failures)
+    _require_file(config.dashboard.dashboard_path, failures)
 
     if not failures:
         recommendations = pd.read_csv(config.recommendation.recommendation_path)
@@ -39,21 +42,26 @@ def validate_outputs(config: AppConfig) -> ValidationResult:
         backtest = pd.read_csv(config.risk.backtest_path)
         scenario = pd.read_csv(config.risk.scenario_path)
         risk_summary = pd.read_csv(config.risk.risk_summary_path)
+        approval_status = pd.read_csv(config.approval.approval_status_path)
+        audit_log = pd.read_csv(config.approval.audit_log_path)
         memo_text = config.memo.memo_path.read_text(encoding="utf-8")
+        dashboard_text = config.dashboard.dashboard_path.read_text(encoding="utf-8")
 
         validate_recommendation_frame(recommendations, failures, warnings)
         validate_netted_frame(netted, failures, warnings)
         validate_backtest_frame(backtest, failures, warnings)
         validate_scenario_frame(scenario, config, failures, warnings)
         validate_risk_summary_frame(risk_summary, failures, warnings)
+        validate_approval_frames(approval_status, audit_log, failures, warnings)
         validate_memo_text(memo_text, failures)
+        validate_dashboard_text(dashboard_text, failures)
 
     if failures:
         failure_text = "\n- ".join(failures)
         raise ValueError(f"Workflow validation failed:\n- {failure_text}")
 
     return ValidationResult(
-        passed_checks=7,
+        passed_checks=9,
         warning_count=len(warnings),
         warnings=warnings,
     )
@@ -227,6 +235,50 @@ def validate_memo_text(memo_text: str, failures: list[str]) -> None:
     for phrase in required_phrases:
         if phrase not in memo_text:
             failures.append(f"memo is missing required phrase: {phrase}")
+
+
+def validate_approval_frames(
+    approval_status: pd.DataFrame,
+    audit_log: pd.DataFrame,
+    failures: list[str],
+    warnings: list[str],
+) -> None:
+    """Validate approval status and audit trail outputs."""
+
+    status_columns = {"exposure_id", "approval_status", "no_auto_execution"}
+    audit_columns = {"timestamp_utc", "exposure_id", "event", "decision_support_only"}
+    _require_columns(approval_status, status_columns, "approval status", failures)
+    _require_columns(audit_log, audit_columns, "approval audit log", failures)
+    if not status_columns.issubset(approval_status.columns) or not audit_columns.issubset(
+        audit_log.columns
+    ):
+        return
+    if approval_status.empty:
+        failures.append("approval status report is empty")
+        return
+    if audit_log.empty:
+        failures.append("approval audit log is empty")
+        return
+    if not approval_status["no_auto_execution"].astype(bool).all():
+        failures.append("approval status must preserve no_auto_execution=True")
+    if not audit_log["decision_support_only"].astype(bool).all():
+        failures.append("audit log must preserve decision_support_only=True")
+    if (approval_status["approval_status"] != "pending_treasury_review").any():
+        warnings.append("one or more approval statuses are no longer pending review")
+
+
+def validate_dashboard_text(dashboard_text: str, failures: list[str]) -> None:
+    """Validate dashboard safety language."""
+
+    required_phrases = [
+        "Currency Hedge Decision Support Dashboard",
+        "Decision support only",
+        "does not",
+        "automatic hedge execution",
+    ]
+    for phrase in required_phrases:
+        if phrase not in dashboard_text:
+            failures.append(f"dashboard is missing required phrase: {phrase}")
 
 
 def _require_file(path: Path, failures: list[str]) -> None:

@@ -11,6 +11,7 @@ __pycache__/
 models/*.joblib
 reports/*.csv
 reports/*.md
+reports/*.html
 data/processed/*.csv
 
 !.gitkeep

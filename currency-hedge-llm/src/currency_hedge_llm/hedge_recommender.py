@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 from currency_hedge_llm.config import AppConfig
-from currency_hedge_llm.data_loader import load_exposures, load_fx_rates
+from currency_hedge_llm.data_loader import load_exposures, load_forward_curve, load_fx_rates
 from currency_hedge_llm.features import build_fx_features
 
 
@@ -35,6 +35,7 @@ def generate_recommendations(config: AppConfig) -> RecommendationResult:
 
     fx_rates = load_fx_rates(config.data.fx_rates_path)
     exposures = load_exposures(config.data.exposures_path)
+    forward_curve = load_forward_curve(config.data.forward_curve_path)
     features = build_fx_features(
         fx_rates, target_horizon_days=config.model.target_horizon_days
     )
@@ -54,6 +55,7 @@ def generate_recommendations(config: AppConfig) -> RecommendationResult:
             latest_by_pair=latest_by_pair,
             model=model,
             feature_columns=feature_columns,
+            forward_curve=forward_curve,
             config=config,
         )
         recommendations.append(recommendation)
@@ -72,6 +74,7 @@ def _recommend_for_exposure(
     latest_by_pair: pd.DataFrame,
     model,
     feature_columns: list[str],
+    forward_curve: pd.DataFrame,
     config: AppConfig,
 ) -> dict:
     direct_pair = f"{exposure['currency']}{exposure['base_currency']}".upper()
@@ -114,6 +117,11 @@ def _recommend_for_exposure(
     suggested_ratio = clamp(base_ratio + ratio_adjustment, policy_min, policy_max)
     suggested_amount = float(exposure["amount"]) * suggested_ratio
     residual_unhedged_amount = float(exposure["amount"]) - suggested_amount
+    matched_forward = _match_forward_curve(
+        forward_curve=forward_curve,
+        pair=pair,
+        tenor_days=float(exposure["tenor_days"]),
+    )
     minimum_trade_size = _minimum_trade_size(exposure, config)
     counterparty_limit = _optional_float(exposure.get("counterparty_limit"))
     review_flags = _review_flags(
@@ -145,6 +153,9 @@ def _recommend_for_exposure(
         "suggested_hedge_ratio": suggested_ratio,
         "suggested_hedge_amount": suggested_amount,
         "residual_unhedged_amount": residual_unhedged_amount,
+        "matched_forward_tenor_days": matched_forward.get("tenor_days"),
+        "matched_forward_points": matched_forward.get("forward_points"),
+        "matched_implied_forward_rate": matched_forward.get("implied_forward_rate"),
         "confidence_level": confidence,
         "policy_min_ratio": policy_min,
         "policy_max_ratio": policy_max,
@@ -240,6 +251,33 @@ def _recommended_next_step(review_flags: list[str]) -> str:
     if "hedge_accounting_documentation_review" in review_flags:
         return "Prepare hedge-accounting support package before approval."
     return "Ready for Treasury review within policy bounds; no auto-execution."
+
+
+def _match_forward_curve(
+    forward_curve: pd.DataFrame, pair: str, tenor_days: float
+) -> dict[str, float | None]:
+    if forward_curve.empty:
+        return {
+            "tenor_days": None,
+            "forward_points": None,
+            "implied_forward_rate": None,
+        }
+    pair_curve = forward_curve[forward_curve["pair"] == pair].copy()
+    if pair_curve.empty:
+        return {
+            "tenor_days": None,
+            "forward_points": None,
+            "implied_forward_rate": None,
+        }
+    latest_date = pair_curve["date"].max()
+    latest_curve = pair_curve[pair_curve["date"] == latest_date].copy()
+    latest_curve["tenor_distance"] = (latest_curve["tenor_days"] - tenor_days).abs()
+    matched = latest_curve.sort_values(["tenor_distance", "tenor_days"]).iloc[0]
+    return {
+        "tenor_days": float(matched["tenor_days"]),
+        "forward_points": float(matched["forward_points"]),
+        "implied_forward_rate": _optional_float(matched.get("implied_forward_rate")),
+    }
 
 
 def _select_pair(

@@ -1,7 +1,17 @@
 data:
   fx_rates_path: data/raw/sample_fx_rates.csv
   exposures_path: data/raw/sample_exposures.csv
+  forward_curve_path: data/raw/sample_forward_curve.csv
   processed_features_path: data/processed/fx_features.csv
+
+ingestion:
+  # Point these at Bloomberg/Snowflake CSV exports when available.
+  bloomberg_fx_export_path:
+  bloomberg_forward_curve_export_path:
+  snowflake_exposures_export_path:
+  normalized_fx_rates_path: data/processed/normalized_fx_rates.csv
+  normalized_forward_curve_path: data/processed/normalized_forward_curve.csv
+  normalized_exposures_path: data/processed/normalized_exposures.csv
 
 model:
   model_path: models/hedge_model.joblib
@@ -33,6 +43,13 @@ risk:
 memo:
   memo_path: reports/hedge_memo.md
   next_review_days: 30
+
+dashboard:
+  dashboard_path: reports/dashboard.html
+
+approval:
+  approval_status_path: reports/approval_status.csv
+  audit_log_path: reports/approval_audit_log.csv
 
 llm:
   provider: none

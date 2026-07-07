@@ -8,6 +8,7 @@ import pandas as pd
 
 
 FX_REQUIRED_COLUMNS = {"date", "pair", "spot"}
+FORWARD_CURVE_REQUIRED_COLUMNS = {"date", "pair", "tenor_days", "forward_points"}
 EXPOSURE_REQUIRED_COLUMNS = {
     "exposure_id",
     "date",
@@ -61,6 +62,28 @@ def load_exposures(path: str | Path) -> pd.DataFrame:
     ]:
         frame[column] = pd.to_numeric(frame[column], errors="coerce")
     return frame.sort_values(["date", "exposure_id"]).reset_index(drop=True)
+
+
+def load_forward_curve(path: str | Path | None) -> pd.DataFrame:
+    """Load optional tenor-specific forward curve data from CSV."""
+
+    if path is None:
+        return pd.DataFrame()
+    path = Path(path)
+    if not path.exists():
+        return pd.DataFrame()
+
+    frame = pd.read_csv(path)
+    _require_columns(frame, FORWARD_CURVE_REQUIRED_COLUMNS, "forward curve")
+    frame["date"] = pd.to_datetime(frame["date"])
+    frame["pair"] = frame["pair"].str.upper()
+    frame["tenor_days"] = pd.to_numeric(frame["tenor_days"], errors="coerce")
+    frame["forward_points"] = pd.to_numeric(frame["forward_points"], errors="coerce")
+    if "implied_forward_rate" in frame.columns:
+        frame["implied_forward_rate"] = pd.to_numeric(
+            frame["implied_forward_rate"], errors="coerce"
+        )
+    return frame.sort_values(["pair", "date", "tenor_days"]).reset_index(drop=True)
 
 
 def _require_columns(frame: pd.DataFrame, required: set[str], label: str) -> None:

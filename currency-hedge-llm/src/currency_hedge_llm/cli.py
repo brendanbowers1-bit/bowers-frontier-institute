@@ -4,9 +4,15 @@ from __future__ import annotations
 
 import argparse
 
+from currency_hedge_llm.approval import (
+    initialize_approval_workflow,
+    set_approval_status,
+)
 from currency_hedge_llm.config import load_config
+from currency_hedge_llm.dashboard import generate_dashboard
 from currency_hedge_llm.exposure_netting import generate_netted_exposures
 from currency_hedge_llm.hedge_recommender import generate_recommendations
+from currency_hedge_llm.ingestion import run_ingestion
 from currency_hedge_llm.memo_writer import write_memo
 from currency_hedge_llm.risk_reports import generate_risk_reports
 from currency_hedge_llm.train_model import train_model
@@ -21,6 +27,11 @@ def main() -> None:
         description="Treasury FX hedge decision support with optional LLM memo writing.",
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
+
+    ingest_parser = subparsers.add_parser(
+        "ingest", help="Normalize configured source data exports."
+    )
+    ingest_parser.add_argument("--config", required=True, help="Path to YAML config.")
 
     train_parser = subparsers.add_parser("train", help="Train the hedge model.")
     train_parser.add_argument("--config", required=True, help="Path to YAML config.")
@@ -45,6 +56,26 @@ def main() -> None:
     )
     validate_parser.add_argument("--config", required=True, help="Path to YAML config.")
 
+    approval_parser = subparsers.add_parser(
+        "approval", help="Initialize or update approval workflow artifacts."
+    )
+    approval_parser.add_argument("--config", required=True, help="Path to YAML config.")
+    approval_parser.add_argument(
+        "--action",
+        choices=["initialize", "set-status"],
+        default="initialize",
+        help="Approval workflow action.",
+    )
+    approval_parser.add_argument("--exposure-id", help="Exposure ID for set-status.")
+    approval_parser.add_argument("--status", help="New status for set-status.")
+    approval_parser.add_argument("--actor", default="system", help="Reviewer or system actor.")
+    approval_parser.add_argument("--comment", default="", help="Audit comment.")
+
+    dashboard_parser = subparsers.add_parser(
+        "dashboard", help="Generate a static HTML dashboard."
+    )
+    dashboard_parser.add_argument("--config", required=True, help="Path to YAML config.")
+
     memo_parser = subparsers.add_parser("memo", help="Generate a hedge memo.")
     memo_parser.add_argument("--config", required=True, help="Path to YAML config.")
     memo_parser.add_argument(
@@ -57,7 +88,15 @@ def main() -> None:
     args = parser.parse_args()
     config = load_config(args.config)
 
-    if args.command == "train":
+    if args.command == "ingest":
+        result = run_ingestion(config)
+        print(
+            "Ingestion complete: "
+            f"fx_rows={result.fx_rows}, "
+            f"forward_curve_rows={result.forward_curve_rows}, "
+            f"exposure_rows={result.exposure_rows}"
+        )
+    elif args.command == "train":
         result = train_model(config)
         print(
             "Training complete: "
@@ -95,6 +134,28 @@ def main() -> None:
         )
         for warning in result.warnings:
             print(f"Validation warning: {warning}")
+    elif args.command == "approval":
+        if args.action == "initialize":
+            result = initialize_approval_workflow(config)
+        else:
+            if not args.exposure_id or not args.status:
+                parser.error("--exposure-id and --status are required for set-status")
+            result = set_approval_status(
+                config=config,
+                exposure_id=args.exposure_id,
+                status=args.status,
+                actor=args.actor,
+                comment=args.comment,
+            )
+        print(
+            "Approval workflow complete: "
+            f"{result.rows_written} rows, "
+            f"status={result.approval_status_path}, "
+            f"audit={result.audit_log_path}"
+        )
+    elif args.command == "dashboard":
+        result = generate_dashboard(config)
+        print(f"Dashboard complete: {result.dashboard_path}")
     elif args.command == "memo":
         result = write_memo(config, llm_provider=args.llm_provider)
         print(

@@ -132,6 +132,9 @@ def _render_memo(
             "suggested_hedge_ratio",
             "suggested_hedge_amount",
             "residual_unhedged_amount",
+            "matched_forward_tenor_days",
+            "matched_forward_points",
+            "matched_implied_forward_rate",
             "confidence_level",
             "policy_min_ratio",
             "policy_max_ratio",
@@ -213,6 +216,12 @@ def _format_table_value(column: str, value: object) -> str:
         return f"{value:,.2f}"
     if isinstance(value, float) and column in {"minimum_trade_size", "counterparty_limit"}:
         return f"{value:,.2f}"
+    if isinstance(value, float) and column == "matched_forward_points":
+        return f"{value:.3f}"
+    if isinstance(value, float) and column == "matched_implied_forward_rate":
+        return f"{value:.6f}"
+    if isinstance(value, float) and column == "matched_forward_tenor_days":
+        return f"{value:.0f}"
     if isinstance(value, float) and (
         column.endswith("_ratio")
         or column == "confidence_level"

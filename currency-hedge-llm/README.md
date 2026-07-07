@@ -7,6 +7,7 @@ Treasury FX hedging decision support that trains a simple quantitative model, ge
 ## What the repo does
 
 - Loads FX spot data, interest rates, forward points, and exposure data from CSV files.
+- Normalizes Bloomberg-style market data exports and Snowflake-style exposure exports.
 - Builds transparent FX features:
   - daily FX return
   - rolling 5-day volatility
@@ -19,6 +20,8 @@ Treasury FX hedging decision support that trains a simple quantitative model, ge
 - Nets exposures by entity, currency, tenor bucket, hedge program, and accounting designation.
 - Produces backtest, scenario-shock, and VaR/CVaR-style residual-risk reports.
 - Adds review controls for minimum trade size, counterparty limits, approval status, and hedge-accounting documentation.
+- Initializes an approval status file and audit trail for Treasury review.
+- Generates a static HTML dashboard for committee review.
 - Produces a hedge memo in treasury language.
 - Supports three memo modes:
   - `none`: deterministic memo text, no API key or local model required.
@@ -80,6 +83,31 @@ OPENAI_API_KEY=sk-your-api-key-here
 ```
 
 The default OpenAI model is configured in `config/config.example.yaml` under `llm.openai_model`.
+
+## Normalize source exports
+
+```bash
+python -m currency_hedge_llm.cli ingest --config config/config.example.yaml
+```
+
+This writes canonical data files:
+
+```text
+data/processed/normalized_fx_rates.csv
+data/processed/normalized_forward_curve.csv
+data/processed/normalized_exposures.csv
+```
+
+By default, the command normalizes the bundled sample files. For real data, set these config values:
+
+```yaml
+ingestion:
+  bloomberg_fx_export_path: path/to/bloomberg_fx_export.csv
+  bloomberg_forward_curve_export_path: path/to/bloomberg_forward_curve.csv
+  snowflake_exposures_export_path: path/to/snowflake_exposures_export.csv
+```
+
+The adapters are CSV-based scaffolds by design. They avoid proprietary runtime dependencies and give you a governed place to map approved Bloomberg and Snowflake exports into the canonical model schema.
 
 ## Train
 
@@ -156,7 +184,7 @@ Reports include:
 python -m currency_hedge_llm.cli validate --config config/config.example.yaml
 ```
 
-The validation gate checks that required artifacts exist, hedge ratios stay within policy bounds, confidence scores are between 0 and 1, scenario shocks match config, VaR/CVaR values are non-negative and ordered correctly, and the memo contains required decision-support safety language.
+The validation gate checks that required artifacts exist, hedge ratios stay within policy bounds, confidence scores are between 0 and 1, scenario shocks match config, VaR/CVaR values are non-negative and ordered correctly, approval/audit files preserve no-auto-execution controls, and the memo/dashboard contain required decision-support safety language.
 
 ## Generate a hedge memo
 
@@ -184,13 +212,61 @@ All modes write:
 reports/hedge_memo.md
 ```
 
+## Initialize approval workflow
+
+```bash
+python -m currency_hedge_llm.cli approval --config config/config.example.yaml --action initialize
+```
+
+This writes:
+
+```text
+reports/approval_status.csv
+reports/approval_audit_log.csv
+```
+
+To update a status manually:
+
+```bash
+python -m currency_hedge_llm.cli approval \
+  --config config/config.example.yaml \
+  --action set-status \
+  --exposure-id AR-EUR-001 \
+  --status changes_requested \
+  --actor "Treasury Director" \
+  --comment "Need updated exposure support."
+```
+
+Allowed statuses:
+
+- `pending_treasury_review`
+- `changes_requested`
+- `rejected`
+- `approved_for_manual_treasury_action`
+
+Even approved workflow statuses remain decision support only and do not execute hedges.
+
+## Generate dashboard
+
+```bash
+python -m currency_hedge_llm.cli dashboard --config config/config.example.yaml
+```
+
+This writes:
+
+```text
+reports/dashboard.html
+```
+
+The dashboard summarizes gross exposure, suggested hedge amount, residual exposure, VaR estimate, review flags, netted exposures, residual risk, and approval status.
+
 ## Run the full demo
 
 ```bash
 bash scripts/run_demo.sh
 ```
 
-The demo installs the package, trains the model, nets exposures, generates recommendations, writes risk reports, creates a memo with `--llm-provider none`, and validates the generated workflow outputs.
+The demo installs the package, normalizes source exports, trains the model, nets exposures, generates recommendations, writes risk reports, initializes approval status/audit outputs, creates a memo with `--llm-provider none`, generates a dashboard, and validates the generated workflow outputs.
 
 ## Run the self-improvement loop
 
@@ -223,6 +299,14 @@ date,pair,spot,domestic_rate,foreign_rate,forward_points
 ```
 
 `domestic_rate`, `foreign_rate`, and `forward_points` are recommended. If rates or forward points are unavailable, the core spot-return and volatility features still work.
+
+Forward curve data should include:
+
+```text
+date,pair,tenor_days,forward_points,implied_forward_rate
+```
+
+Recommendations match each exposure tenor to the nearest available forward-curve tenor and include matched forward points and implied forward rate in the recommendation and memo outputs.
 
 Exposures must include:
 
