@@ -27,13 +27,14 @@ jobs:
 
       - run: npm ci
 
+      - name: Lint frontend
+        run: npm run lint
+
       - name: Include brand board in static output
         run: mkdir -p public/brand && cp -r brand/logo public/brand/logo
 
       - name: Build for GitHub Pages
-        run: npm run build
-        env:
-          GITHUB_PAGES: "true"
+        run: npm run build:pages
 
       - uses: actions/upload-pages-artifact@v3
         with:

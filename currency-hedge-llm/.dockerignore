@@ -7,11 +7,8 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 .env
-dist/
 
 models/*.joblib
 reports/*.csv
 reports/*.md
 data/processed/*.csv
-
-!.gitkeep

@@ -46,6 +46,13 @@ Optional Hugging Face fine-tuning packages are scaffolded but not required for t
 python -m pip install -e ".[fine-tuning]"
 ```
 
+Developer/test tooling is kept out of the runtime install:
+
+```bash
+python -m pip install -e ".[dev]"
+pytest
+```
+
 ## Local LLM setup with Ollama
 
 Install Ollama from <https://ollama.com>, then pull the default local model:
@@ -144,6 +151,35 @@ bash scripts/run_demo.sh
 ```
 
 The demo installs the package, trains the model, generates recommendations, and writes a memo with `--llm-provider none`.
+
+## Container build
+
+The CLI can be built as a container for repeatable batch runs:
+
+```bash
+docker build -t currency-hedge-llm .
+docker run --rm currency-hedge-llm train --config config/config.example.yaml
+```
+
+For stateful runs, mount writable directories for generated artifacts:
+
+```bash
+docker run --rm \
+  -v "$PWD/models:/app/models" \
+  -v "$PWD/reports:/app/reports" \
+  -v "$PWD/data/processed:/app/data/processed" \
+  currency-hedge-llm train --config config/config.example.yaml
+```
+
+Run `recommend` after a trained model exists, then run `memo --llm-provider none`
+or configure `ollama`/`openai` for LLM-written memo text.
+
+## CI and deployment readiness
+
+The repository CI installs `.[dev]`, runs `pytest`, and executes
+`bash scripts/run_demo.sh` with the deterministic `none` memo provider. This
+keeps the quant pipeline and packaging path covered without requiring external
+LLM services or API keys.
 
 ## Replace sample data with real work data
 

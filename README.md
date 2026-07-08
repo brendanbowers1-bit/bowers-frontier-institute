@@ -37,8 +37,20 @@ npm run preview  # preview production build
 GitHub Pages production build:
 
 ```bash
-GITHUB_PAGES=true npm run build
+npm run build:pages
 ```
+
+## Deployment checks
+
+Pull requests and pushes to `main` run CI for:
+
+- frontend lint
+- local Vite production build
+- GitHub Pages Vite production build
+- `currency-hedge-llm` Python package tests and deterministic demo smoke test
+
+The GitHub Pages deploy workflow also runs frontend lint before uploading the
+Pages artifact.
 
 ## Sections
 
