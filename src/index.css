@@ -588,6 +588,163 @@ a {
   color: var(--steel);
 }
 
+.recommendation-system {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+  padding-top: clamp(2rem, 5vw, 3rem);
+  border-top: 1px solid var(--border);
+}
+
+.recommendation-system__intro {
+  max-width: 42rem;
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.recommendation-system__intro h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.6vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--ivory);
+}
+
+.recommendation-system__grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 980px) {
+  .recommendation-system__grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.9fr);
+  }
+
+  .recommendation-card--score {
+    grid-row: span 2;
+  }
+}
+
+.recommendation-card {
+  padding: clamp(1.35rem, 3vw, 1.75rem);
+  background: rgba(20, 20, 22, 0.86);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--gold-dim);
+}
+
+.recommendation-card--score {
+  border-left-color: var(--gold);
+}
+
+.recommendation-card--gates {
+  background: rgba(5, 5, 6, 0.7);
+}
+
+.recommendation-card h4 {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--ivory);
+}
+
+.scorecard-list,
+.tier-list,
+.gate-list {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.scorecard-list li {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.scorecard-list li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.scorecard-list__header {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 0.45rem;
+}
+
+.scorecard-list__header span,
+.tier-list h5 {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ivory-muted);
+}
+
+.scorecard-list__header strong,
+.tier-list__score {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+}
+
+.scorecard-list p,
+.tier-list p {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--steel);
+}
+
+.tier-list li {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tier-list li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.tier-list h5 {
+  margin: 0 0 0.35rem;
+  color: var(--ivory-muted);
+}
+
+.gate-list {
+  gap: 0.75rem;
+}
+
+.gate-list li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: 0.8125rem;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--steel);
+}
+
+.gate-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 0.35rem;
+  height: 0.35rem;
+  background: var(--gold);
+}
+
 /* —— Lab index cards —— */
 .section--labs {
   background: var(--black);

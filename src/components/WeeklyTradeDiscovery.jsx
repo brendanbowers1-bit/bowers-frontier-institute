@@ -1,4 +1,7 @@
 import {
+  noTradeGates,
+  recommendationScorecard,
+  recommendationTiers,
   weeklyTradeDiscovery,
   weeklyTradeOutput,
 } from "../data/weeklyTradeDiscovery";
@@ -51,6 +54,59 @@ export function WeeklyTradeDiscovery() {
             </li>
           ))}
         </ol>
+
+        <div
+          className="recommendation-system"
+          aria-labelledby="recommendation-system-title"
+        >
+          <div className="recommendation-system__intro">
+            <p className="section-label">Recommendation quality</p>
+            <h3 id="recommendation-system-title">
+              A trade only earns recommendation status after scoring and gates.
+            </h3>
+          </div>
+
+          <div className="recommendation-system__grid">
+            <article className="recommendation-card recommendation-card--score">
+              <h4>Weighted scorecard</h4>
+              <ul className="scorecard-list">
+                {recommendationScorecard.map((metric) => (
+                  <li key={metric.id}>
+                    <div className="scorecard-list__header">
+                      <span>{metric.label}</span>
+                      <strong>{metric.weight}</strong>
+                    </div>
+                    <p>{metric.description}</p>
+                  </li>
+                ))}
+              </ul>
+            </article>
+
+            <article className="recommendation-card">
+              <h4>Recommendation tiers</h4>
+              <ol className="tier-list">
+                {recommendationTiers.map((tier) => (
+                  <li key={tier.id}>
+                    <span className="tier-list__score">{tier.score}</span>
+                    <div>
+                      <h5>{tier.name}</h5>
+                      <p>{tier.guidance}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </article>
+
+            <article className="recommendation-card recommendation-card--gates">
+              <h4>Hard no-trade gates</h4>
+              <ul className="gate-list">
+                {noTradeGates.map((gate) => (
+                  <li key={gate}>{gate}</li>
+                ))}
+              </ul>
+            </article>
+          </div>
+        </div>
       </div>
     </section>
   );
