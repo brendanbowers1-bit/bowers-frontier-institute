@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 
 from currency_hedge_llm.config import load_config
+from currency_hedge_llm.doctor import format_doctor_report, run_doctor
 from currency_hedge_llm.hedge_recommender import generate_recommendations
 from currency_hedge_llm.memo_writer import write_memo
 from currency_hedge_llm.train_model import train_model
@@ -21,6 +22,21 @@ def main() -> None:
 
     train_parser = subparsers.add_parser("train", help="Train the hedge model.")
     train_parser.add_argument("--config", required=True, help="Path to YAML config.")
+
+    doctor_parser = subparsers.add_parser(
+        "doctor", help="Validate deployment inputs and writable output locations."
+    )
+    doctor_parser.add_argument("--config", required=True, help="Path to YAML config.")
+    doctor_parser.add_argument(
+        "--require-model",
+        action="store_true",
+        help="Also require the trained model file to exist.",
+    )
+    doctor_parser.add_argument(
+        "--create-output-dirs",
+        action="store_true",
+        help="Create missing output directories before checking writability.",
+    )
 
     recommend_parser = subparsers.add_parser(
         "recommend", help="Generate hedge recommendations."
@@ -48,6 +64,15 @@ def main() -> None:
             f"holdout_r2={result.holdout_r2:.4f}, "
             f"model={result.model_path}"
         )
+    elif args.command == "doctor":
+        result = run_doctor(
+            config,
+            require_model=args.require_model,
+            create_output_dirs=args.create_output_dirs,
+        )
+        print(format_doctor_report(result))
+        if not result.passed:
+            raise SystemExit(1)
     elif args.command == "recommend":
         result = generate_recommendations(config)
         print(

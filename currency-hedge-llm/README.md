@@ -87,6 +87,12 @@ The default OpenAI model is configured in `config/config.example.yaml` under `ll
 
 ## Train
 
+Validate input files and writable output directories before a run:
+
+```bash
+python -m currency_hedge_llm.cli doctor --config config/config.example.yaml --create-output-dirs
+```
+
 ```bash
 python -m currency_hedge_llm.cli train --config config/config.example.yaml
 ```
@@ -99,6 +105,12 @@ data/processed/fx_features.csv
 ```
 
 ## Generate recommendations
+
+For a deploy/runtime check that also requires an existing trained model:
+
+```bash
+python -m currency_hedge_llm.cli doctor --config config/config.example.yaml --require-model
+```
 
 ```bash
 python -m currency_hedge_llm.cli recommend --config config/config.example.yaml
@@ -177,9 +189,10 @@ or configure `ollama`/`openai` for LLM-written memo text.
 ## CI and deployment readiness
 
 The repository CI installs `.[dev]`, runs `pytest`, and executes
-`bash scripts/run_demo.sh` with the deterministic `none` memo provider. This
-keeps the quant pipeline and packaging path covered without requiring external
-LLM services or API keys.
+`python -m currency_hedge_llm.cli doctor --config config/config.example.yaml --create-output-dirs`
+and `bash scripts/run_demo.sh` with the deterministic `none` memo provider.
+This keeps the quant pipeline and packaging path covered without requiring
+external LLM services or API keys.
 
 ## Replace sample data with real work data
 

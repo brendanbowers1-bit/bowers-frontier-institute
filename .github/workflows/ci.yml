@@ -48,6 +48,9 @@ jobs:
       - name: Run Python tests
         run: pytest
 
+      - name: Validate demo deployment config
+        run: python -m currency_hedge_llm.cli doctor --config config/config.example.yaml --create-output-dirs
+
       - name: Build Python package
         run: python -m build
 
