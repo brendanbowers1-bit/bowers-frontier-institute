@@ -56,9 +56,10 @@ Pages artifact.
 
 1. Hero — title, tagline, body, CTAs
 2. What We Do — three capability cards
-3. Labs — six laboratory names
-4. Founder — Brendan Bowers
-5. Contact — form UI + email placeholder (no backend)
+3. Market Pulse — executive dashboard concept for fast interpretation
+4. Labs — six laboratory names
+5. Founder — Brendan Bowers
+6. Contact — form UI + email placeholder (no backend)
 
 ## Factuality
 

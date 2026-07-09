@@ -1,6 +1,7 @@
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
 import { WhatWeDo } from "./components/WhatWeDo";
+import { MarketDashboard } from "./components/MarketDashboard";
 import { Labs } from "./components/Labs";
 import { Founder } from "./components/Founder";
 import { Contact } from "./components/Contact";
@@ -13,6 +14,7 @@ export default function App() {
       <main>
         <Hero />
         <WhatWeDo />
+        <MarketDashboard />
         <Labs />
         <Founder />
         <Contact />
