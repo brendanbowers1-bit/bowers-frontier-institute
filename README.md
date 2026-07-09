@@ -8,7 +8,7 @@ The current implementation uses modular mock data and is structured so live sour
 
 - Vite + React
 - Recharts
-- Motion
+- Framer Motion
 - Lucide icons
 - Tailwind dependency is available; the dashboard uses a custom CSS visual system for tighter art direction
 

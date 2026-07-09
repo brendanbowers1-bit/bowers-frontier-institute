@@ -2,7 +2,7 @@
   "name": "bowers-frontier-institute",
   "private": true,
   "version": "1.0.0",
-  "description": "Bowers Frontier Institute landing page",
+  "description": "BR3N premium finance dashboard",
   "type": "module",
   "scripts": {
     "dev": "vite",
