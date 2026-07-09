@@ -30,10 +30,108 @@
   box-shadow: 0 2rem 7rem rgba(0, 0, 0, 0.55);
 }
 
-.br3n-loader-mark {
+.br3n-crest {
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+  color: #f7f7f2;
+}
+
+.br3n-crest svg {
+  width: 8.4rem;
+  max-width: 100%;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 1.2rem 3rem rgba(0, 0, 0, 0.4));
+}
+
+.br3n-crest--compact svg {
+  width: 2.8rem;
+}
+
+.crest-shield {
+  fill: rgba(255, 255, 255, 0.03);
+  stroke: #eef1ee;
+  stroke-width: 6;
+  stroke-linejoin: round;
+}
+
+.crest-line,
+.crest-mountain,
+.crest-chart,
+.crest-bell,
+.crest-bell-axis,
+.crest-globe {
+  fill: none;
+  stroke: rgba(244, 244, 239, 0.56);
+  stroke-width: 2.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.crest-mountain {
+  stroke: rgba(244, 244, 239, 0.74);
+}
+
+.crest-chart {
+  stroke: #f7f7f2;
+  stroke-width: 3.4;
+}
+
+.crest-dot {
+  fill: #f7f7f2;
+}
+
+.crest-globe {
+  opacity: 0.52;
+}
+
+.crest-letter,
+.crest-number {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500;
+  fill: #f7f7f2;
+}
+
+.crest-letter {
+  font-size: 58px;
+}
+
+.crest-number {
+  font-size: 70px;
+}
+
+.br3n-crest-lockup {
+  display: grid;
+  justify-items: center;
+  line-height: 1;
+}
+
+.br3n-crest-lockup strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.2rem, 6vw, 4.8rem);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: #f7f7f2;
+}
+
+.br3n-crest-lockup span {
+  margin-top: 0.25rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(0.8rem, 1.8vw, 1.15rem);
+  letter-spacing: 0.44em;
+  color: rgba(244, 244, 239, 0.82);
+  text-transform: uppercase;
+}
+
+.br3n-crest-lockup em {
+  margin-top: 0.78rem;
   font-family: var(--font-mono, ui-monospace), monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.55em;
+  font-size: 0.58rem;
+  font-style: normal;
+  letter-spacing: 0.26em;
+  color: rgba(244, 244, 239, 0.42);
+  text-transform: uppercase;
 }
 
 .br3n-loader-lines {
@@ -141,20 +239,6 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.br3n-mark {
-  display: grid;
-  width: 2.55rem;
-  height: 2.55rem;
-  place-items: center;
-  font-family: var(--font-mono, ui-monospace), monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  color: #09090a;
-  background: linear-gradient(135deg, #fff, #a7a7a0);
-  border-radius: 0.7rem;
-  box-shadow: 0 0 2.2rem rgba(255, 255, 255, 0.16);
-}
-
 .br3n-wordmark {
   font-family: var(--font-mono, ui-monospace), monospace;
   font-size: 0.82rem;
@@ -260,6 +344,29 @@
   margin-bottom: 1rem;
 }
 
+.br3n-hero-brand {
+  display: inline-grid;
+  margin-bottom: clamp(1rem, 2.4vw, 1.75rem);
+  padding: 1rem 1.25rem;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.35rem;
+}
+
+.br3n-hero-brand .br3n-crest {
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-items: start;
+}
+
+.br3n-hero-brand .br3n-crest svg {
+  width: clamp(4.4rem, 8vw, 7rem);
+}
+
+.br3n-hero-brand .br3n-crest-lockup strong {
+  font-size: clamp(1.8rem, 4.4vw, 3.8rem);
+}
+
 .br3n-kicker,
 .br3n-panel-head span {
   margin: 0 0 0.9rem;
@@ -273,7 +380,7 @@
 .br3n-hero h1 {
   max-width: 58rem;
   margin: 0;
-  font-size: clamp(3.5rem, 7vw, 7.8rem);
+  font-size: clamp(3.15rem, 6.7vw, 7.4rem);
   font-weight: 500;
   line-height: 0.88;
   letter-spacing: -0.08em;

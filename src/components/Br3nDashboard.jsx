@@ -33,6 +33,7 @@ import { fxRates } from "../data/fxRates";
 import { assetClasses, periods, pnlCurve, portfolioPerformance } from "../data/portfolioPerformance";
 import { ohlcSeries, volatilitySeries } from "../data/volatility";
 import { yieldCurve } from "../data/yieldCurve";
+import { Br3nCrest } from "./Br3nCrest";
 import "./Br3nDashboard.css";
 
 const periodLengths = {
@@ -85,10 +86,10 @@ export function Br3nDashboard() {
 
       <aside className={`br3n-sidebar ${sidebarOpen ? "is-open" : ""}`}>
         <div className="br3n-brand">
-          <div className="br3n-mark">B3</div>
+          <Br3nCrest compact />
           <div>
             <div className="br3n-wordmark">BR3N</div>
-            <div className="br3n-brandline">Institutional Command</div>
+            <div className="br3n-brandline">Macro Labs</div>
           </div>
         </div>
         <nav className="br3n-nav">
@@ -118,8 +119,11 @@ export function Br3nDashboard() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           <div>
-            <p className="br3n-kicker">BR3N // Global macro intelligence</p>
-            <h1>Quiet power for currency, risk, and capital decisions.</h1>
+            <div className="br3n-hero-brand">
+              <Br3nCrest />
+            </div>
+            <p className="br3n-kicker">Research · Regime · Risk</p>
+            <h1>Macro command for currency, risk, and capital decisions.</h1>
             <p className="br3n-hero-copy">
               A luxury-grade finance cockpit for market oversight, FX exposure, rates, volatility,
               drawdown, and hedge posture. Fast, intentional, and calm.
@@ -462,7 +466,7 @@ function Br3nLoader() {
         initial={{ opacity: 0, scale: 0.96 }}
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="br3n-loader-mark">BR3N</div>
+        <Br3nCrest />
         <div className="br3n-loader-lines">
           <span />
           <span />

@@ -30,6 +30,7 @@ http://localhost:5173
 ```bash
 npm run lint
 npm run build
+npm run quality:dashboard
 ```
 
 Preview production build:
@@ -37,6 +38,16 @@ Preview production build:
 ```bash
 npm run preview
 ```
+
+## Self-improve loop
+
+Run the BR3N dashboard loop with a quality threshold:
+
+```bash
+DASHBOARD_QUALITY_TARGET=95 npm run self-improve:dashboard -- 2
+```
+
+Each loop runs lint, production build, and a dashboard quality score gate.
 
 ## Dashboard sections
 
@@ -70,6 +81,7 @@ Replace these modules or wrap them with adapters when connecting live APIs.
 
 ## Design direction
 
+- Uses a custom inline SVG interpretation of the provided BR3N Macro Labs crest
 - Black background
 - Soft white/gray type
 - Glass and metal panels

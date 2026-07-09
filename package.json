@@ -8,7 +8,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "quality:dashboard": "node scripts/dashboard_quality.mjs",
+    "self-improve:dashboard": "bash scripts/self_improve_dashboard.sh"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",
