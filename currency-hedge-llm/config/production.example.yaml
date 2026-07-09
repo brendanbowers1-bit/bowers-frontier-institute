@@ -1,0 +1,61 @@
+data:
+  fx_rates_path: data/processed/normalized_fx_rates.csv
+  exposures_path: data/processed/normalized_exposures.csv
+  forward_curve_path: data/processed/normalized_forward_curve.csv
+  processed_features_path: data/processed/fx_features.csv
+
+ingestion:
+  bloomberg_fx_export_path: data/raw/bloomberg_fx_export.csv
+  bloomberg_forward_curve_export_path: data/raw/bloomberg_forward_curve_export.csv
+  snowflake_exposures_export_path: data/raw/snowflake_exposures_export.csv
+  normalized_fx_rates_path: data/processed/normalized_fx_rates.csv
+  normalized_forward_curve_path: data/processed/normalized_forward_curve.csv
+  normalized_exposures_path: data/processed/normalized_exposures.csv
+
+model:
+  model_path: models/hedge_model.joblib
+  n_estimators: 300
+  random_state: 42
+  target_horizon_days: 1
+
+recommendation:
+  recommendation_path: reports/hedge_recommendations.csv
+  netted_exposures_path: reports/netted_exposures.csv
+  adverse_forecast_threshold: 0.0015
+  low_confidence_threshold: 0.35
+  max_ratio_adjustment: 0.15
+  default_minimum_trade_size: 250000
+  approval_confidence_threshold: 0.50
+  max_unhedged_amount_warning: 5000000
+
+risk:
+  backtest_path: reports/model_backtest.csv
+  scenario_path: reports/scenario_analysis.csv
+  risk_summary_path: reports/risk_summary.csv
+  var_confidence_level: 0.95
+  scenario_shocks:
+    - -0.10
+    - -0.05
+    - -0.025
+    - 0.025
+    - 0.05
+    - 0.10
+
+memo:
+  memo_path: reports/hedge_memo.md
+  next_review_days: 30
+
+dashboard:
+  dashboard_path: reports/dashboard.html
+
+approval:
+  approval_status_path: reports/approval_status.csv
+  audit_log_path: reports/approval_audit_log.csv
+
+llm:
+  provider: none
+  local_model: qwen2.5:7b-instruct
+  local_url: http://localhost:11434/api/generate
+  openai_model: gpt-4.1-mini
+  openai_url: https://api.openai.com/v1/responses
+  temperature: 0.2

@@ -10,6 +10,10 @@ from currency_hedge_llm.approval import (
 )
 from currency_hedge_llm.config import load_config
 from currency_hedge_llm.dashboard import generate_dashboard
+from currency_hedge_llm.deployment import (
+    assess_deployment_readiness,
+    format_readiness_report,
+)
 from currency_hedge_llm.exposure_netting import generate_netted_exposures
 from currency_hedge_llm.hedge_recommender import generate_recommendations
 from currency_hedge_llm.ingestion import run_ingestion
@@ -75,6 +79,17 @@ def main() -> None:
         "dashboard", help="Generate a static HTML dashboard."
     )
     dashboard_parser.add_argument("--config", required=True, help="Path to YAML config.")
+
+    readiness_parser = subparsers.add_parser(
+        "deployment-readiness", help="Score deployment readiness."
+    )
+    readiness_parser.add_argument("--config", required=True, help="Path to YAML config.")
+    readiness_parser.add_argument(
+        "--threshold",
+        type=int,
+        default=95,
+        help="Minimum readiness score required for success.",
+    )
 
     memo_parser = subparsers.add_parser("memo", help="Generate a hedge memo.")
     memo_parser.add_argument("--config", required=True, help="Path to YAML config.")
@@ -156,6 +171,11 @@ def main() -> None:
     elif args.command == "dashboard":
         result = generate_dashboard(config)
         print(f"Dashboard complete: {result.dashboard_path}")
+    elif args.command == "deployment-readiness":
+        result = assess_deployment_readiness(config, threshold=args.threshold)
+        print(format_readiness_report(result))
+        if not result.passed:
+            raise SystemExit(1)
     elif args.command == "memo":
         result = write_memo(config, llm_provider=args.llm_provider)
         print(

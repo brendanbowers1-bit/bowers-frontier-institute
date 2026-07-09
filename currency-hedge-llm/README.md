@@ -186,6 +186,34 @@ python -m currency_hedge_llm.cli validate --config config/config.example.yaml
 
 The validation gate checks that required artifacts exist, hedge ratios stay within policy bounds, confidence scores are between 0 and 1, scenario shocks match config, VaR/CVaR values are non-negative and ordered correctly, approval/audit files preserve no-auto-execution controls, and the memo/dashboard contain required decision-support safety language.
 
+## Score deployment readiness
+
+```bash
+python -m currency_hedge_llm.cli deployment-readiness --config config/config.example.yaml --threshold 95
+```
+
+The readiness score is a deployment gate across packaging, tests, runbooks, security notes, CI, container files, workflow validation, and no-trade-execution documentation.
+
+## Container usage
+
+```bash
+docker build -t currency-hedge-llm:local .
+docker run --rm currency-hedge-llm:local
+```
+
+The default container command runs the full no-LLM workflow. For local output persistence:
+
+```bash
+docker run --rm \
+  -v "$PWD/reports:/app/reports" \
+  -v "$PWD/models:/app/models" \
+  -v "$PWD/data/processed:/app/data/processed" \
+  currency-hedge-llm:local \
+  bash scripts/run_demo.sh
+```
+
+Run deployment readiness from the checked-out repository or CI environment so the scorecard can see repo-level workflow files.
+
 ## Generate a hedge memo
 
 No LLM required:
@@ -279,8 +307,15 @@ The loop is intentionally bounded. Each iteration runs:
 1. `python -m pytest`
 2. `bash scripts/run_demo.sh`
 3. the built-in workflow validation gate
+4. deployment readiness with `DEPLOYMENT_READY_TARGET`, defaulting to `95`
 
 The script stops at the first failed test, demo command, or validation check so issues can be fixed before the next iteration.
+
+To enforce a different target:
+
+```bash
+DEPLOYMENT_READY_TARGET=95 SELF_IMPROVE_LOOPS=3 bash scripts/self_improve.sh
+```
 
 ## Replace sample data with real work data
 
