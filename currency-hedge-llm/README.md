@@ -7,6 +7,7 @@ Treasury FX hedging decision support that trains a simple quantitative model, ge
 ## What the repo does
 
 - Loads FX spot data, interest rates, forward points, and exposure data from CSV files.
+- Normalizes Bloomberg-style market data exports and Snowflake-style exposure exports.
 - Builds transparent FX features:
   - daily FX return
   - rolling 5-day volatility
@@ -16,6 +17,11 @@ Treasury FX hedging decision support that trains a simple quantitative model, ge
   - forward-points signal
 - Trains a baseline `RandomForestRegressor` to forecast next-period FX return.
 - Converts the forecast into a hedge recommendation using policy bounds and signed exposure direction.
+- Nets exposures by entity, currency, tenor bucket, hedge program, and accounting designation.
+- Produces backtest, scenario-shock, and VaR/CVaR-style residual-risk reports.
+- Adds review controls for minimum trade size, counterparty limits, approval status, and hedge-accounting documentation.
+- Initializes an approval status file and audit trail for Treasury review.
+- Generates a static HTML dashboard for committee review.
 - Produces a hedge memo in treasury language.
 - Supports three memo modes:
   - `none`: deterministic memo text, no API key or local model required.
@@ -78,6 +84,31 @@ OPENAI_API_KEY=sk-your-api-key-here
 
 The default OpenAI model is configured in `config/config.example.yaml` under `llm.openai_model`.
 
+## Normalize source exports
+
+```bash
+python -m currency_hedge_llm.cli ingest --config config/config.example.yaml
+```
+
+This writes canonical data files:
+
+```text
+data/processed/normalized_fx_rates.csv
+data/processed/normalized_forward_curve.csv
+data/processed/normalized_exposures.csv
+```
+
+By default, the command normalizes the bundled sample files. For real data, set these config values:
+
+```yaml
+ingestion:
+  bloomberg_fx_export_path: path/to/bloomberg_fx_export.csv
+  bloomberg_forward_curve_export_path: path/to/bloomberg_forward_curve.csv
+  snowflake_exposures_export_path: path/to/snowflake_exposures_export.csv
+```
+
+The adapters are CSV-based scaffolds by design. They avoid proprietary runtime dependencies and give you a governed place to map approved Bloomberg and Snowflake exports into the canonical model schema.
+
 ## Train
 
 ```bash
@@ -110,6 +141,78 @@ Recommendation logic:
 3. Decrease the hedge ratio when confidence is low.
 4. Clamp the final hedge ratio inside policy bounds.
 5. Never recommend outside approved policy minimum and maximum ratios.
+6. Add human-review flags for minimum trade size, counterparty capacity, confidence, residual exposure, and hedge-accounting documentation.
+
+## Net exposures
+
+```bash
+python -m currency_hedge_llm.cli netting --config config/config.example.yaml
+```
+
+This writes:
+
+```text
+reports/netted_exposures.csv
+```
+
+The netting report groups exposures by entity, currency pair, tenor bucket, hedge program, and accounting designation. It reports gross exposure, net exposure, netting benefit, conservative policy intersections, and review notes.
+
+## Generate backtest and risk reports
+
+```bash
+python -m currency_hedge_llm.cli risk --config config/config.example.yaml
+```
+
+This writes:
+
+```text
+reports/model_backtest.csv
+reports/scenario_analysis.csv
+reports/risk_summary.csv
+```
+
+Reports include:
+
+- historical predicted versus realized next-period FX returns
+- direction-hit indicator and absolute forecast error
+- configured FX shock scenarios on residual unhedged exposure
+- VaR/CVaR-style residual-risk estimates for treasury review
+
+## Validate generated workflow outputs
+
+```bash
+python -m currency_hedge_llm.cli validate --config config/config.example.yaml
+```
+
+The validation gate checks that required artifacts exist, hedge ratios stay within policy bounds, confidence scores are between 0 and 1, scenario shocks match config, VaR/CVaR values are non-negative and ordered correctly, approval/audit files preserve no-auto-execution controls, and the memo/dashboard contain required decision-support safety language.
+
+## Score deployment readiness
+
+```bash
+python -m currency_hedge_llm.cli deployment-readiness --config config/config.example.yaml --threshold 95
+```
+
+The readiness score is a deployment gate across packaging, tests, runbooks, security notes, CI, container files, workflow validation, and no-trade-execution documentation.
+
+## Container usage
+
+```bash
+docker build -t currency-hedge-llm:local .
+docker run --rm currency-hedge-llm:local
+```
+
+The default container command runs the full no-LLM workflow. For local output persistence:
+
+```bash
+docker run --rm \
+  -v "$PWD/reports:/app/reports" \
+  -v "$PWD/models:/app/models" \
+  -v "$PWD/data/processed:/app/data/processed" \
+  currency-hedge-llm:local \
+  bash scripts/run_demo.sh
+```
+
+Run deployment readiness from the checked-out repository or CI environment so the scorecard can see repo-level workflow files.
 
 ## Generate a hedge memo
 
@@ -137,13 +240,82 @@ All modes write:
 reports/hedge_memo.md
 ```
 
+## Initialize approval workflow
+
+```bash
+python -m currency_hedge_llm.cli approval --config config/config.example.yaml --action initialize
+```
+
+This writes:
+
+```text
+reports/approval_status.csv
+reports/approval_audit_log.csv
+```
+
+To update a status manually:
+
+```bash
+python -m currency_hedge_llm.cli approval \
+  --config config/config.example.yaml \
+  --action set-status \
+  --exposure-id AR-EUR-001 \
+  --status changes_requested \
+  --actor "Treasury Director" \
+  --comment "Need updated exposure support."
+```
+
+Allowed statuses:
+
+- `pending_treasury_review`
+- `changes_requested`
+- `rejected`
+- `approved_for_manual_treasury_action`
+
+Even approved workflow statuses remain decision support only and do not execute hedges.
+
+## Generate dashboard
+
+```bash
+python -m currency_hedge_llm.cli dashboard --config config/config.example.yaml
+```
+
+This writes:
+
+```text
+reports/dashboard.html
+```
+
+The dashboard summarizes gross exposure, suggested hedge amount, residual exposure, VaR estimate, review flags, netted exposures, residual risk, and approval status.
+
 ## Run the full demo
 
 ```bash
 bash scripts/run_demo.sh
 ```
 
-The demo installs the package, trains the model, generates recommendations, and writes a memo with `--llm-provider none`.
+The demo installs the package, normalizes source exports, trains the model, nets exposures, generates recommendations, writes risk reports, initializes approval status/audit outputs, creates a memo with `--llm-provider none`, generates a dashboard, and validates the generated workflow outputs.
+
+## Run the self-improvement loop
+
+```bash
+bash scripts/self_improve.sh 2
+```
+
+The loop is intentionally bounded. Each iteration runs:
+
+1. `python -m pytest`
+2. `bash scripts/run_demo.sh`
+3. the built-in workflow validation gate
+4. deployment readiness with `DEPLOYMENT_READY_TARGET`, defaulting to `95`
+
+The script stops at the first failed test, demo command, or validation check so issues can be fixed before the next iteration.
+
+To enforce a different target:
+
+```bash
+DEPLOYMENT_READY_TARGET=95 SELF_IMPROVE_LOOPS=3 bash scripts/self_improve.sh
+```
 
 ## Replace sample data with real work data
 
@@ -163,10 +335,24 @@ date,pair,spot,domestic_rate,foreign_rate,forward_points
 
 `domestic_rate`, `foreign_rate`, and `forward_points` are recommended. If rates or forward points are unavailable, the core spot-return and volatility features still work.
 
+Forward curve data should include:
+
+```text
+date,pair,tenor_days,forward_points,implied_forward_rate
+```
+
+Recommendations match each exposure tenor to the nearest available forward-curve tenor and include matched forward points and implied forward rate in the recommendation and memo outputs.
+
 Exposures must include:
 
 ```text
 exposure_id,date,entity,currency,base_currency,amount,hedge_policy_min_ratio,hedge_policy_max_ratio,tenor_days
+```
+
+Recommended operational columns:
+
+```text
+hedge_program,accounting_designation,liquidity_bucket,counterparty_limit,minimum_trade_size,approval_status,reviewer
 ```
 
 Use signed exposure amounts:
@@ -174,18 +360,30 @@ Use signed exposure amounts:
 - positive amount: long foreign-currency exposure, such as a receivable or forecasted inflow
 - negative amount: short foreign-currency exposure, such as a payable or forecasted outflow
 
+For a Western Union-style workflow, map your exposure file to legal entity, hedge program, accounting designation, forecast tenor, policy min/max, counterparty capacity, and minimum execution size before running the demo.
+
+## Expanded workflow controls
+
+The project now includes scaffolding for:
+
+- exposure netting
+- backtesting
+- scenario analysis
+- VaR / CVaR-style residual-risk estimates
+- hedge-accounting documentation review flags
+- approval status and reviewer fields
+- minimum trade size and counterparty limit review flags
+
+These controls are reporting and review aids only. They do not execute hedges.
+
 ## Suggested next improvements
 
 - Bloomberg ingestion
 - Snowflake integration
 - FX forward curve data
-- Exposure netting
-- Backtesting
-- Scenario analysis
-- VaR / CVaR
-- Hedge accounting documentation support
+- richer hedge effectiveness testing
 - Dashboard
-- Approval workflow
+- persistent approval workflow with audit log and signoffs
 
 ## Safety notes
 

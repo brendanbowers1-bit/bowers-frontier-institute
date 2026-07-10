@@ -1,21 +1,20 @@
 data:
-  fx_rates_path: data/raw/sample_fx_rates.csv
-  exposures_path: data/raw/sample_exposures.csv
-  forward_curve_path: data/raw/sample_forward_curve.csv
+  fx_rates_path: data/processed/normalized_fx_rates.csv
+  exposures_path: data/processed/normalized_exposures.csv
+  forward_curve_path: data/processed/normalized_forward_curve.csv
   processed_features_path: data/processed/fx_features.csv
 
 ingestion:
-  # Point these at Bloomberg/Snowflake CSV exports when available.
-  bloomberg_fx_export_path:
-  bloomberg_forward_curve_export_path:
-  snowflake_exposures_export_path:
+  bloomberg_fx_export_path: data/raw/bloomberg_fx_export.csv
+  bloomberg_forward_curve_export_path: data/raw/bloomberg_forward_curve_export.csv
+  snowflake_exposures_export_path: data/raw/snowflake_exposures_export.csv
   normalized_fx_rates_path: data/processed/normalized_fx_rates.csv
   normalized_forward_curve_path: data/processed/normalized_forward_curve.csv
   normalized_exposures_path: data/processed/normalized_exposures.csv
 
 model:
   model_path: models/hedge_model.joblib
-  n_estimators: 200
+  n_estimators: 300
   random_state: 42
   target_horizon_days: 1
 
@@ -35,10 +34,12 @@ risk:
   risk_summary_path: reports/risk_summary.csv
   var_confidence_level: 0.95
   scenario_shocks:
+    - -0.10
     - -0.05
     - -0.025
     - 0.025
     - 0.05
+    - 0.10
 
 memo:
   memo_path: reports/hedge_memo.md

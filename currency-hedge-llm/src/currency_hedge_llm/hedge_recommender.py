@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 from currency_hedge_llm.config import AppConfig
-from currency_hedge_llm.data_loader import load_exposures, load_fx_rates
+from currency_hedge_llm.data_loader import load_exposures, load_forward_curve, load_fx_rates
 from currency_hedge_llm.features import build_fx_features
 
 
@@ -35,6 +35,7 @@ def generate_recommendations(config: AppConfig) -> RecommendationResult:
 
     fx_rates = load_fx_rates(config.data.fx_rates_path)
     exposures = load_exposures(config.data.exposures_path)
+    forward_curve = load_forward_curve(config.data.forward_curve_path)
     features = build_fx_features(
         fx_rates, target_horizon_days=config.model.target_horizon_days
     )
@@ -54,6 +55,7 @@ def generate_recommendations(config: AppConfig) -> RecommendationResult:
             latest_by_pair=latest_by_pair,
             model=model,
             feature_columns=feature_columns,
+            forward_curve=forward_curve,
             config=config,
         )
         recommendations.append(recommendation)
@@ -72,6 +74,7 @@ def _recommend_for_exposure(
     latest_by_pair: pd.DataFrame,
     model,
     feature_columns: list[str],
+    forward_curve: pd.DataFrame,
     config: AppConfig,
 ) -> dict:
     direct_pair = f"{exposure['currency']}{exposure['base_currency']}".upper()
@@ -113,22 +116,55 @@ def _recommend_for_exposure(
 
     suggested_ratio = clamp(base_ratio + ratio_adjustment, policy_min, policy_max)
     suggested_amount = float(exposure["amount"]) * suggested_ratio
+    residual_unhedged_amount = float(exposure["amount"]) - suggested_amount
+    matched_forward = _match_forward_curve(
+        forward_curve=forward_curve,
+        pair=pair,
+        tenor_days=float(exposure["tenor_days"]),
+    )
+    minimum_trade_size = _minimum_trade_size(exposure, config)
+    counterparty_limit = _optional_float(exposure.get("counterparty_limit"))
+    review_flags = _review_flags(
+        suggested_amount=suggested_amount,
+        residual_unhedged_amount=residual_unhedged_amount,
+        minimum_trade_size=minimum_trade_size,
+        counterparty_limit=counterparty_limit,
+        confidence=confidence,
+        accounting_designation=str(exposure.get("accounting_designation", "")),
+        config=config,
+    )
 
     return {
         "exposure_id": exposure["exposure_id"],
         "as_of_date": latest_features["date"].date().isoformat(),
+        "entity": exposure.get("entity", ""),
         "exposure_currency": exposure["currency"],
         "base_currency": exposure["base_currency"],
         "fx_pair_used": pair,
         "exposure_amount": float(exposure["amount"]),
         "tenor_days": int(exposure["tenor_days"]),
+        "hedge_program": exposure.get("hedge_program", "unassigned"),
+        "accounting_designation": exposure.get(
+            "accounting_designation", "undesignated"
+        ),
+        "liquidity_bucket": exposure.get("liquidity_bucket", "standard"),
         "model_forecast_next_return": model_forecast,
         "rolling_20d_volatility": volatility,
         "suggested_hedge_ratio": suggested_ratio,
         "suggested_hedge_amount": suggested_amount,
+        "residual_unhedged_amount": residual_unhedged_amount,
+        "matched_forward_tenor_days": matched_forward.get("tenor_days"),
+        "matched_forward_points": matched_forward.get("forward_points"),
+        "matched_implied_forward_rate": matched_forward.get("implied_forward_rate"),
         "confidence_level": confidence,
         "policy_min_ratio": policy_min,
         "policy_max_ratio": policy_max,
+        "minimum_trade_size": minimum_trade_size,
+        "counterparty_limit": counterparty_limit,
+        "approval_status": exposure.get("approval_status", "draft"),
+        "reviewer": exposure.get("reviewer", "unassigned"),
+        "review_flags": "; ".join(review_flags) if review_flags else "none",
+        "recommended_next_step": _recommended_next_step(review_flags),
         "forecast_direction": "adverse" if adverse_move else "favorable_or_neutral",
         "reason_policy_midpoint": base_ratio,
         "reason_adverse_move": (
@@ -164,6 +200,84 @@ def clamp(value: float, lower: float, upper: float) -> float:
     """Clamp a number between inclusive lower and upper bounds."""
 
     return min(max(value, lower), upper)
+
+
+def _minimum_trade_size(exposure: dict, config: AppConfig) -> float:
+    value = _optional_float(exposure.get("minimum_trade_size"))
+    if value is None:
+        return float(config.recommendation.default_minimum_trade_size)
+    return value
+
+
+def _optional_float(value: object) -> float | None:
+    if value is None or pd.isna(value):
+        return None
+    return float(value)
+
+
+def _review_flags(
+    suggested_amount: float,
+    residual_unhedged_amount: float,
+    minimum_trade_size: float,
+    counterparty_limit: float | None,
+    confidence: float,
+    accounting_designation: str,
+    config: AppConfig,
+) -> list[str]:
+    flags: list[str] = []
+    if abs(suggested_amount) < minimum_trade_size:
+        flags.append("below_minimum_trade_size")
+    if counterparty_limit is not None and abs(suggested_amount) > counterparty_limit:
+        flags.append("counterparty_limit_review")
+    if confidence < config.recommendation.approval_confidence_threshold:
+        flags.append("low_confidence_review")
+    if (
+        abs(residual_unhedged_amount)
+        > config.recommendation.max_unhedged_amount_warning
+    ):
+        flags.append("large_residual_unhedged_exposure")
+    if "hedge_accounting" in accounting_designation:
+        flags.append("hedge_accounting_documentation_review")
+    return flags
+
+
+def _recommended_next_step(review_flags: list[str]) -> str:
+    if "below_minimum_trade_size" in review_flags:
+        return "Aggregate with similar exposures or monitor until trade size is met."
+    if "counterparty_limit_review" in review_flags:
+        return "Review counterparty capacity before any hedge execution decision."
+    if "low_confidence_review" in review_flags:
+        return "Escalate for Treasury review; model confidence is below threshold."
+    if "hedge_accounting_documentation_review" in review_flags:
+        return "Prepare hedge-accounting support package before approval."
+    return "Ready for Treasury review within policy bounds; no auto-execution."
+
+
+def _match_forward_curve(
+    forward_curve: pd.DataFrame, pair: str, tenor_days: float
+) -> dict[str, float | None]:
+    if forward_curve.empty:
+        return {
+            "tenor_days": None,
+            "forward_points": None,
+            "implied_forward_rate": None,
+        }
+    pair_curve = forward_curve[forward_curve["pair"] == pair].copy()
+    if pair_curve.empty:
+        return {
+            "tenor_days": None,
+            "forward_points": None,
+            "implied_forward_rate": None,
+        }
+    latest_date = pair_curve["date"].max()
+    latest_curve = pair_curve[pair_curve["date"] == latest_date].copy()
+    latest_curve["tenor_distance"] = (latest_curve["tenor_days"] - tenor_days).abs()
+    matched = latest_curve.sort_values(["tenor_distance", "tenor_days"]).iloc[0]
+    return {
+        "tenor_days": float(matched["tenor_days"]),
+        "forward_points": float(matched["forward_points"]),
+        "implied_forward_rate": _optional_float(matched.get("implied_forward_rate")),
+    }
 
 
 def _select_pair(

@@ -2,7 +2,7 @@
   "name": "bowers-frontier-institute",
   "private": true,
   "version": "1.0.0",
-  "description": "Bowers Frontier Institute landing page",
+  "description": "BR3N premium finance dashboard",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,9 @@
     "check:trade": "node scripts/check-trade-framework.mjs",
     "check:deploy": "npm ci && npm audit --audit-level=high && npm run lint && npm run check:trade && npm run build && GITHUB_PAGES=true npm run build && node scripts/smoke-pages-build.mjs",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "quality:dashboard": "node scripts/dashboard_quality.mjs",
+    "self-improve:dashboard": "bash scripts/self_improve_dashboard.sh"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",
@@ -19,6 +21,7 @@
     "@react-three/fiber": "^9.6.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.42.2",
     "gsap": "^3.15.0",
     "lucide-react": "^1.17.0",
     "motion": "^12.40.0",
