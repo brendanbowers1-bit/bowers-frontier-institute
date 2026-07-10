@@ -5,7 +5,9 @@ const root = process.cwd();
 const checks = [
   fileCheck("BR3N dashboard component", "src/components/Br3nDashboard.jsx", 8),
   fileCheck("BR3N crest component", "src/components/Br3nCrest.jsx", 10),
+  fileCheck("BR3N metallic ribbon mark", "src/components/Br3nRibbonMark.jsx", 10),
   fileCheck("Premium dashboard CSS", "src/components/Br3nDashboard.css", 8),
+  phraseCheck("Dark ribbon logo treatment", "src/components/Br3nRibbonMark.jsx", "metallic ribbon loop mark", 8),
   phraseCheck("Uploaded logo lockup", "src/components/Br3nCrest.jsx", "Macro Labs", 8),
   phraseCheck("Research regime risk brand line", "src/components/Br3nCrest.jsx", "Research · Regime · Risk", 6),
   phraseCheck("Framer Motion transitions", "src/components/Br3nDashboard.jsx", "framer-motion", 8),

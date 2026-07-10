@@ -82,6 +82,7 @@ Replace these modules or wrap them with adapters when connecting live APIs.
 ## Design direction
 
 - Uses a custom inline SVG interpretation of the provided BR3N Macro Labs crest
+- Adds a dark metallic ribbon-loop brand mark inspired by the supplied black sculptural logo reference
 - Black background
 - Soft white/gray type
 - Glass and metal panels

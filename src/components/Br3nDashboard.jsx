@@ -34,6 +34,7 @@ import { assetClasses, periods, pnlCurve, portfolioPerformance } from "../data/p
 import { ohlcSeries, volatilitySeries } from "../data/volatility";
 import { yieldCurve } from "../data/yieldCurve";
 import { Br3nCrest } from "./Br3nCrest";
+import { Br3nRibbonMark } from "./Br3nRibbonMark";
 import "./Br3nDashboard.css";
 
 const periodLengths = {
@@ -129,17 +130,27 @@ export function Br3nDashboard() {
               drawdown, and hedge posture. Fast, intentional, and calm.
             </p>
           </div>
-          <div className="br3n-hero-tape" aria-label="Market overview">
-            {fxRates.slice(0, 4).map((rate) => (
-              <motion.div className="br3n-tape-item" key={rate.pair} whileHover={{ y: -3 }}>
-                <span>{rate.pair}</span>
-                <strong>{formatSpot(rate.spot)}</strong>
-                <em className={rate.change >= 0 ? "is-positive" : "is-negative"}>
-                  {rate.change >= 0 ? "+" : ""}
-                  {rate.change.toFixed(2)}%
-                </em>
-              </motion.div>
-            ))}
+          <div className="br3n-hero-right">
+            <motion.div
+              animate={{ opacity: 1, rotate: 0, scale: 1 }}
+              className="br3n-ribbon-stage"
+              initial={{ opacity: 0, rotate: -8, scale: 0.94 }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <Br3nRibbonMark />
+            </motion.div>
+            <div className="br3n-hero-tape" aria-label="Market overview">
+              {fxRates.slice(0, 4).map((rate) => (
+                <motion.div className="br3n-tape-item" key={rate.pair} whileHover={{ y: -3 }}>
+                  <span>{rate.pair}</span>
+                  <strong>{formatSpot(rate.spot)}</strong>
+                  <em className={rate.change >= 0 ? "is-positive" : "is-negative"}>
+                    {rate.change >= 0 ? "+" : ""}
+                    {rate.change.toFixed(2)}%
+                  </em>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </motion.header>
 
@@ -467,6 +478,7 @@ function Br3nLoader() {
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       >
         <Br3nCrest />
+        <Br3nRibbonMark compact />
         <div className="br3n-loader-lines">
           <span />
           <span />
