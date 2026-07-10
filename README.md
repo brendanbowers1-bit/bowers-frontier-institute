@@ -40,6 +40,13 @@ GitHub Pages production build:
 GITHUB_PAGES=true npm run build
 ```
 
+Deployment readiness gates:
+
+```bash
+npm run check:trade   # validates trade scorecard, tiers, gates, and example note
+npm run check:deploy  # audit + lint + trade check + builds + GitHub Pages smoke test
+```
+
 ## Sections
 
 1. Hero — title, tagline, body, CTAs

@@ -95,6 +95,38 @@ export const noTradeGates = [
   "Trade duplicates an existing exposure",
 ];
 
+export const exampleWeeklyTradeNote = {
+  label: "Example output",
+  setup: "BTC breakout continuation watchlist",
+  tier: "Watchlist only",
+  score: 78,
+  summary:
+    "A liquid trend-continuation idea that has momentum and clean invalidation, but needs confirmed breakout follow-through before it can become a primary recommendation.",
+  breakdown: [
+    { label: "Edge quality", score: 24, max: 30 },
+    { label: "Risk design", score: 19, max: 25 },
+    { label: "Liquidity and execution", score: 18, max: 20 },
+    { label: "Catalyst timing", score: 10, max: 15 },
+    { label: "Portfolio fit", score: 7, max: 10 },
+  ],
+  thesis:
+    "BTC is holding above a prior resistance zone with improving momentum and strong liquidity. The setup improves only if price confirms above the weekly breakout area with volume expansion.",
+  entryLogic:
+    "Do not chase an intraday spike. Re-score after a confirmed close above the breakout zone and only proceed if reward-to-risk remains at least 2:1 after estimated fees and slippage.",
+  invalidation:
+    "Cancel the idea if price closes back below the breakout zone, volatility expands without follow-through, or liquidity thins before entry.",
+  riskBudget:
+    "Maximum loss capped at 0.50% of portfolio risk for the week while the idea remains below primary-recommendation status.",
+  noTradeTriggers: [
+    "No confirmed breakout",
+    "Reward-to-risk falls below 2:1",
+    "Spread or depth worsens before entry",
+    "Major event risk appears without a sizing plan",
+  ],
+  recommendation:
+    "Wait. Keep on watchlist until confirmation improves the score to 85 or higher and all no-trade gates remain clear.",
+};
+
 export const weeklyTradeOutput = {
   label: "Weekly output",
   title: "One highest-quality setup, not a prediction",

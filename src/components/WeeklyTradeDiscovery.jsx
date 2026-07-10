@@ -1,4 +1,5 @@
 import {
+  exampleWeeklyTradeNote,
   noTradeGates,
   recommendationScorecard,
   recommendationTiers,
@@ -107,6 +108,71 @@ export function WeeklyTradeDiscovery() {
             </article>
           </div>
         </div>
+
+        <article className="example-trade-note" aria-labelledby="example-trade-title">
+          <div className="example-trade-note__header">
+            <p className="section-label">{exampleWeeklyTradeNote.label}</p>
+            <div>
+              <h3 id="example-trade-title">{exampleWeeklyTradeNote.setup}</h3>
+              <p>{exampleWeeklyTradeNote.summary}</p>
+            </div>
+            <div className="example-trade-note__grade" aria-label="Example score">
+              <span>{exampleWeeklyTradeNote.tier}</span>
+              <strong>{exampleWeeklyTradeNote.score}/100</strong>
+            </div>
+          </div>
+
+          <div className="example-trade-note__grid">
+            <section aria-labelledby="example-score-title">
+              <h4 id="example-score-title">Score breakdown</h4>
+              <ul className="example-score-list">
+                {exampleWeeklyTradeNote.breakdown.map((item) => (
+                  <li key={item.label}>
+                    <span>{item.label}</span>
+                    <strong>
+                      {item.score}/{item.max}
+                    </strong>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section aria-labelledby="example-note-title">
+              <h4 id="example-note-title">Research note</h4>
+              <dl className="example-note-list">
+                <div>
+                  <dt>Thesis</dt>
+                  <dd>{exampleWeeklyTradeNote.thesis}</dd>
+                </div>
+                <div>
+                  <dt>Entry logic</dt>
+                  <dd>{exampleWeeklyTradeNote.entryLogic}</dd>
+                </div>
+                <div>
+                  <dt>Invalidation</dt>
+                  <dd>{exampleWeeklyTradeNote.invalidation}</dd>
+                </div>
+                <div>
+                  <dt>Risk budget</dt>
+                  <dd>{exampleWeeklyTradeNote.riskBudget}</dd>
+                </div>
+              </dl>
+            </section>
+
+            <section aria-labelledby="example-gates-title">
+              <h4 id="example-gates-title">No-trade triggers</h4>
+              <ul className="gate-list">
+                {exampleWeeklyTradeNote.noTradeTriggers.map((trigger) => (
+                  <li key={trigger}>{trigger}</li>
+                ))}
+              </ul>
+            </section>
+          </div>
+
+          <p className="example-trade-note__recommendation">
+            <strong>Recommendation:</strong> {exampleWeeklyTradeNote.recommendation}
+          </p>
+        </article>
       </div>
     </section>
   );
