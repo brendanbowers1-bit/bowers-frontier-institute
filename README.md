@@ -40,17 +40,27 @@ GitHub Pages production build:
 GITHUB_PAGES=true npm run build
 ```
 
+Deployment readiness gates:
+
+```bash
+npm run check:trade   # validates trade scorecard, tiers, gates, and example note
+npm run check:deploy  # audit + lint + trade check + builds + GitHub Pages smoke test
+```
+
 ## Sections
 
 1. Hero — title, tagline, body, CTAs
 2. What We Do — three capability cards
-3. Labs — six laboratory names
-4. Founder — Brendan Bowers
-5. Contact — form UI + email placeholder (no backend)
+3. Weekly Trade Discovery — research workflow, scorecard, tiers, and no-trade gates for ranking a weekly trade setup
+4. Labs — six laboratory names
+5. Founder — Brendan Bowers
+6. Contact — form UI + email placeholder (no backend)
 
 ## Factuality
 
 Do not add unverified partnerships, grants, awards, university affiliations, clinical results, or regulatory claims without evidence.
+
+Trading references should describe research process, risk controls, candidate selection, and no-trade conditions. Do not present static site copy as personalized financial advice, automated execution instructions, or guaranteed performance.
 
 ## Note on dependencies
 

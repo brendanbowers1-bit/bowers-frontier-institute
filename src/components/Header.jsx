@@ -19,6 +19,7 @@ export function Header() {
         </a>
         <nav className="site-nav" aria-label="Primary">
           <a href="#institute">Institute</a>
+          <a href="#weekly-trade">Weekly Trade</a>
           <a href="#labs">Labs</a>
           <a href="#contact">Contact</a>
         </nav>
