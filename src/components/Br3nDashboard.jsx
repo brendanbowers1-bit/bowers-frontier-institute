@@ -32,6 +32,12 @@ import { currencyExposure, exposureTotals } from "../data/currencyExposure";
 import { fxRates } from "../data/fxRates";
 import { assetClasses, periods, pnlCurve, portfolioPerformance } from "../data/portfolioPerformance";
 import { ohlcSeries, volatilitySeries } from "../data/volatility";
+import {
+  exampleWeeklyTradeNote,
+  noTradeGates,
+  recommendationScorecard,
+  weeklyTradeOutput,
+} from "../data/weeklyTradeDiscovery";
 import { yieldCurve } from "../data/yieldCurve";
 import { Br3nCrest } from "./Br3nCrest";
 import { Br3nRibbonMark } from "./Br3nRibbonMark";
@@ -342,6 +348,36 @@ export function Br3nDashboard() {
               <Layers size={18} />
               <span>Modular data architecture</span>
               <p>Mock files are separated by FX, performance, exposure, rates, volatility, and correlations for live API replacement.</p>
+            </div>
+          </Panel>
+        </section>
+
+        <section className="br3n-grid br3n-grid--signals" id="signals">
+          <Panel className="br3n-panel--wide" eyebrow="Weekly trade discovery" title="Best-fit setup workflow">
+            <div className="br3n-signal-grid">
+              {recommendationScorecard.map((metric) => (
+                <motion.div className="br3n-signal-card" key={metric.id} whileHover={{ y: -3 }}>
+                  <span>{metric.weight}</span>
+                  <strong>{metric.label}</strong>
+                  <p>{metric.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </Panel>
+
+          <Panel eyebrow={weeklyTradeOutput.label} title={weeklyTradeOutput.title}>
+            <div className="br3n-trade-note">
+              <div>
+                <span>{exampleWeeklyTradeNote.tier}</span>
+                <strong>{exampleWeeklyTradeNote.score}/100</strong>
+              </div>
+              <h3>{exampleWeeklyTradeNote.setup}</h3>
+              <p>{exampleWeeklyTradeNote.recommendation}</p>
+            </div>
+            <div className="br3n-gate-list">
+              {noTradeGates.map((gate) => (
+                <span key={gate}>{gate}</span>
+              ))}
             </div>
           </Panel>
         </section>

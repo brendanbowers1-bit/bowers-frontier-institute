@@ -660,7 +660,8 @@
 
 .br3n-grid--market,
 .br3n-grid--risk,
-.br3n-grid--exposure {
+.br3n-grid--exposure,
+.br3n-grid--signals {
   grid-template-columns: minmax(0, 1.55fr) minmax(22rem, 0.85fr);
 }
 
@@ -890,17 +891,101 @@
   color: rgba(244, 244, 239, 0.48);
 }
 
+.br3n-signal-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.br3n-signal-card,
+.br3n-trade-note {
+  padding: 1rem;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.028)),
+    rgba(0, 0, 0, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: 1rem;
+}
+
+.br3n-signal-card span,
+.br3n-trade-note span {
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: rgba(244, 244, 239, 0.42);
+  text-transform: uppercase;
+}
+
+.br3n-signal-card strong {
+  display: block;
+  margin-top: 0.55rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.br3n-signal-card p,
+.br3n-trade-note p {
+  margin: 0.65rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: rgba(244, 244, 239, 0.5);
+}
+
+.br3n-trade-note {
+  display: grid;
+  gap: 0.85rem;
+  margin-bottom: 0.9rem;
+}
+
+.br3n-trade-note div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.br3n-trade-note strong {
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.br3n-trade-note h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  color: #fff;
+}
+
+.br3n-gate-list {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.br3n-gate-list span {
+  padding: 0.68rem 0;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: rgba(244, 244, 239, 0.56);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
 @media (max-width: 1180px) {
   .br3n-hero,
   .br3n-grid--market,
   .br3n-grid--risk,
-  .br3n-grid--exposure {
+  .br3n-grid--exposure,
+  .br3n-grid--signals {
     grid-template-columns: 1fr;
   }
 
   .br3n-grid--three,
   .br3n-metric-grid,
-  .br3n-command-strip {
+  .br3n-command-strip,
+  .br3n-signal-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -940,7 +1025,8 @@
 
   .br3n-metric-grid,
   .br3n-grid--three,
-  .br3n-command-strip {
+  .br3n-command-strip,
+  .br3n-signal-grid {
     grid-template-columns: 1fr;
   }
 

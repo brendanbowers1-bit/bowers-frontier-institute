@@ -98,8 +98,26 @@ Replace these modules or wrap them with adapters when connecting live APIs.
 GITHUB_PAGES=true npm run build
 ```
 
+Deployment and trade-framework readiness gates:
+
+```bash
+npm run check:trade   # validates trade scorecard, tiers, gates, and example note
+npm run check:deploy  # audit + lint + trade check + builds + GitHub Pages smoke test
+```
+
 ## Notes
 
 - Current data is mock financial data only.
 - No trade execution is included.
 - The UI is structured for future live data integration.
+- Weekly trade-discovery content from the site framework is represented in the dashboard Signals section as a research scorecard and no-trade gate workflow.
+
+## Factuality
+
+Do not add unverified partnerships, grants, awards, university affiliations, clinical results, or regulatory claims without evidence.
+
+Trading references should describe research process, risk controls, candidate selection, and no-trade conditions. Do not present static site copy as personalized financial advice, automated execution instructions, or guaranteed performance.
+
+## Note on dependencies
+
+`package.json` includes dependencies from both the premium dashboard and the broader site framework. Keep dependency cleanup scoped to the active product surface when unused legacy components are removed.
