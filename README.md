@@ -1,40 +1,98 @@
-# Bowers Frontier Institute
+# BR3N Finance Dashboard
 
-Simple one-page landing site for **Bowers Frontier Institute (BFI)**, with a finance-first AI lab emphasis.
+A premium, interactive finance dashboard for **BR3N**: black/white, institutional, minimalist, cinematic, and built as a luxury trading desk cockpit.
 
-**Tagline:** Frontier intelligence, built with discipline.
+The current implementation uses modular mock data and is structured so live sources can later be connected through Bloomberg, Snowflake, yfinance, FRED, internal databases, or proprietary market-data services.
 
 ## Stack
 
 - Vite + React
-- Plain CSS (no runtime UI framework required for the page)
+- Recharts
+- Framer Motion
+- Lucide icons
+- Tailwind dependency is available; the dashboard uses a custom CSS visual system for tighter art direction
 
-## Live site (GitHub Pages)
-
-After deploy completes:
-
-**https://brendanbowers1-bit.github.io/bowers-frontier-institute/**
-
-Logo brand board:
-
-**https://brendanbowers1-bit.github.io/bowers-frontier-institute/brand/logo/logo-concepts.html**
-
-## Preview locally
+## Run locally
 
 ```bash
-cd /Volumes/BFI/Webpage/bowers-frontier-institute
 npm install
 npm run dev
 ```
 
-Open the URL shown in the terminal (usually `http://localhost:5173`).
+Open the URL shown in the terminal, usually:
 
-```bash
-npm run build    # production build → dist/
-npm run preview  # preview production build
+```text
+http://localhost:5173
 ```
 
-GitHub Pages production build:
+## Validate
+
+```bash
+npm run lint
+npm run build
+npm run quality:dashboard
+```
+
+Preview production build:
+
+```bash
+npm run preview
+```
+
+## Self-improve loop
+
+Run the BR3N dashboard loop with a quality threshold:
+
+```bash
+DASHBOARD_QUALITY_TARGET=95 npm run self-improve:dashboard -- 2
+```
+
+Each loop runs lint, production build, and a dashboard quality score gate.
+
+## Dashboard sections
+
+1. Hero market overview with BR3N wordmark
+2. Time-period toggles: `1D`, `5D`, `1M`, `3M`, `YTD`, `1Y`
+3. Asset class filters: FX, equities, rates, crypto, commodities
+4. Performance curve
+5. EUR/USD OHLC candle tape
+6. FX rates panel
+7. Yield curve
+8. Realized/implied volatility
+9. P&L / performance curve
+10. Currency exposure
+11. Correlation heatmap
+12. Risk dashboard with drawdown, VaR utilization, and hedge ratio
+
+## Mock data architecture
+
+Mock financial data is deliberately modular:
+
+```text
+src/data/fxRates.js
+src/data/portfolioPerformance.js
+src/data/currencyExposure.js
+src/data/yieldCurve.js
+src/data/volatility.js
+src/data/correlations.js
+```
+
+Replace these modules or wrap them with adapters when connecting live APIs.
+
+## Design direction
+
+- Uses a custom inline SVG interpretation of the provided BR3N Macro Labs crest
+- Adds a dark metallic ribbon-loop brand mark inspired by the supplied black sculptural logo reference
+- Black background
+- Soft white/gray type
+- Glass and metal panels
+- Thin borders
+- Subtle glow
+- Calm, silky transitions
+- No visual clutter
+- Dashboard-first responsive layout
+
+## GitHub Pages production build
 
 ```bash
 npm run build:pages
@@ -52,19 +110,26 @@ Pull requests and pushes to `main` run CI for:
 The GitHub Pages deploy workflow also runs frontend lint before uploading the
 Pages artifact.
 
-## Sections
+Deployment and trade-framework readiness gates:
 
-1. Hero — title, tagline, body, CTAs
-2. What We Do — three capability cards
-3. Market Pulse — executive dashboard concept for fast interpretation
-4. Labs — six laboratory names
-5. Founder — Brendan Bowers
-6. Contact — form UI + email placeholder (no backend)
+```bash
+npm run check:trade   # validates trade scorecard, tiers, gates, and example note
+npm run check:deploy  # audit + lint + trade check + builds + GitHub Pages smoke test
+```
+
+## Notes
+
+- Current data is mock financial data only.
+- No trade execution is included.
+- The UI is structured for future live data integration.
+- Weekly trade-discovery content from the site framework is represented in the dashboard Signals section as a research scorecard and no-trade gate workflow.
 
 ## Factuality
 
 Do not add unverified partnerships, grants, awards, university affiliations, clinical results, or regulatory claims without evidence.
 
+Trading references should describe research process, risk controls, candidate selection, and no-trade conditions. Do not present static site copy as personalized financial advice, automated execution instructions, or guaranteed performance.
+
 ## Note on dependencies
 
-`package.json` may still list packages from an earlier build. The active page uses only React and plain CSS. Unused files under `src/components/` were left in place; remove them when you no longer need them.
+`package.json` includes dependencies from both the premium dashboard and the broader site framework. Keep dependency cleanup scoped to the active product surface when unused legacy components are removed.

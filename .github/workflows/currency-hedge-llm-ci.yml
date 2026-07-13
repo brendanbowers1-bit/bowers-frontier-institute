@@ -1,0 +1,39 @@
+name: currency-hedge-llm-ci
+
+on:
+  pull_request:
+    paths:
+      - "currency-hedge-llm/**"
+      - ".github/workflows/currency-hedge-llm-ci.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "currency-hedge-llm/**"
+      - ".github/workflows/currency-hedge-llm-ci.yml"
+
+jobs:
+  test-demo-readiness:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: currency-hedge-llm
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install package
+        run: python -m pip install -e .
+
+      - name: Run tests
+        run: python -m pytest
+
+      - name: Run full no-LLM workflow
+        run: bash scripts/run_demo.sh
+
+      - name: Enforce deployment readiness
+        run: python -m currency_hedge_llm.cli deployment-readiness --config config/config.example.yaml --threshold 95
