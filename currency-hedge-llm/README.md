@@ -93,6 +93,9 @@ Validate input files and writable output directories before a run:
 python -m currency_hedge_llm.cli doctor --config config/config.example.yaml --create-output-dirs
 ```
 
+The doctor validates required CSV schemas, output directory writability, and
+configured LLM provider names before the batch workflow starts.
+
 ```bash
 python -m currency_hedge_llm.cli train --config config/config.example.yaml
 ```
@@ -156,13 +159,21 @@ All modes write:
 reports/hedge_memo.md
 ```
 
+Before memo generation, require both the trained model and recommendation CSV:
+
+```bash
+python -m currency_hedge_llm.cli doctor --config config/config.example.yaml --require-model --require-recommendations
+```
+
 ## Run the full demo
 
 ```bash
 bash scripts/run_demo.sh
 ```
 
-The demo installs the package, trains the model, generates recommendations, and writes a memo with `--llm-provider none`.
+The demo installs the package, runs doctor preflight checks, trains the model,
+generates recommendations, verifies model/recommendation artifacts, and writes a
+memo with `--llm-provider none`.
 
 ## Container build
 

@@ -33,6 +33,11 @@ def main() -> None:
         help="Also require the trained model file to exist.",
     )
     doctor_parser.add_argument(
+        "--require-recommendations",
+        action="store_true",
+        help="Also require the recommendation CSV to exist.",
+    )
+    doctor_parser.add_argument(
         "--create-output-dirs",
         action="store_true",
         help="Create missing output directories before checking writability.",
@@ -68,6 +73,7 @@ def main() -> None:
         result = run_doctor(
             config,
             require_model=args.require_model,
+            require_recommendations=args.require_recommendations,
             create_output_dirs=args.create_output_dirs,
         )
         print(format_doctor_report(result))

@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from currency_hedge_llm.config import AppConfig
+from currency_hedge_llm.data_loader import load_exposures, load_fx_rates
 
 
 @dataclass(frozen=True)
@@ -34,13 +35,16 @@ def run_doctor(
     config: AppConfig,
     *,
     require_model: bool = False,
+    require_recommendations: bool = False,
     create_output_dirs: bool = False,
 ) -> DoctorResult:
     """Validate files and output locations needed for batch execution."""
 
     checks = [
         _path_exists("FX rates CSV", config.data.fx_rates_path),
+        _load_csv("FX rates schema", config.data.fx_rates_path, load_fx_rates),
         _path_exists("exposures CSV", config.data.exposures_path),
+        _load_csv("exposures schema", config.data.exposures_path, load_exposures),
         _parent_dir_ready(
             "processed feature output directory",
             config.data.processed_features_path,
@@ -67,6 +71,14 @@ def run_doctor(
     if require_model:
         checks.append(_path_exists("trained model", config.model.model_path))
 
+    if require_recommendations:
+        checks.append(
+            _path_exists(
+                "hedge recommendations",
+                config.recommendation.recommendation_path,
+            )
+        )
+
     return DoctorResult(checks=checks)
 
 
@@ -85,6 +97,18 @@ def _path_exists(name: str, path: Path) -> DoctorCheck:
     if path.is_file():
         return DoctorCheck(name=name, passed=True, detail=str(path))
     return DoctorCheck(name=name, passed=False, detail=f"missing file: {path}")
+
+
+def _load_csv(name: str, path: Path, loader) -> DoctorCheck:
+    if not path.is_file():
+        return DoctorCheck(name=name, passed=False, detail=f"missing file: {path}")
+    try:
+        frame = loader(path)
+    except Exception as exc:
+        return DoctorCheck(name=name, passed=False, detail=str(exc))
+    if frame.empty:
+        return DoctorCheck(name=name, passed=False, detail=f"empty file: {path}")
+    return DoctorCheck(name=name, passed=True, detail=f"{len(frame)} rows")
 
 
 def _parent_dir_ready(name: str, path: Path, *, create: bool) -> DoctorCheck:
