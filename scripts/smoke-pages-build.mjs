@@ -79,11 +79,11 @@ try {
   }
 
   for (const requiredText of [
-    "Bowers Frontier Institute",
+    "BR3N",
+    "Macro command for currency, risk, and capital decisions.",
     "Weekly trade discovery",
-    "Weighted scorecard",
-    "Recommendation tiers",
-    "Hard no-trade gates",
+    "Best-fit setup workflow",
+    "No execution surface",
     "BTC breakout continuation watchlist",
   ]) {
     if (!combined.includes(requiredText)) {
