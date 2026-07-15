@@ -52,8 +52,10 @@ recommendation:
 
 risk:
   backtest_path: reports/model_backtest.csv
+  pair_metrics_path: reports/model_backtest_pair_metrics.csv
   scenario_path: reports/scenario_analysis.csv
   risk_summary_path: reports/risk_summary.csv
+  backtest_years: 20
   var_confidence_level: 0.95
   scenario_shocks:
     - -0.05
@@ -96,6 +98,7 @@ def test_expanded_workflow_validation_passes_in_temp_workspace(tmp_path: Path) -
     assert result.passed_checks == 9
     assert result.warning_count >= 0
     assert config.dashboard.dashboard_path.is_file()
+    assert config.risk.pair_metrics_path.is_file()
 
 
 def test_validate_cli_exits_nonzero_when_artifacts_are_missing(tmp_path: Path) -> None:

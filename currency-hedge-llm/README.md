@@ -131,6 +131,10 @@ configured LLM provider names before the batch workflow starts.
 python -m currency_hedge_llm.cli train --config config/config.example.yaml
 ```
 
+Training uses every currency pair present in `data.fx_rates_path`. Feature engineering
+adds pair-identity columns such as `pair_EURUSD` and `pair_USDJPY` so the global model
+can learn pair-specific behavior while still sharing signal across the full FX universe.
+
 This writes:
 
 ```text
@@ -189,16 +193,26 @@ This writes:
 
 ```text
 reports/model_backtest.csv
+reports/model_backtest_pair_metrics.csv
 reports/scenario_analysis.csv
 reports/risk_summary.csv
 ```
 
 Reports include:
 
-- historical predicted versus realized next-period FX returns
+- historical predicted versus realized next-period FX returns for the configured
+  `risk.backtest_years` window, which defaults to 20 years
+- pair-level coverage, mean absolute error, direction accuracy, and average
+  predicted/realized returns in `model_backtest_pair_metrics.csv`
 - direction-hit indicator and absolute forecast error
 - configured FX shock scenarios on residual unhedged exposure
 - VaR/CVaR-style residual-risk estimates for treasury review
+
+The bundled sample file is intentionally small and covers only EURUSD for demo
+execution. To run a true all-pair 20-year backtest, point `data.fx_rates_path` or
+the ingestion exports at an approved 20-year FX history CSV that contains all
+required pairs. The model and risk reports will automatically include every pair
+present in that file.
 
 ## Validate generated workflow outputs
 

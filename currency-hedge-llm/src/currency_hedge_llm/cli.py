@@ -137,6 +137,8 @@ def main() -> None:
         print(
             "Training complete: "
             f"{result.rows_used} rows, features={result.feature_columns}, "
+            f"pairs={result.pair_count} ({', '.join(result.pair_universe)}), "
+            f"training_window={result.training_start_date}..{result.training_end_date}, "
             f"holdout_mae={result.holdout_mae:.6f}, "
             f"holdout_r2={result.holdout_r2:.4f}, "
             f"model={result.model_path}"
@@ -169,7 +171,8 @@ def main() -> None:
             "Risk reports complete: "
             f"backtest_rows={result.backtest_rows}, "
             f"scenario_rows={result.scenario_rows}, "
-            f"risk_summary_rows={result.risk_summary_rows}"
+            f"risk_summary_rows={result.risk_summary_rows}, "
+            f"pair_metrics_rows={result.pair_metrics_rows}"
         )
     elif args.command == "validate":
         result = validate_outputs(config)
