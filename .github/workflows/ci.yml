@@ -22,9 +22,13 @@ jobs:
           cache: npm
 
       - run: npm ci
+      - run: npm audit --omit=dev
       - run: npm run lint
+      - run: npm run check:trade
+      - run: npm run quality:dashboard
       - run: npm run build
       - run: npm run build:pages
+      - run: node scripts/smoke-pages-build.mjs
 
   currency-hedge-llm:
     name: Currency hedge package

@@ -91,6 +91,12 @@ try {
     }
   }
 
+  for (const anchor of ["overview", "markets", "risk", "exposure", "rates", "signals"]) {
+    if (!combined.includes(`id="${anchor}"`)) {
+      throw new Error(`Built output is missing nav target: #${anchor}`);
+    }
+  }
+
   console.log("GitHub Pages smoke test passed.");
 } finally {
   await close();

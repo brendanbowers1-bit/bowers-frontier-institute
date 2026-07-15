@@ -109,12 +109,17 @@ export function Br3nDashboard() {
         </nav>
         <div className="br3n-sidebar-card">
           <Radio size={16} />
-          <span>Live API ready</span>
-          <small>Bloomberg / Snowflake / FRED adapters can be mounted behind the data layer.</small>
+          <span>Mock data · adapter-ready</span>
+          <small>Bloomberg / Snowflake / FRED adapters can be mounted later behind the data layer.</small>
         </div>
       </aside>
 
-      <button className="br3n-mobile-toggle" onClick={() => setSidebarOpen((open) => !open)}>
+      <button
+        aria-expanded={sidebarOpen}
+        aria-label={sidebarOpen ? "Close dashboard navigation" : "Open dashboard navigation"}
+        className="br3n-mobile-toggle"
+        onClick={() => setSidebarOpen((open) => !open)}
+      >
         {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
       </button>
 
@@ -164,6 +169,7 @@ export function Br3nDashboard() {
           <div className="br3n-filter-group">
             {periods.map((item) => (
               <button
+                aria-pressed={period === item}
                 className={period === item ? "is-active" : ""}
                 key={item}
                 onClick={() => setPeriod(item)}
@@ -175,6 +181,7 @@ export function Br3nDashboard() {
           <div className="br3n-filter-group br3n-filter-group--asset">
             {assetClasses.map((item) => (
               <button
+                aria-pressed={assetClass === item}
                 className={assetClass === item ? "is-active" : ""}
                 key={item}
                 onClick={() => setAssetClass(item)}
@@ -198,8 +205,8 @@ export function Br3nDashboard() {
           </div>
           <div>
             <Activity size={16} />
-            <span>Latency</span>
-            <strong>18ms render path</strong>
+            <span>Dataset</span>
+            <strong>Mock data · no live feeds</strong>
           </div>
           <div>
             <Shield size={16} />
@@ -249,7 +256,7 @@ export function Br3nDashboard() {
           </Panel>
         </section>
 
-        <section className="br3n-grid br3n-grid--three">
+        <section className="br3n-grid br3n-grid--three" id="rates">
           <Panel eyebrow="Foreign exchange" title="FX rates">
             <div className="br3n-fx-list">
               {fxRates.map((rate) => (
