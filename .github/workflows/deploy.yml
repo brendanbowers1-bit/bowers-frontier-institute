@@ -27,13 +27,26 @@ jobs:
 
       - run: npm ci
 
+      - name: Audit production dependencies
+        run: npm audit --omit=dev
+
+      - name: Lint frontend
+        run: npm run lint
+
+      - name: Validate trade framework
+        run: npm run check:trade
+
+      - name: Score dashboard quality
+        run: npm run quality:dashboard
+
       - name: Include brand board in static output
         run: mkdir -p public/brand && cp -r brand/logo public/brand/logo
 
       - name: Build for GitHub Pages
-        run: npm run build
-        env:
-          GITHUB_PAGES: "true"
+        run: npm run build:pages
+
+      - name: Smoke test GitHub Pages artifact
+        run: node scripts/smoke-pages-build.mjs
 
       - uses: actions/upload-pages-artifact@v3
         with:

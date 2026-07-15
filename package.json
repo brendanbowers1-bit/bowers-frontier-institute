@@ -7,8 +7,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:pages": "GITHUB_PAGES=true vite build",
     "check:trade": "node scripts/check-trade-framework.mjs",
-    "check:deploy": "npm ci && npm audit --audit-level=high && npm run lint && npm run check:trade && npm run build && GITHUB_PAGES=true npm run build && node scripts/smoke-pages-build.mjs",
+    "check:deploy": "npm ci && npm audit --audit-level=high && npm run lint && npm run check:trade && npm run build && npm run build:pages && node scripts/smoke-pages-build.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "quality:dashboard": "node scripts/dashboard_quality.mjs",

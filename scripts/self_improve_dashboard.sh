@@ -15,8 +15,17 @@ for iteration in $(seq 1 "$LOOPS"); do
   echo "=== BR3N dashboard loop ${iteration}/${LOOPS}: lint ==="
   npm run lint
 
+  echo "=== BR3N dashboard loop ${iteration}/${LOOPS}: trade framework ==="
+  npm run check:trade
+
   echo "=== BR3N dashboard loop ${iteration}/${LOOPS}: build ==="
   npm run build
+
+  echo "=== BR3N dashboard loop ${iteration}/${LOOPS}: pages build ==="
+  npm run build:pages
+
+  echo "=== BR3N dashboard loop ${iteration}/${LOOPS}: pages smoke ==="
+  node scripts/smoke-pages-build.mjs
 
   echo "=== BR3N dashboard loop ${iteration}/${LOOPS}: quality >= ${TARGET}% ==="
   DASHBOARD_QUALITY_TARGET="$TARGET" npm run quality:dashboard

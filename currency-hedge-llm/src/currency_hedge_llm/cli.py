@@ -14,6 +14,7 @@ from currency_hedge_llm.deployment import (
     assess_deployment_readiness,
     format_readiness_report,
 )
+from currency_hedge_llm.doctor import format_doctor_report, run_doctor
 from currency_hedge_llm.exposure_netting import generate_netted_exposures
 from currency_hedge_llm.hedge_recommender import generate_recommendations
 from currency_hedge_llm.ingestion import run_ingestion
@@ -39,6 +40,26 @@ def main() -> None:
 
     train_parser = subparsers.add_parser("train", help="Train the hedge model.")
     train_parser.add_argument("--config", required=True, help="Path to YAML config.")
+
+    doctor_parser = subparsers.add_parser(
+        "doctor", help="Validate deployment inputs and writable output locations."
+    )
+    doctor_parser.add_argument("--config", required=True, help="Path to YAML config.")
+    doctor_parser.add_argument(
+        "--require-model",
+        action="store_true",
+        help="Also require the trained model file to exist.",
+    )
+    doctor_parser.add_argument(
+        "--require-recommendations",
+        action="store_true",
+        help="Also require the recommendation CSV to exist.",
+    )
+    doctor_parser.add_argument(
+        "--create-output-dirs",
+        action="store_true",
+        help="Create missing output directories before checking writability.",
+    )
 
     recommend_parser = subparsers.add_parser(
         "recommend", help="Generate hedge recommendations."
@@ -116,10 +137,22 @@ def main() -> None:
         print(
             "Training complete: "
             f"{result.rows_used} rows, features={result.feature_columns}, "
+            f"pairs={result.pair_count} ({', '.join(result.pair_universe)}), "
+            f"training_window={result.training_start_date}..{result.training_end_date}, "
             f"holdout_mae={result.holdout_mae:.6f}, "
             f"holdout_r2={result.holdout_r2:.4f}, "
             f"model={result.model_path}"
         )
+    elif args.command == "doctor":
+        result = run_doctor(
+            config,
+            require_model=args.require_model,
+            require_recommendations=args.require_recommendations,
+            create_output_dirs=args.create_output_dirs,
+        )
+        print(format_doctor_report(result))
+        if not result.passed:
+            raise SystemExit(1)
     elif args.command == "recommend":
         result = generate_recommendations(config)
         print(
@@ -138,7 +171,8 @@ def main() -> None:
             "Risk reports complete: "
             f"backtest_rows={result.backtest_rows}, "
             f"scenario_rows={result.scenario_rows}, "
-            f"risk_summary_rows={result.risk_summary_rows}"
+            f"risk_summary_rows={result.risk_summary_rows}, "
+            f"pair_metrics_rows={result.pair_metrics_rows}"
         )
     elif args.command == "validate":
         result = validate_outputs(config)

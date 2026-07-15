@@ -626,6 +626,13 @@
   background: #f4f4ef;
 }
 
+.br3n-nav a:focus-visible,
+.br3n-filter-group button:focus-visible,
+.br3n-mobile-toggle:focus-visible {
+  outline: 2px solid rgba(244, 244, 239, 0.88);
+  outline-offset: 4px;
+}
+
 .br3n-metric-grid,
 .br3n-grid {
   display: grid;
