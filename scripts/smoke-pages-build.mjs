@@ -92,7 +92,8 @@ try {
   }
 
   for (const anchor of ["overview", "markets", "risk", "exposure", "rates", "signals"]) {
-    if (!combined.includes(`id="${anchor}"`) && !combined.includes(`id:"${anchor}"`)) {
+    const idPattern = new RegExp(`id\\s*[:=]\\s*[\`"']${anchor}[\`"']`);
+    if (!idPattern.test(combined)) {
       throw new Error(`Built output is missing nav target: #${anchor}`);
     }
   }
