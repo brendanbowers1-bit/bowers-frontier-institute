@@ -25,6 +25,16 @@ Open the URL shown in the terminal, usually:
 http://localhost:5173
 ```
 
+## Mobile app preview
+
+The mobile-first BR3N app shell is available at:
+
+```text
+http://localhost:5173/mobile
+```
+
+It reuses the same modular finance data and includes mobile KPI cards, portfolio charts, FX watchlist, risk meters, exposure summary, volatility snapshot, and weekly trade-discovery controls. The app also includes a web manifest so it can be installed from supported mobile browsers as a standalone experience.
+
 ## Validate
 
 ```bash

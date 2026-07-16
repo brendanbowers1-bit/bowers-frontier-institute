@@ -4,6 +4,8 @@ import { join } from "node:path";
 const root = process.cwd();
 const checks = [
   fileCheck("BR3N dashboard component", "src/components/Br3nDashboard.jsx", 8),
+  fileCheck("BR3N mobile app component", "src/components/Br3nMobileApp.jsx", 8),
+  fileCheck("BR3N mobile app CSS", "src/components/Br3nMobileApp.css", 6),
   fileCheck("BR3N crest component", "src/components/Br3nCrest.jsx", 10),
   fileCheck("BR3N metallic ribbon mark", "src/components/Br3nRibbonMark.jsx", 10),
   fileCheck("Premium dashboard CSS", "src/components/Br3nDashboard.css", 8),
@@ -20,6 +22,9 @@ const checks = [
   phraseCheck("Glass/metal styling", "src/components/Br3nDashboard.css", "backdrop-filter", 6),
   phraseCheck("Cinematic loading", "src/components/Br3nDashboard.jsx", "Br3nLoader", 5),
   phraseCheck("No execution language", "src/components/Br3nDashboard.jsx", "No execution surface", 6),
+  phraseCheck("Mobile app route", "src/App.jsx", "/mobile", 5),
+  phraseCheck("Installable mobile manifest", "public/manifest.webmanifest", "standalone", 5),
+  phraseCheck("Mobile bottom navigation", "src/components/Br3nMobileApp.css", "mobile-bottom-nav", 5),
   fileCheck("FX data module", "src/data/fxRates.js", 3),
   fileCheck("Portfolio data module", "src/data/portfolioPerformance.js", 3),
   fileCheck("Exposure data module", "src/data/currencyExposure.js", 3),

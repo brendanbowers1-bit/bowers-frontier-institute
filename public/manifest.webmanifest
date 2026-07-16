@@ -1,0 +1,18 @@
+{
+  "name": "BR3N Mobile Command",
+  "short_name": "BR3N",
+  "description": "Mobile finance command center for BR3N market, risk, exposure, and trade-discovery intelligence.",
+  "start_url": "/mobile",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#030304",
+  "theme_color": "#050506",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
