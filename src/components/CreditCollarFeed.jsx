@@ -1,28 +1,124 @@
-import { useMemo, useState } from "react";
-import { Clock3, Radio, ShieldCheck, SlidersHorizontal, TrendingDown, Zap } from "lucide-react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  Bell,
+  Clock3,
+  Radio,
+  RefreshCw,
+  ShieldCheck,
+  SlidersHorizontal,
+  Star,
+  TrendingDown,
+  Zap,
+} from "lucide-react";
 import {
   collarFeedMeta,
   collarOptimizationProfiles,
   creditCollarCandidates,
   optimizeCreditCollars,
 } from "../data/creditCollars";
+import { fetchLiveCreditCollars } from "../lib/creditCollarFeedClient";
 
-const allUniverses = ["All", ...new Set(creditCollarCandidates.map((candidate) => candidate.universe))];
+const WATCHLIST_KEY = "br3n-collar-watchlist";
+const ALERTS_KEY = "br3n-collar-alerts";
+const ALERT_THRESHOLD_KEY = "br3n-collar-alert-threshold";
 
 export function CreditCollarFeed() {
   const [profileId, setProfileId] = useState("balanced");
   const [universe, setUniverse] = useState("All");
+  const [feedCandidates, setFeedCandidates] = useState(creditCollarCandidates);
+  const [feedMeta, setFeedMeta] = useState(collarFeedMeta);
+  const [feedStatus, setFeedStatus] = useState("Snapshot fallback");
+  const [refreshing, setRefreshing] = useState(false);
+  const [watchlist, setWatchlist] = useState(() => readStoredArray(WATCHLIST_KEY));
+  const [alertsEnabled, setAlertsEnabled] = useState(() => window.localStorage.getItem(ALERTS_KEY) === "enabled");
+  const [alertThreshold, setAlertThreshold] = useState(
+    () => Number(window.localStorage.getItem(ALERT_THRESHOLD_KEY)) || 82,
+  );
+  const lastAlertRef = useRef("");
+
+  const refreshFeed = useCallback(async (signal) => {
+    setRefreshing(true);
+    try {
+      const payload = await fetchLiveCreditCollars({ signal });
+      setFeedCandidates(payload.candidates);
+      setFeedMeta({
+        ...collarFeedMeta,
+        asOf: formatTimestamp(payload.asOf),
+        source: payload.source ?? collarFeedMeta.source,
+      });
+      setFeedStatus(payload.degraded ? "Live partial" : "Live feed");
+    } catch {
+      setFeedStatus("Snapshot fallback");
+    } finally {
+      setRefreshing(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const initialRefresh = window.setTimeout(() => refreshFeed(controller.signal), 0);
+    const interval = window.setInterval(() => refreshFeed(controller.signal), 45_000);
+    return () => {
+      controller.abort();
+      window.clearTimeout(initialRefresh);
+      window.clearInterval(interval);
+    };
+  }, [refreshFeed]);
 
   const rankedCollars = useMemo(() => {
-    const source =
-      universe === "All"
-        ? creditCollarCandidates
-        : creditCollarCandidates.filter((candidate) => candidate.universe === universe);
+    const source = filterCandidates(feedCandidates, universe, watchlist);
     return optimizeCreditCollars(source, profileId);
-  }, [profileId, universe]);
+  }, [feedCandidates, profileId, universe, watchlist]);
+
+  const allUniverses = useMemo(
+    () => ["All", "Watchlist", ...new Set(feedCandidates.map((candidate) => candidate.universe))],
+    [feedCandidates],
+  );
 
   const primary = rankedCollars[0];
   const runnersUp = rankedCollars.slice(1, 7);
+
+  useEffect(() => {
+    if (!primary || !alertsEnabled || primary.score < alertThreshold || !("Notification" in window)) return;
+    if (Notification.permission !== "granted") return;
+
+    const alertKey = `${primary.id}-${profileId}-${alertThreshold}`;
+    if (lastAlertRef.current === alertKey) return;
+
+    lastAlertRef.current = alertKey;
+    new Notification(`BR3N collar: ${primary.symbol} scored ${primary.score}`, {
+      body: `+${formatCurrency(primary.netCredit)} credit, floor ${primary.floorDrawdownPct}% below spot, cap ${primary.upsideToCallPct}%.`,
+      icon: `${import.meta.env.BASE_URL}app-icon.svg`,
+      tag: alertKey,
+    });
+  }, [alertThreshold, alertsEnabled, primary, profileId]);
+
+  const toggleWatchlist = (symbol) => {
+    setWatchlist((current) => {
+      const next = current.includes(symbol)
+        ? current.filter((item) => item !== symbol)
+        : [...current, symbol];
+      window.localStorage.setItem(WATCHLIST_KEY, JSON.stringify(next));
+      return next;
+    });
+  };
+
+  const toggleAlerts = async () => {
+    if (!("Notification" in window)) return;
+    if (Notification.permission === "default") {
+      const permission = await Notification.requestPermission();
+      if (permission !== "granted") return;
+    }
+    const next = !alertsEnabled;
+    window.localStorage.setItem(ALERTS_KEY, next ? "enabled" : "disabled");
+    setAlertsEnabled(next);
+  };
+
+  const updateAlertThreshold = (event) => {
+    const next = Number(event.target.value);
+    window.localStorage.setItem(ALERT_THRESHOLD_KEY, String(next));
+    setAlertThreshold(next);
+  };
 
   return (
     <>
@@ -39,7 +135,7 @@ export function CreditCollarFeed() {
           <div className="br3n-collar-status" aria-label="Feed status">
             <span>
               <Radio size={14} />
-              {collarFeedMeta.cadence}
+              {feedStatus}
             </span>
             <strong>{rankedCollars.length}</strong>
             <small>qualified structures</small>
@@ -75,21 +171,52 @@ export function CreditCollarFeed() {
           </div>
         </div>
 
-        {primary ? <PrimaryCollarCard collar={primary} /> : <EmptyCollarState />}
+        <div className="br3n-collar-automation">
+          <button disabled={refreshing} onClick={() => refreshFeed()} type="button">
+            <RefreshCw className={refreshing ? "is-spinning" : ""} size={14} />
+            {refreshing ? "Refreshing" : "Refresh live feed"}
+          </button>
+          <button className={alertsEnabled ? "is-active" : ""} onClick={toggleAlerts} type="button">
+            <Bell size={14} />
+            {alertsEnabled ? "Alerts on" : "Enable alerts"}
+          </button>
+          <label>
+            Alert score
+            <input max="95" min="70" onChange={updateAlertThreshold} type="range" value={alertThreshold} />
+            <span>{alertThreshold}+</span>
+          </label>
+        </div>
+
+        {primary ? (
+          <PrimaryCollarCard
+            collar={primary}
+            isWatched={watchlist.includes(primary.symbol)}
+            onToggleWatchlist={toggleWatchlist}
+          />
+        ) : (
+          <EmptyCollarState />
+        )}
       </div>
 
       <div className="br3n-collar-sidecar">
         <div className="br3n-collar-feed-head">
           <span>
             <Clock3 size={13} />
-            {collarFeedMeta.asOf}
+            {feedMeta.asOf}
           </span>
-          <strong>{collarFeedMeta.source}</strong>
+          <strong>
+            {feedMeta.source} · {feedMeta.cadence}
+          </strong>
         </div>
 
         <div className="br3n-collar-list">
           {runnersUp.map((collar) => (
-            <CollarRow collar={collar} key={collar.id} />
+            <CollarRow
+              collar={collar}
+              isWatched={watchlist.includes(collar.symbol)}
+              key={collar.id}
+              onToggleWatchlist={toggleWatchlist}
+            />
           ))}
         </div>
 
@@ -102,7 +229,7 @@ export function CreditCollarFeed() {
   );
 }
 
-function PrimaryCollarCard({ collar }) {
+function PrimaryCollarCard({ collar, isWatched, onToggleWatchlist }) {
   return (
     <article className="br3n-collar-primary">
       <div className="br3n-collar-score">
@@ -117,7 +244,17 @@ function PrimaryCollarCard({ collar }) {
               {collar.symbol} <em>{collar.name}</em>
             </h3>
           </div>
-          <strong>{formatCurrency(collar.spot)}</strong>
+          <div className="br3n-collar-title-actions">
+            <button
+              aria-label={`${isWatched ? "Remove" : "Add"} ${collar.symbol} ${isWatched ? "from" : "to"} watchlist`}
+              className={isWatched ? "is-active" : ""}
+              onClick={() => onToggleWatchlist(collar.symbol)}
+              type="button"
+            >
+              <Star size={14} />
+            </button>
+            <strong>{formatCurrency(collar.spot)}</strong>
+          </div>
         </div>
 
         <div className="br3n-collar-legs">
@@ -142,7 +279,7 @@ function PrimaryCollarCard({ collar }) {
   );
 }
 
-function CollarRow({ collar }) {
+function CollarRow({ collar, isWatched, onToggleWatchlist }) {
   return (
     <article className="br3n-collar-row">
       <div>
@@ -161,6 +298,14 @@ function CollarRow({ collar }) {
           floor {collar.floorDrawdownPct}% · cap {collar.upsideToCallPct}%
         </small>
       </div>
+      <button
+        aria-label={`${isWatched ? "Remove" : "Add"} ${collar.symbol} ${isWatched ? "from" : "to"} watchlist`}
+        className={isWatched ? "is-active" : ""}
+        onClick={() => onToggleWatchlist(collar.symbol)}
+        type="button"
+      >
+        <Star size={13} />
+      </button>
     </article>
   );
 }
@@ -201,4 +346,34 @@ function formatCurrency(value) {
 
 function formatInteger(value) {
   return Math.round(value).toLocaleString();
+}
+
+function filterCandidates(candidates, universe, watchlist) {
+  if (universe === "Watchlist") {
+    return candidates.filter((candidate) => watchlist.includes(candidate.symbol));
+  }
+
+  if (universe === "All") return candidates;
+  return candidates.filter((candidate) => candidate.universe === universe);
+}
+
+function readStoredArray(key) {
+  try {
+    const parsed = JSON.parse(window.localStorage.getItem(key) ?? "[]");
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function formatTimestamp(value) {
+  if (!value) return collarFeedMeta.asOf;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return String(value);
+  return date.toLocaleString([], {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
 }

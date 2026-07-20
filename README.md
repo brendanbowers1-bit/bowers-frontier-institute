@@ -29,6 +29,7 @@ http://localhost:5173
 
 ```bash
 npm run lint
+npm run check:pwa
 npm run build
 npm run quality:dashboard
 ```
@@ -102,8 +103,20 @@ Deployment and trade-framework readiness gates:
 
 ```bash
 npm run check:trade   # validates trade scorecard, tiers, gates, and example note
+npm run check:collars # validates positive-credit collar scoring and risk bounds
+npm run check:pwa     # validates install metadata, service worker, and deploy configs
 npm run check:deploy  # audit + lint + trade check + builds + GitHub Pages smoke test
 ```
+
+## Publish
+
+The dashboard is PWA-ready and can be deployed as a mobile web app:
+
+- **Vercel**: uses `vercel.json`, publishes `dist`, and exposes `/api/credit-collars`.
+- **Netlify**: uses `netlify.toml`, publishes `dist`, and routes `/api/credit-collars` to a function.
+- **GitHub Pages**: use `GITHUB_PAGES=true npm run build`; live functions are not available, so the collar feed uses its static snapshot fallback.
+
+See `docs/publishing.md` for the full launch checklist, PWA install notes, live-data guidance, and later iOS wrapper steps.
 
 ## Notes
 

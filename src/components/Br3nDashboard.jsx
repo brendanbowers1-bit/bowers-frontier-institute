@@ -43,6 +43,7 @@ import { yieldCurve } from "../data/yieldCurve";
 import { Br3nCrest } from "./Br3nCrest";
 import { Br3nRibbonMark } from "./Br3nRibbonMark";
 import { CreditCollarFeed } from "./CreditCollarFeed";
+import { PwaInstallPrompt } from "./PwaInstallPrompt";
 import "./Br3nDashboard.css";
 
 const periodLengths = {
@@ -209,6 +210,8 @@ export function Br3nDashboard() {
             <strong>Research only · no execution</strong>
           </div>
         </motion.section>
+
+        <PwaInstallPrompt />
 
         <section className="br3n-grid br3n-grid--collars" id="collars">
           <CreditCollarFeed />
