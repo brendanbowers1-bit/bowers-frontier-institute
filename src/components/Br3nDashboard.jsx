@@ -36,6 +36,7 @@ import {
   exampleWeeklyTradeNote,
   noTradeGates,
   recommendationScorecard,
+  recommendationTiers,
   weeklyTradeOutput,
 } from "../data/weeklyTradeDiscovery";
 import { yieldCurve } from "../data/yieldCurve";
@@ -359,6 +360,7 @@ export function Br3nDashboard() {
 
         <section className="br3n-grid br3n-grid--signals" id="signals">
           <Panel className="br3n-panel--wide" eyebrow="Weekly trade discovery" title="Best-fit setup workflow">
+            <h3 className="br3n-signal-subhead">Weighted scorecard</h3>
             <div className="br3n-signal-grid">
               {recommendationScorecard.map((metric) => (
                 <motion.div className="br3n-signal-card" key={metric.id} whileHover={{ y: -3 }}>
@@ -379,6 +381,16 @@ export function Br3nDashboard() {
               <h3>{exampleWeeklyTradeNote.setup}</h3>
               <p>{exampleWeeklyTradeNote.recommendation}</p>
             </div>
+            <h3 className="br3n-signal-subhead">Recommendation tiers</h3>
+            <div className="br3n-tier-list">
+              {recommendationTiers.map((tier) => (
+                <span key={tier.id}>
+                  <strong>{tier.name}</strong>
+                  <small>{tier.score}</small>
+                </span>
+              ))}
+            </div>
+            <h3 className="br3n-signal-subhead">Hard no-trade gates</h3>
             <div className="br3n-gate-list">
               {noTradeGates.map((gate) => (
                 <span key={gate}>{gate}</span>

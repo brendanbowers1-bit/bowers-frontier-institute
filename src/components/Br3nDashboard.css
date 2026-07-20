@@ -925,6 +925,14 @@
   color: #fff;
 }
 
+.br3n-signal-subhead {
+  margin: 0 0 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: rgba(244, 244, 239, 0.82);
+}
+
 .br3n-signal-card p,
 .br3n-trade-note p {
   margin: 0.65rem 0 0;
@@ -937,6 +945,37 @@
   display: grid;
   gap: 0.85rem;
   margin-bottom: 0.9rem;
+}
+
+.br3n-tier-list {
+  display: grid;
+  gap: 0.45rem;
+  margin-bottom: 0.95rem;
+}
+
+.br3n-tier-list span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  padding: 0.7rem 0.75rem;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 0.8rem;
+}
+
+.br3n-tier-list strong {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: rgba(244, 244, 239, 0.78);
+}
+
+.br3n-tier-list small {
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: rgba(244, 244, 239, 0.42);
+  text-transform: uppercase;
 }
 
 .br3n-trade-note div {
