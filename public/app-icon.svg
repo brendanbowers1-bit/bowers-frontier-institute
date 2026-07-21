@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">BR3N Credit Collar Feed</title>
+  <defs>
+    <radialGradient id="glow" cx="32%" cy="18%" r="76%">
+      <stop offset="0%" stop-color="#fffaf0" stop-opacity="0.24"/>
+      <stop offset="42%" stop-color="#6e6f77" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#030304"/>
+    </radialGradient>
+    <linearGradient id="metal" x1="108" x2="406" y1="96" y2="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f8f5ec"/>
+      <stop offset="46%" stop-color="#8f918f"/>
+      <stop offset="100%" stop-color="#f7f2e8"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#030304"/>
+  <rect x="18" y="18" width="476" height="476" rx="96" fill="url(#glow)" stroke="#f4f1e8" stroke-opacity="0.12" stroke-width="2"/>
+  <path d="M136 336V176h42l76 100V176h48v160h-42l-76-100v100h-48Z" fill="#f7f2e8"/>
+  <path d="M328 176h48v160h-48V176Z" fill="#b7ad91"/>
+  <path d="M112 356c48-78 96-78 144 0s96 78 144 0" fill="none" stroke="url(#metal)" stroke-linecap="round" stroke-width="22"/>
+  <path d="M132 146h248M132 386h248" stroke="#f4f1e8" stroke-linecap="round" stroke-opacity="0.28" stroke-width="4"/>
+</svg>

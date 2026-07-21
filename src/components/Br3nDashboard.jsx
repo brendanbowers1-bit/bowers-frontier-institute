@@ -36,11 +36,14 @@ import {
   exampleWeeklyTradeNote,
   noTradeGates,
   recommendationScorecard,
+  recommendationTiers,
   weeklyTradeOutput,
 } from "../data/weeklyTradeDiscovery";
 import { yieldCurve } from "../data/yieldCurve";
 import { Br3nCrest } from "./Br3nCrest";
 import { Br3nRibbonMark } from "./Br3nRibbonMark";
+import { CreditCollarFeed } from "./CreditCollarFeed";
+import { PwaInstallPrompt } from "./PwaInstallPrompt";
 import "./Br3nDashboard.css";
 
 const periodLengths = {
@@ -52,12 +55,12 @@ const periodLengths = {
   "1Y": 160,
 };
 
-const navItems = ["Overview", "Markets", "Risk", "Exposure", "Rates", "Signals"];
+const navItems = ["Overview", "Collars", "Markets", "Risk", "Exposure", "Signals"];
 
 const metrics = [
   { label: "AUM monitored", value: "$2.84B", delta: "+4.8%", icon: CircleDollarSign },
   { label: "Portfolio P&L", value: "$14.2M", delta: "+1.9%", icon: Activity },
-  { label: "1D VaR", value: "$3.7M", delta: "-0.4%", icon: Shield },
+  { label: "Collar candidates", value: "10", delta: "credit only", icon: Shield },
   { label: "Hedge ratio", value: "64%", delta: "+3 pts", icon: Gauge },
 ];
 
@@ -132,8 +135,8 @@ export function Br3nDashboard() {
             <p className="br3n-kicker">Research · Regime · Risk</p>
             <h1>Macro command for currency, risk, and capital decisions.</h1>
             <p className="br3n-hero-copy">
-              A luxury-grade finance cockpit for market oversight, FX exposure, rates, volatility,
-              drawdown, and hedge posture. Fast, intentional, and calm.
+              A luxury-grade finance cockpit for market oversight, credit-collar discovery, rates,
+              volatility, drawdown, and hedge posture. Fast, intentional, and calm.
             </p>
           </div>
           <div className="br3n-hero-right">
@@ -194,19 +197,25 @@ export function Br3nDashboard() {
           <div>
             <BarChart3 size={16} />
             <span>Signal engine</span>
-            <strong>Regime: controlled risk-on</strong>
+            <strong>Credit collars ranked</strong>
           </div>
           <div>
             <Activity size={16} />
-            <span>Latency</span>
-            <strong>18ms render path</strong>
+            <span>Optimizer</span>
+            <strong>Profit / floor / liquidity</strong>
           </div>
           <div>
             <Shield size={16} />
             <span>Governance</span>
-            <strong>No execution surface</strong>
+            <strong>Research only · no execution</strong>
           </div>
         </motion.section>
+
+        <PwaInstallPrompt />
+
+        <section className="br3n-grid br3n-grid--collars" id="collars">
+          <CreditCollarFeed />
+        </section>
 
         <section className="br3n-metric-grid">
           {metrics.map((metric, index) => (
@@ -354,6 +363,7 @@ export function Br3nDashboard() {
 
         <section className="br3n-grid br3n-grid--signals" id="signals">
           <Panel className="br3n-panel--wide" eyebrow="Weekly trade discovery" title="Best-fit setup workflow">
+            <h3 className="br3n-signal-subhead">Weighted scorecard</h3>
             <div className="br3n-signal-grid">
               {recommendationScorecard.map((metric) => (
                 <motion.div className="br3n-signal-card" key={metric.id} whileHover={{ y: -3 }}>
@@ -374,6 +384,16 @@ export function Br3nDashboard() {
               <h3>{exampleWeeklyTradeNote.setup}</h3>
               <p>{exampleWeeklyTradeNote.recommendation}</p>
             </div>
+            <h3 className="br3n-signal-subhead">Recommendation tiers</h3>
+            <div className="br3n-tier-list">
+              {recommendationTiers.map((tier) => (
+                <span key={tier.id}>
+                  <strong>{tier.name}</strong>
+                  <small>{tier.score}</small>
+                </span>
+              ))}
+            </div>
+            <h3 className="br3n-signal-subhead">Hard no-trade gates</h3>
             <div className="br3n-gate-list">
               {noTradeGates.map((gate) => (
                 <span key={gate}>{gate}</span>

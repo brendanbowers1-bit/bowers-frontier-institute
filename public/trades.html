@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#030304" />
+    <title>BR3N Credit Collar Trades</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #030304;
+        color: #f7f5ee;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 85% 0%, rgba(255, 255, 255, 0.14), transparent 22rem),
+          radial-gradient(circle at 10% 10%, rgba(130, 136, 152, 0.18), transparent 20rem),
+          #030304;
+      }
+
+      main {
+        width: min(100%, 820px);
+        margin: 0 auto;
+        padding: max(1rem, env(safe-area-inset-top)) 0.9rem max(2rem, env(safe-area-inset-bottom));
+      }
+
+      header {
+        padding: 1rem 0 0.8rem;
+      }
+
+      .kicker,
+      .meta,
+      .chip,
+      small {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+
+      .kicker {
+        margin: 0 0 0.55rem;
+        font-size: 0.7rem;
+        color: rgba(247, 245, 238, 0.55);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2.4rem, 13vw, 5.2rem);
+        line-height: 0.88;
+        letter-spacing: -0.08em;
+      }
+
+      .intro {
+        max-width: 38rem;
+        margin: 1rem 0 0;
+        color: rgba(247, 245, 238, 0.62);
+        line-height: 1.55;
+      }
+
+      .topline,
+      .notice {
+        display: grid;
+        gap: 0.55rem;
+        margin: 0.8rem 0 1rem;
+        padding: 0.9rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 1rem;
+        background: rgba(255, 255, 255, 0.055);
+      }
+
+      .topline {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .topline span {
+        display: grid;
+        gap: 0.2rem;
+      }
+
+      .topline strong {
+        font-size: 1.25rem;
+      }
+
+      .meta {
+        font-size: 0.62rem;
+        color: rgba(247, 245, 238, 0.48);
+      }
+
+      .grid {
+        display: grid;
+        gap: 0.75rem;
+      }
+
+      article {
+        padding: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 1.1rem;
+        background:
+          linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.035)),
+          rgba(0, 0, 0, 0.35);
+        box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.2);
+      }
+
+      .card-head,
+      .legs,
+      .risk {
+        display: grid;
+        gap: 0.6rem;
+      }
+
+      .card-head {
+        grid-template-columns: auto 1fr auto;
+        align-items: start;
+      }
+
+      .score {
+        display: grid;
+        place-items: center;
+        width: 3.5rem;
+        height: 3.5rem;
+        color: #080809;
+        background: #f7f5ee;
+        border-radius: 999px;
+        font-weight: 700;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 1.6rem;
+        letter-spacing: -0.05em;
+      }
+
+      .name {
+        display: block;
+        margin-top: 0.15rem;
+        color: rgba(247, 245, 238, 0.52);
+        font-size: 0.86rem;
+      }
+
+      .spot {
+        color: #fff;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.86rem;
+      }
+
+      .legs,
+      .risk {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-top: 0.75rem;
+      }
+
+      .box {
+        display: grid;
+        gap: 0.24rem;
+        min-width: 0;
+        padding: 0.75rem;
+        background: rgba(255, 255, 255, 0.055);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 0.85rem;
+      }
+
+      .box strong {
+        font-size: 1.02rem;
+      }
+
+      .box.credit {
+        background: rgba(247, 245, 238, 0.14);
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: 0.75rem;
+      }
+
+      .chip {
+        padding: 0.34rem 0.48rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 999px;
+        color: rgba(247, 245, 238, 0.62);
+        background: rgba(255, 255, 255, 0.055);
+        font-size: 0.56rem;
+      }
+
+      .notice {
+        color: rgba(247, 245, 238, 0.66);
+        line-height: 1.48;
+      }
+
+      @media (max-width: 560px) {
+        .topline,
+        .legs,
+        .risk {
+          grid-template-columns: 1fr;
+        }
+
+        .card-head {
+          grid-template-columns: auto 1fr;
+        }
+
+        .spot {
+          grid-column: 2;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="kicker">BR3N · Credit collar optimizer</p>
+        <h1>Trade board that loads on iPhone.</h1>
+        <p class="intro">
+          Positive-credit collar candidates using conservative pricing: sell call at bid, buy put at ask.
+          These are research candidates for owned shares or ETFs, not trade instructions.
+        </p>
+      </header>
+
+      <section class="topline" aria-label="Feed summary">
+        <span><small class="meta">Feed</small><strong>Static fallback</strong></span>
+        <span><small class="meta">Universe</small><strong>Index + AI</strong></span>
+        <span><small class="meta">Rule</small><strong>Credit only</strong></span>
+      </section>
+
+      <section class="grid">
+        <article>
+          <div class="card-head">
+            <span class="score">84</span>
+            <div><h2>NVDA</h2><span class="name">NVIDIA · AI compute</span></div>
+            <strong class="spot">$204.25</strong>
+          </div>
+          <div class="legs">
+            <span class="box"><small class="meta">Buy put</small><strong>180P</strong><small>@ $7.90</small></span>
+            <span class="box"><small class="meta">Sell call</small><strong>220C</strong><small>@ $11.20</small></span>
+            <span class="box credit"><small class="meta">Net credit</small><strong>+$3.30</strong><small>1.62% of spot</small></span>
+          </div>
+          <div class="risk">
+            <span class="box"><small class="meta">Floor</small><strong>$183.30</strong><small>10.3% below spot</small></span>
+            <span class="box"><small class="meta">Cap</small><strong>9.3%</strong><small>to call + credit</small></span>
+            <span class="box"><small class="meta">Expiration</small><strong>Oct 16</strong><small>88 DTE</small></span>
+          </div>
+          <div class="chips"><span class="chip">High liquidity</span><span class="chip">Semiconductor</span><span class="chip">AI leader</span></div>
+        </article>
+
+        <article>
+          <div class="card-head">
+            <span class="score">83</span>
+            <div><h2>AMZN</h2><span class="name">Amazon · AWS / AI services</span></div>
+            <strong class="spot">$247.40</strong>
+          </div>
+          <div class="legs">
+            <span class="box"><small class="meta">Buy put</small><strong>220P</strong><small>@ $5.25</small></span>
+            <span class="box"><small class="meta">Sell call</small><strong>265C</strong><small>@ $9.50</small></span>
+            <span class="box credit"><small class="meta">Net credit</small><strong>+$4.25</strong><small>1.72% of spot</small></span>
+          </div>
+          <div class="risk">
+            <span class="box"><small class="meta">Floor</small><strong>$224.25</strong><small>9.4% below spot</small></span>
+            <span class="box"><small class="meta">Cap</small><strong>8.8%</strong><small>to call + credit</small></span>
+            <span class="box"><small class="meta">Expiration</small><strong>Sep 18</strong><small>60 DTE</small></span>
+          </div>
+          <div class="chips"><span class="chip">AWS</span><span class="chip">Mega-cap</span><span class="chip">Credit first</span></div>
+        </article>
+
+        <article>
+          <div class="card-head">
+            <span class="score">82</span>
+            <div><h2>MSFT</h2><span class="name">Microsoft · AI platform</span></div>
+            <strong class="spot">$392.42</strong>
+          </div>
+          <div class="legs">
+            <span class="box"><small class="meta">Buy put</small><strong>350P</strong><small>@ $8.60</small></span>
+            <span class="box"><small class="meta">Sell call</small><strong>420C</strong><small>@ $16.65</small></span>
+            <span class="box credit"><small class="meta">Net credit</small><strong>+$8.05</strong><small>2.05% of spot</small></span>
+          </div>
+          <div class="risk">
+            <span class="box"><small class="meta">Floor</small><strong>$358.05</strong><small>8.8% below spot</small></span>
+            <span class="box"><small class="meta">Cap</small><strong>9.1%</strong><small>to call + credit</small></span>
+            <span class="box"><small class="meta">Expiration</small><strong>Sep 18</strong><small>60 DTE</small></span>
+          </div>
+          <div class="chips"><span class="chip">Cloud</span><span class="chip">Mega-cap</span><span class="chip">Balanced</span></div>
+        </article>
+
+        <article>
+          <div class="card-head">
+            <span class="score">80</span>
+            <div><h2>QQQ</h2><span class="name">Nasdaq 100 ETF · index hedge</span></div>
+            <strong class="spot">$700.42</strong>
+          </div>
+          <div class="legs">
+            <span class="box"><small class="meta">Buy put</small><strong>620P</strong><small>@ $12.35</small></span>
+            <span class="box"><small class="meta">Sell call</small><strong>745C</strong><small>@ $14.61</small></span>
+            <span class="box credit"><small class="meta">Net credit</small><strong>+$2.26</strong><small>0.32% of spot</small></span>
+          </div>
+          <div class="risk">
+            <span class="box"><small class="meta">Floor</small><strong>$622.26</strong><small>11.2% below spot</small></span>
+            <span class="box"><small class="meta">Cap</small><strong>6.7%</strong><small>to call + credit</small></span>
+            <span class="box"><small class="meta">Expiration</small><strong>Oct 16</strong><small>88 DTE</small></span>
+          </div>
+          <div class="chips"><span class="chip">Nasdaq</span><span class="chip">Index</span><span class="chip">ETF</span></div>
+        </article>
+      </section>
+
+      <section class="notice">
+        <strong>Important:</strong>
+        Collars cap upside and can create assignment/tax considerations. Validate live quotes and suitability before
+        entering anything. This page is a mobile preview and research board only.
+      </section>
+    </main>
+  </body>
+</html>

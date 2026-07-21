@@ -1,0 +1,39 @@
+{
+  "name": "BR3N Credit Collar Feed",
+  "short_name": "BR3N Collars",
+  "description": "A mobile research cockpit for positive-credit collars, downside floors, and hedge candidate discovery.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#030304",
+  "theme_color": "#050506",
+  "categories": ["finance", "business", "productivity"],
+  "icons": [
+    {
+      "src": "app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "favicon.svg",
+      "sizes": "32x32",
+      "type": "image/svg+xml"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Credit collar feed",
+      "short_name": "Collars",
+      "description": "Open the optimized credit-collar feed.",
+      "url": "./#collars"
+    },
+    {
+      "name": "Risk dashboard",
+      "short_name": "Risk",
+      "description": "Open hedge posture and risk controls.",
+      "url": "./#risk"
+    }
+  ]
+}
