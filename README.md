@@ -105,6 +105,8 @@ Deployment and trade-framework readiness gates:
 npm run check:trade   # validates trade scorecard, tiers, gates, and example note
 npm run check:collars # validates positive-credit collar scoring and risk bounds
 npm run check:pwa     # validates install metadata, service worker, and deploy configs
+npm run quality:collars # runs one delayed-feed collar quality pass and writes docs/credit-collar-quality-report.md
+npm run self-improve:collars # continuously rescans and reranks collars; no execution or order routing
 npm run check:deploy  # audit + lint + trade check + builds + GitHub Pages smoke test
 ```
 
