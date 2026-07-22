@@ -459,6 +459,89 @@
   color: rgba(244, 244, 239, 0.52);
 }
 
+.br3n-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.35rem;
+}
+
+.br3n-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.78rem 1rem;
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.13em;
+  color: rgba(244, 244, 239, 0.72);
+  text-decoration: none;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.052);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 999px;
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.br3n-action:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.085);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.br3n-action--primary {
+  color: #08080a;
+  background: #f4f4ef;
+  border-color: #f4f4ef;
+}
+
+.br3n-action--primary:hover {
+  color: #050506;
+  background: #fff;
+}
+
+.br3n-hero-proof {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+  max-width: 42rem;
+  margin-top: 1.25rem;
+}
+
+.br3n-hero-proof span {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 5rem;
+  padding: 0.85rem;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.022)),
+    rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: 0.95rem;
+}
+
+.br3n-hero-proof small {
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.13em;
+  color: rgba(244, 244, 239, 0.38);
+  text-transform: uppercase;
+}
+
+.br3n-hero-proof strong {
+  align-self: end;
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.25;
+  color: rgba(244, 244, 239, 0.86);
+}
+
 .br3n-hero-tape,
 .br3n-panel,
 .br3n-metric {
@@ -660,6 +743,7 @@
 
 .br3n-grid--market,
 .br3n-grid--collars,
+.br3n-grid--method,
 .br3n-grid--risk,
 .br3n-grid--exposure,
 .br3n-grid--signals {
@@ -697,6 +781,118 @@
 
 .br3n-panel-head svg {
   color: rgba(244, 244, 239, 0.36);
+}
+
+.br3n-panel--story {
+  background:
+    radial-gradient(circle at 16% 0%, rgba(236, 195, 161, 0.12), transparent 24rem),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.028)),
+    rgba(8, 8, 10, 0.76);
+}
+
+.br3n-story-copy {
+  max-width: 54rem;
+  margin: -0.35rem 0 1rem;
+  font-size: clamp(1rem, 1.5vw, 1.14rem);
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(244, 244, 239, 0.56);
+}
+
+.br3n-capability-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.br3n-capability-card,
+.br3n-method-step,
+.br3n-promise-card {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.024)),
+    rgba(0, 0, 0, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: 1rem;
+}
+
+.br3n-capability-card {
+  display: grid;
+  gap: 0.65rem;
+  min-height: 15rem;
+  padding: 1rem;
+}
+
+.br3n-capability-card svg,
+.br3n-promise-card svg {
+  color: rgba(244, 244, 239, 0.58);
+}
+
+.br3n-capability-card span,
+.br3n-method-step > span,
+.br3n-promise-card span {
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  color: rgba(244, 244, 239, 0.42);
+  text-transform: uppercase;
+}
+
+.br3n-capability-card strong,
+.br3n-method-step strong {
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.br3n-capability-card p,
+.br3n-method-step p,
+.br3n-promise-card p {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: rgba(244, 244, 239, 0.5);
+}
+
+.br3n-method-list {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.br3n-method-step {
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1fr);
+  gap: 0.85rem;
+  align-items: start;
+  padding: 0.9rem;
+}
+
+.br3n-method-step > span {
+  display: grid;
+  width: 2.45rem;
+  height: 2.45rem;
+  place-items: center;
+  color: #08080a;
+  background: #f4f4ef;
+  border-radius: 999px;
+}
+
+.br3n-method-step div {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.br3n-promise-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.35rem 0.65rem;
+  margin-top: 0.85rem;
+  padding: 0.95rem;
+}
+
+.br3n-promise-card p {
+  grid-column: 2;
 }
 
 .br3n-chart {
@@ -1537,6 +1733,7 @@
   .br3n-hero,
   .br3n-grid--market,
   .br3n-grid--collars,
+  .br3n-grid--method,
   .br3n-grid--risk,
   .br3n-grid--exposure,
   .br3n-grid--signals {
@@ -1546,7 +1743,8 @@
   .br3n-grid--three,
   .br3n-metric-grid,
   .br3n-command-strip,
-  .br3n-signal-grid {
+  .br3n-signal-grid,
+  .br3n-capability-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1600,6 +1798,11 @@
   }
 
   .br3n-hero-tape {
+    grid-template-columns: 1fr;
+  }
+
+  .br3n-hero-proof,
+  .br3n-capability-grid {
     grid-template-columns: 1fr;
   }
 

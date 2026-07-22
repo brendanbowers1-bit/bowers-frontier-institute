@@ -47,7 +47,7 @@ export function PwaInstallPrompt() {
       <div>
         <Smartphone size={17} />
         <span>Publish-ready mobile app</span>
-        <strong>Add BR3N Collars to your home screen.</strong>
+        <strong>Add BR3N Cockpit to your home screen.</strong>
         <p>
           {isiOS
             ? "On iPhone, tap Share, then Add to Home Screen for a standalone app experience."
