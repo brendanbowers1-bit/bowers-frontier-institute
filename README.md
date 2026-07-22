@@ -1,6 +1,6 @@
-# BR3N Finance Dashboard
+# BR3N Macro Research Workspace
 
-A premium, interactive finance dashboard for **BR3N**: black/white, institutional, minimalist, cinematic, and built as a luxury trading desk cockpit.
+A premium, interactive research workspace for **BR3N**: warm, restrained, editorial, and built for calm market reasoning rather than a loud trading terminal.
 
 The current implementation uses modular mock data and is structured so live sources can later be connected through Bloomberg, Snowflake, yfinance, FRED, internal databases, or proprietary market-data services.
 
@@ -84,14 +84,14 @@ Replace these modules or wrap them with adapters when connecting live APIs.
 
 - Uses a custom inline SVG interpretation of the provided BR3N Macro Labs crest
 - Adds a dark metallic ribbon-loop brand mark inspired by the supplied black sculptural logo reference
-- Black background
-- Soft white/gray type
-- Glass and metal panels
+- Warm umber background
+- Paper-toned typography
+- Quiet glass panels
 - Thin borders
-- Subtle glow
+- Subtle clay glow
 - Calm, silky transitions
 - No visual clutter
-- Dashboard-first responsive layout
+- Dashboard-first responsive layout with an editorial research-system feel
 
 ## GitHub Pages production build
 

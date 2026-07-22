@@ -58,10 +58,16 @@ const periodLengths = {
 const navItems = ["Overview", "Collars", "Markets", "Risk", "Exposure", "Signals"];
 
 const metrics = [
-  { label: "AUM monitored", value: "$2.84B", delta: "+4.8%", icon: CircleDollarSign },
-  { label: "Portfolio P&L", value: "$14.2M", delta: "+1.9%", icon: Activity },
-  { label: "Collar candidates", value: "10", delta: "credit only", icon: Shield },
-  { label: "Hedge ratio", value: "64%", delta: "+3 pts", icon: Gauge },
+  { label: "Capital observed", value: "$2.84B", delta: "+4.8%", icon: CircleDollarSign },
+  { label: "Research P&L", value: "$14.2M", delta: "+1.9%", icon: Activity },
+  { label: "Collar candidates", value: "10", delta: "screened", icon: Shield },
+  { label: "Hedge posture", value: "64%", delta: "+3 pts", icon: Gauge },
+];
+
+const thesisPoints = [
+  "Read the regime before optimizing the trade.",
+  "Keep data lineage close to every recommendation.",
+  "Make uncertainty visible enough to govern.",
 ];
 
 export function Br3nDashboard() {
@@ -99,7 +105,7 @@ export function Br3nDashboard() {
           <Br3nCrest compact />
           <div>
             <div className="br3n-wordmark">BR3N</div>
-            <div className="br3n-brandline">Macro Labs</div>
+            <div className="br3n-brandline">Research Systems</div>
           </div>
         </div>
         <nav className="br3n-nav">
@@ -112,8 +118,8 @@ export function Br3nDashboard() {
         </nav>
         <div className="br3n-sidebar-card">
           <Radio size={16} />
-          <span>Live API ready</span>
-          <small>Bloomberg / Snowflake / FRED adapters can be mounted behind the data layer.</small>
+          <span>Evidence first</span>
+          <small>Adapters for Bloomberg, Snowflake, FRED, and internal data can sit behind the research layer.</small>
         </div>
       </aside>
 
@@ -132,12 +138,21 @@ export function Br3nDashboard() {
             <div className="br3n-hero-brand">
               <Br3nCrest />
             </div>
-            <p className="br3n-kicker">Research · Regime · Risk</p>
-            <h1>Macro command for currency, risk, and capital decisions.</h1>
+            <p className="br3n-kicker">BFI · Research systems</p>
+            <h1>A calmer way to read macro risk.</h1>
             <p className="br3n-hero-copy">
-              A luxury-grade finance cockpit for market oversight, credit-collar discovery, rates,
-              volatility, drawdown, and hedge posture. Fast, intentional, and calm.
+              BR3N turns market data, credit-collar discovery, and hedge posture into a
+              disciplined workspace for reasoning about capital. It is built to clarify
+              the question before it accelerates the answer.
             </p>
+            <div className="br3n-hero-principles" aria-label="Research principles">
+              {thesisPoints.map((point, index) => (
+                <span key={point}>
+                  <strong>0{index + 1}</strong>
+                  {point}
+                </span>
+              ))}
+            </div>
           </div>
           <div className="br3n-hero-right">
             <motion.div
@@ -196,18 +211,18 @@ export function Br3nDashboard() {
         >
           <div>
             <BarChart3 size={16} />
-            <span>Signal engine</span>
-            <strong>Credit collars ranked</strong>
+            <span>Evidence</span>
+            <strong>Credit collars ranked by observable inputs</strong>
           </div>
           <div>
             <Activity size={16} />
-            <span>Optimizer</span>
-            <strong>Profit / floor / liquidity</strong>
+            <span>Reasoning</span>
+            <strong>Profit, floor, liquidity, and fit separated</strong>
           </div>
           <div>
             <Shield size={16} />
-            <span>Governance</span>
-            <strong>Research only · no execution</strong>
+            <span>Guardrails</span>
+            <strong>Research only · no autonomous execution</strong>
           </div>
         </motion.section>
 
@@ -355,8 +370,8 @@ export function Br3nDashboard() {
             </div>
             <div className="br3n-metal-card">
               <Layers size={18} />
-              <span>Modular data architecture</span>
-              <p>Mock files are separated by FX, performance, exposure, rates, volatility, and correlations for live API replacement.</p>
+              <span>Auditable data architecture</span>
+              <p>FX, performance, exposure, rates, volatility, and correlations remain separated so live sources can be reviewed, replaced, and governed independently.</p>
             </div>
           </Panel>
         </section>
@@ -540,7 +555,7 @@ function Br3nLoader() {
           <span />
           <span />
         </div>
-        <p>Synchronizing market intelligence</p>
+        <p>Preparing research workspace</p>
       </motion.div>
     </div>
   );
