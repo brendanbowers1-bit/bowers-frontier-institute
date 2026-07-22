@@ -1,13 +1,13 @@
 {
-  "name": "BR3N Credit Collar Feed",
-  "short_name": "BR3N Collars",
-  "description": "A mobile research cockpit for positive-credit collars, downside floors, and hedge candidate discovery.",
+  "name": "BR3N Macro Research Workspace",
+  "short_name": "BR3N Research",
+  "description": "A calm macro research workspace for currency risk, credit-collar discovery, hedge posture, and auditable market reasoning.",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#030304",
-  "theme_color": "#050506",
+  "background_color": "#17120f",
+  "theme_color": "#17120f",
   "categories": ["finance", "business", "productivity"],
   "icons": [
     {
@@ -24,9 +24,9 @@
   ],
   "shortcuts": [
     {
-      "name": "Credit collar feed",
+      "name": "Credit collar research",
       "short_name": "Collars",
-      "description": "Open the optimized credit-collar feed.",
+      "description": "Open the credit-collar research feed.",
       "url": "./#collars"
     },
     {

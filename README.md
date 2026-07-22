@@ -82,8 +82,9 @@ Replace these modules or wrap them with adapters when connecting live APIs.
 
 ## Design direction
 
-- Uses a custom inline SVG interpretation of the provided BR3N Macro Labs crest
-- Adds a dark metallic ribbon-loop brand mark inspired by the supplied black sculptural logo reference
+- Uses a custom inline SVG BR3N frontier-aperture crest: vertical discipline, central opening, and a horizon curve
+- Adds a dark metallic aperture/ribbon sculpture for the hero identity moment
+- Ships matching favicon and maskable app icon assets
 - Warm umber background
 - Paper-toned typography
 - Quiet glass panels

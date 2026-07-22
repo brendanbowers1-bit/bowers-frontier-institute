@@ -162,6 +162,10 @@ export function Br3nDashboard() {
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             >
               <Br3nRibbonMark />
+              <div className="br3n-logo-caption">
+                <span>Frontier aperture</span>
+                <strong>Evidence, restraint, and governed decision systems.</strong>
+              </div>
             </motion.div>
             <div className="br3n-hero-tape" aria-label="Market overview">
               {fxRates.slice(0, 4).map((rate) => (
@@ -225,6 +229,23 @@ export function Br3nDashboard() {
             <strong>No execution surface · research only</strong>
           </div>
         </motion.section>
+
+        <section className="br3n-method-strip" aria-label="Research method">
+          <div>
+            <p className="br3n-kicker">Method</p>
+            <h2>Designed for careful operators.</h2>
+          </div>
+          <p>
+            The interface separates observation from interpretation, and interpretation
+            from action. Every module is framed as research infrastructure: legible,
+            auditable, and deliberately slow where judgment matters.
+          </p>
+          <div className="br3n-method-steps">
+            <span>Observe</span>
+            <span>Interpret</span>
+            <span>Govern</span>
+          </div>
+        </section>
 
         <PwaInstallPrompt />
 
