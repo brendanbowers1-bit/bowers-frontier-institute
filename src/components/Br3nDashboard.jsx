@@ -222,7 +222,7 @@ export function Br3nDashboard() {
           <div>
             <Shield size={16} />
             <span>Guardrails</span>
-            <strong>Research only · no autonomous execution</strong>
+            <strong>No execution surface · research only</strong>
           </div>
         </motion.section>
 
