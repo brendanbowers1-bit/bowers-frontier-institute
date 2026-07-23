@@ -4,6 +4,8 @@ This app is publish-ready as a mobile web application and progressive web app (P
 is the BFI homepage. BR3N serverless live-feed adapters remain available for hosts that support
 functions.
 
+Production domain target: `www.bowersfrontier.com` purchased through Cloudflare.
+
 ## Launch path
 
 1. Run validation:
@@ -39,6 +41,27 @@ Netlify can also run the live-feed endpoint via `netlify/functions/credit-collar
 
 The included `netlify.toml` maps `/api/credit-collars` to the Netlify function and keeps the app shell
 working on deep links.
+
+## Cloudflare Pages
+
+Cloudflare Pages is the preferred static host for `www.bowersfrontier.com` because the domain is already
+managed in Cloudflare.
+
+- Project type: Pages, connected to the GitHub repository
+- Production branch: `main`
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Custom domain: `www.bowersfrontier.com`
+- Optional redirect: configure `bowersfrontier.com` to redirect to `https://www.bowersfrontier.com`
+
+After the Pages project is created, add `www.bowersfrontier.com` under **Custom domains** in Cloudflare
+Pages. Because the domain is registered and DNS-managed in Cloudflare, Cloudflare can create the needed
+DNS record automatically. Keep HTTPS enabled and verify that the PWA manifest and service worker load
+from the final domain.
+
+Cloudflare Pages does not run the included Vercel or Netlify function adapters as-is. For BR3N live-feed
+surfaces, either keep the current static fallback, add a Cloudflare Worker at `/api/credit-collars`, or
+point that route to a separate licensed market-data API origin.
 
 ## GitHub Pages
 
