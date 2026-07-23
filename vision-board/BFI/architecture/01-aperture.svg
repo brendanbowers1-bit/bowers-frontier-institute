@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">BFI Architecture - aperture</title>
+  <desc id="desc">Original BFI ecosystem vision-board reference: quiet academic architecture.</desc>
+  <rect width="1200" height="800" fill="#050505"/>
+  <rect x="40" y="40" width="1120" height="720" fill="#F7F6F2" opacity="0.035"/>
+  <path d="M92 118 H1108" stroke="#F7F6F2" stroke-opacity="0.12"/>
+  <path d="M92 682 H1108" stroke="#F7F6F2" stroke-opacity="0.12"/>
+  
+  <circle cx="600" cy="390" r="226" fill="none" stroke="#F7F6F2" stroke-opacity="0.16" stroke-width="2"/>
+  <path d="M456 270 L600 190 L744 270" fill="none" stroke="#B89A5D" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M476 296 V548 M724 296 V548" stroke="#F7F6F2" stroke-opacity="0.72" stroke-width="12" stroke-linecap="round"/>
+  <path d="M600 316 V500" stroke="#F7F6F2" stroke-opacity="0.32" stroke-width="4" stroke-linecap="round"/>
+  <path d="M384 538 C470 492 534 482 600 482 C666 482 730 492 816 538" fill="none" stroke="#B89A5D" stroke-width="8" stroke-linecap="round"/>
+  <text x="92" y="104" fill="#F7F6F2" font-family="Georgia, serif" font-size="34" letter-spacing="5">BFI Architecture</text>
+  <text x="92" y="704" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="17" letter-spacing="4">APERTURE</text>
+  <text x="1108" y="704" fill="rgba(247,246,242,0.58)" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="15" letter-spacing="3" text-anchor="end">QUIET ACADEMIC ARCHITECTURE</text>
+</svg>

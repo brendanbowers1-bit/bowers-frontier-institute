@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.cwd();
@@ -10,7 +10,10 @@ const checks = [
   fileCheck("Cursor branding rules", "cursor-rules/branding.md", 6),
   fileCheck("Cursor UI rules", "cursor-rules/ui_rules.md", 6),
   fileCheck("Cursor component rules", "cursor-rules/component_rules.md", 6),
+  fileCheck("Cursor design language", "cursor-rules/design_language.md", 6),
   fileCheck("Organization doc", "docs/organization.md", 6),
+  fileCheck("Vision board guide", "vision-board/README.md", 6),
+  countCheck("Vision board image library", "vision-board", ".svg", 50, 10),
   phraseCheck("Active app uses BFI homepage", "src/App.jsx", "BfiHomepage", 8),
   phraseCheck("Institution hero", "src/components/BfiHomepage.jsx", "The Bowers Frontier Institute", 6),
   phraseCheck("Civilization line", "src/components/BfiHomepage.jsx", "Exploring questions that reshape civilization.", 6),
@@ -70,4 +73,26 @@ function phraseCheck(name, relativePath, phrase, points) {
     passed,
     detail: passed ? `Found "${phrase}"` : `Missing "${phrase}"`,
   };
+}
+
+function countCheck(name, relativePath, extension, minimum, points) {
+  const path = join(root, relativePath);
+  if (!existsSync(path)) {
+    return { name, points, passed: false, detail: `Missing ${relativePath}` };
+  }
+  const count = countFiles(path, extension);
+  return {
+    name,
+    points,
+    passed: count >= minimum,
+    detail: `${count} ${extension} files found; minimum ${minimum}`,
+  };
+}
+
+function countFiles(path, extension) {
+  return readdirSync(path, { withFileTypes: true }).reduce((total, entry) => {
+    const child = join(path, entry.name);
+    if (entry.isDirectory()) return total + countFiles(child, extension);
+    return total + (entry.isFile() && entry.name.endsWith(extension) ? 1 : 0);
+  }, 0);
 }

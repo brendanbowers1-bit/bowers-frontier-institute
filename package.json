@@ -11,6 +11,7 @@
     "check:collars": "node scripts/check-credit-collars.mjs",
     "check:pwa": "node scripts/check-pwa.mjs",
     "check:deploy": "npm ci && npm audit --audit-level=high && npm run lint && npm run check:trade && npm run check:collars && npm run check:pwa && npm run build && GITHUB_PAGES=true npm run build && node scripts/smoke-pages-build.mjs",
+    "generate:vision-board": "node scripts/generate_vision_board.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "quality:bfi": "node scripts/bfi_quality.mjs",

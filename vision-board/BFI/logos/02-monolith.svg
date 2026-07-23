@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">BFI Logos - monolith</title>
+  <desc id="desc">Original BFI ecosystem vision-board reference: monolith aperture mark.</desc>
+  <rect width="1200" height="800" fill="#050505"/>
+  <rect x="40" y="40" width="1120" height="720" fill="#FFFFFF" opacity="0.035"/>
+  <path d="M92 118 H1108" stroke="#F7F6F2" stroke-opacity="0.12"/>
+  <path d="M92 682 H1108" stroke="#F7F6F2" stroke-opacity="0.12"/>
+  
+  <rect x="454" y="190" width="292" height="378" fill="none" stroke="#F7F6F2" stroke-opacity="0.72" stroke-width="10"/>
+  <rect x="590" y="214" width="20" height="330" fill="#B89A5D"/>
+  <path d="M506 600 H694" stroke="#F7F6F2" stroke-opacity="0.22" stroke-width="3"/>
+  <text x="92" y="104" fill="#F7F6F2" font-family="Georgia, serif" font-size="34" letter-spacing="5">BFI Logos</text>
+  <text x="92" y="704" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="17" letter-spacing="4">MONOLITH</text>
+  <text x="1108" y="704" fill="rgba(247,246,242,0.58)" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="15" letter-spacing="3" text-anchor="end">MONOLITH APERTURE MARK</text>
+</svg>
