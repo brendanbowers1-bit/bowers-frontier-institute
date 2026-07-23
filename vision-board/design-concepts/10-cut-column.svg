@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">The Cut Column</title>
+  <desc id="desc">Original BFI ecosystem design concept board.</desc>
+  <rect width="1200" height="1600" fill="#050505"/>
+  
+  <rect x="530" y="250" width="140" height="790" rx="70" fill="#F7F6F2"/>
+  <rect x="494" y="218" width="212" height="72" fill="#F7F6F2"/>
+  <rect x="460" y="1040" width="280" height="46" fill="#F7F6F2"/>
+  <rect x="430" y="1086" width="340" height="52" fill="#CFCFC8"/>
+  <path d="M530 690 L670 580 V720 L530 830 Z" fill="#050505"/>
+  <path d="M498 1160 H702" stroke="#F7F6F2" stroke-opacity="0.24"/>
+  <text x="80" y="1480" fill="#F7F6F2" font-family="Georgia, serif" font-size="46" letter-spacing="3">The Cut Column</text>
+  <text x="80" y="1534" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="18" letter-spacing="5">BFI ECOSYSTEM CONCEPT</text>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">Native Security Panel</title>
+  <desc id="desc">Original BFI ecosystem design concept board.</desc>
+  <rect width="1200" height="1600" fill="#050505"/>
+  
+  <rect x="210" y="230" width="780" height="1080" rx="72" fill="#1B1B1B"/>
+  <circle cx="292" cy="318" r="42" fill="#2A2A2A" stroke="#CFCFC8" stroke-opacity="0.18"/>
+  <path d="M274 300 L310 336 M310 300 L274 336" stroke="#F7F6F2" stroke-width="7" stroke-linecap="round"/>
+  <text x="290" y="450" fill="#F7F6F2" font-family="IBM Plex Sans, system-ui" font-size="54" font-weight="600">Recovery Key</text>
+  <text x="290" y="535" fill="#CFCFC8" font-family="IBM Plex Sans, system-ui" font-size="36">Required to recover access.</text>
+  <rect x="290" y="690" width="620" height="92" rx="46" fill="#2D2D2F"/>
+  <text x="600" y="748" fill="#F7F6F2" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="24" text-anchor="middle" letter-spacing="3">LZZQ-B925-TZUH-9YDJ</text>
+  <rect x="290" y="1120" width="620" height="100" rx="50" fill="#3B8DF7"/>
+  <text x="600" y="1182" fill="#F7F6F2" font-family="IBM Plex Sans, system-ui" font-size="34" text-anchor="middle">Continue</text>
+  <text x="80" y="1480" fill="#F7F6F2" font-family="Georgia, serif" font-size="46" letter-spacing="3">Native Security Panel</text>
+  <text x="80" y="1534" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="18" letter-spacing="5">BFI ECOSYSTEM CONCEPT</text>
+</svg>

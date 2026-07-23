@@ -27,4 +27,5 @@ Run:
 
 ```bash
 npm run generate:vision-board
+npm run generate:design-concepts
 ```

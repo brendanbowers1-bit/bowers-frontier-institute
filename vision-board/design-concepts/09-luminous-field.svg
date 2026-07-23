@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">The Luminous Field</title>
+  <desc id="desc">Original BFI ecosystem design concept board.</desc>
+  <rect width="1200" height="1600" fill="#050505"/>
+  
+  <radialGradient id="fieldGlow" cx="50%" cy="46%" r="42%">
+    <stop offset="0%" stop-color="#F7F6F2" stop-opacity="0.82"/>
+    <stop offset="45%" stop-color="#B89A5D" stop-opacity="0.24"/>
+    <stop offset="100%" stop-color="#050505" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1200" height="1600" fill="#050505"/>
+  <circle cx="600" cy="700" r="310" fill="url(#fieldGlow)"/>
+  <g fill="none" stroke="#F7F6F2" stroke-opacity="0.14">
+    <circle cx="600" cy="700" r="170"/>
+    <circle cx="600" cy="700" r="260"/>
+    <circle cx="600" cy="700" r="380"/>
+    <path d="M600 120 V1120"/>
+  </g>
+  <path d="M600 902 V1120" stroke="#F7F6F2" stroke-opacity="0.72" stroke-width="8"/>
+  <circle cx="600" cy="884" r="18" fill="#F7F6F2"/>
+  <text x="80" y="1480" fill="#F7F6F2" font-family="Georgia, serif" font-size="46" letter-spacing="3">The Luminous Field</text>
+  <text x="80" y="1534" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="18" letter-spacing="5">BFI ECOSYSTEM CONCEPT</text>
+</svg>

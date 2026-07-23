@@ -124,3 +124,124 @@ Best for:
 - System diagrams
 - Navigation icons
 - Holding-company architecture
+
+## 9. The Luminous Field
+
+Use for BFI.
+
+- Dark field with concentric systems
+- One human figure in front of a warm center
+- Vertical rainfall or data-like traces
+- Meaning: the individual before knowledge, measurement, and the unknown
+
+Best for:
+
+- Research hero images
+- Foundation pages
+- Frontier Fellows visuals
+
+## 10. The Cut Column
+
+Use for BFI and OLTRE.
+
+- Classical column or monolith
+- One clean diagonal incision
+- White stone on black
+- Meaning: tradition interrupted by frontier inquiry
+
+Best for:
+
+- BFI logo studies
+- OLTRE architecture references
+- Publication covers
+
+## 11. Noir Founder Editorial
+
+Use for founder/editorial contexts.
+
+- Human figure in dark clothing
+- Warm cinematic city light
+- Romantic but restrained atmosphere
+- Meaning: authorship, risk, taste, and responsibility
+
+Best for:
+
+- Founder page
+- Essay covers
+- Editorial photography direction
+
+## 12. City Palimpsest
+
+Use for BR3N and SOLGLIA.
+
+- Black-and-white city collage
+- Layered geometry, scratches, grids, and urban texture
+- Small restrained wordmark
+- Meaning: intelligence hidden inside systems and cities
+
+Best for:
+
+- BR3N campaign visuals
+- SOLGLIA dashboards
+- Data-city metaphors
+
+## 13. Native Security Panel
+
+Use for mobile product UI.
+
+- Dark rounded sheet
+- One clear title
+- One high-emphasis action
+- Generous padding
+- Meaning: trust, recovery, privacy, platform-native confidence
+
+Best for:
+
+- Account flows
+- API key and recovery-key screens
+- Mobile PWA install and security states
+
+## 14. Anatomy Poster
+
+Use for BR3N research/product storytelling.
+
+- Large central image
+- Thin grid
+- Scientific callouts
+- Sparse side labels
+- Meaning: the product as an object of study
+
+Best for:
+
+- Product explainers
+- Research posters
+- Interactive dashboard covers
+
+## 15. Botanical Restraint
+
+Use for BFI, T1D, medicine, and foundation contexts.
+
+- Warm paper
+- Fine botanical linework
+- Sparse composition
+- Meaning: life, fragility, care, science, and patience
+
+Best for:
+
+- Medical research pages
+- Foundation materials
+- Quiet publication interludes
+
+## 16. Institutional Crest System
+
+Use for BR3N heritage and formal product marks.
+
+- Shield, laurel, serif, motto
+- Must be simplified for real use
+- Meaning: trust, discipline, and formal research standards
+
+Best for:
+
+- Internal certificates
+- Research standards
+- Formal lab identity studies
