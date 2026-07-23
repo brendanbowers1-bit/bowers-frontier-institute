@@ -47,6 +47,24 @@ const publications = [
 
 const openResearch = ["GitHub", "Papers", "Datasets", "Interactive dashboards"];
 
+const ecosystem = [
+  {
+    name: "BR3N",
+    role: "AI products",
+    description: "Autonomous agents, governed intelligence systems, and modern AI product surfaces.",
+  },
+  {
+    name: "SOLGLIA",
+    role: "Business intelligence",
+    description: "Executive dashboards, enterprise intelligence, and precision operating systems.",
+  },
+  {
+    name: "OLTRE",
+    role: "Luxury design",
+    description: "Architecture, fashion-adjacent systems, marble, black, and quiet confidence.",
+  },
+];
+
 function BfiMark() {
   const titleId = useId();
 
@@ -139,6 +157,27 @@ export function BfiHomepage() {
             <a href="#top" key={item}>
               {item}
             </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="bfi-section bfi-ecosystem" aria-labelledby="ecosystem-title">
+        <div className="bfi-section__head">
+          <p className="bfi-eyebrow">Commercialization</p>
+          <h2 id="ecosystem-title">Research becomes companies.</h2>
+        </div>
+        <div className="bfi-ecosystem__line" aria-label="BFI commercialization path">
+          <span>BFI Research</span>
+          <span>Commercialization</span>
+          <span>Products</span>
+        </div>
+        <div className="bfi-ecosystem__grid">
+          {ecosystem.map((company) => (
+            <article key={company.name}>
+              <span>{company.role}</span>
+              <h3>{company.name}</h3>
+              <p>{company.description}</p>
+            </article>
           ))}
         </div>
       </section>

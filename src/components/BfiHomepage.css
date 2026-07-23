@@ -376,6 +376,76 @@
   border-color: rgba(255, 255, 255, 0.18);
 }
 
+.bfi-ecosystem {
+  background: var(--bfi-warm-white);
+}
+
+.bfi-ecosystem__line {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin-bottom: 1px;
+  background: rgba(5, 5, 5, 0.14);
+  border: 1px solid rgba(5, 5, 5, 0.14);
+}
+
+.bfi-ecosystem__line span,
+.bfi-ecosystem__grid article {
+  background: var(--bfi-warm-white);
+}
+
+.bfi-ecosystem__line span {
+  padding: 1rem;
+  font-family: var(--font-mono, "IBM Plex Mono", ui-monospace, monospace);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-transform: uppercase;
+  color: rgba(5, 5, 5, 0.54);
+}
+
+.bfi-ecosystem__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: rgba(5, 5, 5, 0.14);
+  border: 1px solid rgba(5, 5, 5, 0.14);
+  border-top: 0;
+}
+
+.bfi-ecosystem__grid article {
+  display: grid;
+  gap: 1rem;
+  min-height: 18rem;
+  padding: clamp(1.4rem, 3vw, 2rem);
+}
+
+.bfi-ecosystem__grid span {
+  font-family: var(--font-mono, "IBM Plex Mono", ui-monospace, monospace);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bfi-gold);
+}
+
+.bfi-ecosystem__grid h3 {
+  margin: 0;
+  font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+  font-size: clamp(2.3rem, 5vw, 4.5rem);
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+}
+
+.bfi-ecosystem__grid p {
+  max-width: 23rem;
+  margin: auto 0 0;
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.65;
+  color: rgba(5, 5, 5, 0.62);
+}
+
 .bfi-footer {
   display: grid;
   grid-template-columns: 1fr auto auto;
@@ -400,7 +470,12 @@
   .bfi-hero,
   .bfi-section__head,
   .bfi-open,
+  .bfi-ecosystem__grid,
   .bfi-footer {
+    grid-template-columns: 1fr;
+  }
+
+  .bfi-ecosystem__line {
     grid-template-columns: 1fr;
   }
 
