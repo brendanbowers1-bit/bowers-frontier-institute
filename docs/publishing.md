@@ -1,7 +1,8 @@
-# Publishing BR3N Credit Collar Feed
+# Publishing BFI Website
 
-This app is publish-ready as a mobile web application and progressive web app (PWA). It also includes
-serverless live-feed adapters for hosts that support functions.
+This app is publish-ready as a mobile web application and progressive web app (PWA). The active root
+is the BFI homepage. BR3N serverless live-feed adapters remain available for hosts that support
+functions.
 
 ## Launch path
 

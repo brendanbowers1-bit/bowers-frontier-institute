@@ -1,0 +1,447 @@
+.bfi-site {
+  --bfi-black: #050505;
+  --bfi-white: #ffffff;
+  --bfi-warm-white: #f7f6f2;
+  --bfi-stone: #cfcfc8;
+  --bfi-graphite: #1b1b1b;
+  --bfi-gold: #b89a5d;
+  min-height: 100vh;
+  color: var(--bfi-black);
+  background: var(--bfi-warm-white);
+  font-family: var(--font-sans, "IBM Plex Sans", system-ui, sans-serif);
+}
+
+.bfi-site a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.bfi-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem clamp(1.25rem, 4vw, 3.5rem);
+  background: rgba(247, 246, 242, 0.88);
+  border-bottom: 1px solid rgba(5, 5, 5, 0.08);
+  backdrop-filter: blur(18px);
+}
+
+.bfi-nav__brand,
+.bfi-footer div {
+  display: inline-flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.bfi-nav__brand span,
+.bfi-footer span {
+  font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+}
+
+.bfi-nav nav,
+.bfi-footer nav {
+  display: flex;
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.bfi-nav nav a,
+.bfi-footer nav a,
+.bfi-eyebrow,
+.bfi-hero__actions a,
+.bfi-research-card a,
+.bfi-open__links a {
+  font-family: var(--font-mono, "IBM Plex Mono", ui-monospace, monospace);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.bfi-nav nav a {
+  color: rgba(5, 5, 5, 0.58);
+  transition: color 180ms ease;
+}
+
+.bfi-nav nav a:hover {
+  color: var(--bfi-black);
+}
+
+.bfi-mark {
+  width: 2.4rem;
+  height: 2.4rem;
+  overflow: visible;
+}
+
+.bfi-mark circle,
+.bfi-mark path {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bfi-mark circle {
+  stroke-width: 1;
+  opacity: 0.5;
+}
+
+.bfi-mark path {
+  stroke-width: 1.4;
+}
+
+.bfi-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(22rem, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+  min-height: calc(100vh - 5rem);
+  padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 5vw, 5rem);
+}
+
+.bfi-hero__copy {
+  max-width: 42rem;
+}
+
+.bfi-eyebrow {
+  margin: 0 0 1rem;
+  color: var(--bfi-gold);
+}
+
+.bfi-hero h1,
+.bfi-section__head h2,
+.bfi-publications h2,
+.bfi-open h2 {
+  margin: 0;
+  font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+  font-weight: 500;
+  color: var(--bfi-black);
+}
+
+.bfi-hero h1 {
+  max-width: 11ch;
+  font-size: clamp(4.4rem, 12vw, 12rem);
+  line-height: 0.82;
+  letter-spacing: -0.06em;
+}
+
+.bfi-hero__copy > p:not(.bfi-eyebrow) {
+  max-width: 32rem;
+  margin: 2rem 0 0;
+  font-size: clamp(1.2rem, 2vw, 1.65rem);
+  font-weight: 300;
+  line-height: 1.55;
+  color: rgba(5, 5, 5, 0.68);
+}
+
+.bfi-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 2.5rem;
+}
+
+.bfi-hero__actions a,
+.bfi-open__links a {
+  display: inline-flex;
+  justify-content: center;
+  min-width: 9rem;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid rgba(5, 5, 5, 0.16);
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+.bfi-hero__actions a:first-child,
+.bfi-open__links a:hover {
+  color: var(--bfi-white);
+  background: var(--bfi-black);
+  border-color: var(--bfi-black);
+}
+
+.bfi-hero__actions a:hover {
+  border-color: var(--bfi-black);
+}
+
+.bfi-cinema {
+  position: relative;
+  min-height: clamp(28rem, 56vw, 44rem);
+  overflow: hidden;
+  color: var(--bfi-white);
+  background: var(--bfi-black);
+}
+
+.bfi-cinema__plate {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 70% 18%, rgba(184, 154, 93, 0.28), transparent 18rem),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 28%),
+    linear-gradient(180deg, transparent 40%, rgba(5, 5, 5, 0.9) 100%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 9rem),
+    #050505;
+}
+
+.bfi-cinema::before {
+  position: absolute;
+  inset: 12%;
+  content: "";
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.bfi-cinema::after {
+  position: absolute;
+  top: 24%;
+  right: 17%;
+  width: 28%;
+  height: 48%;
+  content: "";
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-block-color: rgba(184, 154, 93, 0.58);
+}
+
+.bfi-cinema span {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  max-width: 18rem;
+  font-family: var(--font-mono, "IBM Plex Mono", ui-monospace, monospace);
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.bfi-section {
+  padding: clamp(5rem, 9vw, 9rem) clamp(1.25rem, 5vw, 5rem);
+  border-top: 1px solid rgba(5, 5, 5, 0.1);
+}
+
+.bfi-section__head {
+  display: grid;
+  grid-template-columns: minmax(0, 0.45fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 5vw, 5rem);
+  align-items: end;
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.bfi-section__head h2,
+.bfi-publications h2,
+.bfi-open h2 {
+  max-width: 14ch;
+  font-size: clamp(3rem, 7vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+}
+
+.bfi-research-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(18rem, 1fr));
+  gap: 1px;
+  overflow-x: auto;
+  background: rgba(5, 5, 5, 0.14);
+  border: 1px solid rgba(5, 5, 5, 0.14);
+}
+
+.bfi-research-card {
+  display: grid;
+  grid-template-rows: 18rem 1fr;
+  min-height: 33rem;
+  background: var(--bfi-warm-white);
+}
+
+.bfi-image {
+  background:
+    linear-gradient(180deg, transparent 45%, rgba(5, 5, 5, 0.62)),
+    radial-gradient(circle at 70% 22%, rgba(184, 154, 93, 0.28), transparent 14rem),
+    var(--bfi-graphite);
+}
+
+.bfi-image--ai,
+.bfi-image--robotics {
+  background:
+    linear-gradient(180deg, transparent 45%, rgba(5, 5, 5, 0.72)),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 18px),
+    #070707;
+}
+
+.bfi-image--medicine,
+.bfi-image--climate {
+  background:
+    linear-gradient(180deg, transparent 48%, rgba(5, 5, 5, 0.68)),
+    radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.2), transparent 12rem),
+    #2a2a28;
+}
+
+.bfi-image--energy,
+.bfi-image--economics {
+  background:
+    linear-gradient(180deg, transparent 46%, rgba(5, 5, 5, 0.68)),
+    linear-gradient(115deg, rgba(184, 154, 93, 0.38), transparent 42%),
+    #111;
+}
+
+.bfi-research-card > div:last-child {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  padding: 1.4rem;
+}
+
+.bfi-research-card h3,
+.bfi-publications h3 {
+  margin: 0;
+  font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+  font-size: clamp(1.7rem, 3vw, 2.45rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.bfi-research-card p {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 300;
+  line-height: 1.65;
+  color: rgba(5, 5, 5, 0.62);
+}
+
+.bfi-research-card a {
+  margin-top: auto;
+  color: var(--bfi-gold);
+}
+
+.bfi-publications {
+  background: var(--bfi-white);
+}
+
+.bfi-publications ol {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(5, 5, 5, 0.14);
+}
+
+.bfi-publications li {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr) auto;
+  gap: clamp(1rem, 4vw, 4rem);
+  align-items: baseline;
+  padding: clamp(1.5rem, 3vw, 2.4rem) 0;
+  border-bottom: 1px solid rgba(5, 5, 5, 0.14);
+}
+
+.bfi-publications span,
+.bfi-publications p,
+.bfi-footer p {
+  margin: 0;
+  font-family: var(--font-mono, "IBM Plex Mono", ui-monospace, monospace);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  color: rgba(5, 5, 5, 0.46);
+  text-transform: uppercase;
+}
+
+.bfi-open {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.8fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+  color: var(--bfi-white);
+  background: var(--bfi-black);
+}
+
+.bfi-open .bfi-eyebrow,
+.bfi-open h2 {
+  color: var(--bfi-white);
+}
+
+.bfi-open__links {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.bfi-open__links a {
+  color: rgba(255, 255, 255, 0.78);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.bfi-footer {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 2rem clamp(1.25rem, 5vw, 5rem);
+  color: var(--bfi-white);
+  background: var(--bfi-black);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.bfi-footer .bfi-mark {
+  width: 2rem;
+  height: 2rem;
+}
+
+.bfi-footer nav a {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+@media (max-width: 980px) {
+  .bfi-hero,
+  .bfi-section__head,
+  .bfi-open,
+  .bfi-footer {
+    grid-template-columns: 1fr;
+  }
+
+  .bfi-hero h1,
+  .bfi-section__head h2,
+  .bfi-publications h2,
+  .bfi-open h2 {
+    max-width: 10ch;
+  }
+
+  .bfi-footer {
+    justify-items: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .bfi-nav {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .bfi-nav nav {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .bfi-hero {
+    min-height: auto;
+    padding-top: 4rem;
+  }
+
+  .bfi-hero h1 {
+    font-size: clamp(4rem, 22vw, 7rem);
+  }
+
+  .bfi-cinema {
+    min-height: 25rem;
+  }
+
+  .bfi-publications li {
+    grid-template-columns: 1fr;
+  }
+}

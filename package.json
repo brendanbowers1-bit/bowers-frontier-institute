@@ -2,7 +2,7 @@
   "name": "bowers-frontier-institute",
   "private": true,
   "version": "1.0.0",
-  "description": "BR3N premium finance dashboard",
+  "description": "BFI research website and brand design system",
   "type": "module",
   "scripts": {
     "dev": "vite",

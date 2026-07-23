@@ -1,5 +1,5 @@
-import { Br3nDashboard } from "./components/Br3nDashboard";
+import { BfiHomepage } from "./components/BfiHomepage";
 
 export default function App() {
-  return <Br3nDashboard />;
+  return <BfiHomepage />;
 }
