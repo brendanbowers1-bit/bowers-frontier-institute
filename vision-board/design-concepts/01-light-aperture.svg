@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">The Light Aperture</title>
+  <desc id="desc">Original BFI ecosystem design concept board.</desc>
+  <rect width="1200" height="1600" fill="#050505"/>
+  
+  <rect width="1200" height="1600" fill="#030303"/>
+  <path d="M602 0 V1320" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round"/>
+  <path d="M602 0 V1320" stroke="#FFFFFF" stroke-width="74" stroke-opacity="0.12"/>
+  <path d="M250 920 C420 780 512 780 602 900 C706 1040 850 990 980 860" fill="none" stroke="#F7F6F2" stroke-opacity="0.18" stroke-width="78" stroke-linecap="round"/>
+  <path d="M178 1280 H1022" stroke="#FFFFFF" stroke-opacity="0.44"/>
+  <path d="M600 1280 C584 1360 584 1410 600 1454 C616 1410 616 1360 600 1280" fill="#FFFFFF" opacity="0.52"/>
+  <text x="80" y="1480" fill="#F7F6F2" font-family="Georgia, serif" font-size="46" letter-spacing="3">The Light Aperture</text>
+  <text x="80" y="1534" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="18" letter-spacing="5">BFI ECOSYSTEM CONCEPT</text>
+</svg>

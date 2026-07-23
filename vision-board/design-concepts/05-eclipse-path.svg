@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">The Eclipse Path</title>
+  <desc id="desc">Original BFI ecosystem design concept board.</desc>
+  <rect width="1200" height="1600" fill="#050505"/>
+  
+  <circle cx="600" cy="520" r="180" fill="#050505" stroke="#F7F6F2" stroke-opacity="0.22" stroke-width="8"/>
+  <path d="M600 120 V890" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"/>
+  <path d="M600 120 V890" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="90"/>
+  <path d="M280 1330 C380 1120 500 1010 600 930 C690 858 780 760 936 600" fill="none" stroke="#F7F6F2" stroke-width="42" stroke-linecap="round"/>
+  <circle cx="380" cy="1238" r="12" fill="#F7F6F2"/>
+  <text x="80" y="1480" fill="#F7F6F2" font-family="Georgia, serif" font-size="46" letter-spacing="3">The Eclipse Path</text>
+  <text x="80" y="1534" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="18" letter-spacing="5">BFI ECOSYSTEM CONCEPT</text>
+</svg>

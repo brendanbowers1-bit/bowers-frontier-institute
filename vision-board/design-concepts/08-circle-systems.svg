@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">Circle Systems</title>
+  <desc id="desc">Original BFI ecosystem design concept board.</desc>
+  <rect width="1200" height="1600" fill="#050505"/>
+  
+  <circle cx="360" cy="700" r="150" fill="none" stroke="#F7F6F2" stroke-width="12"/>
+  <circle cx="600" cy="700" r="150" fill="none" stroke="#F7F6F2" stroke-width="12"/>
+  <circle cx="840" cy="700" r="150" fill="none" stroke="#F7F6F2" stroke-width="12"/>
+  <path d="M210 1010 H990" stroke="#F7F6F2" stroke-opacity="0.14"/>
+  <path d="M360 850 V1010 M600 850 V1010 M840 850 V1010" stroke="#B89A5D" stroke-opacity="0.5"/>
+  <text x="360" y="1076" fill="#CFCFC8" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="22" text-anchor="middle">BFI</text>
+  <text x="600" y="1076" fill="#CFCFC8" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="22" text-anchor="middle">BR3N</text>
+  <text x="840" y="1076" fill="#CFCFC8" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="22" text-anchor="middle">SOLGLIA</text>
+  <text x="80" y="1480" fill="#F7F6F2" font-family="Georgia, serif" font-size="46" letter-spacing="3">Circle Systems</text>
+  <text x="80" y="1534" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="18" letter-spacing="5">BFI ECOSYSTEM CONCEPT</text>
+</svg>

@@ -13,7 +13,9 @@ const checks = [
   fileCheck("Cursor design language", "cursor-rules/design_language.md", 6),
   fileCheck("Organization doc", "docs/organization.md", 6),
   fileCheck("Vision board guide", "vision-board/README.md", 6),
+  fileCheck("Design concepts brief", "vision-board/design-concepts.md", 6),
   countCheck("Vision board image library", "vision-board", ".svg", 50, 10),
+  countCheck("Design concept boards", "vision-board/design-concepts", ".svg", 8, 6),
   phraseCheck("Active app uses BFI homepage", "src/App.jsx", "BfiHomepage", 8),
   phraseCheck("Institution hero", "src/components/BfiHomepage.jsx", "The Bowers Frontier Institute", 6),
   phraseCheck("Civilization line", "src/components/BfiHomepage.jsx", "Exploring questions that reshape civilization.", 6),
@@ -29,6 +31,8 @@ const checks = [
   phraseCheck("Mobile responsive rule", "src/components/BfiHomepage.css", "@media (max-width: 640px)", 4),
   phraseCheck("Commercial ecosystem", "brand/design-system.md", "SOLGLIA", 4),
   phraseCheck("Luxury academic positioning", "brand/design-system.md", "luxury academic research", 4),
+  phraseCheck("Light aperture concept", "vision-board/design-concepts.md", "The Light Aperture", 4),
+  phraseCheck("Black ribbon concept", "vision-board/design-concepts.md", "The Black Ribbon Object", 4),
 ];
 
 const total = checks.reduce((sum, check) => sum + check.points, 0);

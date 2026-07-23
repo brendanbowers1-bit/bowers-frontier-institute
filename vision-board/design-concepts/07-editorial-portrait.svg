@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">Monochrome Editorial Study</title>
+  <desc id="desc">Original BFI ecosystem design concept board.</desc>
+  <rect width="1200" height="1600" fill="#050505"/>
+  
+  <path d="M414 450 C480 320 730 320 790 470 C850 628 744 800 600 800 C456 800 350 620 414 450Z" fill="#CFCFC8" opacity="0.24"/>
+  <path d="M360 982 C420 850 780 850 840 982 V1240 H360 Z" fill="#F7F6F2" opacity="0.08"/>
+  <path d="M456 610 H544 M656 610 H744" stroke="#F7F6F2" stroke-opacity="0.7" stroke-width="8" stroke-linecap="round"/>
+  <path d="M600 650 V760" stroke="#B89A5D" stroke-opacity="0.7" stroke-width="6"/>
+  <path d="M520 820 C570 852 632 852 682 820" fill="none" stroke="#F7F6F2" stroke-opacity="0.36" stroke-width="6" stroke-linecap="round"/>
+  <text x="80" y="1480" fill="#F7F6F2" font-family="Georgia, serif" font-size="46" letter-spacing="3">Monochrome Editorial Study</text>
+  <text x="80" y="1534" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="18" letter-spacing="5">BFI ECOSYSTEM CONCEPT</text>
+</svg>

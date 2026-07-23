@@ -29,10 +29,22 @@ single brand, logo, composition, or proprietary design.
 For every page, logo, icon, component, animation, and layout:
 
 1. Check `/vision-board/`.
-2. Identify the relevant brand surface: BFI, BR3N, OLTRE, or SOLGLIA.
-3. Blend the shared design language.
-4. Preserve the parent BFI system: restraint, whitespace, typography,
+2. Check `/vision-board/design-concepts.md` for named concept territories.
+3. Identify the relevant brand surface: BFI, BR3N, OLTRE, or SOLGLIA.
+4. Blend the shared design language.
+5. Preserve the parent BFI system: restraint, whitespace, typography,
    precision, and timelessness.
+
+## Primary concept territories
+
+- The Light Aperture
+- The Ring Gate
+- Luxury Monogram Studies
+- The Black Ribbon Object
+- The Eclipse Path
+- Electric Wordmark
+- Monochrome Editorial Study
+- Circle Systems
 
 ## Brand translation
 
