@@ -1,3 +1,4 @@
+import { useId } from "react";
 import "./BfiHomepage.css";
 
 const researchAreas = [
@@ -47,9 +48,11 @@ const publications = [
 const openResearch = ["GitHub", "Papers", "Datasets", "Interactive dashboards"];
 
 function BfiMark() {
+  const titleId = useId();
+
   return (
-    <svg className="bfi-mark" viewBox="0 0 64 64" role="img" aria-labelledby="bfi-mark-title">
-      <title id="bfi-mark-title">BFI aperture mark</title>
+    <svg className="bfi-mark" viewBox="0 0 64 64" role="img" aria-labelledby={titleId}>
+      <title id={titleId}>BFI aperture mark</title>
       <circle cx="32" cy="32" r="30" />
       <path d="M21 18 L32 12 L43 18" />
       <path d="M22 20 L22 45" />
