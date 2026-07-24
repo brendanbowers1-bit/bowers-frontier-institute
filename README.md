@@ -112,6 +112,7 @@ npm run check:deploy  # audit + lint + trade check + builds + GitHub Pages smoke
 
 The dashboard is PWA-ready and can be deployed as a mobile web app:
 
+- **Cloudflare Pages**: uses `wrangler.toml`, publishes `dist`, preserves PWA headers/deep links, and exposes `/api/credit-collars` as a Pages Function.
 - **Vercel**: uses `vercel.json`, publishes `dist`, and exposes `/api/credit-collars`.
 - **Netlify**: uses `netlify.toml`, publishes `dist`, and routes `/api/credit-collars` to a function.
 - **GitHub Pages**: use `GITHUB_PAGES=true npm run build`; live functions are not available, so the collar feed uses its static snapshot fallback.
