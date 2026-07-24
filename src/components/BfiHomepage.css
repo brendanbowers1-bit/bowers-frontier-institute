@@ -5,10 +5,13 @@
   --bfi-stone: #cfcfc8;
   --bfi-graphite: #1b1b1b;
   --bfi-gold: #b89a5d;
+  --bfi-hairline: rgba(5, 5, 5, 0.12);
+  --bfi-shadow: 0 2rem 5rem rgba(5, 5, 5, 0.12);
   min-height: 100vh;
   color: var(--bfi-black);
   background: var(--bfi-warm-white);
   font-family: var(--font-sans, "IBM Plex Sans", system-ui, sans-serif);
+  scroll-behavior: smooth;
 }
 
 .bfi-site a {
@@ -16,17 +19,23 @@
   text-decoration: none;
 }
 
+.bfi-site a:focus-visible {
+  outline: 2px solid var(--bfi-gold);
+  outline-offset: 0.35rem;
+}
+
 .bfi-nav {
   position: sticky;
   top: 0;
   z-index: 10;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
-  padding: 1rem clamp(1.25rem, 4vw, 3.5rem);
-  background: rgba(247, 246, 242, 0.88);
-  border-bottom: 1px solid rgba(5, 5, 5, 0.08);
-  backdrop-filter: blur(18px);
+  gap: 1rem;
+  padding: 0.85rem clamp(1.25rem, 4vw, 3.5rem);
+  background: rgba(247, 246, 242, 0.82);
+  border-bottom: 1px solid rgba(5, 5, 5, 0.075);
+  backdrop-filter: blur(24px) saturate(1.2);
 }
 
 .bfi-nav__brand,
@@ -50,12 +59,18 @@
   gap: clamp(1rem, 3vw, 2rem);
 }
 
+.bfi-nav nav {
+  justify-content: center;
+}
+
 .bfi-nav nav a,
 .bfi-footer nav a,
 .bfi-eyebrow,
 .bfi-hero__actions a,
+.bfi-nav__cta,
 .bfi-research-card a,
-.bfi-open__links a {
+.bfi-open__links a,
+.bfi-quick-links a span {
   font-family: var(--font-mono, "IBM Plex Mono", ui-monospace, monospace);
   font-size: 0.66rem;
   font-weight: 500;
@@ -70,6 +85,25 @@
 
 .bfi-nav nav a:hover {
   color: var(--bfi-black);
+}
+
+.bfi-nav__cta {
+  justify-self: end;
+  padding: 0.72rem 0.95rem;
+  color: var(--bfi-white);
+  background: var(--bfi-black);
+  border: 1px solid var(--bfi-black);
+  border-radius: 999px;
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.bfi-nav__cta:hover {
+  color: var(--bfi-black);
+  background: rgba(255, 255, 255, 0.56);
+  border-color: var(--bfi-hairline);
 }
 
 .bfi-mark {
@@ -176,17 +210,18 @@
   overflow: hidden;
   color: var(--bfi-white);
   background: var(--bfi-black);
+  border: 1px solid rgba(5, 5, 5, 0.9);
+  box-shadow: var(--bfi-shadow);
+  isolation: isolate;
 }
 
-.bfi-cinema__plate {
+.bfi-cinema__scene {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at 70% 18%, rgba(184, 154, 93, 0.28), transparent 18rem),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 28%),
-    linear-gradient(180deg, transparent 40%, rgba(5, 5, 5, 0.9) 100%),
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 9rem),
-    #050505;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.01);
 }
 
 .bfi-cinema::before {
@@ -207,18 +242,71 @@
   border-block-color: rgba(184, 154, 93, 0.58);
 }
 
-.bfi-cinema span {
+.bfi-cinema__caption {
   position: absolute;
   right: 1.25rem;
   bottom: 1.25rem;
   left: 1.25rem;
+  display: grid;
+  gap: 0.45rem;
   max-width: 18rem;
+}
+
+.bfi-cinema__caption span,
+.bfi-cinema__caption small {
   font-family: var(--font-mono, "IBM Plex Mono", ui-monospace, monospace);
   font-size: 0.64rem;
   letter-spacing: 0.16em;
   line-height: 1.6;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.68);
+}
+
+.bfi-cinema__caption small {
+  color: rgba(184, 154, 93, 0.72);
+}
+
+.bfi-quick-links {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0 clamp(1.25rem, 5vw, 5rem) clamp(2rem, 5vw, 4rem);
+  overflow: hidden;
+  background: var(--bfi-hairline);
+  border: 1px solid var(--bfi-hairline);
+  box-shadow: 0 1rem 3rem rgba(5, 5, 5, 0.04);
+}
+
+.bfi-quick-links a {
+  display: grid;
+  gap: 0.55rem;
+  min-height: 7.5rem;
+  padding: 1.2rem;
+  background:
+    linear-gradient(135deg, rgba(184, 154, 93, 0.08), transparent 40%),
+    rgba(255, 255, 255, 0.42);
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.bfi-quick-links a:hover {
+  color: var(--bfi-white);
+  background: var(--bfi-black);
+  transform: translateY(-1px);
+}
+
+.bfi-quick-links small {
+  margin-top: auto;
+  font-size: 0.86rem;
+  font-weight: 300;
+  line-height: 1.45;
+  color: rgba(5, 5, 5, 0.52);
+}
+
+.bfi-quick-links a:hover small {
+  color: rgba(255, 255, 255, 0.62);
 }
 
 .bfi-section {
@@ -245,9 +333,8 @@
 
 .bfi-research-grid {
   display: grid;
-  grid-template-columns: repeat(7, minmax(18rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
   gap: 1px;
-  overflow-x: auto;
   background: rgba(5, 5, 5, 0.14);
   border: 1px solid rgba(5, 5, 5, 0.14);
 }
@@ -257,13 +344,45 @@
   grid-template-rows: 18rem 1fr;
   min-height: 33rem;
   background: var(--bfi-warm-white);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.bfi-research-card:hover {
+  z-index: 1;
+  transform: translateY(-2px);
+  box-shadow: var(--bfi-shadow);
 }
 
 .bfi-image {
+  position: relative;
+  overflow: hidden;
   background:
     linear-gradient(180deg, transparent 45%, rgba(5, 5, 5, 0.62)),
     radial-gradient(circle at 70% 22%, rgba(184, 154, 93, 0.28), transparent 14rem),
     var(--bfi-graphite);
+}
+
+.bfi-image::before,
+.bfi-image::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.bfi-image::before {
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.055) 0 1px, transparent 1px 5.5rem),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 4rem);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent);
+}
+
+.bfi-image::after {
+  background: radial-gradient(circle at 50% 55%, transparent 0 4rem, rgba(255, 255, 255, 0.1) 4.05rem 4.1rem, transparent 4.2rem 8rem);
+  opacity: 0.7;
+  mix-blend-mode: screen;
 }
 
 .bfi-image--ai,
@@ -475,6 +594,21 @@
     grid-template-columns: 1fr;
   }
 
+  .bfi-nav {
+    grid-template-columns: 1fr auto;
+  }
+
+  .bfi-nav nav {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.15rem;
+  }
+
+  .bfi-quick-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .bfi-ecosystem__line {
     grid-template-columns: 1fr;
   }
@@ -493,14 +627,16 @@
 
 @media (max-width: 640px) {
   .bfi-nav {
-    align-items: flex-start;
-    flex-direction: column;
+    align-items: center;
     gap: 1rem;
   }
 
   .bfi-nav nav {
-    width: 100%;
     overflow-x: auto;
+  }
+
+  .bfi-nav__cta {
+    padding: 0.65rem 0.8rem;
   }
 
   .bfi-hero {
@@ -514,6 +650,10 @@
 
   .bfi-cinema {
     min-height: 25rem;
+  }
+
+  .bfi-quick-links {
+    grid-template-columns: 1fr;
   }
 
   .bfi-publications li {
