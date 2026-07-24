@@ -54,6 +54,16 @@ managed in Cloudflare.
 - Custom domain: `www.bowersfrontier.com`
 - Optional redirect: configure `bowersfrontier.com` to redirect to `https://www.bowersfrontier.com`
 
+The repository includes `wrangler.toml` and `.github/workflows/cloudflare-pages.yml` so production deploys
+can run from GitHub Actions after these repository secrets are added:
+
+- `CLOUDFLARE_API_TOKEN`: Cloudflare API token with Cloudflare Pages edit access for this account
+- `CLOUDFLARE_ACCOUNT_ID`: Cloudflare account ID
+
+The workflow validates the app, builds `dist`, and deploys the Pages project named
+`bowers-frontier-institute`. Pushes to `main` deploy production; manual workflow runs can be started from
+the GitHub Actions tab.
+
 After the Pages project is created, add `www.bowersfrontier.com` under **Custom domains** in Cloudflare
 Pages. Because the domain is registered and DNS-managed in Cloudflare, Cloudflare can create the needed
 DNS record automatically. Keep HTTPS enabled and verify that the PWA manifest and service worker load

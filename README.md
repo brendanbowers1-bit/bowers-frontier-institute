@@ -128,7 +128,8 @@ npm run check:deploy  # audit + lint + trade check + builds + GitHub Pages smoke
 The website is PWA-ready and can be deployed as a mobile web app:
 
 - **Production domain**: `www.bowersfrontier.com` is purchased through Cloudflare and should be connected as the primary custom domain.
-- **Cloudflare Pages**: recommended for the BFI static website; build with `npm run build` and publish `dist`.
+- **Cloudflare Pages**: recommended for the BFI static website; `.github/workflows/cloudflare-pages.yml`
+  deploys `dist` to the `bowers-frontier-institute` Pages project when Cloudflare secrets are configured.
 - **Vercel**: uses `vercel.json`, publishes `dist`, and can expose `/api/credit-collars` for BR3N surfaces.
 - **Netlify**: uses `netlify.toml`, publishes `dist`, and can route `/api/credit-collars` to a function.
 - **GitHub Pages**: use `GITHUB_PAGES=true npm run build`.
