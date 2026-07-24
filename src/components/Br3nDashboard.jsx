@@ -31,6 +31,7 @@ import { correlations, correlationAssets } from "../data/correlations";
 import { currencyExposure, exposureTotals } from "../data/currencyExposure";
 import { fxRates } from "../data/fxRates";
 import { bcrgGnfFallback, findBcrgRate } from "../data/gnfRates";
+import { cblLrdFallback } from "../data/lrdRates";
 import { assetClasses, periods, pnlCurve, portfolioPerformance } from "../data/portfolioPerformance";
 import { ohlcSeries, volatilitySeries } from "../data/volatility";
 import {
@@ -42,6 +43,7 @@ import {
 } from "../data/weeklyTradeDiscovery";
 import { yieldCurve } from "../data/yieldCurve";
 import { fetchBcrgGnfRateFeed } from "../lib/gnfRateClient";
+import { fetchCblLrdRateFeed } from "../lib/lrdRateClient";
 import { Br3nCrest } from "./Br3nCrest";
 import { Br3nRibbonMark } from "./Br3nRibbonMark";
 import { CreditCollarFeed } from "./CreditCollarFeed";
@@ -72,6 +74,7 @@ export function Br3nDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [gnfFeed, setGnfFeed] = useState(bcrgGnfFallback);
+  const [lrdFeed, setLrdFeed] = useState(cblLrdFallback);
 
   useEffect(() => {
     const timeout = window.setTimeout(() => setLoading(false), 720);
@@ -84,6 +87,17 @@ export function Br3nDashboard() {
       .then((feed) => setGnfFeed(feed))
       .catch(() => {
         setGnfFeed((feed) => ({ ...feed, degraded: true }));
+      });
+
+    return () => controller.abort();
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetchCblLrdRateFeed({ signal: controller.signal })
+      .then((feed) => setLrdFeed(feed))
+      .catch(() => {
+        setLrdFeed((feed) => ({ ...feed, degraded: true }));
       });
 
     return () => controller.abort();
@@ -106,8 +120,14 @@ export function Br3nDashboard() {
         change: null,
         sourceTag: "BCRG",
       },
+      {
+        pair: "USD/LRD",
+        spot: lrdFeed.mid,
+        change: null,
+        sourceTag: "CBL",
+      },
     ];
-  }, [gnfFeed]);
+  }, [gnfFeed, lrdFeed]);
 
   const volatilityData = useMemo(
     () => volatilitySeries.slice(-Math.min(periodLengths[period], volatilitySeries.length)),
@@ -304,6 +324,13 @@ export function Br3nDashboard() {
                 Official PDF
               </a>
               {gnfFeed.degraded ? <em>Snapshot fallback</em> : null}
+            </p>
+            <p className="br3n-fx-source">
+              <span>LRD source: CBL table {formatFixingDate(lrdFeed.asOf)}</span>
+              <a href={lrdFeed.sourceUrl} rel="noreferrer" target="_blank">
+                Official table
+              </a>
+              {lrdFeed.degraded ? <em>Snapshot fallback</em> : null}
             </p>
           </Panel>
 

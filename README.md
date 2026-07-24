@@ -72,6 +72,7 @@ Mock financial data is deliberately modular:
 ```text
 src/data/fxRates.js
 src/data/gnfRates.js
+src/data/lrdRates.js
 src/data/portfolioPerformance.js
 src/data/currencyExposure.js
 src/data/yieldCurve.js
@@ -113,9 +114,9 @@ npm run check:deploy  # audit + lint + trade check + builds + GitHub Pages smoke
 
 The dashboard is PWA-ready and can be deployed as a mobile web app:
 
-- **Cloudflare Pages**: uses `wrangler.toml`, publishes `dist`, preserves PWA headers/deep links, and exposes `/api/credit-collars` plus `/api/gnf-rates` as Pages Functions.
-- **Vercel**: uses `vercel.json`, publishes `dist`, and exposes `/api/credit-collars` plus `/api/gnf-rates`.
-- **Netlify**: uses `netlify.toml`, publishes `dist`, and routes `/api/credit-collars` plus `/api/gnf-rates` to functions.
+- **Cloudflare Pages**: uses `wrangler.toml`, publishes `dist`, preserves PWA headers/deep links, and exposes `/api/credit-collars`, `/api/gnf-rates`, and `/api/lrd-rates` as Pages Functions.
+- **Vercel**: uses `vercel.json`, publishes `dist`, and exposes `/api/credit-collars`, `/api/gnf-rates`, and `/api/lrd-rates`.
+- **Netlify**: uses `netlify.toml`, publishes `dist`, and routes `/api/credit-collars`, `/api/gnf-rates`, and `/api/lrd-rates` to functions.
 - **GitHub Pages**: use `GITHUB_PAGES=true npm run build`; live functions are not available, so the collar feed uses its static snapshot fallback.
 
 See `docs/publishing.md` for the full launch checklist, PWA install notes, live-data guidance, and later iOS wrapper steps.
