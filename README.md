@@ -89,6 +89,10 @@ database:
   reconciliation flow, and compliance controls.
 - `docs/settlement-pricing-schema.sql` provides a PostgreSQL reference schema for agents, corridors,
   pricing snapshots, settlement imports, reconciliation exceptions, and audit logs.
+- `docs/supplier-settlement-currency-database.md` defines supplier invoice currency, settlement
+  currency, payout account, FX quote, and settlement batch workflows.
+- `docs/supplier-settlement-currency-schema.sql` provides the PostgreSQL reference schema for supplier
+  currency profiles, settlement rules, accounts, quotes, batches, and audit events.
 
 ## Design direction
 

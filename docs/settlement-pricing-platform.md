@@ -47,6 +47,20 @@ to retain it.
 | Reconciliation exception | Difference between expected and actual settlement requiring review. |
 | Audit event | Immutable record of pricing and exception changes. |
 
+## Supplier currency module
+
+Supplier invoice and settlement currency configuration is documented separately in
+`docs/supplier-settlement-currency-database.md`, with the reference schema in
+`docs/supplier-settlement-currency-schema.sql`.
+
+Use that module when the platform needs to answer:
+
+- which currencies a supplier can invoice in,
+- which currencies a supplier can be settled in,
+- which payout account and rail are verified for each settlement currency,
+- which effective-dated rule converts an invoice currency into a settlement currency, and
+- which FX source, spread, fee, and quote powered a supplier settlement batch.
+
 ## Minimum viable workflow
 
 1. Configure agents, branches, countries, currencies, corridors, and payout methods.
