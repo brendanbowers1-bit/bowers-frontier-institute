@@ -2,7 +2,7 @@
   "name": "bowers-frontier-institute",
   "private": true,
   "version": "1.0.0",
-  "description": "BR3N premium finance dashboard",
+  "description": "BFI research website and brand design system",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,9 +11,13 @@
     "check:collars": "node scripts/check-credit-collars.mjs",
     "check:pwa": "node scripts/check-pwa.mjs",
     "check:deploy": "npm ci && npm audit --audit-level=high && npm run lint && npm run check:trade && npm run check:collars && npm run check:pwa && npm run build && GITHUB_PAGES=true npm run build && node scripts/smoke-pages-build.mjs",
+    "generate:design-concepts": "node scripts/generate_design_concepts.mjs",
+    "generate:vision-board": "node scripts/generate_vision_board.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
+    "quality:bfi": "node scripts/bfi_quality.mjs",
     "quality:dashboard": "node scripts/dashboard_quality.mjs",
+    "self-improve:bfi": "bash scripts/self_improve_bfi.sh",
     "self-improve:dashboard": "bash scripts/self_improve_dashboard.sh"
   },
   "dependencies": {

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">BFI Typography - negative-space</title>
+  <desc id="desc">Original BFI ecosystem vision-board reference: old-style serif hierarchy.</desc>
+  <rect width="1200" height="800" fill="#F7F6F2"/>
+  <rect x="40" y="40" width="1120" height="720" fill="#050505" opacity="0.72"/>
+  <path d="M92 118 H1108" stroke="#050505" stroke-opacity="0.12"/>
+  <path d="M92 682 H1108" stroke="#050505" stroke-opacity="0.12"/>
+  
+  <rect x="382" y="196" width="436" height="396" fill="#050505" opacity="0.08"/>
+  <circle cx="600" cy="394" r="144" fill="#050505" opacity="0.74"/>
+  <rect x="574" y="238" width="52" height="312" fill="#B89A5D"/>
+  <path d="M484 512 C528 488 562 480 600 480 C638 480 672 488 716 512" fill="none" stroke="#B89A5D" stroke-width="8" stroke-linecap="round"/>
+  <text x="92" y="104" fill="#050505" font-family="Georgia, serif" font-size="34" letter-spacing="5">BFI Typography</text>
+  <text x="92" y="704" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="17" letter-spacing="4">NEGATIVE-SPACE</text>
+  <text x="1108" y="704" fill="rgba(5,5,5,0.54)" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="15" letter-spacing="3" text-anchor="end">OLD-STYLE SERIF HIERARCHY</text>
+</svg>

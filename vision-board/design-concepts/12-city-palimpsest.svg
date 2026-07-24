@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">City Palimpsest</title>
+  <desc id="desc">Original BFI ecosystem design concept board.</desc>
+  <rect width="1200" height="1600" fill="#050505"/>
+  
+  <rect width="1200" height="1600" fill="#050505"/>
+  <g fill="#CFCFC8" opacity="0.2">
+    <rect x="170" y="660" width="80" height="390"/>
+    <rect x="290" y="560" width="120" height="490"/>
+    <rect x="470" y="710" width="90" height="340"/>
+    <rect x="610" y="510" width="150" height="540"/>
+    <rect x="820" y="620" width="120" height="430"/>
+  </g>
+  <path d="M150 420 L980 1120 M240 1240 L1040 360 M500 260 V1280" stroke="#F7F6F2" stroke-opacity="0.12"/>
+  <path d="M180 980 C440 860 660 860 990 980" stroke="#B89A5D" stroke-opacity="0.42" fill="none"/>
+  <text x="940" y="1180" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="28" letter-spacing="12">BR3N</text>
+  <text x="80" y="1480" fill="#F7F6F2" font-family="Georgia, serif" font-size="46" letter-spacing="3">City Palimpsest</text>
+  <text x="80" y="1534" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="18" letter-spacing="5">BFI ECOSYSTEM CONCEPT</text>
+</svg>

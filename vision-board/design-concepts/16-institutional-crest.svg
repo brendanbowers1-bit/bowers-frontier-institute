@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">Institutional Crest System</title>
+  <desc id="desc">Original BFI ecosystem design concept board.</desc>
+  <rect width="1200" height="1600" fill="#050505"/>
+  
+  <path d="M600 230 C710 300 830 320 920 350 V760 C920 980 790 1130 600 1230 C410 1130 280 980 280 760 V350 C370 320 490 300 600 230Z" fill="none" stroke="#F7F6F2" stroke-width="10"/>
+  <path d="M600 276 V1160 M330 560 H870 M330 760 H870" stroke="#F7F6F2" stroke-opacity="0.28"/>
+  <path d="M388 930 C478 820 540 840 600 900 C660 840 722 820 812 930" fill="none" stroke="#B89A5D" stroke-width="8" stroke-linecap="round"/>
+  <text x="470" y="520" fill="#F7F6F2" font-family="Georgia, serif" font-size="170">B</text>
+  <text x="650" y="724" fill="#F7F6F2" font-family="Georgia, serif" font-size="170">R</text>
+  <text x="560" y="1020" fill="#F7F6F2" font-family="Georgia, serif" font-size="180">3</text>
+  <text x="80" y="1480" fill="#F7F6F2" font-family="Georgia, serif" font-size="46" letter-spacing="3">Institutional Crest System</text>
+  <text x="80" y="1534" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="18" letter-spacing="5">BFI ECOSYSTEM CONCEPT</text>
+</svg>

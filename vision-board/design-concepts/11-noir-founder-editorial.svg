@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">Noir Founder Editorial</title>
+  <desc id="desc">Original BFI ecosystem design concept board.</desc>
+  <rect width="1200" height="1600" fill="#050505"/>
+  
+  <rect width="1200" height="1600" fill="#0A0705"/>
+  <radialGradient id="noirGlow" cx="58%" cy="42%" r="42%">
+    <stop offset="0%" stop-color="#B89A5D" stop-opacity="0.42"/>
+    <stop offset="100%" stop-color="#050505" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1200" height="1050" fill="url(#noirGlow)"/>
+  <path d="M420 980 C470 760 730 760 780 980 L850 1240 H350 Z" fill="#050505"/>
+  <circle cx="600" cy="620" r="116" fill="#111"/>
+  <path d="M410 760 C520 830 694 826 800 740" stroke="#B89A5D" stroke-opacity="0.28" stroke-width="14" fill="none"/>
+  <path d="M220 1050 H980" stroke="#F7F6F2" stroke-opacity="0.1"/>
+  <text x="80" y="1480" fill="#F7F6F2" font-family="Georgia, serif" font-size="46" letter-spacing="3">Noir Founder Editorial</text>
+  <text x="80" y="1534" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="18" letter-spacing="5">BFI ECOSYSTEM CONCEPT</text>
+</svg>

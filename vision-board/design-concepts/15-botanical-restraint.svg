@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">Botanical Restraint</title>
+  <desc id="desc">Original BFI ecosystem design concept board.</desc>
+  <rect width="1200" height="1600" fill="#050505"/>
+  
+  <rect width="1200" height="1600" fill="#F7F6F2"/>
+  <path d="M600 1200 C590 980 610 760 600 540 C594 420 640 300 714 220" stroke="#050505" stroke-opacity="0.68" fill="none" stroke-width="4"/>
+  <path d="M600 790 C500 690 430 560 392 420 M612 860 C730 760 810 650 860 500" stroke="#050505" stroke-opacity="0.44" fill="none" stroke-width="3"/>
+  <circle cx="714" cy="220" r="58" fill="none" stroke="#050505" stroke-opacity="0.62" stroke-width="3"/>
+  <circle cx="392" cy="420" r="38" fill="none" stroke="#050505" stroke-opacity="0.44" stroke-width="2"/>
+  <circle cx="860" cy="500" r="44" fill="none" stroke="#050505" stroke-opacity="0.38" stroke-width="2"/>
+  <text x="80" y="1480" fill="#050505" font-family="Georgia, serif" font-size="46" letter-spacing="3">Botanical Restraint</text>
+  <text x="80" y="1534" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="18" letter-spacing="5">BFI MEDICINE / FOUNDATION</text>
+  <text x="80" y="1480" fill="#F7F6F2" font-family="Georgia, serif" font-size="46" letter-spacing="3">Botanical Restraint</text>
+  <text x="80" y="1534" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="18" letter-spacing="5">BFI ECOSYSTEM CONCEPT</text>
+</svg>

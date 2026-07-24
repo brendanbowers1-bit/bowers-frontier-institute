@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">The Ring Gate</title>
+  <desc id="desc">Original BFI ecosystem design concept board.</desc>
+  <rect width="1200" height="1600" fill="#050505"/>
+  
+  <rect x="210" y="290" width="780" height="760" fill="none" stroke="#B89A5D" stroke-width="20"/>
+  <circle cx="600" cy="670" r="270" fill="none" stroke="#B89A5D" stroke-width="26"/>
+  <circle cx="600" cy="286" r="70" fill="#050505" stroke="#B89A5D" stroke-width="16"/>
+  <path d="M600 160 V1200" stroke="#FF6A21" stroke-opacity="0.62" stroke-width="32"/>
+  <path d="M600 160 V1200" stroke="#F7F6F2" stroke-opacity="0.18" stroke-width="94"/>
+  <circle cx="600" cy="1120" r="18" fill="#F7F6F2"/>
+  <text x="80" y="1480" fill="#F7F6F2" font-family="Georgia, serif" font-size="46" letter-spacing="3">The Ring Gate</text>
+  <text x="80" y="1534" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="18" letter-spacing="5">BFI ECOSYSTEM CONCEPT</text>
+</svg>

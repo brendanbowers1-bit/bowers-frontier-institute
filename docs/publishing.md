@@ -1,7 +1,10 @@
-# Publishing BR3N Credit Collar Feed
+# Publishing BFI Website
 
-This app is publish-ready as a mobile web application and progressive web app (PWA). It also includes
-serverless live-feed adapters for hosts that support functions.
+This app is publish-ready as a mobile web application and progressive web app (PWA). The active root
+is the BFI homepage. BR3N serverless live-feed adapters remain available for hosts that support
+functions.
+
+Production domain target: `www.bowersfrontier.com` purchased through Cloudflare.
 
 ## Launch path
 
@@ -38,6 +41,37 @@ Netlify can also run the live-feed endpoint via `netlify/functions/credit-collar
 
 The included `netlify.toml` maps `/api/credit-collars` to the Netlify function and keeps the app shell
 working on deep links.
+
+## Cloudflare Pages
+
+Cloudflare Pages is the preferred static host for `www.bowersfrontier.com` because the domain is already
+managed in Cloudflare.
+
+- Project type: Pages, connected to the GitHub repository
+- Production branch: `main`
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Custom domain: `www.bowersfrontier.com`
+- Optional redirect: configure `bowersfrontier.com` to redirect to `https://www.bowersfrontier.com`
+
+The repository includes `wrangler.toml` and `.github/workflows/cloudflare-pages.yml` so production deploys
+can run from GitHub Actions after these repository secrets are added:
+
+- `CLOUDFLARE_API_TOKEN`: Cloudflare API token with Cloudflare Pages edit access for this account
+- `CLOUDFLARE_ACCOUNT_ID`: Cloudflare account ID
+
+The workflow validates the app, builds `dist`, and deploys the Pages project named
+`bowers-frontier-institute`. Pushes to `main` deploy production; manual workflow runs can be started from
+the GitHub Actions tab.
+
+After the Pages project is created, add `www.bowersfrontier.com` under **Custom domains** in Cloudflare
+Pages. Because the domain is registered and DNS-managed in Cloudflare, Cloudflare can create the needed
+DNS record automatically. Keep HTTPS enabled and verify that the PWA manifest and service worker load
+from the final domain.
+
+Cloudflare Pages does not run the included Vercel or Netlify function adapters as-is. For BR3N live-feed
+surfaces, either keep the current static fallback, add a Cloudflare Worker at `/api/credit-collars`, or
+point that route to a separate licensed market-data API origin.
 
 ## GitHub Pages
 

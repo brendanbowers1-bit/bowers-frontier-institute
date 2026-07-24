@@ -1,0 +1,20 @@
+:root {
+  --bfi-black: #050505;
+  --bfi-white: #ffffff;
+  --bfi-warm-white: #f7f6f2;
+  --bfi-stone: #cfcfc8;
+  --bfi-graphite: #1b1b1b;
+  --bfi-gold: #b89a5d;
+
+  --br3n-black: #050505;
+  --br3n-chrome: #d8d8d2;
+  --br3n-glass: rgba(255, 255, 255, 0.08);
+
+  --solglia-black: #07080a;
+  --solglia-terminal: #101418;
+  --solglia-data: #9fb6c8;
+
+  --oltre-black: #050505;
+  --oltre-marble: #f1f0ec;
+  --oltre-stone: #bdb8ad;
+}

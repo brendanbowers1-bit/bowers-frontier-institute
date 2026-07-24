@@ -1,14 +1,14 @@
 {
-  "name": "BR3N Credit Collar Feed",
-  "short_name": "BR3N Collars",
-  "description": "A mobile research cockpit for positive-credit collars, downside floors, and hedge candidate discovery.",
+  "name": "Bowers Frontier Institute",
+  "short_name": "BFI",
+  "description": "Discovering what humanity does not yet know through research, publications, open datasets, and frontier labs.",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#030304",
-  "theme_color": "#050506",
-  "categories": ["finance", "business", "productivity"],
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "categories": ["education", "science", "business"],
   "icons": [
     {
       "src": "app-icon.svg",
@@ -24,16 +24,16 @@
   ],
   "shortcuts": [
     {
-      "name": "Credit collar feed",
-      "short_name": "Collars",
-      "description": "Open the optimized credit-collar feed.",
-      "url": "./#collars"
+      "name": "Research areas",
+      "short_name": "Research",
+      "description": "Open BFI research areas.",
+      "url": "./#research"
     },
     {
-      "name": "Risk dashboard",
-      "short_name": "Risk",
-      "description": "Open hedge posture and risk controls.",
-      "url": "./#risk"
+      "name": "Publications",
+      "short_name": "Papers",
+      "description": "Open BFI publications.",
+      "url": "./#publications"
     }
   ]
 }

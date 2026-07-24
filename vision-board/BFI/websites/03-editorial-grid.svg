@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">BFI Websites - editorial-grid</title>
+  <desc id="desc">Original BFI ecosystem vision-board reference: editorial research website.</desc>
+  <rect width="1200" height="800" fill="#F7F6F2"/>
+  <rect x="40" y="40" width="1120" height="720" fill="#FFFFFF" opacity="0.72"/>
+  <path d="M92 118 H1108" stroke="#050505" stroke-opacity="0.12"/>
+  <path d="M92 682 H1108" stroke="#050505" stroke-opacity="0.12"/>
+  
+  <rect x="328" y="202" width="544" height="356" fill="none" stroke="#050505" stroke-opacity="0.22"/>
+  <path d="M328 318 H872 M328 440 H872 M510 202 V558 M692 202 V558" stroke="#050505" stroke-opacity="0.12"/>
+  <rect x="358" y="232" width="286" height="72" fill="#050505" opacity="0.72"/>
+  <rect x="358" y="474" width="156" height="14" fill="#B89A5D"/>
+  <rect x="358" y="504" width="318" height="10" fill="#050505" opacity="0.24"/>
+  <text x="92" y="104" fill="#050505" font-family="Georgia, serif" font-size="34" letter-spacing="5">BFI Websites</text>
+  <text x="92" y="704" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="17" letter-spacing="4">EDITORIAL-GRID</text>
+  <text x="1108" y="704" fill="rgba(5,5,5,0.54)" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="15" letter-spacing="3" text-anchor="end">EDITORIAL RESEARCH WEBSITE</text>
+</svg>

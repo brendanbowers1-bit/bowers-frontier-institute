@@ -1,8 +1,14 @@
-# BR3N Finance Dashboard
+# Bowers Frontier Institute
 
-A premium, interactive finance dashboard for **BR3N**: black/white, institutional, minimalist, cinematic, and built as a luxury trading desk cockpit.
+BFI is the master research institution and design-system source of truth for the
+Bowers Frontier Institute ecosystem.
 
-The current implementation uses modular mock data and is structured so live sources can later be connected through Bloomberg, Snowflake, yfinance, FRED, internal databases, or proprietary market-data services.
+Mission line: **Discovering what humanity does not yet know.**
+
+The active website is a sparse BFI homepage: luxury academic research, generous
+whitespace, restrained typography, cinematic image treatment, research areas,
+publications, open research, and a minimal footer. BR3N remains in the codebase
+as a commercial AI/research dashboard surface under the broader BFI system.
 
 ## Stack
 
@@ -10,7 +16,25 @@ The current implementation uses modular mock data and is structured so live sour
 - Recharts
 - Framer Motion
 - Lucide icons
-- Tailwind dependency is available; the dashboard uses a custom CSS visual system for tighter art direction
+- Tailwind dependency is available; active surfaces use custom CSS for tighter art direction
+
+## Source of truth
+
+```text
+brand/design-system.md
+brand/colors/tokens.css
+brand/logos/
+brand/typography/
+cursor-rules/
+docs/organization.md
+docs/roadmap.md
+companies/BR3N/
+companies/SOLGLIA/
+companies/OLTRE/
+website/
+assets/
+design/
+```
 
 ## Run locally
 
@@ -50,20 +74,14 @@ DASHBOARD_QUALITY_TARGET=95 npm run self-improve:dashboard -- 2
 
 Each loop runs lint, production build, and a dashboard quality score gate.
 
-## Dashboard sections
+## Active BFI homepage sections
 
-1. Hero market overview with BR3N wordmark
-2. Time-period toggles: `1D`, `5D`, `1M`, `3M`, `YTD`, `1Y`
-3. Asset class filters: FX, equities, rates, crypto, commodities
-4. Performance curve
-5. EUR/USD OHLC candle tape
-6. FX rates panel
-7. Yield curve
-8. Realized/implied volatility
-9. P&L / performance curve
-10. Currency exposure
-11. Correlation heatmap
-12. Risk dashboard with drawdown, VaR utilization, and hedge ratio
+1. Hero: BFI, The Bowers Frontier Institute, Exploring questions that reshape civilization.
+2. Cinematic research image treatment
+3. Research areas: Finance, AI, Medicine, Economics, Energy, Climate, Robotics
+4. Publications
+5. Open research: GitHub, papers, datasets, dashboards
+6. Minimal footer
 
 ## Mock data architecture
 
@@ -82,16 +100,13 @@ Replace these modules or wrap them with adapters when connecting live APIs.
 
 ## Design direction
 
-- Uses a custom inline SVG interpretation of the provided BR3N Macro Labs crest
-- Adds a dark metallic ribbon-loop brand mark inspired by the supplied black sculptural logo reference
-- Black background
-- Soft white/gray type
-- Glass and metal panels
-- Thin borders
-- Subtle glow
-- Calm, silky transitions
-- No visual clutter
-- Dashboard-first responsive layout
+- BFI is luxury academic research, not corporate SaaS.
+- Use black, white, warm white, stone, graphite, and a subtle gold accent.
+- Use Cormorant Garamond for editorial display type and a restrained sans for interface text.
+- Favor whitespace over decoration.
+- Limit each screen to one primary action.
+- Keep every product surface cohesive while giving BR3N, SOLGLIA, and OLTRE their own accents.
+- Do not copy proprietary luxury or technology logos; use design principles only.
 
 ## GitHub Pages production build
 
@@ -110,20 +125,23 @@ npm run check:deploy  # audit + lint + trade check + builds + GitHub Pages smoke
 
 ## Publish
 
-The dashboard is PWA-ready and can be deployed as a mobile web app:
+The website is PWA-ready and can be deployed as a mobile web app:
 
-- **Vercel**: uses `vercel.json`, publishes `dist`, and exposes `/api/credit-collars`.
-- **Netlify**: uses `netlify.toml`, publishes `dist`, and routes `/api/credit-collars` to a function.
-- **GitHub Pages**: use `GITHUB_PAGES=true npm run build`; live functions are not available, so the collar feed uses its static snapshot fallback.
+- **Production domain**: `www.bowersfrontier.com` is purchased through Cloudflare and should be connected as the primary custom domain.
+- **Cloudflare Pages**: recommended for the BFI static website; `.github/workflows/cloudflare-pages.yml`
+  deploys `dist` to the `bowers-frontier-institute` Pages project when Cloudflare secrets are configured.
+- **Vercel**: uses `vercel.json`, publishes `dist`, and can expose `/api/credit-collars` for BR3N surfaces.
+- **Netlify**: uses `netlify.toml`, publishes `dist`, and can route `/api/credit-collars` to a function.
+- **GitHub Pages**: use `GITHUB_PAGES=true npm run build`.
 
 See `docs/publishing.md` for the full launch checklist, PWA install notes, live-data guidance, and later iOS wrapper steps.
 
 ## Notes
 
-- Current data is mock financial data only.
+- Current BR3N data is mock financial data only.
 - No trade execution is included.
-- The UI is structured for future live data integration.
-- Weekly trade-discovery content from the site framework is represented in the dashboard Signals section as a research scorecard and no-trade gate workflow.
+- BFI claims should remain factual and evidence-backed.
+- The active homepage is intentionally sparse; add imagery and research pages through the documented website structure.
 
 ## Factuality
 

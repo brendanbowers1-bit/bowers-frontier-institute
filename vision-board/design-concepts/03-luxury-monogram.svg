@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">Luxury Monogram Studies</title>
+  <desc id="desc">Original BFI ecosystem design concept board.</desc>
+  <rect width="1200" height="1600" fill="#050505"/>
+  
+  <text x="600" y="780" fill="#F7F6F2" font-family="Georgia, serif" font-size="430" text-anchor="middle" letter-spacing="-44">AE</text>
+  <path d="M374 858 C500 742 690 742 824 858" fill="none" stroke="#F7F6F2" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="600" cy="760" r="360" fill="none" stroke="#F7F6F2" stroke-opacity="0.14"/>
+  <text x="80" y="1480" fill="#F7F6F2" font-family="Georgia, serif" font-size="46" letter-spacing="3">Luxury Monogram Studies</text>
+  <text x="80" y="1534" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="18" letter-spacing="5">BFI ECOSYSTEM CONCEPT</text>
+</svg>

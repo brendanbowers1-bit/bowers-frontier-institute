@@ -1,21 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
-  <title id="title">BR3N Credit Collar Feed</title>
+  <title id="title">Bowers Frontier Institute</title>
   <defs>
-    <radialGradient id="glow" cx="32%" cy="18%" r="76%">
-      <stop offset="0%" stop-color="#fffaf0" stop-opacity="0.24"/>
-      <stop offset="42%" stop-color="#6e6f77" stop-opacity="0.16"/>
-      <stop offset="100%" stop-color="#030304"/>
+    <radialGradient id="glow" cx="50%" cy="24%" r="78%">
+      <stop offset="0%" stop-color="#edc2a8" stop-opacity="0.28"/>
+      <stop offset="48%" stop-color="#7c5f4d" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#17120f"/>
     </radialGradient>
-    <linearGradient id="metal" x1="108" x2="406" y1="96" y2="420" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#f8f5ec"/>
-      <stop offset="46%" stop-color="#8f918f"/>
-      <stop offset="100%" stop-color="#f7f2e8"/>
+    <linearGradient id="aperture" x1="126" x2="386" y1="70" y2="434" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fff4e8"/>
+      <stop offset="38%" stop-color="#edc2a8"/>
+      <stop offset="76%" stop-color="#7c5f4d"/>
+      <stop offset="100%" stop-color="#f5eee5"/>
     </linearGradient>
   </defs>
-  <rect width="512" height="512" rx="112" fill="#030304"/>
-  <rect x="18" y="18" width="476" height="476" rx="96" fill="url(#glow)" stroke="#f4f1e8" stroke-opacity="0.12" stroke-width="2"/>
-  <path d="M136 336V176h42l76 100V176h48v160h-42l-76-100v100h-48Z" fill="#f7f2e8"/>
-  <path d="M328 176h48v160h-48V176Z" fill="#b7ad91"/>
-  <path d="M112 356c48-78 96-78 144 0s96 78 144 0" fill="none" stroke="url(#metal)" stroke-linecap="round" stroke-width="22"/>
-  <path d="M132 146h248M132 386h248" stroke="#f4f1e8" stroke-linecap="round" stroke-opacity="0.28" stroke-width="4"/>
+  <rect width="512" height="512" rx="112" fill="#17120f"/>
+  <rect x="18" y="18" width="476" height="476" rx="96" fill="url(#glow)" stroke="#f5eee5" stroke-opacity="0.14" stroke-width="2"/>
+  <path d="M166 150 256 98l90 52" fill="none" stroke="url(#aperture)" stroke-linecap="round" stroke-linejoin="round" stroke-width="18"/>
+  <path d="M178 166v190M334 166v190" stroke="#f5eee5" stroke-linecap="round" stroke-width="20"/>
+  <path d="M256 184v148" stroke="#f5eee5" stroke-linecap="round" stroke-opacity=".46" stroke-width="9"/>
+  <path d="M122 352c52-28 96-40 134-40s82 12 134 40" fill="none" stroke="url(#aperture)" stroke-linecap="round" stroke-width="15"/>
+  <path d="M140 230c44-34 88-50 132-45 36 4 69 24 100 58" fill="none" stroke="#f5eee5" stroke-linecap="round" stroke-opacity=".18" stroke-width="7"/>
+  <circle cx="256" cy="312" r="15" fill="#edc2a8"/>
+  <path d="M184 398h144" stroke="url(#aperture)" stroke-linecap="round" stroke-width="6"/>
+  <text x="256" y="432" fill="#f5eee5" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="30" font-weight="500" letter-spacing="10" text-anchor="middle">BFI</text>
 </svg>

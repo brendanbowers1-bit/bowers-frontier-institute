@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">Anatomy Poster</title>
+  <desc id="desc">Original BFI ecosystem design concept board.</desc>
+  <rect width="1200" height="1600" fill="#050505"/>
+  
+  <rect x="90" y="140" width="1020" height="1260" fill="#050505" stroke="#F7F6F2" stroke-opacity="0.12"/>
+  <path d="M90 520 H1110 M90 960 H1110 M430 520 V1400 M770 520 V1400" stroke="#F7F6F2" stroke-opacity="0.12"/>
+  <circle cx="600" cy="420" r="170" fill="#CFCFC8" opacity="0.12"/>
+  <path d="M600 260 C710 420 690 550 600 650 C510 550 490 420 600 260Z" fill="#F7F6F2" opacity="0.14"/>
+  <text x="130" y="230" fill="#F7F6F2" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="32" letter-spacing="10">BR3N</text>
+  <text x="130" y="1050" fill="#CFCFC8" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="18" letter-spacing="4">FIG. 1 / SIGNAL</text>
+  <text x="820" y="1050" fill="#CFCFC8" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="18" letter-spacing="4">FIG. 2 / SYSTEM</text>
+  <text x="80" y="1480" fill="#F7F6F2" font-family="Georgia, serif" font-size="46" letter-spacing="3">Anatomy Poster</text>
+  <text x="80" y="1534" fill="#B89A5D" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="18" letter-spacing="5">BFI ECOSYSTEM CONCEPT</text>
+</svg>
