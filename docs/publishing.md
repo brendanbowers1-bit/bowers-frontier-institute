@@ -24,7 +24,7 @@ Cloudflare Pages can host the PWA shell and run the live collar feed through
 - Framework preset: Vite
 - Build command: `npm run build`
 - Build output directory: `dist`
-- API route: `/api/credit-collars`
+- API routes: `/api/credit-collars`, `/api/gnf-rates`
 
 The included `wrangler.toml` sets the Pages output directory. The `public/_headers` and
 `public/_redirects` files are copied into `dist` by Vite so Cloudflare preserves PWA cache headers and
@@ -44,7 +44,7 @@ function.
 - Framework preset: Vite
 - Build command: `npm run build`
 - Output directory: `dist`
-- API route: `/api/credit-collars`
+- API routes: `/api/credit-collars`, `/api/gnf-rates`
 
 The included `vercel.json` sets the build output, PWA cache headers, and single-page-app fallback.
 
@@ -54,7 +54,7 @@ Netlify can also run the live-feed endpoint via `netlify/functions/credit-collar
 
 - Build command: `npm run build`
 - Publish directory: `dist`
-- Function route: `/api/credit-collars`
+- Function routes: `/api/credit-collars`, `/api/gnf-rates`
 
 The included `netlify.toml` maps `/api/credit-collars` to the Netlify function and keeps the app shell
 working on deep links.
@@ -81,8 +81,11 @@ origin is configured.
 
 ## Live market data
 
-The browser calls `/api/credit-collars`. The server-side scanner fetches delayed Cboe option snapshots
-and falls back to static data if a host does not provide the function route.
+The browser calls `/api/credit-collars` for collar candidates and `/api/gnf-rates` for official BCRG
+Guinean franc reference metadata. The server-side collar scanner fetches delayed Cboe option snapshots
+and falls back to static data if a host does not provide the function route. The GNF feed reads the
+official BCRG fixing post/PDF URL and returns the bundled official BCRG snapshot when the bank publishes
+the latest table only as a PDF.
 
 For a production trading research product, replace or supplement the delayed scanner with a licensed
 market-data provider. Keep provider credentials on the server side only.

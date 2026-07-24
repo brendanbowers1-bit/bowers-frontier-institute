@@ -546,6 +546,12 @@
   color: rgba(170, 176, 190, 0.72) !important;
 }
 
+.is-source {
+  color: rgba(244, 244, 239, 0.5) !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 .br3n-controls {
   display: flex;
   flex-wrap: wrap;
@@ -796,6 +802,29 @@
   font-family: var(--font-mono, ui-monospace), monospace;
   font-size: 0.84rem;
   color: #fff;
+}
+
+.br3n-fx-source {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.75rem;
+  align-items: center;
+  margin: 0.8rem 0 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: rgba(244, 244, 239, 0.46);
+}
+
+.br3n-fx-source a {
+  color: rgba(244, 244, 239, 0.78);
+  text-decoration: none;
+}
+
+.br3n-fx-source em {
+  font-style: normal;
+  color: rgba(244, 244, 239, 0.58);
 }
 
 .br3n-risk-stack {
