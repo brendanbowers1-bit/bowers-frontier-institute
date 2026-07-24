@@ -80,6 +80,16 @@ src/data/correlations.js
 
 Replace these modules or wrap them with adapters when connecting live APIs.
 
+## Settlement pricing platform design
+
+The repository now includes a first platform blueprint for a Western Union agent settlement pricing
+database:
+
+- `docs/settlement-pricing-platform.md` defines the product workflow, core entities, API contract,
+  reconciliation flow, and compliance controls.
+- `docs/settlement-pricing-schema.sql` provides a PostgreSQL reference schema for agents, corridors,
+  pricing snapshots, settlement imports, reconciliation exceptions, and audit logs.
+
 ## Design direction
 
 - Uses a custom inline SVG interpretation of the provided BR3N Macro Labs crest
