@@ -92,7 +92,8 @@ database:
 - `docs/supplier-settlement-currency-database.md` defines supplier invoice currency, settlement
   currency, payout account, FX quote, and settlement batch workflows.
 - `docs/supplier-settlement-currency-schema.sql` provides the PostgreSQL reference schema for supplier
-  currency profiles, settlement rules, accounts, quotes, batches, and audit events.
+  currencies, settlement currencies, pair mappings, settlement rules, accounts, quotes, batches, and
+  audit events.
 
 ## Design direction
 

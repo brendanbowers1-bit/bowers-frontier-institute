@@ -50,9 +50,82 @@ CREATE UNIQUE INDEX supplier_currency_profiles_current_idx
   ON supplier_currency_profiles (supplier_id)
   WHERE effective_to IS NULL;
 
+CREATE TABLE supplier_currencies (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  supplier_id uuid NOT NULL REFERENCES suppliers(id) ON DELETE CASCADE,
+  currency_code char(3) NOT NULL REFERENCES currencies(code),
+  currency_role text NOT NULL DEFAULT 'invoice' CHECK (currency_role IN ('invoice', 'refund', 'both')),
+  status text NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'inactive', 'pending_review')),
+  is_default_invoice boolean NOT NULL DEFAULT false,
+  minimum_invoice_amount numeric(18, 4) NOT NULL DEFAULT 0 CHECK (minimum_invoice_amount >= 0),
+  maximum_invoice_amount numeric(18, 4) CHECK (
+    maximum_invoice_amount IS NULL OR maximum_invoice_amount > minimum_invoice_amount
+  ),
+  effective_from timestamptz NOT NULL DEFAULT now(),
+  effective_to timestamptz CHECK (effective_to IS NULL OR effective_to > effective_from),
+  created_by text,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (supplier_id, currency_code, currency_role, effective_from)
+);
+
+CREATE INDEX supplier_currencies_lookup_idx
+  ON supplier_currencies (supplier_id, currency_code, status, effective_from DESC);
+
+CREATE UNIQUE INDEX supplier_currencies_current_role_idx
+  ON supplier_currencies (supplier_id, currency_code, currency_role)
+  WHERE effective_to IS NULL;
+
+CREATE UNIQUE INDEX supplier_currencies_current_default_invoice_idx
+  ON supplier_currencies (supplier_id)
+  WHERE is_default_invoice = true AND effective_to IS NULL;
+
+CREATE TABLE settlement_currencies (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  currency_code char(3) NOT NULL REFERENCES currencies(code),
+  settlement_country_code char(2) NOT NULL,
+  rail text NOT NULL CHECK (rail IN ('ach', 'wire', 'swift', 'sepa', 'faster_payments', 'mobile_wallet', 'internal')),
+  status text NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'inactive', 'restricted', 'pending_treasury_approval')),
+  treasury_owner text,
+  settlement_cutoff_time time,
+  minimum_settlement_amount numeric(18, 4) NOT NULL DEFAULT 0 CHECK (minimum_settlement_amount >= 0),
+  maximum_settlement_amount numeric(18, 4) CHECK (
+    maximum_settlement_amount IS NULL OR maximum_settlement_amount > minimum_settlement_amount
+  ),
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (currency_code, settlement_country_code, rail)
+);
+
+CREATE INDEX settlement_currencies_lookup_idx
+  ON settlement_currencies (currency_code, rail, status);
+
+CREATE TABLE supplier_settlement_currency_pairs (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  supplier_id uuid NOT NULL REFERENCES suppliers(id) ON DELETE CASCADE,
+  supplier_currency_id uuid NOT NULL REFERENCES supplier_currencies(id) ON DELETE CASCADE,
+  settlement_currency_id uuid NOT NULL REFERENCES settlement_currencies(id),
+  priority integer NOT NULL DEFAULT 100 CHECK (priority >= 0),
+  is_preferred boolean NOT NULL DEFAULT false,
+  fx_markup_bps integer NOT NULL DEFAULT 0 CHECK (fx_markup_bps >= 0),
+  settlement_fee numeric(18, 4) NOT NULL DEFAULT 0 CHECK (settlement_fee >= 0),
+  effective_from timestamptz NOT NULL DEFAULT now(),
+  effective_to timestamptz CHECK (effective_to IS NULL OR effective_to > effective_from),
+  created_by text,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (supplier_id, supplier_currency_id, settlement_currency_id, effective_from)
+);
+
+CREATE INDEX supplier_settlement_currency_pairs_lookup_idx
+  ON supplier_settlement_currency_pairs (supplier_id, supplier_currency_id, priority, effective_from DESC);
+
+CREATE UNIQUE INDEX supplier_settlement_currency_pairs_current_idx
+  ON supplier_settlement_currency_pairs (supplier_id, supplier_currency_id, settlement_currency_id)
+  WHERE effective_to IS NULL;
+
 CREATE TABLE supplier_settlement_accounts (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   supplier_id uuid NOT NULL REFERENCES suppliers(id) ON DELETE CASCADE,
+  settlement_currency_id uuid REFERENCES settlement_currencies(id),
   currency_code char(3) NOT NULL REFERENCES currencies(code),
   rail text NOT NULL CHECK (rail IN ('ach', 'wire', 'swift', 'sepa', 'faster_payments', 'mobile_wallet', 'internal')),
   account_country_code char(2) NOT NULL,
@@ -71,7 +144,7 @@ CREATE TABLE supplier_settlement_accounts (
 );
 
 CREATE INDEX supplier_settlement_accounts_lookup_idx
-  ON supplier_settlement_accounts (supplier_id, currency_code, rail, status, verification_status);
+  ON supplier_settlement_accounts (supplier_id, settlement_currency_id, currency_code, rail, status, verification_status);
 
 CREATE TABLE supplier_fx_rate_sources (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -104,6 +177,8 @@ CREATE TABLE supplier_settlement_currency_rules (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   supplier_id uuid REFERENCES suppliers(id) ON DELETE CASCADE,
   supplier_country_code char(2),
+  supplier_currency_id uuid REFERENCES supplier_currencies(id),
+  settlement_currency_id uuid REFERENCES settlement_currencies(id),
   invoice_currency char(3) NOT NULL REFERENCES currencies(code),
   settlement_currency char(3) NOT NULL REFERENCES currencies(code),
   settlement_rail text NOT NULL CHECK (
@@ -261,19 +336,48 @@ SELECT
   s.country_code,
   profile.default_invoice_currency,
   profile.default_settlement_currency,
-  rule.invoice_currency,
-  rule.settlement_currency,
-  rule.settlement_rail,
+  supplier_currency.id AS supplier_currency_id,
+  supplier_currency.currency_code AS supplier_currency,
+  supplier_currency.currency_role AS supplier_currency_role,
+  supplier_currency.status AS supplier_currency_status,
+  pair.id AS supplier_settlement_currency_pair_id,
+  pair.priority AS pair_priority,
+  pair.is_preferred AS pair_is_preferred,
+  settlement_currency.id AS settlement_currency_id,
+  settlement_currency.currency_code AS settlement_currency,
+  settlement_currency.settlement_country_code,
+  settlement_currency.rail AS settlement_rail,
+  settlement_currency.status AS settlement_currency_status,
+  rule.id AS settlement_rule_id,
   rule.rule_type,
-  rule.priority,
+  rule.priority AS rule_priority,
   account.id AS settlement_account_id,
   account.verification_status AS settlement_account_status
 FROM suppliers s
 LEFT JOIN current_supplier_currency_profiles profile ON profile.supplier_id = s.id
-LEFT JOIN current_supplier_settlement_rules rule ON rule.supplier_id = s.id
+LEFT JOIN supplier_currencies supplier_currency
+  ON supplier_currency.supplier_id = s.id
+  AND supplier_currency.effective_to IS NULL
+LEFT JOIN supplier_settlement_currency_pairs pair
+  ON pair.supplier_id = s.id
+  AND pair.supplier_currency_id = supplier_currency.id
+  AND pair.effective_to IS NULL
+LEFT JOIN settlement_currencies settlement_currency
+  ON settlement_currency.id = pair.settlement_currency_id
+LEFT JOIN current_supplier_settlement_rules rule
+  ON rule.supplier_id = s.id
+  AND rule.invoice_currency = supplier_currency.currency_code
+  AND rule.settlement_currency = settlement_currency.currency_code
+  AND rule.settlement_rail = settlement_currency.rail
 LEFT JOIN supplier_settlement_accounts account
   ON account.supplier_id = s.id
-  AND account.currency_code = rule.settlement_currency
-  AND account.rail = rule.settlement_rail
+  AND (
+    account.settlement_currency_id = settlement_currency.id
+    OR (
+      account.settlement_currency_id IS NULL
+      AND account.currency_code = settlement_currency.currency_code
+      AND account.rail = settlement_currency.rail
+    )
+  )
   AND account.status = 'active';
 

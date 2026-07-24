@@ -30,6 +30,9 @@ Create a controlled source of truth for supplier currency configuration:
 | Currency | ISO 4217 currency metadata, minor units, and operational status. |
 | Supplier | Legal supplier or vendor profile. |
 | Supplier currency profile | Default invoice and settlement currency behavior for a supplier. |
+| Supplier currency | The invoice/refund currencies a specific supplier is allowed to use. |
+| Settlement currency | The currencies, countries, and rails the platform can use for supplier settlement. |
+| Supplier settlement currency pair | Approved mapping from one supplier currency to one settlement currency option. |
 | Supplier settlement account | Verified payout destination for a supplier/currency/rail. |
 | Settlement currency rule | Effective-dated mapping from invoice currency to settlement currency. |
 | FX rate source | Approved market, treasury, or bank source used for conversion. |
@@ -38,19 +41,53 @@ Create a controlled source of truth for supplier currency configuration:
 | Supplier settlement item | Payable-level settlement result and expected vs actual values. |
 | Supplier currency audit event | Immutable record of configuration and settlement changes. |
 
+## Database table map
+
+The database has tables for both sides of the currency relationship:
+
+### Supplier currency tables
+
+| Table | Purpose |
+| --- | --- |
+| `suppliers` | Supplier master record. |
+| `supplier_currency_profiles` | Supplier-level default invoice and settlement settings. |
+| `supplier_currencies` | Explicit list of currencies each supplier can invoice or refund in. |
+
+### Settlement currency tables
+
+| Table | Purpose |
+| --- | --- |
+| `settlement_currencies` | Explicit list of settlement currencies by country, rail, limits, and treasury status. |
+| `supplier_settlement_accounts` | Verified supplier payout accounts for settlement currencies. |
+| `supplier_fx_rate_sources` | Approved sources for FX rates. |
+| `supplier_fx_rates` | Observed FX rates for converting supplier currency into settlement currency. |
+
+### Tables that connect both sides
+
+| Table | Purpose |
+| --- | --- |
+| `supplier_settlement_currency_pairs` | Approved mapping from supplier currency to settlement currency. |
+| `supplier_settlement_currency_rules` | Effective-dated rule that selects the settlement currency, rail, fee, and markup. |
+| `supplier_settlement_quotes` | Point-in-time quote from invoice currency to settlement currency. |
+| `supplier_settlement_batches` | Batch of approved supplier settlements. |
+| `supplier_settlement_items` | Payable-level settlement result and variance tracking. |
+| `supplier_currency_audit_events` | Audit history for both supplier-currency and settlement-currency changes. |
+
 ## Currency decision flow
 
 When a payable is ready to settle:
 
 1. Load the supplier and confirm `status = active`.
-2. Validate the invoice currency exists and is enabled for operations.
-3. Select the current supplier settlement rule for `supplier_id + invoice_currency`.
-4. Choose the highest-priority rule that is active at `quoted_at`.
-5. Confirm the supplier has a verified settlement account for the rule's settlement currency and rail.
-6. Pull the approved FX rate source for the currency pair.
-7. Apply spread/markup and settlement fees.
-8. Store a settlement quote with an expiry timestamp.
-9. Reconcile actual settlement against the quote and payout confirmation.
+2. Validate the invoice currency exists in `supplier_currencies` and is enabled for that supplier.
+3. Select an active `supplier_settlement_currency_pairs` row for the supplier currency.
+4. Resolve the current supplier settlement rule for `supplier_id + invoice_currency`.
+5. Choose the highest-priority rule that is active at `quoted_at`.
+6. Confirm the selected `settlement_currencies` row is active and treasury-approved.
+7. Confirm the supplier has a verified settlement account for the settlement currency and rail.
+8. Pull the approved FX rate source for the currency pair.
+9. Apply spread/markup and settlement fees.
+10. Store a settlement quote with an expiry timestamp.
+11. Reconcile actual settlement against the quote and payout confirmation.
 
 ## Rule precedence
 
@@ -149,6 +186,104 @@ Response:
       "verificationStatus": "verified"
     }
   ]
+}
+```
+
+### Supplier currencies
+
+#### `POST /api/supplier-settlements/suppliers/{id}/currencies`
+
+Adds a currency the supplier can invoice or refund in.
+
+```json
+{
+  "currencyCode": "GBP",
+  "currencyRole": "invoice",
+  "isDefaultInvoice": true,
+  "minimumInvoiceAmount": "0.00",
+  "maximumInvoiceAmount": null,
+  "effectiveFrom": "2026-07-24T00:00:00Z",
+  "reason": "Supplier invoices are issued in GBP"
+}
+```
+
+#### `GET /api/supplier-settlements/suppliers/{id}/currencies`
+
+Response:
+
+```json
+{
+  "supplierId": "sup_01h...",
+  "currencies": [
+    {
+      "id": "scur_01h...",
+      "currencyCode": "GBP",
+      "currencyRole": "invoice",
+      "status": "active",
+      "isDefaultInvoice": true,
+      "effectiveFrom": "2026-07-24T00:00:00Z",
+      "effectiveTo": null
+    }
+  ]
+}
+```
+
+### Settlement currencies
+
+#### `POST /api/supplier-settlements/settlement-currencies`
+
+Adds a currency/rail/country option the platform can use for supplier settlement.
+
+```json
+{
+  "currencyCode": "USD",
+  "settlementCountryCode": "US",
+  "rail": "swift",
+  "status": "pending_treasury_approval",
+  "treasuryOwner": "treasury-ops",
+  "minimumSettlementAmount": "25.00",
+  "maximumSettlementAmount": null,
+  "reason": "Enable USD settlement for international suppliers"
+}
+```
+
+#### `GET /api/supplier-settlements/settlement-currencies`
+
+Response:
+
+```json
+{
+  "settlementCurrencies": [
+    {
+      "id": "setcur_01h...",
+      "currencyCode": "USD",
+      "settlementCountryCode": "US",
+      "rail": "swift",
+      "status": "active",
+      "minimumSettlementAmount": "25.00",
+      "maximumSettlementAmount": null
+    }
+  ]
+}
+```
+
+### Supplier-to-settlement currency pairs
+
+#### `POST /api/supplier-settlements/currency-pairs`
+
+Links one supplier invoice/refund currency to one settlement currency option.
+
+```json
+{
+  "supplierId": "sup_01h...",
+  "supplierCurrencyId": "scur_01h...",
+  "settlementCurrencyId": "setcur_01h...",
+  "priority": 10,
+  "isPreferred": true,
+  "fxMarkupBps": 35,
+  "settlementFee": "4.00",
+  "effectiveFrom": "2026-07-24T00:00:00Z",
+  "reason": "Preferred GBP invoice to USD settlement path"
 }
 ```
 
