@@ -2,13 +2,13 @@
 
 Denver, CO | 720-203-8401 | BrendanBowers1@gmail.com
 
-## Treasury Operations and Finance Systems Leader
+## FX, Treasury Operations, and Finance Systems Leader
 
-Treasury and finance operations professional with 12+ years of experience across global settlement, liquidity analysis, cash positioning, forecasting, reconciliations, financial controls, and process improvement in high-volume, regulated financial environments. Combines treasury execution with strong reporting and systems capability across SQL, Tableau, Power BI, Oracle, Access, Excel, and Quantum to improve visibility, reduce operational risk, and automate critical workflows. MBA in Finance from the University of Denver.
+FX, treasury, and finance operations professional with 12+ years of experience across global settlement, liquidity analysis, cash positioning, forecasting, reconciliations, financial controls, and process improvement in high-volume, regulated financial environments. Combines treasury execution with strong reporting and systems capability across SQL, Tableau, Power BI, Oracle, Access, Excel, and Quantum to improve visibility, reduce operational risk, and automate critical workflows. MBA in Finance from the University of Denver.
 
 ## Core Competencies
 
-- Treasury operations, global settlement, liquidity analysis, and cash positioning
+- Foreign exchange analysis, treasury operations, global settlement, liquidity analysis, and cash positioning
 - Forecasting, budgeting, financial analysis, and management reporting
 - Bank relationship management, bank fee analysis, and funds transfer procedures
 - Reconciliations, GL entries, controls, audit-ready documentation, and risk mitigation
@@ -18,6 +18,17 @@ Treasury and finance operations professional with 12+ years of experience across
 - AI-enabled productivity and workflow development using LLM tools including ChatGPT, Claude, and Gemini
 
 ## Professional Experience
+
+### Western Union
+
+**FX Analyst**  
+2025 - Present
+
+Current FX analyst supporting foreign exchange analysis, reporting, and finance operations in a global money movement environment.
+
+- Support foreign exchange analysis and reporting for a high-volume global payments organization.
+- Monitor currency-related activity and operational data to help inform finance and treasury decision-making.
+- Apply treasury operations, settlement, reconciliation, and reporting background to strengthen visibility into currency flows and cash movement.
 
 ### Visa
 
