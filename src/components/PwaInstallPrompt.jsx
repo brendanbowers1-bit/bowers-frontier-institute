@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Download, Share, Smartphone, X } from "lucide-react";
 
-const STORAGE_KEY = "br3n-pwa-install-dismissed";
+const STORAGE_KEY = "bowers-frontier-pwa-install-dismissed";
 
 export function PwaInstallPrompt() {
   const [installEvent, setInstallEvent] = useState(null);
@@ -47,7 +47,7 @@ export function PwaInstallPrompt() {
       <div>
         <Smartphone size={17} />
         <span>Publish-ready mobile app</span>
-        <strong>Add BR3N Collars to your home screen.</strong>
+        <strong>Add Bowers Frontier to your home screen.</strong>
         <p>
           {isiOS
             ? "On iPhone, tap Share, then Add to Home Screen for a standalone app experience."

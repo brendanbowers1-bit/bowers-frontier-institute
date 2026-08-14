@@ -1,7 +1,7 @@
-# Publishing BR3N Credit Collar Feed
+# Publishing Bowers Frontier Institute
 
-This app is publish-ready as a mobile web application and progressive web app (PWA). It also includes
-serverless live-feed adapters for hosts that support functions.
+This site is publish-ready as a mobile web application and progressive web app (PWA) for
+`https://www.bowersfrontier.com`. It also includes serverless live-feed adapters for hosts that support functions.
 
 ## Launch path
 
@@ -11,7 +11,7 @@ serverless live-feed adapters for hosts that support functions.
    npm run check:deploy
    ```
 
-2. Deploy the mobile web app.
+2. Deploy the website and connect `www.bowersfrontier.com` as the production domain.
 3. Open it on iPhone Safari and use **Share -> Add to Home Screen**.
 4. Connect a production market-data entitlement before presenting live quotes as production-grade data.
 5. Wrap with Capacitor for App Store distribution after the web app experience is stable.
@@ -73,7 +73,7 @@ Use the PWA as the product core first. When ready for TestFlight/App Store packa
 
 ```bash
 npm install @capacitor/core @capacitor/cli @capacitor/ios
-npx cap init "BR3N Collars" "com.br3n.collars" --web-dir=dist
+npx cap init "Bowers Frontier" "com.bowersfrontier.app" --web-dir=dist
 npm run build
 npx cap add ios
 npx cap sync ios

@@ -20,8 +20,8 @@ export function Contact() {
             For research dialogue and institutional correspondence.
           </p>
           <p className="contact-email">
-            <a href="mailto:contact@bowersfrontierinstitute.com">
-              contact@bowersfrontierinstitute.com
+            <a href="mailto:contact@bowersfrontier.com">
+              contact@bowersfrontier.com
             </a>
           </p>
         </header>

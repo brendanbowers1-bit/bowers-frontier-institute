@@ -16,6 +16,12 @@
     Content-Type = "application/manifest+json"
 
 [[redirects]]
+  from = "https://bowersfrontier.com/*"
+  to = "https://www.bowersfrontier.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/api/credit-collars"
   to = "/.netlify/functions/credit-collars"
   status = 200
