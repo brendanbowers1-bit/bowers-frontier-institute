@@ -207,7 +207,7 @@ export function Br3nDashboard() {
           <div>
             <Shield size={16} />
             <span>Governance</span>
-            <strong>Research only · no execution</strong>
+            <strong>No execution surface · research only</strong>
           </div>
         </motion.section>
 
