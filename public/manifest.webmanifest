@@ -1,7 +1,8 @@
 {
-  "name": "BR3N Credit Collar Feed",
-  "short_name": "BR3N Collars",
-  "description": "A mobile research cockpit for positive-credit collars, downside floors, and hedge candidate discovery.",
+  "id": "https://www.bowersfrontier.com/",
+  "name": "Bowers Frontier Institute",
+  "short_name": "Bowers Frontier",
+  "description": "Research-grade intelligence systems for finance, AI, risk, science, and data.",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
@@ -24,16 +25,16 @@
   ],
   "shortcuts": [
     {
-      "name": "Credit collar feed",
-      "short_name": "Collars",
-      "description": "Open the optimized credit-collar feed.",
-      "url": "./#collars"
+      "name": "Open dashboard",
+      "short_name": "Dashboard",
+      "description": "Open the BR3N finance dashboard.",
+      "url": "./#dashboard"
     },
     {
-      "name": "Risk dashboard",
-      "short_name": "Risk",
-      "description": "Open hedge posture and risk controls.",
-      "url": "./#risk"
+      "name": "Weekly trade discovery",
+      "short_name": "Weekly Trade",
+      "description": "Open the weekly trade discovery framework.",
+      "url": "./#weekly-trade"
     }
   ]
 }
