@@ -38,6 +38,7 @@ Date: 2026-08-16
 - Added mobile navigation button accessibility metadata.
 - Added canonical/social metadata, `robots.txt`, and standalone trade-board
   metadata.
+- Added PNG PWA icons and a 1200x630 social preview image.
 - Added visible keyboard focus styles, skip-link support, pressed states on
   dashboard filters, live feed status announcements, and range value text.
 - Added a visible live-feed fallback notice when the optional API is unavailable.
@@ -135,8 +136,6 @@ before parsing.
 
 - Review the live site visually on target mobile devices, especially iPhone
   Safari PWA install behavior.
-- Provide PNG PWA icons sized for Apple touch, 192x192, and 512x512 install
-  surfaces if app-store-quality install prompts are required.
 - Decide whether to self-host current Google Font faces to reduce third-party
   stylesheet dependency.
 - Confirm whether the two-file public brand-board output should remain
