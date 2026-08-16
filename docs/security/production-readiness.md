@@ -36,6 +36,13 @@ Date: 2026-08-16
 - Added explicit in-product copy that the dashboard has no execution surface and
   is research-only.
 - Added mobile navigation button accessibility metadata.
+- Added canonical/social metadata, `robots.txt`, and standalone trade-board
+  metadata.
+- Added visible keyboard focus styles, skip-link support, pressed states on
+  dashboard filters, live feed status announcements, and range value text.
+- Added a visible live-feed fallback notice when the optional API is unavailable.
+- Added a JSON content-type guard before parsing credit-collar feed responses.
+- Added a simple React error boundary fallback.
 
 ## Vulnerabilities fixed
 
@@ -90,6 +97,8 @@ upgrade.
   static output.
 - Optional serverless API: CORS, ticker normalization, and production error
   responses have been hardened for Vercel/Netlify deployments.
+- Accessibility/readiness: primary dashboard controls now expose visible focus
+  states and pressed states; the live-feed fallback is announced and visible.
 
 ## Tests executed
 
@@ -105,6 +114,7 @@ npm run check:pwa
 node scripts/smoke-pages-build.mjs
 npm run quality:dashboard
 npm audit --audit-level=high
+node --input-type=module # content-type guard check
 rm -rf node_modules
 npm ci
 npm run build
@@ -115,11 +125,18 @@ npm audit --audit-level=high
 Result: all checks passed. The GitHub Pages smoke test verified base-prefixed
 asset paths under `/bowers-frontier-institute/`, and the PWA publish check
 continued to pass after the workflow, dependency, and UI disclosure changes.
+The built Pages HTML was also checked for canonical/social metadata and
+base-prefixed asset paths, and the feed client rejects non-JSON API fallbacks
+before parsing.
 
 ## Manual checks still requiring Brendan
 
 - Review the live site visually on target mobile devices, especially iPhone
   Safari PWA install behavior.
+- Provide PNG PWA icons sized for Apple touch, 192x192, and 512x512 install
+  surfaces if app-store-quality install prompts are required.
+- Decide whether to self-host current Google Font faces to reduce third-party
+  stylesheet dependency.
 - Confirm whether the two-file public brand-board output should remain
   published through GitHub Pages.
 - Confirm whether internal brand-reference source files should remain tracked in

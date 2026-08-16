@@ -28,6 +28,7 @@ export function CreditCollarFeed() {
   const [feedCandidates, setFeedCandidates] = useState(creditCollarCandidates);
   const [feedMeta, setFeedMeta] = useState(collarFeedMeta);
   const [feedStatus, setFeedStatus] = useState("Snapshot fallback");
+  const [feedNotice, setFeedNotice] = useState("");
   const [refreshing, setRefreshing] = useState(false);
   const [watchlist, setWatchlist] = useState(() => readStoredArray(WATCHLIST_KEY));
   const [alertsEnabled, setAlertsEnabled] = useState(() => window.localStorage.getItem(ALERTS_KEY) === "enabled");
@@ -47,8 +48,10 @@ export function CreditCollarFeed() {
         source: payload.source ?? collarFeedMeta.source,
       });
       setFeedStatus(payload.degraded ? "Live partial" : "Live feed");
+      setFeedNotice(payload.degraded ? "Live feed is partial — showing verified snapshot coverage where needed." : "");
     } catch {
       setFeedStatus("Snapshot fallback");
+      setFeedNotice("Live feed unavailable — showing the verified snapshot fallback.");
     } finally {
       setRefreshing(false);
     }
@@ -132,7 +135,7 @@ export function CreditCollarFeed() {
               owned-stock or ETF hedging research, not uncovered call selling.
             </p>
           </div>
-          <div className="br3n-collar-status" aria-label="Feed status">
+          <div aria-label="Feed status" aria-live="polite" className="br3n-collar-status">
             <span>
               <Radio size={14} />
               {feedStatus}
@@ -147,6 +150,7 @@ export function CreditCollarFeed() {
             <SlidersHorizontal size={14} />
             {collarOptimizationProfiles.map((profile) => (
               <button
+                aria-pressed={profile.id === profileId}
                 className={profile.id === profileId ? "is-active" : ""}
                 key={profile.id}
                 onClick={() => setProfileId(profile.id)}
@@ -160,6 +164,7 @@ export function CreditCollarFeed() {
           <div>
             {allUniverses.map((item) => (
               <button
+                aria-pressed={item === universe}
                 className={item === universe ? "is-active" : ""}
                 key={item}
                 onClick={() => setUniverse(item)}
@@ -182,10 +187,22 @@ export function CreditCollarFeed() {
           </button>
           <label>
             Alert score
-            <input max="95" min="70" onChange={updateAlertThreshold} type="range" value={alertThreshold} />
+            <input
+              aria-valuemax="95"
+              aria-valuemin="70"
+              aria-valuenow={alertThreshold}
+              aria-valuetext={`${alertThreshold} minimum score`}
+              max="95"
+              min="70"
+              onChange={updateAlertThreshold}
+              type="range"
+              value={alertThreshold}
+            />
             <span>{alertThreshold}+</span>
           </label>
         </div>
+
+        {feedNotice ? <div className="br3n-collar-feed-note">{feedNotice}</div> : null}
 
         {primary ? (
           <PrimaryCollarCard

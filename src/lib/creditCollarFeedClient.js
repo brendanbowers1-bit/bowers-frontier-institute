@@ -15,6 +15,11 @@ export async function fetchLiveCreditCollars({ signal, symbols } = {}) {
     throw new Error(`Credit collar feed returned ${response.status}`);
   }
 
+  const contentType = response.headers.get("content-type") ?? "";
+  if (!contentType.toLowerCase().includes("application/json")) {
+    throw new Error("Credit collar feed did not return JSON.");
+  }
+
   const payload = await response.json();
   if (!Array.isArray(payload.candidates)) {
     throw new Error("Credit collar feed did not return candidates.");
