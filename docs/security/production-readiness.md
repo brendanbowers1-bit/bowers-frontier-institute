@@ -25,6 +25,14 @@ Date: 2026-08-16
   - Currency hedge CI has `contents: read`.
 - Pinned official GitHub Actions to the commit SHAs currently referenced by
   their major-version tags.
+- Narrowed GitHub Pages brand-board publishing to the public HTML/CSS files
+  only, excluding internal reference briefs from the static Pages artifact.
+- Added root `.env` ignore rules while preserving tracked `.env.example` files.
+- Hardened optional Vercel/Netlify serverless credit-collar endpoints:
+  - CORS now reflects only known production origins.
+  - 500 responses return generic client-safe messages.
+  - malformed ticker symbols are rejected before upstream fetches.
+- Added baseline security headers to Vercel and Netlify configs.
 - Added explicit in-product copy that the dashboard has no execution surface and
   is research-only.
 - Added mobile navigation button accessibility metadata.
@@ -77,8 +85,11 @@ upgrade.
 - GitHub Actions: permissions are least-privilege for the current workflows, and
   official actions are pinned to immutable commit SHAs.
 - Research/internal artifacts: brand-board and example currency-hedge files are
-  present in the repository. The Pages workflow intentionally copies
-  `brand/logo` into the static output for the brand board.
+  present in the repository. The Pages workflow copies only
+  `brand/logo/logo-concepts.html` and `brand/logo/logo-system.css` into the
+  static output.
+- Optional serverless API: CORS, ticker normalization, and production error
+  responses have been hardened for Vercel/Netlify deployments.
 
 ## Tests executed
 
@@ -109,8 +120,10 @@ continued to pass after the workflow, dependency, and UI disclosure changes.
 
 - Review the live site visually on target mobile devices, especially iPhone
   Safari PWA install behavior.
-- Confirm whether the public brand-board output under `brand/logo` should remain
+- Confirm whether the two-file public brand-board output should remain
   published through GitHub Pages.
+- Confirm whether internal brand-reference source files should remain tracked in
+  this public repository or move to a private workspace.
 - Confirm market-data licensing and production entitlement before presenting any
   live quotes as production-grade data.
 - Rotate pinned GitHub Action SHAs during normal dependency maintenance, or
