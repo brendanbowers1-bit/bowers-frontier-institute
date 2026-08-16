@@ -42,6 +42,8 @@ Date: 2026-08-16
   dashboard filters, live feed status announcements, and range value text.
 - Added a visible live-feed fallback notice when the optional API is unavailable.
 - Added a JSON content-type guard before parsing credit-collar feed responses.
+- Skipped live API requests on static subpath deployments, which prevents
+  GitHub Pages from generating expected `/api/credit-collars` 404 console noise.
 - Added a simple React error boundary fallback.
 
 ## Vulnerabilities fixed

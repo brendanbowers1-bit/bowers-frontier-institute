@@ -1,6 +1,10 @@
 const LIVE_FEED_ENDPOINT = "/api/credit-collars";
 
 export async function fetchLiveCreditCollars({ signal, symbols } = {}) {
+  if (import.meta.env?.BASE_URL && import.meta.env.BASE_URL !== "/") {
+    throw new Error("Live credit-collar feed is unavailable on static subpath deployments.");
+  }
+
   const params = new URLSearchParams();
   if (symbols?.length) {
     params.set("symbols", symbols.join(","));
