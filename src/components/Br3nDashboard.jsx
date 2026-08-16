@@ -30,6 +30,8 @@ import {
 import { correlations, correlationAssets } from "../data/correlations";
 import { currencyExposure, exposureTotals } from "../data/currencyExposure";
 import { fxRates } from "../data/fxRates";
+import { bcrgGnfFallback, findBcrgRate } from "../data/gnfRates";
+import { cblLrdFallback } from "../data/lrdRates";
 import { assetClasses, periods, pnlCurve, portfolioPerformance } from "../data/portfolioPerformance";
 import { ohlcSeries, volatilitySeries } from "../data/volatility";
 import {
@@ -40,6 +42,8 @@ import {
   weeklyTradeOutput,
 } from "../data/weeklyTradeDiscovery";
 import { yieldCurve } from "../data/yieldCurve";
+import { fetchBcrgGnfRateFeed } from "../lib/gnfRateClient";
+import { fetchCblLrdRateFeed } from "../lib/lrdRateClient";
 import { Br3nCrest } from "./Br3nCrest";
 import { Br3nRibbonMark } from "./Br3nRibbonMark";
 import { CreditCollarFeed } from "./CreditCollarFeed";
@@ -69,16 +73,61 @@ export function Br3nDashboard() {
   const [assetClass, setAssetClass] = useState("FX");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [gnfFeed, setGnfFeed] = useState(bcrgGnfFallback);
+  const [lrdFeed, setLrdFeed] = useState(cblLrdFallback);
 
   useEffect(() => {
     const timeout = window.setTimeout(() => setLoading(false), 720);
     return () => window.clearTimeout(timeout);
   }, []);
 
+  useEffect(() => {
+    const controller = new AbortController();
+    fetchBcrgGnfRateFeed({ signal: controller.signal })
+      .then((feed) => setGnfFeed(feed))
+      .catch(() => {
+        setGnfFeed((feed) => ({ ...feed, degraded: true }));
+      });
+
+    return () => controller.abort();
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetchCblLrdRateFeed({ signal: controller.signal })
+      .then((feed) => setLrdFeed(feed))
+      .catch(() => {
+        setLrdFeed((feed) => ({ ...feed, degraded: true }));
+      });
+
+    return () => controller.abort();
+  }, []);
+
   const performanceData = useMemo(() => {
     const series = portfolioPerformance[assetClass] ?? portfolioPerformance.FX;
     return series.slice(-periodLengths[period]);
   }, [assetClass, period]);
+
+  const dashboardFxRates = useMemo(() => {
+    const usdGnf = findBcrgRate(gnfFeed, "USD");
+    if (!usdGnf) return fxRates;
+
+    return [
+      ...fxRates,
+      {
+        pair: "USD/GNF",
+        spot: usdGnf.rate,
+        change: null,
+        sourceTag: "BCRG",
+      },
+      {
+        pair: "USD/LRD",
+        spot: lrdFeed.mid,
+        change: null,
+        sourceTag: "CBL",
+      },
+    ];
+  }, [gnfFeed, lrdFeed]);
 
   const volatilityData = useMemo(
     () => volatilitySeries.slice(-Math.min(periodLengths[period], volatilitySeries.length)),
@@ -267,17 +316,28 @@ export function Br3nDashboard() {
         <section className="br3n-grid br3n-grid--three">
           <Panel eyebrow="Foreign exchange" title="FX rates">
             <div className="br3n-fx-list">
-              {fxRates.map((rate) => (
+              {dashboardFxRates.map((rate) => (
                 <motion.div className="br3n-fx-row" key={rate.pair} whileHover={{ x: 4 }}>
                   <span>{rate.pair}</span>
                   <strong>{formatSpot(rate.spot)}</strong>
-                  <em className={rate.change >= 0 ? "is-positive" : "is-negative"}>
-                    {rate.change >= 0 ? "+" : ""}
-                    {rate.change.toFixed(2)}%
-                  </em>
+                  <em className={getRateChangeClass(rate)}>{formatRateChange(rate)}</em>
                 </motion.div>
               ))}
             </div>
+            <p className="br3n-fx-source">
+              <span>GNF source: BCRG fixing {formatFixingDate(gnfFeed.asOf)}</span>
+              <a href={gnfFeed.sourceUrl} rel="noreferrer" target="_blank">
+                Official PDF
+              </a>
+              {gnfFeed.degraded ? <em>Snapshot fallback</em> : null}
+            </p>
+            <p className="br3n-fx-source">
+              <span>LRD source: CBL table {formatFixingDate(lrdFeed.asOf)}</span>
+              <a href={lrdFeed.sourceUrl} rel="noreferrer" target="_blank">
+                Official table
+              </a>
+              {lrdFeed.degraded ? <em>Snapshot fallback</em> : null}
+            </p>
           </Panel>
 
           <Panel eyebrow="Rates" title="Yield curve">
@@ -582,6 +642,26 @@ function heatColor(value) {
 
 function formatSpot(value) {
   return value > 10 ? value.toFixed(2) : value.toFixed(4);
+}
+
+function formatRateChange(rate) {
+  if (typeof rate.change !== "number") return rate.sourceTag ?? "Official";
+
+  return `${rate.change >= 0 ? "+" : ""}${rate.change.toFixed(2)}%`;
+}
+
+function getRateChangeClass(rate) {
+  if (typeof rate.change !== "number") return "is-source";
+
+  return rate.change >= 0 ? "is-positive" : "is-negative";
+}
+
+function formatFixingDate(value) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value ?? "");
+  if (!match) return "pending";
+
+  const [, year, month, day] = match;
+  return `${day}/${month}/${year}`;
 }
 
 function formatUsd(value) {
