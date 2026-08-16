@@ -19,12 +19,16 @@ import {
   Activity,
   ArrowUpRight,
   BarChart3,
+  Brain,
+  CheckCircle2,
   CircleDollarSign,
   Gauge,
   Layers,
   Menu,
+  Network,
   Radio,
   Shield,
+  Sparkles,
   X,
 } from "lucide-react";
 import { correlations, correlationAssets } from "../data/correlations";
@@ -55,13 +59,58 @@ const periodLengths = {
   "1Y": 160,
 };
 
-const navItems = ["Overview", "Collars", "Markets", "Risk", "Exposure", "Signals"];
+const navItems = ["Overview", "Method", "Collars", "Markets", "Risk", "Exposure", "Signals"];
 
 const metrics = [
   { label: "AUM monitored", value: "$2.84B", delta: "+4.8%", icon: CircleDollarSign },
   { label: "Portfolio P&L", value: "$14.2M", delta: "+1.9%", icon: Activity },
   { label: "Collar candidates", value: "10", delta: "credit only", icon: Shield },
   { label: "Hedge ratio", value: "64%", delta: "+3 pts", icon: Gauge },
+];
+
+const heroProof = [
+  { label: "Built for", value: "Research desks" },
+  { label: "Surface", value: "Web app + PWA" },
+  { label: "Posture", value: "No execution surface" },
+];
+
+const capabilityCards = [
+  {
+    icon: Sparkles,
+    label: "Craft the thesis",
+    title: "Turn loose market questions into structured decision screens.",
+    copy: "Scorecards, gates, and ranked candidates keep every view attached to an explicit research reason.",
+  },
+  {
+    icon: Network,
+    label: "Prepare the stack",
+    title: "Keep mock data, live adapters, and UI panels cleanly separable.",
+    copy: "The cockpit is organized around swappable data modules so Bloomberg, FRED, Snowflake, or internal feeds can replace static fixtures.",
+  },
+  {
+    icon: Brain,
+    label: "Govern the workflow",
+    title: "Make the interface calm enough for review and sharp enough for action.",
+    copy: "Risk language, no-trade gates, and collar constraints stay visible before any candidate is promoted.",
+  },
+];
+
+const methodSteps = [
+  {
+    step: "01",
+    title: "Discover",
+    copy: "Frame the regime, the risk budget, and the question the desk needs answered.",
+  },
+  {
+    step: "02",
+    title: "Prototype",
+    copy: "Pressure-test the screens with modular mock data before wiring live sources.",
+  },
+  {
+    step: "03",
+    title: "Operate",
+    copy: "Keep governance, research notes, and downside controls attached to each workflow.",
+  },
 ];
 
 export function Br3nDashboard() {
@@ -113,7 +162,7 @@ export function Br3nDashboard() {
         <div className="br3n-sidebar-card">
           <Radio size={16} />
           <span>Live API ready</span>
-          <small>Bloomberg / Snowflake / FRED adapters can be mounted behind the data layer.</small>
+          <small>Mock data, live adapters, and research controls are separated for future source upgrades.</small>
         </div>
       </aside>
 
@@ -139,11 +188,27 @@ export function Br3nDashboard() {
               <Br3nCrest />
             </div>
             <p className="br3n-kicker">Research · Regime · Risk</p>
-            <h1>Macro command for currency, risk, and capital decisions.</h1>
+            <h1>Bring market intelligence systems to life.</h1>
             <p className="br3n-hero-copy">
-              A luxury-grade finance cockpit for market oversight, credit-collar discovery, rates,
-              volatility, drawdown, and hedge posture. Fast, intentional, and calm.
+              A premium research cockpit that turns currency exposure, credit-collar discovery,
+              rates, volatility, drawdown, and hedge posture into one calm operating surface.
             </p>
+            <div className="br3n-hero-actions" aria-label="Primary dashboard paths">
+              <a className="br3n-action br3n-action--primary" href="#collars">
+                Inspect collar engine
+              </a>
+              <a className="br3n-action" href="#method">
+                View method
+              </a>
+            </div>
+            <div className="br3n-hero-proof" aria-label="Platform summary">
+              {heroProof.map((item) => (
+                <span key={item.label}>
+                  <small>{item.label}</small>
+                  <strong>{item.value}</strong>
+                </span>
+              ))}
+            </div>
           </div>
           <div className="br3n-hero-right">
             <motion.div
@@ -202,13 +267,13 @@ export function Br3nDashboard() {
         >
           <div>
             <BarChart3 size={16} />
-            <span>Signal engine</span>
-            <strong>Credit collars ranked</strong>
+            <span>Thesis engine</span>
+            <strong>Questions become screens</strong>
           </div>
           <div>
             <Activity size={16} />
-            <span>Optimizer</span>
-            <strong>Profit / floor / liquidity</strong>
+            <span>Design system</span>
+            <strong>Signals become interface</strong>
           </div>
           <div>
             <Shield size={16} />
@@ -218,6 +283,48 @@ export function Br3nDashboard() {
         </motion.section>
 
         <PwaInstallPrompt />
+
+        <section className="br3n-grid br3n-grid--method" id="method">
+          <Panel className="br3n-panel--wide br3n-panel--story" eyebrow="What we do" title="Build the desk between insight and action.">
+            <p className="br3n-story-copy">
+              Inspired by studio-style websites that make complex work feel approachable, BR3N now
+              leads with a clearer promise: transform raw market imagination into a durable,
+              inspectable research product.
+            </p>
+            <div className="br3n-capability-grid">
+              {capabilityCards.map((card) => {
+                const Icon = card.icon;
+                return (
+                  <motion.div className="br3n-capability-card" key={card.label} whileHover={{ y: -4 }}>
+                    <Icon size={18} />
+                    <span>{card.label}</span>
+                    <strong>{card.title}</strong>
+                    <p>{card.copy}</p>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </Panel>
+
+          <Panel eyebrow="Operating method" title="Discovery to decision support">
+            <div className="br3n-method-list">
+              {methodSteps.map((item) => (
+                <div className="br3n-method-step" key={item.step}>
+                  <span>{item.step}</span>
+                  <div>
+                    <strong>{item.title}</strong>
+                    <p>{item.copy}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="br3n-promise-card">
+              <CheckCircle2 size={18} />
+              <span>Operating promise</span>
+              <p>Clear enough for a research memo, restrained enough for risk review, and modular enough for tomorrow's data sources.</p>
+            </div>
+          </Panel>
+        </section>
 
         <section className="br3n-grid br3n-grid--collars" id="collars">
           <CreditCollarFeed />

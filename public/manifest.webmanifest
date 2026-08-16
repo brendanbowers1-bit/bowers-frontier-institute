@@ -1,7 +1,7 @@
 {
-  "name": "BR3N Credit Collar Feed",
-  "short_name": "BR3N Collars",
-  "description": "A mobile research cockpit for positive-credit collars, downside floors, and hedge candidate discovery.",
+  "name": "BR3N Macro Labs Cockpit",
+  "short_name": "BR3N Cockpit",
+  "description": "A premium market intelligence cockpit for currency exposure, credit-collar discovery, risk controls, and hedge decision support.",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
