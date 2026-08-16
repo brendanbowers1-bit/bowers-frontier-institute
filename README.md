@@ -80,6 +80,21 @@ src/data/correlations.js
 
 Replace these modules or wrap them with adapters when connecting live APIs.
 
+## Settlement pricing platform design
+
+The repository now includes a first platform blueprint for a Western Union agent settlement pricing
+database:
+
+- `docs/settlement-pricing-platform.md` defines the product workflow, core entities, API contract,
+  reconciliation flow, and compliance controls.
+- `docs/settlement-pricing-schema.sql` provides a PostgreSQL reference schema for agents, corridors,
+  pricing snapshots, settlement imports, reconciliation exceptions, and audit logs.
+- `docs/supplier-settlement-currency-database.md` defines supplier invoice currency, settlement
+  currency, payout account, FX quote, and settlement batch workflows.
+- `docs/supplier-settlement-currency-schema.sql` provides the PostgreSQL reference schema for supplier
+  currencies, settlement currencies, pair mappings, settlement rules, accounts, quotes, batches, and
+  audit events.
+
 ## Design direction
 
 - Uses a custom inline SVG interpretation of the provided BR3N Macro Labs crest
