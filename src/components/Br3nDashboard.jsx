@@ -117,7 +117,13 @@ export function Br3nDashboard() {
         </div>
       </aside>
 
-      <button className="br3n-mobile-toggle" onClick={() => setSidebarOpen((open) => !open)}>
+      <button
+        aria-expanded={sidebarOpen}
+        aria-label={sidebarOpen ? "Close dashboard navigation" : "Open dashboard navigation"}
+        className="br3n-mobile-toggle"
+        onClick={() => setSidebarOpen((open) => !open)}
+        type="button"
+      >
         {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
       </button>
 
@@ -207,7 +213,7 @@ export function Br3nDashboard() {
           <div>
             <Shield size={16} />
             <span>Governance</span>
-            <strong>Research only · no execution</strong>
+            <strong>No execution surface · research only</strong>
           </div>
         </motion.section>
 
