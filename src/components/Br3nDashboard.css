@@ -1299,6 +1299,26 @@
   border-radius: 0.9rem;
 }
 
+.br3n-basis-formula {
+  display: grid;
+  grid-column: span 2;
+  gap: 0.25rem;
+  min-height: 2.35rem;
+  padding: 0.58rem 0.78rem;
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  color: rgba(244, 244, 239, 0.62);
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: 1rem;
+}
+
+.br3n-basis-formula small {
+  color: rgba(244, 244, 239, 0.42);
+}
+
 .is-spinning {
   animation: br3n-spin 0.8s linear infinite;
 }
@@ -1531,6 +1551,20 @@
   min-width: 0;
 }
 
+.br3n-basis-row-badge {
+  display: grid;
+  place-items: center;
+  min-height: 2.25rem;
+  padding: 0 0.55rem;
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.11em;
+  color: #09090a;
+  text-transform: uppercase;
+  background: #f4f4ef;
+  border-radius: 999px;
+}
+
 .br3n-collar-row > div:first-child span {
   display: grid;
   width: 2.25rem;
@@ -1575,6 +1609,7 @@
   .br3n-hero,
   .br3n-grid--market,
   .br3n-grid--collars,
+  .br3n-grid--basis,
   .br3n-grid--risk,
   .br3n-grid--exposure,
   .br3n-grid--signals {

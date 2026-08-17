@@ -42,6 +42,7 @@ import {
 import { yieldCurve } from "../data/yieldCurve";
 import { Br3nCrest } from "./Br3nCrest";
 import { Br3nRibbonMark } from "./Br3nRibbonMark";
+import { CoinbaseBasisFeed } from "./CoinbaseBasisFeed";
 import { CreditCollarFeed } from "./CreditCollarFeed";
 import { PwaInstallPrompt } from "./PwaInstallPrompt";
 import "./Br3nDashboard.css";
@@ -55,7 +56,7 @@ const periodLengths = {
   "1Y": 160,
 };
 
-const navItems = ["Overview", "Collars", "Markets", "Risk", "Exposure", "Signals"];
+const navItems = ["Overview", "Collars", "Basis", "Markets", "Risk", "Exposure", "Signals"];
 
 const metrics = [
   { label: "AUM monitored", value: "$2.84B", delta: "+4.8%", icon: CircleDollarSign },
@@ -238,6 +239,10 @@ export function Br3nDashboard() {
 
         <section className="br3n-grid br3n-grid--collars" id="collars">
           <CreditCollarFeed />
+        </section>
+
+        <section className="br3n-grid br3n-grid--basis" id="basis">
+          <CoinbaseBasisFeed />
         </section>
 
         <section className="br3n-metric-grid">
