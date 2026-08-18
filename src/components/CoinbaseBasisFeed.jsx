@@ -1,13 +1,17 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Activity,
+  CheckCircle2,
   Clock3,
+  FileText,
   Gauge,
+  Lock,
   Radio,
   RefreshCw,
   ShieldCheck,
   TrendingUp,
   Wallet,
+  Zap,
 } from "lucide-react";
 import {
   coinbaseBasisFallbackCandidates,
@@ -29,6 +33,9 @@ export function CoinbaseBasisFeed() {
   });
   const [feedStatus, setFeedStatus] = useState("Snapshot fallback");
   const [feedNotice, setFeedNotice] = useState("");
+  const [automationNotice, setAutomationNotice] = useState(
+    "Automation controls are research-only. No order route, broker key, or live execution endpoint is connected.",
+  );
   const [refreshing, setRefreshing] = useState(false);
 
   const refreshFeed = useCallback(async (signal) => {
@@ -80,6 +87,7 @@ export function CoinbaseBasisFeed() {
 
   const primary = rankedCandidates[0];
   const runnersUp = rankedCandidates.slice(1, 6);
+  const visibleNotice = feedNotice || automationNotice;
   const statusCounts = useMemo(
     () => ({
       All: feedCandidates.length,
@@ -88,6 +96,38 @@ export function CoinbaseBasisFeed() {
     }),
     [feedCandidates],
   );
+
+  const handleAutomationAction = useCallback((action, candidate) => {
+    const label = `${candidate.asset} ${candidate.spotProduct}/${candidate.perpProduct}`;
+
+    if (action === "simulate") {
+      setAutomationNotice(
+        `Simulation staged for ${label}: long spot, short perp, expected profit ${formatPct(
+          candidate.expectedProfit,
+        )}. No order was sent.`,
+      );
+      return;
+    }
+
+    if (action === "review") {
+      setAutomationNotice(
+        `Manual review ticket staged for ${label}. Treasury/risk approval remains required before any external action.`,
+      );
+      return;
+    }
+
+    if (action === "export") {
+      exportTradePlan(candidate);
+      setAutomationNotice(
+        `Trade plan exported for ${label}. The export is local research data only, not an execution instruction.`,
+      );
+      return;
+    }
+
+    setAutomationNotice(
+      `Auto-trade lock held for ${label}. Live order routing is intentionally disabled in this research dashboard.`,
+    );
+  }, []);
 
   return (
     <>
@@ -146,9 +186,13 @@ export function CoinbaseBasisFeed() {
           </div>
         </div>
 
-        {feedNotice ? <div className="br3n-collar-feed-note">{feedNotice}</div> : null}
+        {visibleNotice ? <div className="br3n-collar-feed-note">{visibleNotice}</div> : null}
 
-        {primary ? <PrimaryBasisCard candidate={primary} /> : <EmptyBasisState />}
+        {primary ? (
+          <PrimaryBasisCard candidate={primary} onAutomationAction={handleAutomationAction} />
+        ) : (
+          <EmptyBasisState />
+        )}
       </div>
 
       <div className="br3n-collar-sidecar">
@@ -175,7 +219,7 @@ export function CoinbaseBasisFeed() {
   );
 }
 
-function PrimaryBasisCard({ candidate }) {
+function PrimaryBasisCard({ candidate, onAutomationAction }) {
   const totalCosts =
     candidate.spotFees +
     candidate.perpFees +
@@ -234,8 +278,35 @@ function PrimaryBasisCard({ candidate }) {
             <span key={flag}>{flag.replaceAll("_", " ")}</span>
           ))}
         </div>
+
+        <TradeAutomationDock candidate={candidate} onAutomationAction={onAutomationAction} />
       </div>
     </article>
+  );
+}
+
+function TradeAutomationDock({ candidate, onAutomationAction }) {
+  const actions = [
+    { id: "simulate", label: "Simulate entry", icon: Zap },
+    { id: "review", label: "Stage review", icon: CheckCircle2 },
+    { id: "export", label: "Export plan", icon: FileText },
+    { id: "locked", label: "Auto trade locked", icon: Lock, locked: true },
+  ];
+
+  return (
+    <div className="br3n-trade-dock" aria-label={`${candidate.asset} trade automation controls`}>
+      {actions.map(({ icon: Icon, id, label, locked }) => (
+        <button
+          className={locked ? "is-locked" : ""}
+          key={id}
+          onClick={() => onAutomationAction(id, candidate)}
+          type="button"
+        >
+          <Icon size={14} />
+          {label}
+        </button>
+      ))}
+    </div>
   );
 }
 
@@ -311,4 +382,29 @@ function formatTimestamp(value) {
     hour: "numeric",
     minute: "2-digit",
   });
+}
+
+function exportTradePlan(candidate) {
+  const plan = {
+    generatedAt: new Date().toISOString(),
+    mode: "research_only_no_execution",
+    action: candidate.direction,
+    asset: candidate.asset,
+    spotProduct: candidate.spotProduct,
+    perpProduct: candidate.perpProduct,
+    spotPrice: candidate.spotPrice,
+    perpPrice: candidate.perpPrice,
+    basis: candidate.basis,
+    expectedProfit: candidate.expectedProfit,
+    reviewFlags: candidate.reviewFlags,
+    warning:
+      "This exported plan is not an order ticket. Validate venue access, depth, fees, funding, and approvals manually.",
+  };
+  const blob = new Blob([JSON.stringify(plan, null, 2)], { type: "application/json" });
+  const url = window.URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `coinbase-basis-${candidate.asset.toLowerCase()}-plan.json`;
+  link.click();
+  window.URL.revokeObjectURL(url);
 }
