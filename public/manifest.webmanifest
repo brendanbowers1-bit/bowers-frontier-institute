@@ -1,7 +1,7 @@
 {
-  "name": "BR3N Credit Collar Feed",
-  "short_name": "BR3N Collars",
-  "description": "A mobile research cockpit for positive-credit collars, downside floors, and hedge candidate discovery.",
+  "name": "GoodFunds",
+  "short_name": "GoodFunds",
+  "description": "A settlement-aware on-ramp for same-day bank money to BTC and USDC self-custody.",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
@@ -36,16 +36,16 @@
   ],
   "shortcuts": [
     {
-      "name": "Credit collar feed",
-      "short_name": "Collars",
-      "description": "Open the optimized credit-collar feed.",
-      "url": "./#collars"
+      "name": "Settlement rails",
+      "short_name": "Rails",
+      "description": "Compare good-funds rails and ACH holds.",
+      "url": "./#rails"
     },
     {
-      "name": "Risk dashboard",
-      "short_name": "Risk",
-      "description": "Open hedge posture and risk controls.",
-      "url": "./#risk"
+      "name": "Pilot access",
+      "short_name": "Pilot",
+      "description": "Request access to the GoodFunds pilot.",
+      "url": "./#pilot"
     }
   ]
 }
