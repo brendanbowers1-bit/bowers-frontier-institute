@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Br3nDashboard } from "./components/Br3nDashboard";
 import { GoodFundsLanding } from "./components/GoodFundsLanding";
+import { ResumePage } from "./components/ResumePage";
 
 function getHashRoute() {
   return window.location.hash.replace("#", "");
@@ -19,5 +20,9 @@ export default function App() {
     return <Br3nDashboard />;
   }
 
-  return <GoodFundsLanding />;
+  if (route === "goodfunds") {
+    return <GoodFundsLanding />;
+  }
+
+  return <ResumePage />;
 }

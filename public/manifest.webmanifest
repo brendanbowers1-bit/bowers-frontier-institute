@@ -1,7 +1,7 @@
 {
-  "name": "GoodFunds",
-  "short_name": "GoodFunds",
-  "description": "A settlement-aware on-ramp for same-day bank money to BTC and USDC self-custody.",
+  "name": "Brendan Bowers Resume",
+  "short_name": "Resume",
+  "description": "Resume and portfolio for Brendan Bowers: finance intelligence, AI/data infrastructure, research systems, and frontier prototypes.",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
@@ -36,16 +36,16 @@
   ],
   "shortcuts": [
     {
-      "name": "Settlement rails",
-      "short_name": "Rails",
-      "description": "Compare good-funds rails and ACH holds.",
-      "url": "./#rails"
+      "name": "Selected work",
+      "short_name": "Work",
+      "description": "Open the selected work section.",
+      "url": "./#work"
     },
     {
-      "name": "Pilot access",
-      "short_name": "Pilot",
-      "description": "Request access to the GoodFunds pilot.",
-      "url": "./#pilot"
+      "name": "Experience",
+      "short_name": "Experience",
+      "description": "Open the resume experience section.",
+      "url": "./#experience"
     }
   ]
 }
