@@ -17,6 +17,7 @@
     "demo:artifacts:check": "node scripts/generate-demo-artifacts.mjs --check",
     "lint": "eslint .",
     "test": "node --test test/*.test.mjs",
+    "replay": "npm run replay:scenarios",
     "replay:reviewed": "node scripts/replay-reviewed.mjs",
     "replay:scenarios": "node scripts/replay-scenarios.mjs",
     "serve:demo": "node scripts/serve-demo.mjs",
