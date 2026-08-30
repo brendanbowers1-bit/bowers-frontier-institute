@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "real_world_case_v1",
+  "protocolVersion": "2026.08.30",
+  "researchOnly": true,
+  "reviewedRealWorldCases": 0,
+  "gateStatus": "insufficient-reviewed-cases",
+  "requiredCaseFields": [
+    "id",
+    "evaluationTimestamp",
+    "evidenceDates",
+    "caseScope",
+    "redactedNormalizedInput",
+    "evidenceIds",
+    "evidenceRequirements",
+    "engine",
+    "humanSteward",
+    "humanReview",
+    "sourceProvenance",
+    "expected",
+    "disagreementCategory",
+    "redactionStatus",
+    "sameDayAgreementResult",
+    "schemaVersion",
+    "policyVersion"
+  ],
+  "caseScope": {
+    "scenarioId": "Stable replay scenario or equivalent scenario identifier.",
+    "provider": "Provider identifier or redacted equivalent when applicable.",
+    "corridor": "Corridor identifier or redacted equivalent when applicable.",
+    "product": "Product identifier or redacted equivalent when applicable."
+  },
+  "metrics": [
+    "reviewed_case_count",
+    "same_day_agreement_rate",
+    "abstention_rate",
+    "false_available_rate",
+    "false_unavailable_rate",
+    "insufficient_evidence_rate",
+    "disagreement_categories",
+    "breakdowns_by_scenario_provider_corridor"
+  ],
+  "prohibitedData": [
+    "credentials",
+    "secrets",
+    "account_numbers",
+    "wallet_keys",
+    "employer_data",
+    "personally_identifying_information"
+  ]
+}

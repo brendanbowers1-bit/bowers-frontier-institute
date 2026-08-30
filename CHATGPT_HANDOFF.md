@@ -25,6 +25,7 @@
 ## Reviewed replay status
 
 - Reviewed registry: `data/reviewed-cases.json`
+- Real-world review protocol: `data/real_world_case_v1.schema.json`
 - Actual approved reviewed-real-world-case count: `0`
 - Accuracy gate status: `insufficient-reviewed-cases`
 - Same-day classification gate: `>= 90%`

@@ -68,11 +68,17 @@ Run:
 npm run replay:reviewed
 ```
 
+The versioned review protocol is `data/real_world_case_v1.schema.json`. It is a
+research-only protocol for future independent evaluation; it does not contain or
+fabricate real-world cases.
+
 Reviewed cases must include stable case ID, fixed evaluation timestamp,
 redacted normalized input, explicit human-steward approval and reviewer ID,
-review timestamp, evidence IDs/dates, expected statuses, expected same-day
-classification, expected ETA/reasons/hold risk/confidence/rejected routes and
-fallback, safe provenance, schema version, and policy version.
+review timestamp, case scope, evidence IDs/dates, engine classification and
+rationale, steward classification and rationale, disagreement category,
+redaction status, same-day agreement result, expected statuses, expected
+same-day classification, expected ETA/reasons/hold risk/confidence/rejected
+routes and fallback, safe provenance, schema version, and policy version.
 
 Only approved, determinate, valid-evidence cases enter the accuracy denominator.
 Invalid cases are reported separately. Current approved real-world reviewed
@@ -81,3 +87,8 @@ accuracy percentage is claimed.
 
 The same-day classification success gate is `>= 90%`. The result remains
 preliminary until a human-approved minimum reviewed sample size is established.
+
+Tracked future metrics include reviewed case count, same-day agreement rate,
+abstention rate, false-available rate, false-unavailable rate,
+insufficient-evidence rate, disagreement categories, and scenario/provider/
+corridor breakdowns.

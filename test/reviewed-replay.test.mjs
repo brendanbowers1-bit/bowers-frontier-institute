@@ -9,12 +9,18 @@ const scenario = (id) => scenarioMatrix.scenarios.find((item) => item.id === id)
 const syntheticReviewedCase = (scenarioId, overrides = {}) => {
   const item = scenario(scenarioId);
   return {
-    schemaVersion: "1.0.0",
+    schemaVersion: "real_world_case_v1",
     policyVersion: item.policyVersion,
     id: `synthetic-reviewed-${item.id}`,
     description: `Synthetic test-only reviewed case for ${item.id}.`,
     evaluationTimestamp: item.evaluationTimestamp,
     redactedNormalizedInput: item.normalizedInput,
+    caseScope: {
+      scenarioId: item.id,
+      provider: "synthetic-provider",
+      corridor: "synthetic-corridor",
+      product: "synthetic-product",
+    },
     humanReview: { status: "approved", reviewerId: "synthetic-human-steward", reviewedAt: "2026-08-27T00:00:00.000Z" },
     evidenceIds: item.evidenceIds,
     evidenceRequirements: item.evidenceRequirements,
@@ -31,6 +37,19 @@ const syntheticReviewedCase = (scenarioId, overrides = {}) => {
       rejectedRoutes: item.expected.rejectedRoutes,
       fallback: item.expected.fallback,
     },
+    engine: {
+      classification: item.expected.eta.startsWith("same_day") ? "same_day" : "not_same_day",
+      rationale: "Synthetic engine rationale for test-only review fixture.",
+      evidenceReferences: item.evidenceIds,
+      version: item.policyVersion,
+    },
+    humanSteward: {
+      classification: item.expected.eta.startsWith("same_day") ? "same_day" : "not_same_day",
+      rationale: "Synthetic steward rationale for test-only review fixture.",
+    },
+    disagreementCategory: "none",
+    redactionStatus: "redacted",
+    sameDayAgreementResult: "agree",
     sourceProvenance: "Synthetic test-only redacted replay fixture using public scenario labels only.",
     ...overrides,
   };
@@ -65,7 +84,7 @@ test("invalid reviewed cases never enter the denominator", () => {
   const invalid = syntheticReviewedCase("scenario-005-after-cutoff-next-business-day", {
     humanReview: { status: "pending", reviewerId: "synthetic-human-steward", reviewedAt: "2026-08-27T00:00:00.000Z" },
   });
-  const report = scoreReviewedReplays({ schemaVersion: "1.0.0", policyVersion: "2026.08.26", cases: [valid, invalid] });
+  const report = scoreReviewedReplays({ schemaVersion: "real_world_case_v1", policyVersion: "2026.08.26", cases: [valid, invalid] });
   assert.equal(report.counts.accepted, 1);
   assert.equal(report.counts.rejected, 1);
   assert.equal(report.gate.denominator, 1);
@@ -74,13 +93,13 @@ test("invalid reviewed cases never enter the denominator", () => {
 test("accuracy and gate calculations are deterministic for synthetic fixtures", () => {
   const sameDay = syntheticReviewedCase("scenario-001-fully-available-same-day");
   const nextDay = syntheticReviewedCase("scenario-005-after-cutoff-next-business-day");
-  const passing = scoreReviewedReplays({ schemaVersion: "1.0.0", policyVersion: "2026.08.26", cases: [sameDay, nextDay] });
+  const passing = scoreReviewedReplays({ schemaVersion: "real_world_case_v1", policyVersion: "2026.08.26", cases: [sameDay, nextDay] });
   assert.equal(passing.counts.correct, 2);
   assert.equal(passing.gate.accuracy, 1);
   assert.equal(passing.gate.status, "passed_preliminary");
 
   const failing = scoreReviewedReplays({
-    schemaVersion: "1.0.0",
+    schemaVersion: "real_world_case_v1",
     policyVersion: "2026.08.26",
     cases: [sameDay, syntheticReviewedCase("scenario-005-after-cutoff-next-business-day", { expected: { ...nextDay.expected, sameDayClassification: true } })],
   });
@@ -88,4 +107,6 @@ test("accuracy and gate calculations are deterministic for synthetic fixtures", 
   assert.equal(failing.counts.incorrect, 1);
   assert.equal(failing.gate.accuracy, 0.5);
   assert.equal(failing.gate.status, "failed_preliminary");
+  assert.equal(failing.metrics.falseUnavailableRate, 0.5);
+  assert.deepEqual(failing.metrics.disagreementCategories, { none: 1 });
 });

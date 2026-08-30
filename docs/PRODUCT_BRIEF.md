@@ -27,8 +27,9 @@ The 10-scenario replay matrix lives in `data/scenarios.json` and is replayed by
 they do not duplicate policy/evidence logic.
 
 The reviewed replay harness starts with zero approved real-world cases in
-`data/reviewed-cases.json`. Only explicitly human-approved, redacted,
-valid-evidence cases can enter the same-day classification denominator. Until a
-human-approved reviewed set exists, the harness reports
+`data/reviewed-cases.json`, using the `real_world_case_v1` protocol in
+`data/real_world_case_v1.schema.json`. Only explicitly human-approved,
+redacted, valid-evidence cases can enter the same-day classification
+denominator. Until a human-approved reviewed set exists, the harness reports
 `insufficient-reviewed-cases` and does not claim accuracy or live capability
 support.

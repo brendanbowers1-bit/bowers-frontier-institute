@@ -7,12 +7,14 @@ import { deepFreeze, validateReplayEvidence } from "./replay.mjs";
 import { canonicalJson } from "./stable-json.mjs";
 
 const reviewedCasesRegistry = JSON.parse(readFileSync(new URL("../data/reviewed-cases.json", import.meta.url), "utf8"));
-export const reviewedReplaySchemaVersion = "1.0.0";
 export const sameDayAccuracyGate = 0.9;
 
 const fixedTimestampPattern = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
 const unsafeProvenancePattern = /(password|secret|api[_ -]?key|account number|routing number|ssn|social security|employer|customer id|sk-)/i;
+export const reviewedReplaySchemaVersion = "real_world_case_v1";
+
 const requiredExpectedFields = ["creditedStatus", "tradableStatus", "externallyTransferableStatus", "sameDayClassification", "eta", "reasonCodes", "holdRisk", "confidence", "rejectedRoutes", "fallback"];
+const requiredScopeFields = ["scenarioId", "provider", "corridor", "product"];
 
 const addFailure = (failures, code, details = {}) => {
   failures.push(buildReason(code, details));
@@ -29,7 +31,7 @@ const toScenario = (reviewedCase) => ({
 });
 
 const toEvaluationInput = (reviewedCase) => ({
-  scenarioId: reviewedCase.id,
+  scenarioId: reviewedCase.caseScope?.scenarioId ?? reviewedCase.id,
   description: reviewedCase.description,
   evaluationTimestamp: reviewedCase.evaluationTimestamp,
   policyVersion: reviewedCase.policyVersion,
@@ -71,6 +73,26 @@ export const validateReviewedCase = (reviewedCase) => {
   if (!Array.isArray(reviewedCase?.evidenceDates) || reviewedCase.evidenceDates.length === 0) {
     addFailure(failures, "REVIEW_EVIDENCE_INVALID", { field: "evidenceDates", caseId: reviewedCase?.id });
   }
+  for (const field of requiredScopeFields) {
+    if (typeof reviewedCase?.caseScope?.[field] !== "string" || reviewedCase.caseScope[field].length === 0) {
+      addFailure(failures, "REVIEW_INPUT_INVALID", { field: `caseScope.${field}`, caseId: reviewedCase?.id });
+    }
+  }
+  if (typeof reviewedCase?.engine?.classification !== "string" || !Array.isArray(reviewedCase?.engine?.evidenceReferences)) {
+    addFailure(failures, "REVIEW_INPUT_INVALID", { field: "engine", caseId: reviewedCase?.id });
+  }
+  if (typeof reviewedCase?.humanSteward?.classification !== "string" || typeof reviewedCase?.humanSteward?.rationale !== "string") {
+    addFailure(failures, "REVIEW_INPUT_INVALID", { field: "humanSteward", caseId: reviewedCase?.id });
+  }
+  if (typeof reviewedCase?.disagreementCategory !== "string") {
+    addFailure(failures, "REVIEW_INPUT_INVALID", { field: "disagreementCategory", caseId: reviewedCase?.id });
+  }
+  if (reviewedCase?.redactionStatus !== "redacted") {
+    addFailure(failures, "REVIEW_INPUT_INVALID", { field: "redactionStatus", caseId: reviewedCase?.id });
+  }
+  if (typeof reviewedCase?.sameDayAgreementResult !== "string") {
+    addFailure(failures, "REVIEW_INPUT_INVALID", { field: "sameDayAgreementResult", caseId: reviewedCase?.id });
+  }
   try {
     normalizeEvaluationInput(toEvaluationInput(reviewedCase));
   } catch (error) {
@@ -102,6 +124,10 @@ export const scoreReviewedReplays = (registry = reviewedCasesRegistry) => {
   let correct = 0;
   let incorrect = 0;
   let indeterminate = 0;
+  let falseAvailable = 0;
+  let falseUnavailable = 0;
+  const disagreementCategories = {};
+  const breakdowns = {};
 
   for (const reviewedCase of cases) {
     const validation = validateReviewedCase(reviewedCase);
@@ -117,9 +143,23 @@ export const scoreReviewedReplays = (registry = reviewedCasesRegistry) => {
       expectedSameDayClassification: reviewedCase.expected.sameDayClassification,
       decisionId: record.decisionId,
     });
-    if (actualSameDay === null) indeterminate += 1;
-    else if (actualSameDay === reviewedCase.expected.sameDayClassification) correct += 1;
-    else incorrect += 1;
+    const breakdownKey = [
+      reviewedCase.caseScope.scenarioId,
+      reviewedCase.caseScope.provider,
+      reviewedCase.caseScope.corridor,
+    ].join("|");
+    breakdowns[breakdownKey] = (breakdowns[breakdownKey] ?? 0) + 1;
+
+    if (actualSameDay === null) {
+      indeterminate += 1;
+    } else if (actualSameDay === reviewedCase.expected.sameDayClassification) {
+      correct += 1;
+    } else {
+      incorrect += 1;
+      disagreementCategories[reviewedCase.disagreementCategory] = (disagreementCategories[reviewedCase.disagreementCategory] ?? 0) + 1;
+      if (actualSameDay === true) falseAvailable += 1;
+      if (actualSameDay === false) falseUnavailable += 1;
+    }
   }
 
   const denominator = correct + incorrect;
@@ -135,6 +175,16 @@ export const scoreReviewedReplays = (registry = reviewedCasesRegistry) => {
       accuracy,
       denominator,
       note: "Preliminary until a human-approved minimum reviewed sample size is established.",
+    },
+    metrics: {
+      reviewedCaseCount: acceptedCases.length,
+      sameDayAgreementRate: accuracy,
+      abstentionRate: acceptedCases.length > 0 ? indeterminate / acceptedCases.length : null,
+      falseAvailableRate: denominator > 0 ? falseAvailable / denominator : null,
+      falseUnavailableRate: denominator > 0 ? falseUnavailable / denominator : null,
+      insufficientEvidenceRate: acceptedCases.length > 0 ? indeterminate / acceptedCases.length : null,
+      disagreementCategories,
+      breakdownsByScenarioProviderCorridor: breakdowns,
     },
     counts: {
       total: cases.length,

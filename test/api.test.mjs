@@ -79,6 +79,12 @@ test("API returns structured 400, 404, 405, 413, and 415 errors", () => {
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ ...valid, normalizedInput: { ...valid.normalizedInput, preferredRoute: { ...valid.normalizedInput.preferredRoute, id: "unknown-live-route" } } }),
   });
+  const tamperedConfidence = handleApiRequest({
+    method: "POST",
+    path: "/api/v1/evaluate",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ ...valid, normalizedInput: { ...valid.normalizedInput, preferredRoute: { ...valid.normalizedInput.preferredRoute, confidence: 0.99 } } }),
+  });
   const invalidEvidence = handleApiRequest({ method: "POST", path: "/api/v1/evaluate", headers: { "content-type": "application/json" }, body: JSON.stringify({ ...valid, evidenceIds: ["unknown-evidence"] }) });
   const unknown = handleApiRequest({ method: "GET", path: "/api/v1/missing" });
   const method = handleApiRequest({ method: "POST", path: "/api/v1/meta" });
@@ -88,6 +94,7 @@ test("API returns structured 400, 404, 405, 413, and 415 errors", () => {
   assert.equal(json(malformed).error.code, "MALFORMED_JSON");
   assert.equal(json(missingTimestamp).error.code, "MISSING_OR_INVALID_EVALUATION_TIMESTAMP");
   assert.equal(json(unknownRoute).error.code, "UNSUPPORTED_ROUTE");
+  assert.equal(json(tamperedConfidence).error.code, "UNSUPPORTED_SCENARIO_INPUT");
   assert.equal(json(invalidEvidence).error.code, "INVALID_EVIDENCE_REFERENCE");
   assert.equal(unknown.status, 404);
   assert.equal(method.status, 405);

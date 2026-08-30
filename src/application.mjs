@@ -4,7 +4,7 @@ import {
   replayAllScenarios,
   scenarioMatrix,
 } from "./replay.mjs";
-import { canonicalJson } from "./stable-json.mjs";
+import { canonicalJson, canonicalStringify } from "./stable-json.mjs";
 
 export const applicationSchemaVersion = "1.0.0";
 export const apiVersion = "v1";
@@ -37,6 +37,7 @@ const supportedRouteIds = new Set(
   ]).filter(Boolean),
 );
 const registryEvidenceIds = new Set(evidenceRegistry.sources.map((source) => source.id));
+const scenarioById = new Map(scenarioMatrix.scenarios.map((scenario) => [scenario.id, scenario]));
 
 export const responseMetadata = Object.freeze({
   apiVersion,
@@ -119,6 +120,32 @@ const assertRoute = (route, field) => {
   assertStringArray(route.reasonCodes, "UNSUPPORTED_ROUTE", `${field}.reasonCodes`);
 };
 
+const assertExactSupportedScenario = (input) => {
+  const scenario = scenarioById.get(input.scenarioId);
+  if (!scenario) {
+    throw new ApplicationInputError(400, "UNSUPPORTED_SCENARIO_INPUT", "Evaluation requests must reference an existing deterministic replay scenario.", { scenarioId: input.scenarioId });
+  }
+
+  const expected = {
+    evaluationTimestamp: scenario.evaluationTimestamp,
+    policyVersion: scenario.policyVersion,
+    evidenceIds: scenario.evidenceIds,
+    evidenceRequirements: scenario.evidenceRequirements,
+    normalizedInput: scenario.normalizedInput,
+  };
+  const received = {
+    evaluationTimestamp: input.evaluationTimestamp,
+    policyVersion: input.policyVersion,
+    evidenceIds: input.evidenceIds,
+    evidenceRequirements: input.evidenceRequirements,
+    normalizedInput: input.normalizedInput,
+  };
+
+  if (canonicalStringify(received) !== canonicalStringify(expected)) {
+    throw new ApplicationInputError(400, "UNSUPPORTED_SCENARIO_INPUT", "Evaluation input must match the referenced replay scenario exactly.", { scenarioId: input.scenarioId });
+  }
+};
+
 export const normalizeEvaluationInput = (input) => {
   assertPlainObject(input, "INVALID_EVALUATION_INPUT", "body");
   rejectUnknownFields(input, allowedTopLevelFields, "body");
@@ -131,6 +158,7 @@ export const normalizeEvaluationInput = (input) => {
   if (input.normalizedInput.fallbackRoute) {
     assertRoute(input.normalizedInput.fallbackRoute, "normalizedInput.fallbackRoute");
   }
+  assertExactSupportedScenario(input);
   return {
     id: input.scenarioId ?? "ad-hoc-evaluation",
     description: input.description ?? "Ad hoc read-only availability evaluation.",
