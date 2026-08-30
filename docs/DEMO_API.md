@@ -38,6 +38,10 @@ envelope and cover malformed JSON, wrong content type, oversized bodies,
 unsupported fields, unknown routes, invalid evidence references, unknown paths,
 and unsupported methods.
 
+The public evaluation endpoint is intentionally restricted to exact supported
+synthetic replay scenario inputs. It is a demo adapter, not an arbitrary
+availability classifier.
+
 ## Static demo and artifacts
 
 Generate artifacts:
@@ -76,17 +80,26 @@ Use `docs/REAL_WORLD_REVIEW_INTAKE.md` and
 redacted cohort.
 
 Reviewed cases must include stable case ID, fixed evaluation timestamp,
-redacted normalized input, explicit human-steward approval and reviewer ID,
-review timestamp, case scope, evidence IDs/dates, engine classification and
-rationale, steward classification and rationale, disagreement category,
-redaction status, same-day agreement result, expected statuses, expected
-same-day classification, expected ETA/reasons/hold risk/confidence/rejected
-routes and fallback, safe provenance, schema version, and policy version.
+evidence as-of timestamp, evidence collection timestamp, redacted frozen
+normalized input, explicit human-steward approval and reviewer ID, review
+timestamp, case scope, evidence IDs/dates/freshness, engine classification and
+rationale, engine evidence references, engine/policy/code version, deterministic
+replay ID/hash, steward classification and rationale, disagreement category,
+redaction status, same-day agreement result, freeze status, expected statuses,
+expected same-day classification, expected ETA/reasons/hold
+risk/confidence/rejected routes and fallback, safe provenance, schema version,
+protocol version, and policy version.
 
 Only approved, determinate, valid-evidence cases enter the accuracy denominator.
 Invalid cases are reported separately. Current approved real-world reviewed
 case count: `0`; the gate status is `insufficient-reviewed-cases`, and no
 accuracy percentage is claimed.
+
+Unlike the public demo endpoint, the offline reviewed replay harness may replay
+a frozen real-world normalized input that is not identical to one of the 10
+synthetic scenarios. Such cases must pass `real_world_case_v1` validation,
+redaction, freeze, evidence, deterministic replay-hash, and human-steward gates
+before they can affect metrics.
 
 The same-day classification success gate is `>= 90%`. The result remains
 preliminary until a human-approved minimum reviewed sample size is established.

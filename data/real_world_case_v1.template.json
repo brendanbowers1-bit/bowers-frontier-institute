@@ -1,10 +1,13 @@
 {
   "templateOnly": true,
   "schemaVersion": "real_world_case_v1",
+  "protocolVersion": "2026.08.30",
   "policyVersion": "2026.08.26",
   "id": "rw-case-YYYYMMDD-001",
   "description": "Template only. Replace with a redacted, human-steward-reviewed case summary before use.",
   "evaluationTimestamp": "YYYY-MM-DDT00:00:00.000Z",
+  "evidenceAsOfTimestamp": "YYYY-MM-DDT00:00:00.000Z",
+  "evidenceCollectedAt": "YYYY-MM-DDT00:00:00.000Z",
   "caseScope": {
     "scenarioId": "scenario-or-equivalent-id",
     "provider": "redacted-provider-or-equivalent",
@@ -36,11 +39,18 @@
   "evidenceIds": [],
   "evidenceRequirements": [],
   "evidenceDates": [],
+  "evidenceFreshness": {
+    "status": "pending_collection",
+    "stalenessDays": null
+  },
   "engine": {
     "classification": "pending_engine_replay",
     "rationale": "pending_engine_rationale",
     "evidenceReferences": [],
-    "version": "2026.08.26"
+    "version": {
+      "policyVersion": "2026.08.26",
+      "commitSha": "commit-sha-required"
+    }
   },
   "humanSteward": {
     "classification": "pending_human_steward_classification",
@@ -61,5 +71,10 @@
   "sourceProvenance": "Template only. Replace with redacted evidence provenance that contains no credentials, secrets, account numbers, wallet keys, employer data, or PII.",
   "disagreementCategory": "pending_review",
   "redactionStatus": "template_not_a_case",
-  "sameDayAgreementResult": "pending_review"
+  "sameDayAgreementResult": "pending_review",
+  "deterministicReplay": {
+    "id": "deterministic-replay-id-required",
+    "inputHash": "sha256:frozen-input-hash-required"
+  },
+  "freezeStatus": "template_not_frozen"
 }

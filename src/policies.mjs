@@ -40,6 +40,11 @@ export const reasonCatalog = Object.freeze({
   REVIEW_EXPECTED_CLASSIFICATION_MISSING: "Reviewed case is missing expected same-day classification.",
   REVIEW_INPUT_INVALID: "Reviewed case has invalid redacted normalized input.",
   REVIEW_EVIDENCE_INVALID: "Reviewed case evidence is missing, stale, unvalidated, unapproved, or out of scope.",
+  REVIEW_PROTOCOL_VERSION_INVALID: "Reviewed case protocol version is missing or unsupported.",
+  REVIEW_REDACTION_INVALID: "Reviewed case is not marked as redacted.",
+  REVIEW_FREEZE_INVALID: "Reviewed case is not marked as frozen.",
+  REVIEW_REPLAY_HASH_MISMATCH: "Reviewed case deterministic replay hash does not match the frozen input.",
+  REVIEW_ENGINE_MISMATCH: "Reviewed case engine classification does not match deterministic replay output.",
 });
 
 export const availabilityPolicies = Object.freeze([

@@ -31,9 +31,13 @@
 - Real-world review protocol: `data/real_world_case_v1.schema.json`
 - Real-world review intake template: `data/real_world_case_v1.template.json`
 - Intake checklist: `docs/REAL_WORLD_REVIEW_INTAKE.md`
+- Cohort 1 review plan: `docs/COHORT_1_REVIEW_PLAN.md`
 - Actual approved reviewed-real-world-case count: `0`
 - Accuracy gate status: `insufficient-reviewed-cases`
 - Same-day classification gate: `>= 90%`
+- Public API evaluation remains exact-synthetic-scenario only; offline reviewed
+  replay can evaluate frozen real-world normalized inputs after
+  `real_world_case_v1` validation.
 
 ## Boundaries preserved
 

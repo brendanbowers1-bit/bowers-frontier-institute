@@ -5,6 +5,9 @@ Do not add credentials, secrets, account numbers, wallet keys, employer data,
 PII, live provider connections, payment instructions, transfer instructions, or
 settlement guarantees.
 
+See `docs/COHORT_1_REVIEW_PLAN.md` for the freeze, no-tuning, disagreement,
+immutability, and publication rules for Cohort 1.
+
 ## Before adding a case
 
 1. Start from `data/real_world_case_v1.template.json`.
