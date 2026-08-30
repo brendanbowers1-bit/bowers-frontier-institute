@@ -26,6 +26,8 @@
 
 - Reviewed registry: `data/reviewed-cases.json`
 - Real-world review protocol: `data/real_world_case_v1.schema.json`
+- Real-world review intake template: `data/real_world_case_v1.template.json`
+- Intake checklist: `docs/REAL_WORLD_REVIEW_INTAKE.md`
 - Actual approved reviewed-real-world-case count: `0`
 - Accuracy gate status: `insufficient-reviewed-cases`
 - Same-day classification gate: `>= 90%`

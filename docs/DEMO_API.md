@@ -71,6 +71,9 @@ npm run replay:reviewed
 The versioned review protocol is `data/real_world_case_v1.schema.json`. It is a
 research-only protocol for future independent evaluation; it does not contain or
 fabricate real-world cases.
+Use `docs/REAL_WORLD_REVIEW_INTAKE.md` and
+`data/real_world_case_v1.template.json` for the first human-steward-reviewed
+redacted cohort.
 
 Reviewed cases must include stable case ID, fixed evaluation timestamp,
 redacted normalized input, explicit human-steward approval and reviewer ID,
