@@ -123,3 +123,18 @@ export const resumePrinciples = [
     body: "Start with a narrow, painful user problem and expand only after the core behavior works.",
   },
 ];
+
+export const macbookInstallSteps = [
+  {
+    title: "Open the deployed site",
+    body: "Use the GitHub Pages, Vercel, or Netlify URL after the branch is merged and published.",
+  },
+  {
+    title: "Install from Safari or Chrome",
+    body: "In Safari, use File -> Add to Dock. In Chrome, use the install icon in the address bar when available.",
+  },
+  {
+    title: "Launch like a desktop app",
+    body: "The resume opens as a standalone PWA with the GoodFunds and BR3N portfolio routes still available.",
+  },
+];

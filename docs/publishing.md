@@ -51,6 +51,28 @@ Publish the generated `dist` directory through the repository's Pages workflow. 
 run serverless functions, so the UI will show the static delayed snapshot fallback unless a separate API
 origin is configured.
 
+## MacBook Air access
+
+After the resume branch is merged into `main`, the GitHub Pages workflow publishes the site at:
+
+```text
+https://brendanbowers1-bit.github.io/bowers-frontier-institute/
+```
+
+Open that URL on the MacBook Air in Safari or Chrome. The resume is the default page, with portfolio
+routes available at:
+
+- `#/goodfunds` for the GoodFunds settlement MVP
+- `#/dashboard` for the BR3N finance dashboard
+
+To install it like a desktop app:
+
+- **Safari**: choose **File -> Add to Dock**.
+- **Chrome**: use the install icon in the address bar when shown, or choose **Save and Share -> Install page as app**.
+
+The installed app uses the PWA manifest in `public/manifest.webmanifest` and the production service
+worker in `public/service-worker.js`.
+
 ## PWA checklist
 
 - `public/manifest.webmanifest` defines the installable app metadata.

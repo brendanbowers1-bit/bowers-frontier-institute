@@ -2,11 +2,13 @@ import {
   ArrowUpRight,
   BriefcaseBusiness,
   Download,
+  Laptop,
   Layers3,
   MapPin,
   Sparkles,
 } from "lucide-react";
 import {
+  macbookInstallSteps,
   resumeCapabilities,
   resumeExperience,
   resumeLinks,
@@ -31,6 +33,7 @@ export function ResumePage() {
         <nav aria-label="Resume sections">
           <a href="#experience">Experience</a>
           <a href="#work">Work</a>
+          <a href="#macbook">MacBook</a>
           <a href="#skills">Skills</a>
           <button onClick={handlePrint} type="button">
             <Download size={14} />
@@ -147,6 +150,31 @@ export function ResumePage() {
               <p>{principle.body}</p>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="resume-section macbook-section" id="macbook">
+        <div className="resume-section__header">
+          <p className="resume-kicker">MacBook Air ready</p>
+          <h2>Open it in the browser or install it like a desktop app.</h2>
+          <p>
+            The site is configured as a progressive web app, so the same deployed URL can live in
+            Safari, Chrome, the Dock, or Launchpad once published.
+          </p>
+        </div>
+        <div className="macbook-card">
+          <div className="macbook-card__device" aria-hidden="true">
+            <Laptop size={64} />
+            <span>Resume PWA</span>
+          </div>
+          <ol className="macbook-steps">
+            {macbookInstallSteps.map((step) => (
+              <li key={step.title}>
+                <strong>{step.title}</strong>
+                <span>{step.body}</span>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 

@@ -175,6 +175,7 @@
 .experience-card,
 .project-card,
 .principle-card,
+.macbook-card,
 .resume-cta {
   background:
     linear-gradient(145deg, rgba(235, 230, 220, 0.09), rgba(235, 230, 220, 0.025)),
@@ -379,6 +380,81 @@
   margin: 0.85rem 0 0;
 }
 
+.macbook-card {
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.36fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 5vw, 3rem);
+  padding: clamp(1.25rem, 4vw, 2rem);
+  border-radius: 1.6rem;
+  align-items: stretch;
+}
+
+.macbook-card__device {
+  display: grid;
+  min-height: 15rem;
+  place-items: center;
+  align-content: center;
+  gap: 1rem;
+  color: #080909;
+  background: linear-gradient(135deg, #f4ecdd, #b5a672);
+  border-radius: 1.2rem;
+}
+
+.macbook-card__device span {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.macbook-steps {
+  display: grid;
+  gap: 0.9rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  counter-reset: macbook-step;
+}
+
+.macbook-steps li {
+  position: relative;
+  display: grid;
+  gap: 0.35rem;
+  min-height: 4.5rem;
+  padding: 1rem 1rem 1rem 4rem;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(235, 230, 220, 0.08);
+  border-radius: 1rem;
+  counter-increment: macbook-step;
+}
+
+.macbook-steps li::before {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: #f4ecdd;
+  content: counter(macbook-step, decimal-leading-zero);
+  background: rgba(154, 143, 110, 0.16);
+  border: 1px solid rgba(154, 143, 110, 0.28);
+  border-radius: 50%;
+}
+
+.macbook-steps strong {
+  color: #f8f1e6;
+}
+
+.macbook-steps span {
+  color: rgba(235, 230, 220, 0.62);
+  line-height: 1.6;
+}
+
 .resume-cta {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -413,6 +489,10 @@
   .resume-hero,
   .experience-card,
   .resume-cta {
+    grid-template-columns: 1fr;
+  }
+
+  .macbook-card {
     grid-template-columns: 1fr;
   }
 
@@ -453,6 +533,7 @@
 
   .resume-nav,
   .resume-cta,
+  .macbook-section,
   .resume-snapshot__links a[href="#goodfunds"],
   .resume-snapshot__links a[href="#dashboard"] {
     display: none;
