@@ -1,0 +1,134 @@
+{
+  "meta": {
+    "apiVersion": "v1",
+    "applicationSchemaVersion": "1.0.0",
+    "boundaries": [
+      "no_custody",
+      "no_payment_or_transfer_initiation",
+      "no_credentials_or_secrets",
+      "no_live_provider_connections",
+      "no_kyc_aml_or_eligibility_decisions",
+      "no_payment_or_settlement_guarantees",
+      "no_employer_data_or_pii"
+    ],
+    "evidenceCheckedAt": "2026-08-26",
+    "evidenceRegistryVersion": "2026.08.26",
+    "matrixVersion": "2026.08.27",
+    "nonLive": true,
+    "nonTransactional": true,
+    "policyVersion": "2026.08.26",
+    "readOnly": true,
+    "researchOnly": true,
+    "scenarioCount": 10,
+    "schemaVersion": "1.0.0"
+  },
+  "replay": {
+    "confidence": 0,
+    "cost": "not_assessed",
+    "creditedStatus": "fail_closed",
+    "decisionId": "scenario-009-scope-mismatch-fail-closed:521147b03e8f",
+    "eta": "unavailable_pending_human_review",
+    "evaluatedAt": "2026-08-26T19:00:00.000Z",
+    "evidenceDates": [
+      {
+        "asOf": "2026-08-20",
+        "expiresAt": "2026-11-20",
+        "freshness": "current",
+        "id": "public-boundary-brief-2026-08",
+        "registryScopes": [
+          "research_boundary",
+          "prohibited_purposes",
+          "human_review_boundary"
+        ],
+        "scope": "research_boundary",
+        "status": "validated"
+      },
+      {
+        "asOf": "2026-08-21",
+        "expiresAt": "2026-11-21",
+        "freshness": "current",
+        "id": "synthetic-market-access-fixture-2026-08",
+        "registryScopes": [
+          "scenario_route_fixture",
+          "availability_status_fixture",
+          "fallback_fixture"
+        ],
+        "scope": "scenario_route_fixture",
+        "status": "validated"
+      },
+      {
+        "asOf": "2026-08-22",
+        "expiresAt": "2026-11-22",
+        "freshness": "current",
+        "id": "research-purpose-taxonomy-2026-08",
+        "registryScopes": [
+          "purpose_taxonomy",
+          "scope_matching",
+          "human_review_requirement"
+        ],
+        "scope": "scope_matching",
+        "status": "validated"
+      }
+    ],
+    "evidenceIds": [
+      "public-boundary-brief-2026-08",
+      "synthetic-market-access-fixture-2026-08",
+      "research-purpose-taxonomy-2026-08"
+    ],
+    "evidenceValidationFailures": [
+      {
+        "code": "EVIDENCE_SCOPE_MISMATCH",
+        "message": "Evidence exists but does not support the required replay scope.",
+        "scenarioId": "scenario-009-scope-mismatch-fail-closed",
+        "scope": "live_provider_transfer",
+        "sourceId": "synthetic-market-access-fixture-2026-08"
+      },
+      {
+        "code": "EVIDENCE_CONFLICT_DETECTED",
+        "message": "Replay input conflicts with the cited evidence scope or source type.",
+        "scenarioId": "scenario-009-scope-mismatch-fail-closed",
+        "scope": "live_provider_transfer",
+        "sourceId": "synthetic-market-access-fixture-2026-08"
+      }
+    ],
+    "externallyTransferableStatus": "fail_closed",
+    "fallback": null,
+    "finality": "not_assessed",
+    "holdRisk": "unknown",
+    "normalizedInputHash": "sha256:521147b03e8f1147e574707f6a258ed39a9796744af4ea2e4bc57b3e387f11a9",
+    "policyVersion": "2026.08.26",
+    "reasonCodes": [
+      {
+        "code": "FAIL_CLOSED_EVIDENCE",
+        "message": "Replay failed closed because supporting evidence was not acceptable."
+      },
+      {
+        "code": "EVIDENCE_SCOPE_MISMATCH",
+        "message": "Evidence exists but does not support the required replay scope.",
+        "scenarioId": "scenario-009-scope-mismatch-fail-closed",
+        "scope": "live_provider_transfer",
+        "sourceId": "synthetic-market-access-fixture-2026-08"
+      },
+      {
+        "code": "EVIDENCE_CONFLICT_DETECTED",
+        "message": "Replay input conflicts with the cited evidence scope or source type.",
+        "scenarioId": "scenario-009-scope-mismatch-fail-closed",
+        "scope": "live_provider_transfer",
+        "sourceId": "synthetic-market-access-fixture-2026-08"
+      }
+    ],
+    "registryVersion": "2026.08.26",
+    "rejectedRoutes": [
+      {
+        "reasonCodes": [
+          "EVIDENCE_SCOPE_MISMATCH",
+          "EVIDENCE_CONFLICT_DETECTED"
+        ],
+        "routeId": "scope-mismatched-live-provider"
+      }
+    ],
+    "scenarioId": "scenario-009-scope-mismatch-fail-closed",
+    "schemaVersion": "1.0.0",
+    "tradableStatus": "fail_closed"
+  }
+}

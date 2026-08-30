@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "apiVersion": "v1",
+    "applicationSchemaVersion": "1.0.0",
+    "boundaries": [
+      "no_custody",
+      "no_payment_or_transfer_initiation",
+      "no_credentials_or_secrets",
+      "no_live_provider_connections",
+      "no_kyc_aml_or_eligibility_decisions",
+      "no_payment_or_settlement_guarantees",
+      "no_employer_data_or_pii"
+    ],
+    "evidenceCheckedAt": "2026-08-26",
+    "evidenceRegistryVersion": "2026.08.26",
+    "matrixVersion": "2026.08.27",
+    "nonLive": true,
+    "nonTransactional": true,
+    "policyVersion": "2026.08.26",
+    "readOnly": true,
+    "researchOnly": true,
+    "scenarioCount": 10,
+    "schemaVersion": "1.0.0"
+  },
+  "scenario": {
+    "description": "Missing validation on synthetic evidence is rejected and the replay fails closed.",
+    "evaluationTimestamp": "2026-08-26T18:30:00.000Z",
+    "evidenceIds": [
+      "public-boundary-brief-2026-08",
+      "draft-market-access-fixture-2026-08"
+    ],
+    "evidenceRequirements": [
+      {
+        "id": "public-boundary-brief-2026-08",
+        "scope": "research_boundary"
+      },
+      {
+        "id": "draft-market-access-fixture-2026-08",
+        "scope": "scenario_route_fixture"
+      }
+    ],
+    "id": "scenario-008-unvalidated-evidence-fail-closed",
+    "normalizedInput": {
+      "preferredRoute": {
+        "confidence": 0.35,
+        "cost": "not_assessed",
+        "creditedStatus": "credited",
+        "eta": "same_day",
+        "externallyTransferableStatus": "externally_transferable",
+        "finality": "research_fixture_only",
+        "holdRisk": "low",
+        "id": "unvalidated-evidence-route",
+        "purposes": [
+          "research_availability"
+        ],
+        "reasonCodes": [
+          "FULLY_AVAILABLE_SAME_DAY"
+        ],
+        "tradableStatus": "tradable"
+      },
+      "purposes": [
+        "research_availability"
+      ],
+      "requestId": "replay-008"
+    },
+    "policyVersion": "2026.08.26"
+  }
+}

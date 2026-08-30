@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "apiVersion": "v1",
+    "applicationSchemaVersion": "1.0.0",
+    "boundaries": [
+      "no_custody",
+      "no_payment_or_transfer_initiation",
+      "no_credentials_or_secrets",
+      "no_live_provider_connections",
+      "no_kyc_aml_or_eligibility_decisions",
+      "no_payment_or_settlement_guarantees",
+      "no_employer_data_or_pii"
+    ],
+    "evidenceCheckedAt": "2026-08-26",
+    "evidenceRegistryVersion": "2026.08.26",
+    "matrixVersion": "2026.08.27",
+    "nonLive": true,
+    "nonTransactional": true,
+    "policyVersion": "2026.08.26",
+    "readOnly": true,
+    "researchOnly": true,
+    "scenarioCount": 10,
+    "schemaVersion": "1.0.0"
+  },
+  "scenario": {
+    "description": "Provider or account-security hold blocks the route in the fixture.",
+    "evaluationTimestamp": "2026-08-26T17:00:00.000Z",
+    "evidenceIds": [
+      "public-boundary-brief-2026-08",
+      "synthetic-market-access-fixture-2026-08",
+      "research-purpose-taxonomy-2026-08"
+    ],
+    "evidenceRequirements": [
+      {
+        "id": "public-boundary-brief-2026-08",
+        "scope": "research_boundary"
+      },
+      {
+        "id": "synthetic-market-access-fixture-2026-08",
+        "scope": "availability_status_fixture"
+      },
+      {
+        "id": "research-purpose-taxonomy-2026-08",
+        "scope": "purpose_taxonomy"
+      }
+    ],
+    "id": "scenario-006-security-hold",
+    "normalizedInput": {
+      "preferredRoute": {
+        "confidence": 0.67,
+        "cost": "not_assessed",
+        "creditedStatus": "not_credited",
+        "eta": "manual_review_required",
+        "externallyTransferableStatus": "not_externally_transferable",
+        "finality": "research_fixture_only",
+        "holdRisk": "high",
+        "id": "security-hold-review",
+        "purposes": [
+          "research_availability"
+        ],
+        "reasonCodes": [
+          "SECURITY_HOLD_ACTIVE"
+        ],
+        "tradableStatus": "not_tradable"
+      },
+      "purposes": [
+        "research_availability"
+      ],
+      "requestId": "replay-006"
+    },
+    "policyVersion": "2026.08.26"
+  }
+}

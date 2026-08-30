@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "apiVersion": "v1",
+    "applicationSchemaVersion": "1.0.0",
+    "boundaries": [
+      "no_custody",
+      "no_payment_or_transfer_initiation",
+      "no_credentials_or_secrets",
+      "no_live_provider_connections",
+      "no_kyc_aml_or_eligibility_decisions",
+      "no_payment_or_settlement_guarantees",
+      "no_employer_data_or_pii"
+    ],
+    "evidenceCheckedAt": "2026-08-26",
+    "evidenceRegistryVersion": "2026.08.26",
+    "matrixVersion": "2026.08.27",
+    "nonLive": true,
+    "nonTransactional": true,
+    "policyVersion": "2026.08.26",
+    "readOnly": true,
+    "researchOnly": true,
+    "scenarioCount": 10,
+    "schemaVersion": "1.0.0"
+  },
+  "replay": {
+    "confidence": 0,
+    "cost": "not_assessed",
+    "creditedStatus": "fail_closed",
+    "decisionId": "scenario-007-expired-evidence-fail-closed:99cecc918158",
+    "eta": "unavailable_pending_human_review",
+    "evaluatedAt": "2026-08-26T18:00:00.000Z",
+    "evidenceDates": [
+      {
+        "asOf": "2026-08-20",
+        "expiresAt": "2026-11-20",
+        "freshness": "current",
+        "id": "public-boundary-brief-2026-08",
+        "registryScopes": [
+          "research_boundary",
+          "prohibited_purposes",
+          "human_review_boundary"
+        ],
+        "scope": "research_boundary",
+        "status": "validated"
+      },
+      {
+        "asOf": "2026-05-01",
+        "expiresAt": "2026-06-01",
+        "freshness": "expired",
+        "id": "expired-public-replay-fixture-2026-05",
+        "registryScopes": [
+          "expired_replay_fixture"
+        ],
+        "scope": "expired_replay_fixture",
+        "status": "validated"
+      }
+    ],
+    "evidenceIds": [
+      "public-boundary-brief-2026-08",
+      "expired-public-replay-fixture-2026-05"
+    ],
+    "evidenceValidationFailures": [
+      {
+        "code": "EVIDENCE_SOURCE_EXPIRED",
+        "expiresAt": "2026-06-01",
+        "message": "Policy source evidence is expired for the requested evaluation date.",
+        "scenarioId": "scenario-007-expired-evidence-fail-closed",
+        "scope": "expired_replay_fixture",
+        "sourceId": "expired-public-replay-fixture-2026-05"
+      }
+    ],
+    "externallyTransferableStatus": "fail_closed",
+    "fallback": null,
+    "finality": "not_assessed",
+    "holdRisk": "unknown",
+    "normalizedInputHash": "sha256:99cecc918158ae037952ac19070101f4872fd1283696b7608dcaff43a7412fe4",
+    "policyVersion": "2026.08.26",
+    "reasonCodes": [
+      {
+        "code": "FAIL_CLOSED_EVIDENCE",
+        "message": "Replay failed closed because supporting evidence was not acceptable."
+      },
+      {
+        "code": "EVIDENCE_SOURCE_EXPIRED",
+        "expiresAt": "2026-06-01",
+        "message": "Policy source evidence is expired for the requested evaluation date.",
+        "scenarioId": "scenario-007-expired-evidence-fail-closed",
+        "scope": "expired_replay_fixture",
+        "sourceId": "expired-public-replay-fixture-2026-05"
+      }
+    ],
+    "registryVersion": "2026.08.26",
+    "rejectedRoutes": [
+      {
+        "reasonCodes": [
+          "EVIDENCE_SOURCE_EXPIRED"
+        ],
+        "routeId": "expired-evidence-route"
+      }
+    ],
+    "scenarioId": "scenario-007-expired-evidence-fail-closed",
+    "schemaVersion": "1.0.0",
+    "tradableStatus": "fail_closed"
+  }
+}

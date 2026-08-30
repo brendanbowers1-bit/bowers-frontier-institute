@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "apiVersion": "v1",
+    "applicationSchemaVersion": "1.0.0",
+    "boundaries": [
+      "no_custody",
+      "no_payment_or_transfer_initiation",
+      "no_credentials_or_secrets",
+      "no_live_provider_connections",
+      "no_kyc_aml_or_eligibility_decisions",
+      "no_payment_or_settlement_guarantees",
+      "no_employer_data_or_pii"
+    ],
+    "evidenceCheckedAt": "2026-08-26",
+    "evidenceRegistryVersion": "2026.08.26",
+    "matrixVersion": "2026.08.27",
+    "nonLive": true,
+    "nonTransactional": true,
+    "policyVersion": "2026.08.26",
+    "readOnly": true,
+    "researchOnly": true,
+    "scenarioCount": 10,
+    "schemaVersion": "1.0.0"
+  },
+  "replay": {
+    "confidence": 0,
+    "cost": "not_assessed",
+    "creditedStatus": "fail_closed",
+    "decisionId": "scenario-008-unvalidated-evidence-fail-closed:c2e738f29381",
+    "eta": "unavailable_pending_human_review",
+    "evaluatedAt": "2026-08-26T18:30:00.000Z",
+    "evidenceDates": [
+      {
+        "asOf": "2026-08-20",
+        "expiresAt": "2026-11-20",
+        "freshness": "current",
+        "id": "public-boundary-brief-2026-08",
+        "registryScopes": [
+          "research_boundary",
+          "prohibited_purposes",
+          "human_review_boundary"
+        ],
+        "scope": "research_boundary",
+        "status": "validated"
+      },
+      {
+        "asOf": "2026-08-21",
+        "expiresAt": "2026-11-21",
+        "freshness": "current",
+        "id": "draft-market-access-fixture-2026-08",
+        "registryScopes": [
+          "scenario_route_fixture"
+        ],
+        "scope": "scenario_route_fixture",
+        "status": "fixture"
+      }
+    ],
+    "evidenceIds": [
+      "public-boundary-brief-2026-08",
+      "draft-market-access-fixture-2026-08"
+    ],
+    "evidenceValidationFailures": [
+      {
+        "code": "EVIDENCE_SOURCE_UNVALIDATED",
+        "message": "Policy source evidence is not validated for engine startup.",
+        "scenarioId": "scenario-008-unvalidated-evidence-fail-closed",
+        "scope": "scenario_route_fixture",
+        "sourceId": "draft-market-access-fixture-2026-08",
+        "status": "fixture"
+      }
+    ],
+    "externallyTransferableStatus": "fail_closed",
+    "fallback": null,
+    "finality": "not_assessed",
+    "holdRisk": "unknown",
+    "normalizedInputHash": "sha256:c2e738f29381ac44883e274dca0f0d78ff9d948c4bbe4214e513d868ed1c25bd",
+    "policyVersion": "2026.08.26",
+    "reasonCodes": [
+      {
+        "code": "FAIL_CLOSED_EVIDENCE",
+        "message": "Replay failed closed because supporting evidence was not acceptable."
+      },
+      {
+        "code": "EVIDENCE_SOURCE_UNVALIDATED",
+        "message": "Policy source evidence is not validated for engine startup.",
+        "scenarioId": "scenario-008-unvalidated-evidence-fail-closed",
+        "scope": "scenario_route_fixture",
+        "sourceId": "draft-market-access-fixture-2026-08",
+        "status": "fixture"
+      }
+    ],
+    "registryVersion": "2026.08.26",
+    "rejectedRoutes": [
+      {
+        "reasonCodes": [
+          "EVIDENCE_SOURCE_UNVALIDATED"
+        ],
+        "routeId": "unvalidated-evidence-route"
+      }
+    ],
+    "scenarioId": "scenario-008-unvalidated-evidence-fail-closed",
+    "schemaVersion": "1.0.0",
+    "tradableStatus": "fail_closed"
+  }
+}

@@ -1,0 +1,76 @@
+export const policySourceStatuses = Object.freeze({
+  VALIDATED: "validated",
+});
+
+export const policyVersion = "2026.08.26";
+
+export const reasonCatalog = Object.freeze({
+  EVIDENCE_SOURCE_MISSING: "Policy source evidence is missing from the versioned registry.",
+  EVIDENCE_SOURCE_UNVALIDATED: "Policy source evidence is not validated for engine startup.",
+  EVIDENCE_SOURCE_EXPIRED: "Policy source evidence is expired for the requested evaluation date.",
+  EVIDENCE_SOURCE_MISSING_AS_OF: "Policy source evidence is missing an as-of date.",
+  EVIDENCE_SOURCE_AS_OF_IN_FUTURE: "Policy source evidence as-of date is after the requested evaluation date.",
+  EVIDENCE_FIXTURE_REQUIRES_STEWARD_APPROVAL: "Synthetic fixture evidence requires human-steward approval before validation.",
+  EVIDENCE_SCOPE_MISMATCH: "Evidence exists but does not support the required replay scope.",
+  EVIDENCE_CONFLICT_DETECTED: "Replay input conflicts with the cited evidence scope or source type.",
+  POLICY_SOURCE_VALIDATED: "Policy source evidence is validated and current.",
+  REPLAY_EVIDENCE_VALIDATED: "Scenario evidence is validated, current, scoped, and approved where required.",
+  RESEARCH_ONLY_BOUNDARY_CONFIRMED: "Request is limited to research availability screening.",
+  PAYMENT_INITIATION_BLOCKED: "Payment initiation is outside the research-only boundary.",
+  CUSTODY_BLOCKED: "Custody, account access, or asset control is outside the research-only boundary.",
+  CREDENTIAL_COLLECTION_BLOCKED: "Credential collection is outside the research-only boundary.",
+  AUTONOMOUS_COMPLIANCE_BLOCKED: "Autonomous compliance decisions require qualified human review.",
+  UNSUPPORTED_PRODUCTION_CLAIM_BLOCKED: "Production-readiness claims require validated production evidence.",
+  HUMAN_REVIEW_REQUIRED: "A human steward must review the research output before external use.",
+  AVAILABILITY_RESEARCH_ALLOWED: "Research-only availability result may be shown with the boundary disclosure.",
+  FULLY_AVAILABLE_SAME_DAY: "Fixture route is credited, tradable, and externally transferable on the same day.",
+  CREDITED_NOT_TRADABLE: "Fixture route is credited but is not yet tradable.",
+  EXTERNAL_TRANSFER_HELD: "Fixture route is tradable but externally transferable funds are held.",
+  BEFORE_CUTOFF_SAME_DAY: "Fixture route is evaluated before cutoff and remains same-day in the replay.",
+  AFTER_CUTOFF_NEXT_BUSINESS_DAY: "Fixture route is evaluated after cutoff and moves to the next business day.",
+  SECURITY_HOLD_ACTIVE: "Fixture route is blocked by a provider or account-security hold.",
+  PREFERRED_ROUTE_REJECTED: "Preferred fixture route was rejected before selecting a fallback.",
+  FALLBACK_ROUTE_SELECTED: "A valid research-only fallback fixture route was retained.",
+  FAIL_CLOSED_EVIDENCE: "Replay failed closed because supporting evidence was not acceptable.",
+  REVIEW_APPROVAL_MISSING: "Reviewed case is missing explicit human-steward approval.",
+  REVIEW_REVIEWER_MISSING: "Reviewed case is missing a stable reviewer identifier.",
+  REVIEW_TIMESTAMP_INVALID: "Reviewed case is missing a fixed review timestamp.",
+  REVIEW_PROVENANCE_MISSING: "Reviewed case is missing safe source/provenance documentation.",
+  REVIEW_PROVENANCE_UNSAFE: "Reviewed case provenance appears to contain prohibited sensitive data.",
+  REVIEW_EXPECTED_CLASSIFICATION_MISSING: "Reviewed case is missing expected same-day classification.",
+  REVIEW_INPUT_INVALID: "Reviewed case has invalid redacted normalized input.",
+  REVIEW_EVIDENCE_INVALID: "Reviewed case evidence is missing, stale, unvalidated, unapproved, or out of scope.",
+});
+
+export const availabilityPolicies = Object.freeze([
+  {
+    id: "research-only-boundary",
+    title: "Research-only boundary",
+    sourceId: "public-boundary-brief-2026-08",
+    requiredSourceStatus: policySourceStatuses.VALIDATED,
+    reasonCode: "RESEARCH_ONLY_BOUNDARY_CONFIRMED",
+    blockedPurposes: Object.freeze([
+      "payment_initiation",
+      "custody",
+      "credential_collection",
+      "autonomous_compliance_decision",
+      "unsupported_production_claim",
+    ]),
+  },
+  {
+    id: "market-access-fixture",
+    title: "Synthetic market access fixture",
+    sourceId: "synthetic-market-access-fixture-2026-08",
+    requiredSourceStatus: policySourceStatuses.VALIDATED,
+    reasonCode: "AVAILABILITY_RESEARCH_ALLOWED",
+    allowedPurposes: Object.freeze(["research_availability"]),
+  },
+  {
+    id: "purpose-taxonomy",
+    title: "Research purpose taxonomy",
+    sourceId: "research-purpose-taxonomy-2026-08",
+    requiredSourceStatus: policySourceStatuses.VALIDATED,
+    reasonCode: "HUMAN_REVIEW_REQUIRED",
+    requiresHumanStewardReview: true,
+  },
+]);

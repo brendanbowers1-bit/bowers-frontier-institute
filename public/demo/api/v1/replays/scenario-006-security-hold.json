@@ -1,0 +1,116 @@
+{
+  "meta": {
+    "apiVersion": "v1",
+    "applicationSchemaVersion": "1.0.0",
+    "boundaries": [
+      "no_custody",
+      "no_payment_or_transfer_initiation",
+      "no_credentials_or_secrets",
+      "no_live_provider_connections",
+      "no_kyc_aml_or_eligibility_decisions",
+      "no_payment_or_settlement_guarantees",
+      "no_employer_data_or_pii"
+    ],
+    "evidenceCheckedAt": "2026-08-26",
+    "evidenceRegistryVersion": "2026.08.26",
+    "matrixVersion": "2026.08.27",
+    "nonLive": true,
+    "nonTransactional": true,
+    "policyVersion": "2026.08.26",
+    "readOnly": true,
+    "researchOnly": true,
+    "scenarioCount": 10,
+    "schemaVersion": "1.0.0"
+  },
+  "replay": {
+    "confidence": 0.67,
+    "cost": "not_assessed",
+    "creditedStatus": "not_credited",
+    "decisionId": "scenario-006-security-hold:6406d67945d0",
+    "eta": "manual_review_required",
+    "evaluatedAt": "2026-08-26T17:00:00.000Z",
+    "evidenceDates": [
+      {
+        "asOf": "2026-08-20",
+        "expiresAt": "2026-11-20",
+        "freshness": "current",
+        "id": "public-boundary-brief-2026-08",
+        "registryScopes": [
+          "research_boundary",
+          "prohibited_purposes",
+          "human_review_boundary"
+        ],
+        "scope": "research_boundary",
+        "status": "validated"
+      },
+      {
+        "asOf": "2026-08-21",
+        "expiresAt": "2026-11-21",
+        "freshness": "current",
+        "id": "synthetic-market-access-fixture-2026-08",
+        "registryScopes": [
+          "scenario_route_fixture",
+          "availability_status_fixture",
+          "fallback_fixture"
+        ],
+        "scope": "availability_status_fixture",
+        "status": "validated"
+      },
+      {
+        "asOf": "2026-08-22",
+        "expiresAt": "2026-11-22",
+        "freshness": "current",
+        "id": "research-purpose-taxonomy-2026-08",
+        "registryScopes": [
+          "purpose_taxonomy",
+          "scope_matching",
+          "human_review_requirement"
+        ],
+        "scope": "purpose_taxonomy",
+        "status": "validated"
+      }
+    ],
+    "evidenceIds": [
+      "public-boundary-brief-2026-08",
+      "synthetic-market-access-fixture-2026-08",
+      "research-purpose-taxonomy-2026-08"
+    ],
+    "evidenceValidationFailures": [],
+    "externallyTransferableStatus": "not_externally_transferable",
+    "fallback": null,
+    "finality": "research_fixture_only",
+    "holdRisk": "high",
+    "normalizedInputHash": "sha256:6406d67945d0db2fa1d09e54b64de455243e16768a26566f41d568efd41b92f2",
+    "policyVersion": "2026.08.26",
+    "reasonCodes": [
+      {
+        "code": "REPLAY_EVIDENCE_VALIDATED",
+        "message": "Scenario evidence is validated, current, scoped, and approved where required."
+      },
+      {
+        "code": "RESEARCH_ONLY_BOUNDARY_CONFIRMED",
+        "message": "Request is limited to research availability screening."
+      },
+      {
+        "code": "AVAILABILITY_RESEARCH_ALLOWED",
+        "message": "Research-only availability result may be shown with the boundary disclosure.",
+        "policyId": "market-access-fixture"
+      },
+      {
+        "code": "HUMAN_REVIEW_REQUIRED",
+        "message": "A human steward must review the research output before external use.",
+        "policyId": "purpose-taxonomy"
+      },
+      {
+        "code": "SECURITY_HOLD_ACTIVE",
+        "message": "Fixture route is blocked by a provider or account-security hold.",
+        "routeId": "security-hold-review"
+      }
+    ],
+    "registryVersion": "2026.08.26",
+    "rejectedRoutes": [],
+    "scenarioId": "scenario-006-security-hold",
+    "schemaVersion": "1.0.0",
+    "tradableStatus": "not_tradable"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "1.0.0",
+  "registryVersion": "2026.08.26",
+  "checkedAt": "2026-08-26",
+  "boundary": "Research-only availability screening. No custody, payment initiation, credential collection, or autonomous compliance decisions.",
+  "sources": [
+    {
+      "id": "public-boundary-brief-2026-08",
+      "title": "BFI availability boundary brief",
+      "sourceKind": "public_research_note",
+      "status": "validated",
+      "asOf": "2026-08-20",
+      "expiresAt": "2026-11-20",
+      "scopes": ["research_boundary", "prohibited_purposes", "human_review_boundary"],
+      "freshness": { "maxAgeDays": 92, "status": "current" },
+      "stewardApproval": { "approved": true, "role": "human-steward", "approvedAt": "2026-08-20" },
+      "notes": "Public, non-custodial product boundary used only for deterministic research availability screening."
+    },
+    {
+      "id": "synthetic-market-access-fixture-2026-08",
+      "title": "Synthetic market access fixture",
+      "sourceKind": "synthetic_fixture",
+      "status": "validated",
+      "asOf": "2026-08-21",
+      "expiresAt": "2026-11-21",
+      "scopes": ["scenario_route_fixture", "availability_status_fixture", "fallback_fixture"],
+      "freshness": { "maxAgeDays": 92, "status": "current" },
+      "stewardApproval": { "approved": true, "role": "human-steward", "approvedAt": "2026-08-21" },
+      "notes": "Synthetic scenario examples; contains no credentials, customer records, or secrets."
+    },
+    {
+      "id": "research-purpose-taxonomy-2026-08",
+      "title": "Research purpose taxonomy",
+      "sourceKind": "synthetic_fixture",
+      "status": "validated",
+      "asOf": "2026-08-22",
+      "expiresAt": "2026-11-22",
+      "scopes": ["purpose_taxonomy", "scope_matching", "human_review_requirement"],
+      "freshness": { "maxAgeDays": 92, "status": "current" },
+      "stewardApproval": { "approved": true, "role": "human-steward", "approvedAt": "2026-08-22" },
+      "notes": "Synthetic taxonomy for allowed and disallowed request purposes in test and demo scenarios."
+    },
+    {
+      "id": "expired-public-replay-fixture-2026-05",
+      "title": "Expired public replay fixture",
+      "sourceKind": "public_research_note",
+      "status": "validated",
+      "asOf": "2026-05-01",
+      "expiresAt": "2026-06-01",
+      "scopes": ["expired_replay_fixture"],
+      "freshness": { "maxAgeDays": 31, "status": "expired" },
+      "stewardApproval": { "approved": true, "role": "human-steward", "approvedAt": "2026-05-01" },
+      "notes": "Expired public fixture used only to prove fail-closed replay behavior."
+    },
+    {
+      "id": "draft-market-access-fixture-2026-08",
+      "title": "Draft market access fixture",
+      "sourceKind": "synthetic_fixture",
+      "status": "fixture",
+      "asOf": "2026-08-21",
+      "expiresAt": "2026-11-21",
+      "scopes": ["scenario_route_fixture"],
+      "freshness": { "maxAgeDays": 92, "status": "current" },
+      "stewardApproval": { "approved": false, "role": "human-steward", "approvedAt": null },
+      "notes": "Unapproved synthetic draft used only to prove that replay rejects fixtures without human-steward approval."
+    }
+  ]
+}

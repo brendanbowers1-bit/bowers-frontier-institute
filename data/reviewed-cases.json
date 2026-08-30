@@ -1,0 +1,6 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyVersion": "2026.08.26",
+  "description": "Human-reviewed real-world availability cases. Empty until a human steward approves redacted cases with provenance.",
+  "cases": []
+}
