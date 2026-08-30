@@ -20,6 +20,7 @@
     "replay": "npm run replay:scenarios",
     "replay:reviewed": "node scripts/replay-reviewed.mjs",
     "replay:scenarios": "node scripts/replay-scenarios.mjs",
+    "save:chatgpt-handoff": "node scripts/save-chatgpt-handoff.mjs",
     "serve:demo": "node scripts/serve-demo.mjs",
     "preview": "vite preview",
     "quality:dashboard": "node scripts/dashboard_quality.mjs",

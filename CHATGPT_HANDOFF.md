@@ -3,6 +3,7 @@
 ## Branch status
 
 - Branch: `cursor/availability-demo-7f81`
+- Latest pushed commit before this handoff-save helper: `56eccf0 Add real-world review intake template`
 - Baseline in this checkout: `f4fcd33 feat(pwa): add install and social preview assets`
 - Recreated the local-only BFI Availability Engine, replay matrix, read-only demo/API, and reviewed replay harness so it can be pushed and opened from other Cursor instances.
 
@@ -21,6 +22,8 @@
 - Static demo: `public/demo/`
 - Static artifacts: `public/demo/api/v1/*.json`
 - Local API command: `npm run serve:demo`
+- Save this handoff to a local Mac Desktop after fetching the branch:
+  `npm run save:chatgpt-handoff`
 
 ## Reviewed replay status
 
