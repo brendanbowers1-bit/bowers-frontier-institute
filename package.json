@@ -13,6 +13,7 @@
     "check:deploy": "npm ci && npm audit --audit-level=high && npm run lint && npm run check:trade && npm run check:collars && npm run check:pwa && npm run build && GITHUB_PAGES=true npm run build && node scripts/smoke-pages-build.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
+    "deploy:cloudflare": "npm run build && npx wrangler pages deploy dist --project-name=bowers-frontier-institute",
     "quality:dashboard": "node scripts/dashboard_quality.mjs",
     "self-improve:dashboard": "bash scripts/self_improve_dashboard.sh"
   },
