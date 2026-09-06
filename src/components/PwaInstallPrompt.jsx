@@ -46,7 +46,7 @@ export function PwaInstallPrompt() {
     <aside className="br3n-install-prompt" aria-label="Install app prompt">
       <div>
         <Smartphone size={17} />
-        <span>Publish-ready mobile app</span>
+        <span>Install BR3N Collars</span>
         <strong>Add BR3N Collars to your home screen.</strong>
         <p>
           {isiOS

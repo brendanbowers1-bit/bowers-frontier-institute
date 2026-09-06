@@ -4,6 +4,7 @@ import {
 } from "../src/data/creditCollars.js";
 
 const DEFAULT_SYMBOLS = ["QQQ", "SPY", "NVDA", "MSFT", "GOOGL", "META", "AMZN", "AVGO", "PLTR", "TSLA"];
+const SYMBOL_PATTERN = /^[A-Z0-9.]{1,10}$/;
 const SYMBOL_META = {
   QQQ: { name: "Nasdaq 100 ETF", universe: "Index", tags: ["Nasdaq", "Mega-cap tech", "Index hedge"] },
   SPY: { name: "S&P 500 ETF", universe: "Index", tags: ["S&P 500", "Core beta", "Index hedge"] },
@@ -42,11 +43,14 @@ export async function scanCreditCollars({ symbols = DEFAULT_SYMBOLS, maxPerSymbo
 }
 
 function normalizeSymbols(symbols) {
+  const normalize = (symbol) => String(symbol).trim().toUpperCase();
+  const isValidSymbol = (symbol) => SYMBOL_PATTERN.test(symbol);
+
   if (typeof symbols === "string") {
-    return symbols.split(",").map((symbol) => symbol.trim().toUpperCase()).filter(Boolean);
+    return [...new Set(symbols.split(",").map(normalize).filter(isValidSymbol))];
   }
 
-  return [...new Set(symbols.map((symbol) => String(symbol).trim().toUpperCase()).filter(Boolean))];
+  return [...new Set(symbols.map(normalize).filter(isValidSymbol))];
 }
 
 async function scanSymbol(symbol, maxPerSymbol) {

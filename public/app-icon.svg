@@ -12,7 +12,7 @@
       <stop offset="100%" stop-color="#f7f2e8"/>
     </linearGradient>
   </defs>
-  <rect width="512" height="512" rx="112" fill="#030304"/>
+  <rect width="512" height="512" fill="#030304"/>
   <rect x="18" y="18" width="476" height="476" rx="96" fill="url(#glow)" stroke="#f4f1e8" stroke-opacity="0.12" stroke-width="2"/>
   <path d="M136 336V176h42l76 100V176h48v160h-42l-76-100v100h-48Z" fill="#f7f2e8"/>
   <path d="M328 176h48v160h-48V176Z" fill="#b7ad91"/>

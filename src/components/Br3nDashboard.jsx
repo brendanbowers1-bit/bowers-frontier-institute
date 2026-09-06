@@ -103,6 +103,12 @@ export function Br3nDashboard() {
     return () => controller.abort();
   }, []);
 
+  const closeSidebarOnMobile = () => {
+    if (window.matchMedia("(max-width: 860px)").matches) {
+      setSidebarOpen(false);
+    }
+  };
+
   const performanceData = useMemo(() => {
     const series = portfolioPerformance[assetClass] ?? portfolioPerformance.FX;
     return series.slice(-periodLengths[period]);
@@ -143,7 +149,7 @@ export function Br3nDashboard() {
       <div className="br3n-ambient br3n-ambient--one" />
       <div className="br3n-ambient br3n-ambient--two" />
 
-      <aside className={`br3n-sidebar ${sidebarOpen ? "is-open" : ""}`}>
+      <aside className={`br3n-sidebar ${sidebarOpen ? "is-open" : ""}`} id="dashboard-nav">
         <div className="br3n-brand">
           <Br3nCrest compact />
           <div>
@@ -153,7 +159,13 @@ export function Br3nDashboard() {
         </div>
         <nav className="br3n-nav">
           {navItems.map((item, index) => (
-            <a className={index === 0 ? "is-active" : ""} href={`#${item.toLowerCase()}`} key={item}>
+            <a
+              aria-current={index === 0 ? "page" : undefined}
+              className={index === 0 ? "is-active" : ""}
+              href={`#${item.toLowerCase()}`}
+              key={item}
+              onClick={closeSidebarOnMobile}
+            >
               <span>0{index + 1}</span>
               {item}
             </a>
@@ -166,7 +178,14 @@ export function Br3nDashboard() {
         </div>
       </aside>
 
-      <button className="br3n-mobile-toggle" onClick={() => setSidebarOpen((open) => !open)}>
+      <button
+        aria-controls="dashboard-nav"
+        aria-expanded={sidebarOpen}
+        aria-label={sidebarOpen ? "Close dashboard navigation" : "Open dashboard navigation"}
+        className="br3n-mobile-toggle"
+        onClick={() => setSidebarOpen((open) => !open)}
+        type="button"
+      >
         {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
       </button>
 
@@ -216,9 +235,11 @@ export function Br3nDashboard() {
           <div className="br3n-filter-group">
             {periods.map((item) => (
               <button
+                aria-pressed={period === item}
                 className={period === item ? "is-active" : ""}
                 key={item}
                 onClick={() => setPeriod(item)}
+                type="button"
               >
                 {item}
               </button>
@@ -227,9 +248,11 @@ export function Br3nDashboard() {
           <div className="br3n-filter-group br3n-filter-group--asset">
             {assetClasses.map((item) => (
               <button
+                aria-pressed={assetClass === item}
                 className={assetClass === item ? "is-active" : ""}
                 key={item}
                 onClick={() => setAssetClass(item)}
+                type="button"
               >
                 {item}
               </button>
@@ -256,7 +279,7 @@ export function Br3nDashboard() {
           <div>
             <Shield size={16} />
             <span>Governance</span>
-            <strong>Research only · no execution</strong>
+            <strong>No execution surface · research only</strong>
           </div>
         </motion.section>
 
@@ -461,6 +484,11 @@ export function Br3nDashboard() {
             </div>
           </Panel>
         </section>
+
+        <footer className="br3n-page-disclaimer">
+          Research only. Delayed and mock data are used throughout this dashboard; nothing here is
+          investment advice, trade execution, or a recommendation for any account.
+        </footer>
       </main>
     </div>
   );
@@ -586,7 +614,7 @@ function CorrelationHeatmap() {
 
 function Br3nLoader() {
   return (
-    <div className="br3n-loader">
+    <div aria-busy="true" aria-live="polite" className="br3n-loader" role="status">
       <motion.div
         animate={{ opacity: 1, scale: 1 }}
         className="br3n-loader-card"
