@@ -14,6 +14,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "quality:dashboard": "node scripts/dashboard_quality.mjs",
+    "self-improve:all": "bash scripts/self_improve_all.sh",
     "self-improve:dashboard": "bash scripts/self_improve_dashboard.sh"
   },
   "dependencies": {
