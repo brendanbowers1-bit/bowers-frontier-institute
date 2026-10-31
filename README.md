@@ -138,6 +138,39 @@ See `docs/publishing.md` for the full launch checklist, PWA install notes, live-
 - The UI is structured for future live data integration.
 - Weekly trade-discovery content from the site framework is represented in the dashboard Signals section as a research scorecard and no-trade gate workflow.
 
+## BFI Availability Engine
+
+The root `src/engine.mjs` module provides deterministic, research-only
+availability screening. It validates every policy source against
+`data/evidence.json` at startup and rejects missing, unvalidated, future-dated,
+or expired evidence before returning any result.
+
+Availability outputs are not payment, custody, credential, compliance, or
+production-readiness decisions. They return human-readable reason codes and
+require human-steward review before external use or before synthetic fixtures are
+promoted to validated evidence.
+
+Run the deterministic scenario replay and reviewed replay harness with:
+
+```bash
+npm run replay:scenarios
+npm run replay:reviewed
+```
+
+Run the local read-only API and static demo checks with:
+
+```bash
+npm run serve:demo
+npm run check:demo-api
+GITHUB_PAGES=true npm run build
+node scripts/smoke-pages-build.mjs
+```
+
+See `docs/REPLAY_MATRIX.md` and `docs/DEMO_API.md` for schemas, endpoints,
+static artifacts, reviewed-case requirements, and known evidence gaps.
+Cohort 1 real-world cases are not included yet. The steward approval
+checklist is `docs/COHORT_1_STEWARD_APPROVAL.md`.
+
 ## Factuality
 
 Do not add unverified partnerships, grants, awards, university affiliations, clinical results, or regulatory claims without evidence.

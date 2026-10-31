@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "apiVersion": "v1",
+    "applicationSchemaVersion": "1.0.0",
+    "boundaries": [
+      "no_custody",
+      "no_payment_or_transfer_initiation",
+      "no_credentials_or_secrets",
+      "no_live_provider_connections",
+      "no_kyc_aml_or_eligibility_decisions",
+      "no_payment_or_settlement_guarantees",
+      "no_employer_data_or_pii"
+    ],
+    "evidenceCheckedAt": "2026-08-26",
+    "evidenceRegistryVersion": "2026.08.26",
+    "matrixVersion": "2026.08.27",
+    "nonLive": true,
+    "nonTransactional": true,
+    "policyVersion": "2026.08.26",
+    "readOnly": true,
+    "researchOnly": true,
+    "scenarioCount": 10,
+    "schemaVersion": "1.0.0"
+  },
+  "scenario": {
+    "description": "Preferred payment-initiation route is rejected and a research-only fallback is retained.",
+    "evaluationTimestamp": "2026-08-26T20:00:00.000Z",
+    "evidenceIds": [
+      "public-boundary-brief-2026-08",
+      "synthetic-market-access-fixture-2026-08",
+      "research-purpose-taxonomy-2026-08"
+    ],
+    "evidenceRequirements": [
+      {
+        "id": "public-boundary-brief-2026-08",
+        "scope": "prohibited_purposes"
+      },
+      {
+        "id": "synthetic-market-access-fixture-2026-08",
+        "scope": "fallback_fixture"
+      },
+      {
+        "id": "research-purpose-taxonomy-2026-08",
+        "scope": "purpose_taxonomy"
+      }
+    ],
+    "id": "scenario-010-preferred-rejected-valid-fallback",
+    "normalizedInput": {
+      "fallbackRoute": {
+        "confidence": 0.72,
+        "cost": "not_assessed",
+        "creditedStatus": "not_credited",
+        "eta": "next_business_day",
+        "externallyTransferableStatus": "not_externally_transferable",
+        "finality": "research_fixture_only",
+        "holdRisk": "low",
+        "id": "research-only-next-business-day-fallback",
+        "purposes": [
+          "research_availability"
+        ],
+        "reasonCodes": [
+          "AFTER_CUTOFF_NEXT_BUSINESS_DAY"
+        ],
+        "tradableStatus": "not_tradable"
+      },
+      "preferredRoute": {
+        "confidence": 0.1,
+        "cost": "not_assessed",
+        "creditedStatus": "credited",
+        "eta": "same_day",
+        "externallyTransferableStatus": "externally_transferable",
+        "finality": "unsupported_payment_initiation",
+        "holdRisk": "low",
+        "id": "preferred-payment-initiation",
+        "purposes": [
+          "research_availability",
+          "payment_initiation"
+        ],
+        "reasonCodes": [
+          "FULLY_AVAILABLE_SAME_DAY"
+        ],
+        "tradableStatus": "tradable"
+      },
+      "purposes": [
+        "research_availability"
+      ],
+      "requestId": "replay-010"
+    },
+    "policyVersion": "2026.08.26"
+  }
+}

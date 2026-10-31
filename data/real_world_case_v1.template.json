@@ -1,0 +1,80 @@
+{
+  "templateOnly": true,
+  "schemaVersion": "real_world_case_v1",
+  "protocolVersion": "2026.08.30",
+  "policyVersion": "2026.08.26",
+  "id": "rw-case-YYYYMMDD-001",
+  "description": "Template only. Replace with a redacted, human-steward-reviewed case summary before use.",
+  "evaluationTimestamp": "YYYY-MM-DDT00:00:00.000Z",
+  "evidenceAsOfTimestamp": "YYYY-MM-DDT00:00:00.000Z",
+  "evidenceCollectedAt": "YYYY-MM-DDT00:00:00.000Z",
+  "caseScope": {
+    "scenarioId": "scenario-or-equivalent-id",
+    "provider": "redacted-provider-or-equivalent",
+    "corridor": "redacted-corridor-or-equivalent",
+    "product": "redacted-product-or-equivalent"
+  },
+  "redactedNormalizedInput": {
+    "requestId": "redacted-request-id",
+    "purposes": ["research_availability"],
+    "preferredRoute": {
+      "id": "supported-replay-route-id",
+      "purposes": ["research_availability"],
+      "creditedStatus": "redacted_expected_engine_input",
+      "tradableStatus": "redacted_expected_engine_input",
+      "externallyTransferableStatus": "redacted_expected_engine_input",
+      "eta": "redacted_expected_engine_input",
+      "cost": "not_assessed",
+      "finality": "research_only_review",
+      "holdRisk": "redacted_expected_engine_input",
+      "confidence": 0,
+      "reasonCodes": []
+    }
+  },
+  "humanReview": {
+    "status": "pending_human_steward_review",
+    "reviewerId": "human-steward-id-required",
+    "reviewedAt": "YYYY-MM-DDT00:00:00.000Z"
+  },
+  "evidenceIds": [],
+  "evidenceRequirements": [],
+  "evidenceDates": [],
+  "evidenceFreshness": {
+    "status": "pending_collection",
+    "stalenessDays": null
+  },
+  "engine": {
+    "classification": "pending_engine_replay",
+    "rationale": "pending_engine_rationale",
+    "evidenceReferences": [],
+    "version": {
+      "policyVersion": "2026.08.26",
+      "commitSha": "commit-sha-required"
+    }
+  },
+  "humanSteward": {
+    "classification": "pending_human_steward_classification",
+    "rationale": "pending_human_steward_rationale"
+  },
+  "expected": {
+    "creditedStatus": "pending_human_steward_classification",
+    "tradableStatus": "pending_human_steward_classification",
+    "externallyTransferableStatus": "pending_human_steward_classification",
+    "sameDayClassification": false,
+    "eta": "pending_human_steward_classification",
+    "reasonCodes": [],
+    "holdRisk": "pending_human_steward_classification",
+    "confidence": 0,
+    "rejectedRoutes": [],
+    "fallback": null
+  },
+  "sourceProvenance": "Template only. Replace with redacted evidence provenance that contains no credentials, secrets, account numbers, wallet keys, employer data, or PII.",
+  "disagreementCategory": "pending_review",
+  "redactionStatus": "template_not_a_case",
+  "sameDayAgreementResult": "pending_review",
+  "deterministicReplay": {
+    "id": "deterministic-replay-id-required",
+    "inputHash": "sha256:frozen-input-hash-required"
+  },
+  "freezeStatus": "template_not_frozen"
+}

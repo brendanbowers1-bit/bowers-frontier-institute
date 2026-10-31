@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Static, read-only BFI Availability Engine replay demo using dated evidence fixtures." />
+    <title>BFI Availability Engine Replay Demo</title>
+    <link rel="stylesheet" href="./demo.css" />
+  </head>
+  <body>
+    <main>
+      <header class="hero">
+        <p class="eyebrow">BFI Availability Engine</p>
+        <h1>Research-only replay demo</h1>
+        <p class="notice">
+          Results are deterministic research estimates based on dated evidence.
+          They are not live availability, settlement guarantees, financial
+          advice, eligibility decisions, payment instructions, or transfer
+          instructions. No custody, credentials, provider connections, or
+          transactions are used.
+        </p>
+      </header>
+
+      <section aria-labelledby="scenario-heading" class="panel">
+        <h2 id="scenario-heading">Scenario</h2>
+        <label for="scenario-select">Select deterministic fixture</label>
+        <select id="scenario-select"></select>
+        <p id="scenario-description" class="muted"></p>
+      </section>
+
+      <section aria-labelledby="status-heading" class="status-grid">
+        <h2 id="status-heading" class="sr-only">Availability status</h2>
+        <article><span>Credited</span><strong id="credited-status">Loading</strong></article>
+        <article><span>Tradable</span><strong id="tradable-status">Loading</strong></article>
+        <article><span>Externally transferable</span><strong id="transfer-status">Loading</strong></article>
+      </section>
+
+      <section aria-labelledby="details-heading" class="panel">
+        <h2 id="details-heading">Decision record</h2>
+        <dl class="details">
+          <div><dt>Evaluation timestamp</dt><dd id="evaluated-at"></dd></div>
+          <div><dt>Schema / policy</dt><dd id="versions"></dd></div>
+          <div><dt>ETA</dt><dd id="eta"></dd></div>
+          <div><dt>Cost</dt><dd id="cost"></dd></div>
+          <div><dt>Finality</dt><dd id="finality"></dd></div>
+          <div><dt>Hold risk</dt><dd id="hold-risk"></dd></div>
+          <div><dt>Confidence</dt><dd id="confidence"></dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="reason-heading" class="panel">
+        <h2 id="reason-heading">Reason codes</h2>
+        <ul id="reason-codes" class="stack"></ul>
+      </section>
+
+      <section aria-labelledby="evidence-heading" class="panel">
+        <h2 id="evidence-heading">Evidence</h2>
+        <ul id="evidence-list" class="stack"></ul>
+      </section>
+
+      <section aria-labelledby="routes-heading" class="panel">
+        <h2 id="routes-heading">Rejected routes and fallback</h2>
+        <pre id="routes"></pre>
+      </section>
+
+      <section aria-labelledby="input-heading" class="panel">
+        <h2 id="input-heading">Normalized input</h2>
+        <pre id="normalized-input"></pre>
+      </section>
+
+      <section aria-labelledby="raw-heading" class="panel">
+        <div class="panel-heading">
+          <h2 id="raw-heading">Raw JSON</h2>
+          <button id="copy-json" type="button">Copy JSON</button>
+        </div>
+        <pre id="raw-json"></pre>
+      </section>
+    </main>
+    <script type="module" src="./demo.js"></script>
+  </body>
+</html>

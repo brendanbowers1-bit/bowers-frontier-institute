@@ -8,6 +8,7 @@ const contentTypes = new Map([
   [".html", "text/html; charset=utf-8"],
   [".js", "text/javascript; charset=utf-8"],
   [".css", "text/css; charset=utf-8"],
+  [".json", "application/json; charset=utf-8"],
   [".svg", "image/svg+xml"],
 ]);
 
@@ -17,6 +18,10 @@ const toDistPath = (urlPath) => {
     path = "/index.html";
   } else if (path.startsWith(`${basePath}/`)) {
     path = path.slice(basePath.length);
+  }
+
+  if (path.endsWith("/")) {
+    path = `${path}index.html`;
   }
 
   const normalized = normalize(path).replace(/^(\.\.(\/|\\|$))+/, "");
@@ -89,6 +94,23 @@ try {
     if (!combined.includes(requiredText)) {
       throw new Error(`Built output is missing expected text: ${requiredText}`);
     }
+  }
+
+  const demoHtml = await fetchText(origin, `${basePath}/demo/`);
+  const normalizedDemoHtml = demoHtml.replace(/\s+/g, " ");
+  for (const requiredDemoText of [
+    "Research-only replay demo",
+    "not live availability",
+    "No custody, credentials, provider connections, or transactions are used.",
+  ]) {
+    if (!normalizedDemoHtml.includes(requiredDemoText)) {
+      throw new Error(`Demo output is missing expected text: ${requiredDemoText}`);
+    }
+  }
+
+  const replayArtifact = JSON.parse(await fetchText(origin, `${basePath}/demo/api/v1/replays.json`));
+  if (replayArtifact.replays.length !== 10) {
+    throw new Error("Demo replay artifact must contain exactly 10 records.");
   }
 
   console.log("GitHub Pages smoke test passed.");

@@ -1,0 +1,516 @@
+{
+  "meta": {
+    "apiVersion": "v1",
+    "applicationSchemaVersion": "1.0.0",
+    "boundaries": [
+      "no_custody",
+      "no_payment_or_transfer_initiation",
+      "no_credentials_or_secrets",
+      "no_live_provider_connections",
+      "no_kyc_aml_or_eligibility_decisions",
+      "no_payment_or_settlement_guarantees",
+      "no_employer_data_or_pii"
+    ],
+    "evidenceCheckedAt": "2026-08-26",
+    "evidenceRegistryVersion": "2026.08.26",
+    "matrixVersion": "2026.08.27",
+    "nonLive": true,
+    "nonTransactional": true,
+    "policyVersion": "2026.08.26",
+    "readOnly": true,
+    "researchOnly": true,
+    "scenarioCount": 10,
+    "schemaVersion": "1.0.0"
+  },
+  "scenarios": [
+    {
+      "description": "Fully available same-day research route.",
+      "evaluationTimestamp": "2026-08-26T14:00:00.000Z",
+      "evidenceIds": [
+        "public-boundary-brief-2026-08",
+        "synthetic-market-access-fixture-2026-08",
+        "research-purpose-taxonomy-2026-08"
+      ],
+      "evidenceRequirements": [
+        {
+          "id": "public-boundary-brief-2026-08",
+          "scope": "research_boundary"
+        },
+        {
+          "id": "synthetic-market-access-fixture-2026-08",
+          "scope": "scenario_route_fixture"
+        },
+        {
+          "id": "research-purpose-taxonomy-2026-08",
+          "scope": "purpose_taxonomy"
+        }
+      ],
+      "id": "scenario-001-fully-available-same-day",
+      "normalizedInput": {
+        "preferredRoute": {
+          "confidence": 0.86,
+          "cost": "not_assessed",
+          "creditedStatus": "credited",
+          "eta": "same_day",
+          "externallyTransferableStatus": "externally_transferable",
+          "finality": "research_fixture_only",
+          "holdRisk": "low",
+          "id": "research-same-day",
+          "purposes": [
+            "research_availability"
+          ],
+          "reasonCodes": [
+            "FULLY_AVAILABLE_SAME_DAY"
+          ],
+          "tradableStatus": "tradable"
+        },
+        "purposes": [
+          "research_availability"
+        ],
+        "requestId": "replay-001"
+      },
+      "policyVersion": "2026.08.26"
+    },
+    {
+      "description": "Credited fixture route is visible but not tradable yet.",
+      "evaluationTimestamp": "2026-08-26T15:00:00.000Z",
+      "evidenceIds": [
+        "public-boundary-brief-2026-08",
+        "synthetic-market-access-fixture-2026-08",
+        "research-purpose-taxonomy-2026-08"
+      ],
+      "evidenceRequirements": [
+        {
+          "id": "public-boundary-brief-2026-08",
+          "scope": "research_boundary"
+        },
+        {
+          "id": "synthetic-market-access-fixture-2026-08",
+          "scope": "availability_status_fixture"
+        },
+        {
+          "id": "research-purpose-taxonomy-2026-08",
+          "scope": "purpose_taxonomy"
+        }
+      ],
+      "id": "scenario-002-credited-not-tradable",
+      "normalizedInput": {
+        "preferredRoute": {
+          "confidence": 0.78,
+          "cost": "not_assessed",
+          "creditedStatus": "credited",
+          "eta": "same_day_credit_next_day_trading",
+          "externallyTransferableStatus": "not_externally_transferable",
+          "finality": "research_fixture_only",
+          "holdRisk": "medium",
+          "id": "credited-pending-trading",
+          "purposes": [
+            "research_availability"
+          ],
+          "reasonCodes": [
+            "CREDITED_NOT_TRADABLE"
+          ],
+          "tradableStatus": "not_tradable"
+        },
+        "purposes": [
+          "research_availability"
+        ],
+        "requestId": "replay-002"
+      },
+      "policyVersion": "2026.08.26"
+    },
+    {
+      "description": "Tradable fixture route has externally transferable funds held.",
+      "evaluationTimestamp": "2026-08-26T16:00:00.000Z",
+      "evidenceIds": [
+        "public-boundary-brief-2026-08",
+        "synthetic-market-access-fixture-2026-08",
+        "research-purpose-taxonomy-2026-08"
+      ],
+      "evidenceRequirements": [
+        {
+          "id": "public-boundary-brief-2026-08",
+          "scope": "research_boundary"
+        },
+        {
+          "id": "synthetic-market-access-fixture-2026-08",
+          "scope": "availability_status_fixture"
+        },
+        {
+          "id": "research-purpose-taxonomy-2026-08",
+          "scope": "purpose_taxonomy"
+        }
+      ],
+      "id": "scenario-003-tradable-transfer-held",
+      "normalizedInput": {
+        "preferredRoute": {
+          "confidence": 0.74,
+          "cost": "not_assessed",
+          "creditedStatus": "credited",
+          "eta": "same_day_trading_external_transfer_after_hold",
+          "externallyTransferableStatus": "not_externally_transferable",
+          "finality": "research_fixture_only",
+          "holdRisk": "medium",
+          "id": "tradable-transfer-held",
+          "purposes": [
+            "research_availability"
+          ],
+          "reasonCodes": [
+            "EXTERNAL_TRANSFER_HELD"
+          ],
+          "tradableStatus": "tradable"
+        },
+        "purposes": [
+          "research_availability"
+        ],
+        "requestId": "replay-003"
+      },
+      "policyVersion": "2026.08.26"
+    },
+    {
+      "description": "Before-cutoff research fixture remains same-day.",
+      "evaluationTimestamp": "2026-08-26T19:30:00.000Z",
+      "evidenceIds": [
+        "public-boundary-brief-2026-08",
+        "synthetic-market-access-fixture-2026-08",
+        "research-purpose-taxonomy-2026-08"
+      ],
+      "evidenceRequirements": [
+        {
+          "id": "public-boundary-brief-2026-08",
+          "scope": "research_boundary"
+        },
+        {
+          "id": "synthetic-market-access-fixture-2026-08",
+          "scope": "scenario_route_fixture"
+        },
+        {
+          "id": "research-purpose-taxonomy-2026-08",
+          "scope": "purpose_taxonomy"
+        }
+      ],
+      "id": "scenario-004-before-cutoff-same-day",
+      "normalizedInput": {
+        "preferredRoute": {
+          "confidence": 0.82,
+          "cost": "not_assessed",
+          "creditedStatus": "credited",
+          "eta": "same_day_before_cutoff",
+          "externallyTransferableStatus": "externally_transferable",
+          "finality": "research_fixture_only",
+          "holdRisk": "low",
+          "id": "before-cutoff-same-day",
+          "purposes": [
+            "research_availability"
+          ],
+          "reasonCodes": [
+            "BEFORE_CUTOFF_SAME_DAY"
+          ],
+          "tradableStatus": "tradable"
+        },
+        "purposes": [
+          "research_availability"
+        ],
+        "requestId": "replay-004"
+      },
+      "policyVersion": "2026.08.26"
+    },
+    {
+      "description": "After-cutoff research fixture moves to next business day.",
+      "evaluationTimestamp": "2026-08-26T21:30:00.000Z",
+      "evidenceIds": [
+        "public-boundary-brief-2026-08",
+        "synthetic-market-access-fixture-2026-08",
+        "research-purpose-taxonomy-2026-08"
+      ],
+      "evidenceRequirements": [
+        {
+          "id": "public-boundary-brief-2026-08",
+          "scope": "research_boundary"
+        },
+        {
+          "id": "synthetic-market-access-fixture-2026-08",
+          "scope": "scenario_route_fixture"
+        },
+        {
+          "id": "research-purpose-taxonomy-2026-08",
+          "scope": "purpose_taxonomy"
+        }
+      ],
+      "id": "scenario-005-after-cutoff-next-business-day",
+      "normalizedInput": {
+        "preferredRoute": {
+          "confidence": 0.8,
+          "cost": "not_assessed",
+          "creditedStatus": "not_credited",
+          "eta": "next_business_day",
+          "externallyTransferableStatus": "not_externally_transferable",
+          "finality": "research_fixture_only",
+          "holdRisk": "low",
+          "id": "after-cutoff-next-business-day",
+          "purposes": [
+            "research_availability"
+          ],
+          "reasonCodes": [
+            "AFTER_CUTOFF_NEXT_BUSINESS_DAY"
+          ],
+          "tradableStatus": "not_tradable"
+        },
+        "purposes": [
+          "research_availability"
+        ],
+        "requestId": "replay-005"
+      },
+      "policyVersion": "2026.08.26"
+    },
+    {
+      "description": "Provider or account-security hold blocks the route in the fixture.",
+      "evaluationTimestamp": "2026-08-26T17:00:00.000Z",
+      "evidenceIds": [
+        "public-boundary-brief-2026-08",
+        "synthetic-market-access-fixture-2026-08",
+        "research-purpose-taxonomy-2026-08"
+      ],
+      "evidenceRequirements": [
+        {
+          "id": "public-boundary-brief-2026-08",
+          "scope": "research_boundary"
+        },
+        {
+          "id": "synthetic-market-access-fixture-2026-08",
+          "scope": "availability_status_fixture"
+        },
+        {
+          "id": "research-purpose-taxonomy-2026-08",
+          "scope": "purpose_taxonomy"
+        }
+      ],
+      "id": "scenario-006-security-hold",
+      "normalizedInput": {
+        "preferredRoute": {
+          "confidence": 0.67,
+          "cost": "not_assessed",
+          "creditedStatus": "not_credited",
+          "eta": "manual_review_required",
+          "externallyTransferableStatus": "not_externally_transferable",
+          "finality": "research_fixture_only",
+          "holdRisk": "high",
+          "id": "security-hold-review",
+          "purposes": [
+            "research_availability"
+          ],
+          "reasonCodes": [
+            "SECURITY_HOLD_ACTIVE"
+          ],
+          "tradableStatus": "not_tradable"
+        },
+        "purposes": [
+          "research_availability"
+        ],
+        "requestId": "replay-006"
+      },
+      "policyVersion": "2026.08.26"
+    },
+    {
+      "description": "Expired evidence is rejected and the replay fails closed.",
+      "evaluationTimestamp": "2026-08-26T18:00:00.000Z",
+      "evidenceIds": [
+        "public-boundary-brief-2026-08",
+        "expired-public-replay-fixture-2026-05"
+      ],
+      "evidenceRequirements": [
+        {
+          "id": "public-boundary-brief-2026-08",
+          "scope": "research_boundary"
+        },
+        {
+          "id": "expired-public-replay-fixture-2026-05",
+          "scope": "expired_replay_fixture"
+        }
+      ],
+      "id": "scenario-007-expired-evidence-fail-closed",
+      "normalizedInput": {
+        "preferredRoute": {
+          "confidence": 0.4,
+          "cost": "not_assessed",
+          "creditedStatus": "credited",
+          "eta": "same_day",
+          "externallyTransferableStatus": "externally_transferable",
+          "finality": "research_fixture_only",
+          "holdRisk": "low",
+          "id": "expired-evidence-route",
+          "purposes": [
+            "research_availability"
+          ],
+          "reasonCodes": [
+            "FULLY_AVAILABLE_SAME_DAY"
+          ],
+          "tradableStatus": "tradable"
+        },
+        "purposes": [
+          "research_availability"
+        ],
+        "requestId": "replay-007"
+      },
+      "policyVersion": "2026.08.26"
+    },
+    {
+      "description": "Missing validation on synthetic evidence is rejected and the replay fails closed.",
+      "evaluationTimestamp": "2026-08-26T18:30:00.000Z",
+      "evidenceIds": [
+        "public-boundary-brief-2026-08",
+        "draft-market-access-fixture-2026-08"
+      ],
+      "evidenceRequirements": [
+        {
+          "id": "public-boundary-brief-2026-08",
+          "scope": "research_boundary"
+        },
+        {
+          "id": "draft-market-access-fixture-2026-08",
+          "scope": "scenario_route_fixture"
+        }
+      ],
+      "id": "scenario-008-unvalidated-evidence-fail-closed",
+      "normalizedInput": {
+        "preferredRoute": {
+          "confidence": 0.35,
+          "cost": "not_assessed",
+          "creditedStatus": "credited",
+          "eta": "same_day",
+          "externallyTransferableStatus": "externally_transferable",
+          "finality": "research_fixture_only",
+          "holdRisk": "low",
+          "id": "unvalidated-evidence-route",
+          "purposes": [
+            "research_availability"
+          ],
+          "reasonCodes": [
+            "FULLY_AVAILABLE_SAME_DAY"
+          ],
+          "tradableStatus": "tradable"
+        },
+        "purposes": [
+          "research_availability"
+        ],
+        "requestId": "replay-008"
+      },
+      "policyVersion": "2026.08.26"
+    },
+    {
+      "description": "Conflicting live-provider scope request is rejected because only research fixture evidence is cited.",
+      "evaluationTimestamp": "2026-08-26T19:00:00.000Z",
+      "evidenceIds": [
+        "public-boundary-brief-2026-08",
+        "synthetic-market-access-fixture-2026-08",
+        "research-purpose-taxonomy-2026-08"
+      ],
+      "evidenceRequirements": [
+        {
+          "id": "public-boundary-brief-2026-08",
+          "scope": "research_boundary"
+        },
+        {
+          "id": "synthetic-market-access-fixture-2026-08",
+          "scope": "live_provider_transfer"
+        },
+        {
+          "id": "research-purpose-taxonomy-2026-08",
+          "scope": "scope_matching"
+        }
+      ],
+      "id": "scenario-009-scope-mismatch-fail-closed",
+      "normalizedInput": {
+        "claimedLiveProviderEvidence": true,
+        "preferredRoute": {
+          "confidence": 0.2,
+          "cost": "not_assessed",
+          "creditedStatus": "credited",
+          "eta": "same_day",
+          "externallyTransferableStatus": "externally_transferable",
+          "finality": "unsupported_live_claim",
+          "holdRisk": "low",
+          "id": "scope-mismatched-live-provider",
+          "purposes": [
+            "research_availability"
+          ],
+          "reasonCodes": [
+            "FULLY_AVAILABLE_SAME_DAY"
+          ],
+          "tradableStatus": "tradable"
+        },
+        "purposes": [
+          "research_availability"
+        ],
+        "requestId": "replay-009"
+      },
+      "policyVersion": "2026.08.26"
+    },
+    {
+      "description": "Preferred payment-initiation route is rejected and a research-only fallback is retained.",
+      "evaluationTimestamp": "2026-08-26T20:00:00.000Z",
+      "evidenceIds": [
+        "public-boundary-brief-2026-08",
+        "synthetic-market-access-fixture-2026-08",
+        "research-purpose-taxonomy-2026-08"
+      ],
+      "evidenceRequirements": [
+        {
+          "id": "public-boundary-brief-2026-08",
+          "scope": "prohibited_purposes"
+        },
+        {
+          "id": "synthetic-market-access-fixture-2026-08",
+          "scope": "fallback_fixture"
+        },
+        {
+          "id": "research-purpose-taxonomy-2026-08",
+          "scope": "purpose_taxonomy"
+        }
+      ],
+      "id": "scenario-010-preferred-rejected-valid-fallback",
+      "normalizedInput": {
+        "fallbackRoute": {
+          "confidence": 0.72,
+          "cost": "not_assessed",
+          "creditedStatus": "not_credited",
+          "eta": "next_business_day",
+          "externallyTransferableStatus": "not_externally_transferable",
+          "finality": "research_fixture_only",
+          "holdRisk": "low",
+          "id": "research-only-next-business-day-fallback",
+          "purposes": [
+            "research_availability"
+          ],
+          "reasonCodes": [
+            "AFTER_CUTOFF_NEXT_BUSINESS_DAY"
+          ],
+          "tradableStatus": "not_tradable"
+        },
+        "preferredRoute": {
+          "confidence": 0.1,
+          "cost": "not_assessed",
+          "creditedStatus": "credited",
+          "eta": "same_day",
+          "externallyTransferableStatus": "externally_transferable",
+          "finality": "unsupported_payment_initiation",
+          "holdRisk": "low",
+          "id": "preferred-payment-initiation",
+          "purposes": [
+            "research_availability",
+            "payment_initiation"
+          ],
+          "reasonCodes": [
+            "FULLY_AVAILABLE_SAME_DAY"
+          ],
+          "tradableStatus": "tradable"
+        },
+        "purposes": [
+          "research_availability"
+        ],
+        "requestId": "replay-010"
+      },
+      "policyVersion": "2026.08.26"
+    }
+  ]
+}
