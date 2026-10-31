@@ -52,6 +52,13 @@ Optional Hugging Face fine-tuning packages are scaffolded but not required for t
 python -m pip install -e ".[fine-tuning]"
 ```
 
+Developer/test tooling is kept out of the runtime install:
+
+```bash
+python -m pip install -e ".[dev]"
+pytest
+```
+
 ## Local LLM setup with Ollama
 
 Install Ollama from <https://ollama.com>, then pull the default local model:
@@ -111,9 +118,22 @@ The adapters are CSV-based scaffolds by design. They avoid proprietary runtime d
 
 ## Train
 
+Validate input files and writable output directories before a run:
+
+```bash
+python -m currency_hedge_llm.cli doctor --config config/config.example.yaml --create-output-dirs
+```
+
+The doctor validates required CSV schemas, output directory writability, and
+configured LLM provider names before the batch workflow starts.
+
 ```bash
 python -m currency_hedge_llm.cli train --config config/config.example.yaml
 ```
+
+Training uses every currency pair present in `data.fx_rates_path`. Feature engineering
+adds pair-identity columns such as `pair_EURUSD` and `pair_USDJPY` so the global model
+can learn pair-specific behavior while still sharing signal across the full FX universe.
 
 This writes:
 
@@ -123,6 +143,12 @@ data/processed/fx_features.csv
 ```
 
 ## Generate recommendations
+
+For a deploy/runtime check that also requires an existing trained model:
+
+```bash
+python -m currency_hedge_llm.cli doctor --config config/config.example.yaml --require-model
+```
 
 ```bash
 python -m currency_hedge_llm.cli recommend --config config/config.example.yaml
@@ -167,16 +193,26 @@ This writes:
 
 ```text
 reports/model_backtest.csv
+reports/model_backtest_pair_metrics.csv
 reports/scenario_analysis.csv
 reports/risk_summary.csv
 ```
 
 Reports include:
 
-- historical predicted versus realized next-period FX returns
+- historical predicted versus realized next-period FX returns for the configured
+  `risk.backtest_years` window, which defaults to 20 years
+- pair-level coverage, mean absolute error, direction accuracy, and average
+  predicted/realized returns in `model_backtest_pair_metrics.csv`
 - direction-hit indicator and absolute forecast error
 - configured FX shock scenarios on residual unhedged exposure
 - VaR/CVaR-style residual-risk estimates for treasury review
+
+The bundled sample file is intentionally small and covers only EURUSD for demo
+execution. To run a true all-pair 20-year backtest, point `data.fx_rates_path` or
+the ingestion exports at an approved 20-year FX history CSV that contains all
+required pairs. The model and risk reports will automatically include every pair
+present in that file.
 
 ## Validate generated workflow outputs
 
@@ -240,6 +276,12 @@ All modes write:
 reports/hedge_memo.md
 ```
 
+Before memo generation, require both the trained model and recommendation CSV:
+
+```bash
+python -m currency_hedge_llm.cli doctor --config config/config.example.yaml --require-model --require-recommendations
+```
+
 ## Initialize approval workflow
 
 ```bash
@@ -294,7 +336,41 @@ The dashboard summarizes gross exposure, suggested hedge amount, residual exposu
 bash scripts/run_demo.sh
 ```
 
-The demo installs the package, normalizes source exports, trains the model, nets exposures, generates recommendations, writes risk reports, initializes approval status/audit outputs, creates a memo with `--llm-provider none`, generates a dashboard, and validates the generated workflow outputs.
+The demo installs the package, runs doctor preflight checks, normalizes source
+exports, trains the model, nets exposures, generates recommendations, writes risk
+reports, initializes approval status/audit outputs, verifies model and
+recommendation artifacts, creates a memo with `--llm-provider none`, generates a
+dashboard, and validates the generated workflow outputs.
+
+## Container build
+
+The CLI can be built as a container for repeatable batch runs:
+
+```bash
+docker build -t currency-hedge-llm .
+docker run --rm currency-hedge-llm train --config config/config.example.yaml
+```
+
+For stateful runs, mount writable directories for generated artifacts:
+
+```bash
+docker run --rm \
+  -v "$PWD/models:/app/models" \
+  -v "$PWD/reports:/app/reports" \
+  -v "$PWD/data/processed:/app/data/processed" \
+  currency-hedge-llm train --config config/config.example.yaml
+```
+
+Run `recommend` after a trained model exists, then run `memo --llm-provider none`
+or configure `ollama`/`openai` for LLM-written memo text.
+
+## CI and deployment readiness
+
+The repository CI installs `.[dev]`, runs `pytest`, and executes
+`python -m currency_hedge_llm.cli doctor --config config/config.example.yaml --create-output-dirs`
+and `bash scripts/run_demo.sh` with the deterministic `none` memo provider.
+This keeps the quant pipeline and packaging path covered without requiring
+external LLM services or API keys.
 
 ## Run the self-improvement loop
 

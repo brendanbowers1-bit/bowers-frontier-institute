@@ -55,10 +55,14 @@ class RiskConfig(BaseModel):
     """Backtesting and scenario-risk report settings."""
 
     backtest_path: Path = Path("reports/model_backtest.csv")
+    pair_metrics_path: Path = Path("reports/model_backtest_pair_metrics.csv")
     scenario_path: Path = Path("reports/scenario_analysis.csv")
     risk_summary_path: Path = Path("reports/risk_summary.csv")
+    backtest_years: int = 20
     var_confidence_level: float = 0.95
-    scenario_shocks: list[float] = Field(default_factory=lambda: [-0.05, -0.025, 0.025, 0.05])
+    scenario_shocks: list[float] = Field(
+        default_factory=lambda: [-0.05, -0.025, 0.025, 0.05]
+    )
 
 
 class MemoConfig(BaseModel):
@@ -151,6 +155,9 @@ def load_config(config_path: str | Path) -> AppConfig:
         project_root, config.recommendation.netted_exposures_path
     )
     config.risk.backtest_path = _resolve_path(project_root, config.risk.backtest_path)
+    config.risk.pair_metrics_path = _resolve_path(
+        project_root, config.risk.pair_metrics_path
+    )
     config.risk.scenario_path = _resolve_path(project_root, config.risk.scenario_path)
     config.risk.risk_summary_path = _resolve_path(
         project_root, config.risk.risk_summary_path

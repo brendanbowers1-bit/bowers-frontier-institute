@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  frontend:
+    name: Frontend lint and build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm audit --omit=dev
+      - run: npm run lint
+      - run: npm run check:trade
+      - run: npm run quality:dashboard
+      - run: npm run build
+      - run: npm run build:pages
+      - run: node scripts/smoke-pages-build.mjs
+
+  currency-hedge-llm:
+    name: Currency hedge package
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: currency-hedge-llm
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install package and test tooling
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+
+      - name: Run Python tests
+        run: pytest
+
+      - name: Validate demo deployment config
+        run: python -m currency_hedge_llm.cli doctor --config config/config.example.yaml --create-output-dirs
+
+      - name: Build Python package
+        run: python -m build
+
+      - name: Run deterministic demo smoke test
+        run: bash scripts/run_demo.sh

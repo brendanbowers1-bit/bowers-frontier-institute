@@ -66,11 +66,15 @@ config/production.example.yaml
 
 Expected production inputs:
 
-- Bloomberg-style FX/rates export CSV
+- Bloomberg-style FX/rates export CSV with every required currency pair and at
+  least 20 years of history for a complete production backtest
 - Bloomberg-style forward curve export CSV
 - Snowflake-style exposure export CSV
 
 The production config points ingestion outputs to `data/processed/` and all workflow artifacts to `reports/`.
+The default risk config uses `backtest_years: 20` and writes both row-level
+history (`reports/model_backtest.csv`) and pair-level metrics
+(`reports/model_backtest_pair_metrics.csv`).
 
 ## Operational controls
 

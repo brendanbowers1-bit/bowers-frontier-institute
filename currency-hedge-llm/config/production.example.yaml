@@ -30,8 +30,10 @@ recommendation:
 
 risk:
   backtest_path: reports/model_backtest.csv
+  pair_metrics_path: reports/model_backtest_pair_metrics.csv
   scenario_path: reports/scenario_analysis.csv
   risk_summary_path: reports/risk_summary.csv
+  backtest_years: 20
   var_confidence_level: 0.95
   scenario_shocks:
     - -0.10

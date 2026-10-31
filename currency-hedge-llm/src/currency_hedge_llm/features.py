@@ -28,8 +28,14 @@ def build_fx_features(fx_rates: pd.DataFrame, target_horizon_days: int = 1) -> p
     if missing:
         raise ValueError(f"FX rates are missing required columns: {missing}")
 
+    sorted_rates = fx_rates.sort_values(["pair", "date"]).copy()
+    sorted_rates["pair"] = sorted_rates["pair"].str.upper()
+    pair_feature_columns = {
+        pair: _pair_feature_column(pair) for pair in sorted(sorted_rates["pair"].unique())
+    }
+
     frames: list[pd.DataFrame] = []
-    for _, pair_frame in fx_rates.sort_values(["pair", "date"]).groupby("pair", sort=False):
+    for pair, pair_frame in sorted_rates.groupby("pair", sort=False):
         pair_features = pair_frame.copy()
         pair_features["fx_return"] = pair_features["spot"].pct_change()
         pair_features["rolling_vol_5d"] = (
@@ -59,6 +65,8 @@ def build_fx_features(fx_rates: pd.DataFrame, target_horizon_days: int = 1) -> p
         pair_features["target_next_return"] = pair_features["fx_return"].shift(
             -target_horizon_days
         )
+        for feature_pair, column in pair_feature_columns.items():
+            pair_features[column] = 1.0 if feature_pair == pair else 0.0
         frames.append(pair_features)
 
     return pd.concat(frames, ignore_index=True)
@@ -67,5 +75,18 @@ def build_fx_features(fx_rates: pd.DataFrame, target_horizon_days: int = 1) -> p
 def available_feature_columns(features: pd.DataFrame) -> list[str]:
     """Return feature columns present in a feature frame."""
 
-    columns = BASE_FEATURE_COLUMNS + OPTIONAL_FEATURE_COLUMNS
+    columns = BASE_FEATURE_COLUMNS + OPTIONAL_FEATURE_COLUMNS + pair_feature_columns(
+        features
+    )
     return [column for column in columns if column in features.columns]
+
+
+def pair_feature_columns(features: pd.DataFrame) -> list[str]:
+    """Return one-hot currency-pair identity feature columns."""
+
+    return sorted(column for column in features.columns if column.startswith("pair_"))
+
+
+def _pair_feature_column(pair: str) -> str:
+    normalized = "".join(character if character.isalnum() else "_" for character in pair)
+    return f"pair_{normalized.upper()}"
