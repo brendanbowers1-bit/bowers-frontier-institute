@@ -1,0 +1,601 @@
+.resume-page {
+  min-height: 100vh;
+  color: #f3ede3;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(154, 143, 110, 0.2), transparent 28rem),
+    radial-gradient(circle at 88% 12%, rgba(80, 107, 128, 0.16), transparent 30rem),
+    linear-gradient(180deg, #050506 0%, #0b0b0d 52%, #030304 100%);
+}
+
+.resume-nav,
+.resume-hero,
+.resume-section,
+.resume-cta {
+  width: min(100%, 76rem);
+  margin: 0 auto;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.resume-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 1rem;
+  background: rgba(5, 5, 6, 0.78);
+  border-bottom: 1px solid rgba(235, 230, 220, 0.08);
+  backdrop-filter: blur(18px);
+}
+
+.resume-brand,
+.resume-nav nav,
+.resume-nav nav button,
+.resume-meta,
+.resume-snapshot__links a,
+.experience-card__heading,
+.project-card__top,
+.resume-print-button {
+  display: flex;
+  align-items: center;
+}
+
+.resume-brand {
+  gap: 0.72rem;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #f8f1e6;
+}
+
+.resume-brand span {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  color: #070707;
+  background: linear-gradient(135deg, #f5efe4, #a99b6d);
+  border-radius: 50%;
+}
+
+.resume-nav nav {
+  gap: clamp(0.85rem, 3vw, 1.7rem);
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(235, 230, 220, 0.66);
+}
+
+.resume-nav nav a,
+.resume-nav nav button {
+  transition: color 160ms ease;
+}
+
+.resume-nav nav a:hover,
+.resume-nav nav button:hover {
+  color: #f8f1e6;
+}
+
+.resume-nav nav button,
+.resume-print-button {
+  gap: 0.45rem;
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
+.resume-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.5fr);
+  gap: clamp(2rem, 7vw, 5rem);
+  padding-block: clamp(5rem, 10vw, 8rem);
+  align-items: end;
+}
+
+.resume-kicker {
+  margin: 0 0 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #b8aa7b;
+}
+
+.resume-hero h1,
+.resume-section h2,
+.resume-cta h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+  color: #f7f0e5;
+}
+
+.resume-hero h1 {
+  max-width: 52rem;
+  font-size: clamp(4rem, 13vw, 10rem);
+}
+
+.resume-section h2,
+.resume-cta h2 {
+  max-width: 52rem;
+  font-size: clamp(2.3rem, 6vw, 5rem);
+}
+
+.resume-headline {
+  max-width: 47rem;
+  margin: 1.4rem 0 0;
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  line-height: 1.55;
+  color: #eee7d9;
+}
+
+.resume-summary,
+.resume-cta p,
+.resume-section__header p,
+.experience-card__description,
+.project-card p,
+.principle-card p {
+  color: rgba(235, 230, 220, 0.66);
+  line-height: 1.72;
+}
+
+.resume-summary {
+  max-width: 43rem;
+  margin: 1rem 0 0;
+}
+
+.resume-meta {
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1.6rem;
+}
+
+.resume-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0.44rem 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: rgba(235, 230, 220, 0.72);
+  background: rgba(235, 230, 220, 0.045);
+  border: 1px solid rgba(235, 230, 220, 0.08);
+  border-radius: 999px;
+}
+
+.resume-snapshot,
+.experience-card,
+.project-card,
+.principle-card,
+.macbook-card,
+.resume-cta {
+  background:
+    linear-gradient(145deg, rgba(235, 230, 220, 0.09), rgba(235, 230, 220, 0.025)),
+    rgba(7, 8, 8, 0.82);
+  border: 1px solid rgba(235, 230, 220, 0.12);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+}
+
+.resume-snapshot {
+  padding: 1.2rem;
+  border-radius: 1.5rem;
+}
+
+.resume-snapshot > p {
+  margin: 0 0 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(235, 230, 220, 0.48);
+}
+
+.resume-snapshot > strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.65rem, 3vw, 2.4rem);
+  font-weight: 500;
+  line-height: 1.02;
+  color: #f7f0e5;
+}
+
+.resume-snapshot__links {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.4rem;
+}
+
+.resume-snapshot__links a {
+  position: relative;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(235, 230, 220, 0.08);
+  border-radius: 1rem;
+}
+
+.resume-snapshot__links span {
+  display: block;
+  color: #f8f1e6;
+}
+
+.resume-snapshot__links small {
+  display: block;
+  margin-top: 0.15rem;
+  color: rgba(235, 230, 220, 0.45);
+}
+
+.resume-section {
+  padding-block: clamp(4rem, 9vw, 7rem);
+}
+
+.resume-section--compact {
+  padding-top: 1rem;
+}
+
+.resume-section__header {
+  margin-bottom: clamp(1.6rem, 4vw, 3rem);
+}
+
+.capability-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.72rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.capability-cloud li,
+.project-card li {
+  padding: 0.48rem 0.72rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(245, 239, 228, 0.78);
+  background: rgba(235, 230, 220, 0.055);
+  border: 1px solid rgba(235, 230, 220, 0.09);
+  border-radius: 999px;
+}
+
+.experience-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.experience-card {
+  display: grid;
+  grid-template-columns: minmax(0, 0.48fr) minmax(0, 0.52fr);
+  gap: clamp(1.2rem, 4vw, 3rem);
+  padding: clamp(1.15rem, 3vw, 1.6rem);
+  border-radius: 1.5rem;
+}
+
+.experience-card__heading {
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.experience-card__heading p,
+.project-card__top span {
+  margin: 0 0 0.72rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #b8aa7b;
+}
+
+.experience-card h3,
+.project-card h3,
+.principle-card h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  font-weight: 500;
+  line-height: 1.02;
+  color: #f8f1e6;
+}
+
+.experience-card__heading span {
+  display: block;
+  margin-top: 0.42rem;
+  color: rgba(235, 230, 220, 0.58);
+}
+
+.experience-card__description {
+  margin: 0;
+}
+
+.experience-card ul {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 0.65rem;
+  padding-left: 1.1rem;
+  margin: 0;
+  color: rgba(235, 230, 220, 0.72);
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.project-card,
+.principle-card {
+  padding: 1.15rem;
+  border-radius: 1.35rem;
+}
+
+.project-card__top {
+  justify-content: space-between;
+  gap: 1rem;
+  color: #b8aa7b;
+}
+
+.project-card h3 {
+  margin-top: 1.2rem;
+}
+
+.project-card p {
+  margin: 1rem 0 0;
+}
+
+.project-card ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0;
+  margin: 1.2rem 0 0;
+  list-style: none;
+}
+
+.project-card li {
+  font-size: 0.58rem;
+  color: rgba(245, 239, 228, 0.68);
+}
+
+.principle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.principle-card h3 {
+  font-size: 1.65rem;
+}
+
+.principle-card p {
+  margin: 0.85rem 0 0;
+}
+
+.macbook-card {
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.36fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 5vw, 3rem);
+  padding: clamp(1.25rem, 4vw, 2rem);
+  border-radius: 1.6rem;
+  align-items: stretch;
+}
+
+.macbook-card__device {
+  display: grid;
+  min-height: 15rem;
+  place-items: center;
+  align-content: center;
+  gap: 1rem;
+  color: #080909;
+  background: linear-gradient(135deg, #f4ecdd, #b5a672);
+  border-radius: 1.2rem;
+}
+
+.macbook-card__device span {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.macbook-steps {
+  display: grid;
+  gap: 0.9rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  counter-reset: macbook-step;
+}
+
+.macbook-steps li {
+  position: relative;
+  display: grid;
+  gap: 0.35rem;
+  min-height: 4.5rem;
+  padding: 1rem 1rem 1rem 4rem;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(235, 230, 220, 0.08);
+  border-radius: 1rem;
+  counter-increment: macbook-step;
+}
+
+.macbook-steps li::before {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: #f4ecdd;
+  content: counter(macbook-step, decimal-leading-zero);
+  background: rgba(154, 143, 110, 0.16);
+  border: 1px solid rgba(154, 143, 110, 0.28);
+  border-radius: 50%;
+}
+
+.macbook-steps strong {
+  color: #f8f1e6;
+}
+
+.macbook-steps span {
+  color: rgba(235, 230, 220, 0.62);
+  line-height: 1.6;
+}
+
+.resume-cta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2rem;
+  margin-bottom: clamp(3rem, 8vw, 6rem);
+  padding-block: clamp(1.5rem, 4vw, 2.25rem);
+  border-radius: 1.7rem;
+  align-items: center;
+}
+
+.resume-cta p {
+  max-width: 44rem;
+  margin-bottom: 0;
+}
+
+.resume-print-button {
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.85rem 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #080909;
+  background: linear-gradient(135deg, #f4ecdd, #b5a672);
+  border: 0;
+  border-radius: 999px;
+}
+
+@media (max-width: 980px) {
+  .resume-hero,
+  .experience-card,
+  .resume-cta {
+    grid-template-columns: 1fr;
+  }
+
+  .macbook-card {
+    grid-template-columns: 1fr;
+  }
+
+  .project-grid,
+  .principle-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .resume-nav {
+    position: static;
+  }
+
+  .resume-nav nav a {
+    display: none;
+  }
+
+  .resume-hero {
+    padding-top: 4rem;
+  }
+
+  .resume-hero h1 {
+    font-size: clamp(3.4rem, 19vw, 5.25rem);
+  }
+
+  .project-grid,
+  .principle-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  .resume-page {
+    color: #111;
+    background: #fff;
+  }
+
+  .resume-nav,
+  .resume-cta,
+  .macbook-section,
+  .resume-snapshot__links a[href="#goodfunds"],
+  .resume-snapshot__links a[href="#dashboard"] {
+    display: none;
+  }
+
+  .resume-hero,
+  .resume-section {
+    width: 100%;
+    max-width: none;
+    padding: 0 0 1rem;
+  }
+
+  .resume-hero {
+    display: block;
+  }
+
+  .resume-hero h1,
+  .resume-section h2,
+  .resume-cta h2,
+  .experience-card h3,
+  .project-card h3,
+  .principle-card h3,
+  .resume-snapshot > strong {
+    color: #111;
+  }
+
+  .resume-summary,
+  .resume-headline,
+  .resume-cta p,
+  .resume-section__header p,
+  .experience-card__description,
+  .project-card p,
+  .principle-card p,
+  .experience-card ul,
+  .resume-meta span {
+    color: #222;
+  }
+
+  .resume-snapshot,
+  .experience-card,
+  .project-card,
+  .principle-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  .resume-section {
+    break-inside: avoid;
+  }
+
+  .resume-hero h1 {
+    font-size: 3rem;
+  }
+
+  .resume-section h2 {
+    font-size: 1.7rem;
+  }
+
+  .project-grid,
+  .principle-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

@@ -1,7 +1,7 @@
 {
-  "name": "BR3N Credit Collar Feed",
-  "short_name": "BR3N Collars",
-  "description": "A mobile research cockpit for positive-credit collars, downside floors, and hedge candidate discovery.",
+  "name": "Brendan Bowers Resume",
+  "short_name": "Resume",
+  "description": "Resume and portfolio for Brendan Bowers: finance intelligence, AI/data infrastructure, research systems, and frontier prototypes.",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
@@ -36,16 +36,16 @@
   ],
   "shortcuts": [
     {
-      "name": "Credit collar feed",
-      "short_name": "Collars",
-      "description": "Open the optimized credit-collar feed.",
-      "url": "./#collars"
+      "name": "Selected work",
+      "short_name": "Work",
+      "description": "Open the selected work section.",
+      "url": "./#work"
     },
     {
-      "name": "Risk dashboard",
-      "short_name": "Risk",
-      "description": "Open hedge posture and risk controls.",
-      "url": "./#risk"
+      "name": "Experience",
+      "short_name": "Experience",
+      "description": "Open the resume experience section.",
+      "url": "./#experience"
     }
   ]
 }
