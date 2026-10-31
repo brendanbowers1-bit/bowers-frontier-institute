@@ -360,7 +360,8 @@
 .br3n-collar-automation button:focus-visible,
 .br3n-collar-automation input:focus-visible,
 .br3n-collar-title-actions button:focus-visible,
-.br3n-collar-row > button:focus-visible {
+.br3n-collar-row > button:focus-visible,
+.br3n-trade-dock button:focus-visible {
   outline: 2px solid #f4f4ef;
   outline-offset: 3px;
 }
@@ -1299,6 +1300,26 @@
   border-radius: 0.9rem;
 }
 
+.br3n-basis-formula {
+  display: grid;
+  grid-column: span 2;
+  gap: 0.25rem;
+  min-height: 2.35rem;
+  padding: 0.58rem 0.78rem;
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  color: rgba(244, 244, 239, 0.62);
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: 1rem;
+}
+
+.br3n-basis-formula small {
+  color: rgba(244, 244, 239, 0.42);
+}
+
 .is-spinning {
   animation: br3n-spin 0.8s linear infinite;
 }
@@ -1485,6 +1506,57 @@
   border-radius: 999px;
 }
 
+.br3n-trade-dock {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+  padding: 0.65rem;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025)),
+    rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+}
+
+.br3n-trade-dock button {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0.62rem 0.7rem;
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  color: rgba(244, 244, 239, 0.72);
+  text-transform: uppercase;
+  cursor: pointer;
+  background:
+    radial-gradient(circle at 30% 0%, rgba(255, 255, 255, 0.13), transparent 65%),
+    rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 999px;
+  transition:
+    color 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.br3n-trade-dock button:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.br3n-trade-dock button.is-locked {
+  color: rgba(244, 244, 239, 0.46);
+  background: rgba(255, 255, 255, 0.03);
+  border-style: dashed;
+}
+
 .br3n-collar-sidecar {
   display: grid;
   gap: 0.9rem;
@@ -1531,6 +1603,20 @@
   min-width: 0;
 }
 
+.br3n-basis-row-badge {
+  display: grid;
+  place-items: center;
+  min-height: 2.25rem;
+  padding: 0 0.55rem;
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.11em;
+  color: #09090a;
+  text-transform: uppercase;
+  background: #f4f4ef;
+  border-radius: 999px;
+}
+
 .br3n-collar-row > div:first-child span {
   display: grid;
   width: 2.25rem;
@@ -1575,6 +1661,7 @@
   .br3n-hero,
   .br3n-grid--market,
   .br3n-grid--collars,
+  .br3n-grid--basis,
   .br3n-grid--risk,
   .br3n-grid--exposure,
   .br3n-grid--signals {
@@ -1655,7 +1742,8 @@
   .br3n-collar-primary,
   .br3n-collar-title-row,
   .br3n-collar-legs,
-  .br3n-collar-risk-grid {
+  .br3n-collar-risk-grid,
+  .br3n-trade-dock {
     grid-template-columns: 1fr;
   }
 
