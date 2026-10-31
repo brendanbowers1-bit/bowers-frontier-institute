@@ -60,6 +60,24 @@ a {
   text-decoration: none;
 }
 
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  color: #050506;
+  background: #f4f4ef;
+  border-radius: 999px;
+  transform: translateY(-150%);
+}
+
+.skip-link:focus-visible {
+  outline: 2px solid #f4f4ef;
+  outline-offset: 3px;
+  transform: translateY(0);
+}
+
 .container {
   width: 100%;
   max-width: var(--max);

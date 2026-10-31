@@ -36,11 +36,14 @@ import {
   exampleWeeklyTradeNote,
   noTradeGates,
   recommendationScorecard,
+  recommendationTiers,
   weeklyTradeOutput,
 } from "../data/weeklyTradeDiscovery";
 import { yieldCurve } from "../data/yieldCurve";
 import { Br3nCrest } from "./Br3nCrest";
 import { Br3nRibbonMark } from "./Br3nRibbonMark";
+import { CreditCollarFeed } from "./CreditCollarFeed";
+import { PwaInstallPrompt } from "./PwaInstallPrompt";
 import "./Br3nDashboard.css";
 
 const periodLengths = {
@@ -52,12 +55,12 @@ const periodLengths = {
   "1Y": 160,
 };
 
-const navItems = ["Overview", "Markets", "Risk", "Exposure", "Rates", "Signals"];
+const navItems = ["Overview", "Collars", "Markets", "Risk", "Exposure", "Signals"];
 
 const metrics = [
   { label: "AUM monitored", value: "$2.84B", delta: "+4.8%", icon: CircleDollarSign },
   { label: "Portfolio P&L", value: "$14.2M", delta: "+1.9%", icon: Activity },
-  { label: "1D VaR", value: "$3.7M", delta: "-0.4%", icon: Shield },
+  { label: "Collar candidates", value: "10", delta: "credit only", icon: Shield },
   { label: "Hedge ratio", value: "64%", delta: "+3 pts", icon: Gauge },
 ];
 
@@ -71,6 +74,12 @@ export function Br3nDashboard() {
     const timeout = window.setTimeout(() => setLoading(false), 720);
     return () => window.clearTimeout(timeout);
   }, []);
+
+  const closeSidebarOnMobile = () => {
+    if (window.matchMedia("(max-width: 860px)").matches) {
+      setSidebarOpen(false);
+    }
+  };
 
   const performanceData = useMemo(() => {
     const series = portfolioPerformance[assetClass] ?? portfolioPerformance.FX;
@@ -91,7 +100,7 @@ export function Br3nDashboard() {
       <div className="br3n-ambient br3n-ambient--one" />
       <div className="br3n-ambient br3n-ambient--two" />
 
-      <aside className={`br3n-sidebar ${sidebarOpen ? "is-open" : ""}`}>
+      <aside className={`br3n-sidebar ${sidebarOpen ? "is-open" : ""}`} id="dashboard-nav">
         <div className="br3n-brand">
           <Br3nCrest compact />
           <div>
@@ -101,7 +110,13 @@ export function Br3nDashboard() {
         </div>
         <nav className="br3n-nav">
           {navItems.map((item, index) => (
-            <a className={index === 0 ? "is-active" : ""} href={`#${item.toLowerCase()}`} key={item}>
+            <a
+              aria-current={index === 0 ? "page" : undefined}
+              className={index === 0 ? "is-active" : ""}
+              href={`#${item.toLowerCase()}`}
+              key={item}
+              onClick={closeSidebarOnMobile}
+            >
               <span>0{index + 1}</span>
               {item}
             </a>
@@ -115,10 +130,12 @@ export function Br3nDashboard() {
       </aside>
 
       <button
+        aria-controls="dashboard-nav"
         aria-expanded={sidebarOpen}
         aria-label={sidebarOpen ? "Close dashboard navigation" : "Open dashboard navigation"}
         className="br3n-mobile-toggle"
         onClick={() => setSidebarOpen((open) => !open)}
+        type="button"
       >
         {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
       </button>
@@ -137,8 +154,8 @@ export function Br3nDashboard() {
             <p className="br3n-kicker">Research · Regime · Risk</p>
             <h1>Macro command for currency, risk, and capital decisions.</h1>
             <p className="br3n-hero-copy">
-              A luxury-grade finance cockpit for market oversight, FX exposure, rates, volatility,
-              drawdown, and hedge posture. Fast, intentional, and calm.
+              A luxury-grade finance cockpit for market oversight, credit-collar discovery, rates,
+              volatility, drawdown, and hedge posture. Fast, intentional, and calm.
             </p>
           </div>
           <div className="br3n-hero-right">
@@ -173,6 +190,7 @@ export function Br3nDashboard() {
                 className={period === item ? "is-active" : ""}
                 key={item}
                 onClick={() => setPeriod(item)}
+                type="button"
               >
                 {item}
               </button>
@@ -185,6 +203,7 @@ export function Br3nDashboard() {
                 className={assetClass === item ? "is-active" : ""}
                 key={item}
                 onClick={() => setAssetClass(item)}
+                type="button"
               >
                 {item}
               </button>
@@ -201,7 +220,7 @@ export function Br3nDashboard() {
           <div>
             <BarChart3 size={16} />
             <span>Signal engine</span>
-            <strong>Regime: controlled risk-on</strong>
+            <strong>Credit collars ranked</strong>
           </div>
           <div>
             <Activity size={16} />
@@ -211,9 +230,15 @@ export function Br3nDashboard() {
           <div>
             <Shield size={16} />
             <span>Governance</span>
-            <strong>No execution surface</strong>
+            <strong>No execution surface · research only</strong>
           </div>
         </motion.section>
+
+        <PwaInstallPrompt />
+
+        <section className="br3n-grid br3n-grid--collars" id="collars">
+          <CreditCollarFeed />
+        </section>
 
         <section className="br3n-metric-grid">
           {metrics.map((metric, index) => (
@@ -361,6 +386,7 @@ export function Br3nDashboard() {
 
         <section className="br3n-grid br3n-grid--signals" id="signals">
           <Panel className="br3n-panel--wide" eyebrow="Weekly trade discovery" title="Best-fit setup workflow">
+            <h3 className="br3n-signal-subhead">Weighted scorecard</h3>
             <div className="br3n-signal-grid">
               {recommendationScorecard.map((metric) => (
                 <motion.div className="br3n-signal-card" key={metric.id} whileHover={{ y: -3 }}>
@@ -381,6 +407,16 @@ export function Br3nDashboard() {
               <h3>{exampleWeeklyTradeNote.setup}</h3>
               <p>{exampleWeeklyTradeNote.recommendation}</p>
             </div>
+            <h3 className="br3n-signal-subhead">Recommendation tiers</h3>
+            <div className="br3n-tier-list">
+              {recommendationTiers.map((tier) => (
+                <span key={tier.id}>
+                  <strong>{tier.name}</strong>
+                  <small>{tier.score}</small>
+                </span>
+              ))}
+            </div>
+            <h3 className="br3n-signal-subhead">Hard no-trade gates</h3>
             <div className="br3n-gate-list">
               {noTradeGates.map((gate) => (
                 <span key={gate}>{gate}</span>
@@ -388,6 +424,11 @@ export function Br3nDashboard() {
             </div>
           </Panel>
         </section>
+
+        <footer className="br3n-page-disclaimer">
+          Research only. Delayed and mock data are used throughout this dashboard; nothing here is
+          investment advice, trade execution, or a recommendation for any account.
+        </footer>
       </main>
     </div>
   );
@@ -513,7 +554,7 @@ function CorrelationHeatmap() {
 
 function Br3nLoader() {
   return (
-    <div className="br3n-loader">
+    <div aria-busy="true" aria-live="polite" className="br3n-loader" role="status">
       <motion.div
         animate={{ opacity: 1, scale: 1 }}
         className="br3n-loader-card"

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">BR3N Credit Collar Feed social preview</title>
+  <desc id="desc">Dark premium finance card for Bowers Frontier Institute and BR3N Credit Collar Feed.</desc>
+  <defs>
+    <radialGradient id="glowA" cx="20%" cy="8%" r="80%">
+      <stop offset="0%" stop-color="#f8f5ec" stop-opacity="0.2"/>
+      <stop offset="42%" stop-color="#6e6f77" stop-opacity="0.13"/>
+      <stop offset="100%" stop-color="#030304" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="82%" cy="22%" r="72%">
+      <stop offset="0%" stop-color="#d7c2a1" stop-opacity="0.18"/>
+      <stop offset="55%" stop-color="#3a3a42" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#030304" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="metal" x1="760" x2="1080" y1="120" y2="520" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fffaf0"/>
+      <stop offset="45%" stop-color="#8f918f"/>
+      <stop offset="100%" stop-color="#f7f2e8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#030304"/>
+  <rect width="1200" height="630" fill="url(#glowA)"/>
+  <rect width="1200" height="630" fill="url(#glowB)"/>
+  <rect x="44" y="44" width="1112" height="542" rx="44" fill="#ffffff" fill-opacity="0.035" stroke="#f4f1e8" stroke-opacity="0.12"/>
+  <g transform="translate(82 78)">
+    <text x="0" y="0" fill="#f7f2e8" font-family="Georgia, 'Times New Roman', serif" font-size="54" letter-spacing="8">BR3N</text>
+    <text x="2" y="42" fill="#b8b3a8" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="17" letter-spacing="6">BOWERS FRONTIER INSTITUTE</text>
+  </g>
+  <g transform="translate(82 204)">
+    <text x="0" y="0" fill="#ffffff" font-family="Georgia, 'Times New Roman', serif" font-size="76" letter-spacing="-4">Credit Collar Feed</text>
+    <text x="0" y="74" fill="#d8d3c8" font-family="IBM Plex Sans, Arial, sans-serif" font-size="30">Credit, floors, and liquidity for hedge research.</text>
+    <text x="0" y="126" fill="#8f918f" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="18" letter-spacing="4">RESEARCH ONLY - NO EXECUTION SURFACE</text>
+  </g>
+  <g transform="translate(770 128)">
+    <rect width="304" height="304" rx="76" fill="#030304" stroke="#f4f1e8" stroke-opacity="0.16" stroke-width="2"/>
+    <path d="M70 198V92h28l50 66V92h32v106h-28l-50-66v66H70Z" fill="#f7f2e8"/>
+    <path d="M202 92h32v106h-32V92Z" fill="#b7ad91"/>
+    <path d="M54 228c64-82 128-82 192 0" fill="none" stroke="url(#metal)" stroke-linecap="round" stroke-width="18"/>
+    <path d="M64 68h176M64 252h176" stroke="#f4f1e8" stroke-linecap="round" stroke-opacity="0.24" stroke-width="4"/>
+  </g>
+  <g transform="translate(82 512)" fill="#a9a398" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="17" letter-spacing="4">
+    <text>DELAYED / MOCK DATA - POSITIVE-CREDIT COLLAR RESEARCH</text>
+  </g>
+</svg>
