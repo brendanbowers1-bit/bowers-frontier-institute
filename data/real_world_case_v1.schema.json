@@ -4,6 +4,9 @@
   "researchOnly": true,
   "reviewedRealWorldCases": 0,
   "gateStatus": "insufficient-reviewed-cases",
+  "recommendedMinimumReviewedSampleSize": 30,
+  "recommendedFirstCohortTarget": 50,
+  "minimumReviewedSampleSizeStatus": "proposed_pending_steward_approval",
   "requiredCaseFields": [
     "id",
     "evaluationTimestamp",

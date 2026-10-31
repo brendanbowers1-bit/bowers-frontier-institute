@@ -103,6 +103,8 @@ before they can affect metrics.
 
 The same-day classification success gate is `>= 90%`. The result remains
 preliminary until a human-approved minimum reviewed sample size is established.
+The proposed research floor is 30 determinate cases; see
+`docs/COHORT_1_STEWARD_APPROVAL.md`. No real-world cases are included yet.
 
 Tracked future metrics include reviewed case count, same-day agreement rate,
 abstention rate, false-available rate, false-unavailable rate,

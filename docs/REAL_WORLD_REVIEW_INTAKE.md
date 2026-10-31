@@ -6,7 +6,10 @@ PII, live provider connections, payment instructions, transfer instructions, or
 settlement guarantees.
 
 See `docs/COHORT_1_REVIEW_PLAN.md` for the freeze, no-tuning, disagreement,
-immutability, and publication rules for Cohort 1.
+immutability, and publication rules for Cohort 1. See
+`docs/COHORT_1_STEWARD_APPROVAL.md` for the exact case format, redaction
+rules, and recommended minimum sample size a steward would need to approve
+before any real-world case is added.
 
 ## Before adding a case
 
@@ -51,6 +54,8 @@ The `real_world_case_v1` protocol supports:
 - Reviewed real-world cases: `0`
 - Gate status: `insufficient-reviewed-cases`
 - Accuracy claim: none
+- Proposed minimum sample size: `30` determinate cases, pending steward approval
+- Proposed first cohort target: `50` cases, pending steward approval
 
 The first cohort should be added only after a human steward supplies redacted,
 independently reviewed cases. Do not use synthetic replay scenarios as

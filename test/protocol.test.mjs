@@ -13,6 +13,12 @@ test("real_world_case_v1 protocol supports required review fields and metrics", 
   assert.equal(protocol.researchOnly, true);
   assert.equal(protocol.reviewedRealWorldCases, 0);
   assert.equal(protocol.gateStatus, "insufficient-reviewed-cases");
+  assert.equal(protocol.recommendedMinimumReviewedSampleSize, 30);
+  assert.equal(protocol.recommendedFirstCohortTarget, 50);
+  assert.equal(
+    protocol.minimumReviewedSampleSizeStatus,
+    "proposed_pending_steward_approval",
+  );
 
   for (const field of [
     "id",
@@ -59,4 +65,25 @@ test("real_world_case_v1 template is not an approved reviewed case", async () =>
   assert.equal(report.counts.rejected, 1);
   assert.equal(report.gate.status, "insufficient-reviewed-cases");
   assert.equal(report.gate.accuracy, null);
+});
+
+test("steward approval checklist is protocol-only and adds no real-world cases", async () => {
+  const [approvalDoc, ciWorkflow, packageJson, reviewedCases] = await Promise.all([
+    readFile("docs/COHORT_1_STEWARD_APPROVAL.md", "utf8"),
+    readFile(".github/workflows/ci.yml", "utf8"),
+    readFile("package.json", "utf8"),
+    readJson("data/reviewed-cases.json"),
+  ]);
+
+  assert.match(approvalDoc, /Case format/);
+  assert.match(approvalDoc, /Redaction rules/);
+  assert.match(approvalDoc, /\*\*30\*\* approved, determinate cases/);
+  assert.match(approvalDoc, /does not add real-world cases/);
+  assert.doesNotMatch(approvalDoc, /accuracy (is|was) \d|%\s+accuracy achieved/i);
+
+  assert.match(ciWorkflow, /npm test/);
+  assert.match(ciWorkflow, /pull_request/);
+  assert.match(packageJson, /npm run lint && npm test && npm run check:trade/);
+
+  assert.deepEqual(reviewedCases.cases, []);
 });

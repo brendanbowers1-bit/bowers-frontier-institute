@@ -92,9 +92,15 @@ explains the correction.
 ## Gate and claims
 
 The `>= 90%` same-day classification threshold remains blocked until a
-human-approved minimum reviewed sample size is established and met. The minimum
-reviewed-sample threshold remains to be approved.
+human-approved minimum reviewed sample size is established and met.
+
+The proposed research floor is **30** approved, determinate cases, with a
+first published cohort target of **50**. These numbers are not in force
+until a human steward approves them. See
+`docs/COHORT_1_STEWARD_APPROVAL.md` for the exact case format, redaction
+rules, and sample-size recommendation to approve later.
 
 Do not claim accuracy, production availability, live capability, payment
 readiness, settlement certainty, eligibility, or compliance support before the
-approved sample-size and agreement gates are satisfied.
+approved sample-size and agreement gates are satisfied. This pull request
+adds no real-world cases.

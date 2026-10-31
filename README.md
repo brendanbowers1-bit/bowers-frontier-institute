@@ -168,6 +168,8 @@ node scripts/smoke-pages-build.mjs
 
 See `docs/REPLAY_MATRIX.md` and `docs/DEMO_API.md` for schemas, endpoints,
 static artifacts, reviewed-case requirements, and known evidence gaps.
+Cohort 1 real-world cases are not included yet. The steward approval
+checklist is `docs/COHORT_1_STEWARD_APPROVAL.md`.
 
 ## Factuality
 

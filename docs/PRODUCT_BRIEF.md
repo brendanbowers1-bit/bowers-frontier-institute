@@ -32,4 +32,5 @@ The reviewed replay harness starts with zero approved real-world cases in
 redacted, valid-evidence cases can enter the same-day classification
 denominator. Until a human-approved reviewed set exists, the harness reports
 `insufficient-reviewed-cases` and does not claim accuracy or live capability
-support.
+support. Cohort 1 real-world cases are deferred. The steward approval
+checklist is `docs/COHORT_1_STEWARD_APPROVAL.md`.
