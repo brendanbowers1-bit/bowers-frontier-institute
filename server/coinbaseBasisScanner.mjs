@@ -1,3 +1,4 @@
+import { fetchPublicMarketJson } from "../src/lib/coinbaseTradeSafety.js";
 import {
   coinbaseBasisFallbackCandidates,
   coinbaseBasisStrategy,
@@ -184,18 +185,7 @@ async function fetchHistoricalFundingRate(product, baseUrl, fetchImpl) {
 }
 
 async function fetchJson(url, fetchImpl) {
-  const response = await fetchImpl(url, {
-    headers: {
-      Accept: "application/json",
-      "User-Agent": "BR3N-Coinbase-Basis-Scanner/1.0",
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(`Coinbase request failed with ${response.status} for ${url}`);
-  }
-
-  return response.json();
+  return fetchPublicMarketJson(url, fetchImpl);
 }
 
 function extractQuotePrice(quote, { preferMark }) {

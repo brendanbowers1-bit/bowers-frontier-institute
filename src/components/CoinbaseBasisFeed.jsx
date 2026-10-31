@@ -19,6 +19,7 @@ import {
   rankCoinbaseBasisCandidates,
 } from "../data/coinbaseBasis";
 import { fetchLiveCoinbaseBasis } from "../lib/coinbaseBasisFeedClient";
+import { runTradeControl } from "../lib/coinbaseTradeSafety";
 
 const DEFAULT_ASSETS = ["BTC", "ETH", "SOL", "XRP", "DOGE"];
 
@@ -98,35 +99,11 @@ export function CoinbaseBasisFeed() {
   );
 
   const handleAutomationAction = useCallback((action, candidate) => {
-    const label = `${candidate.asset} ${candidate.spotProduct}/${candidate.perpProduct}`;
-
-    if (action === "simulate") {
-      setAutomationNotice(
-        `Simulation staged for ${label}: long spot, short perp, expected profit ${formatPct(
-          candidate.expectedProfit,
-        )}. No order was sent.`,
-      );
-      return;
+    const result = runTradeControl({ action, candidate });
+    setAutomationNotice(result.message);
+    if (result.download && result.plan) {
+      downloadTradePlan(result.plan);
     }
-
-    if (action === "review") {
-      setAutomationNotice(
-        `Manual review ticket staged for ${label}. Treasury/risk approval remains required before any external action.`,
-      );
-      return;
-    }
-
-    if (action === "export") {
-      exportTradePlan(candidate);
-      setAutomationNotice(
-        `Trade plan exported for ${label}. The export is local research data only, not an execution instruction.`,
-      );
-      return;
-    }
-
-    setAutomationNotice(
-      `Auto-trade lock held for ${label}. Live order routing is intentionally disabled in this research dashboard.`,
-    );
   }, []);
 
   return (
@@ -384,27 +361,12 @@ function formatTimestamp(value) {
   });
 }
 
-function exportTradePlan(candidate) {
-  const plan = {
-    generatedAt: new Date().toISOString(),
-    mode: "research_only_no_execution",
-    action: candidate.direction,
-    asset: candidate.asset,
-    spotProduct: candidate.spotProduct,
-    perpProduct: candidate.perpProduct,
-    spotPrice: candidate.spotPrice,
-    perpPrice: candidate.perpPrice,
-    basis: candidate.basis,
-    expectedProfit: candidate.expectedProfit,
-    reviewFlags: candidate.reviewFlags,
-    warning:
-      "This exported plan is not an order ticket. Validate venue access, depth, fees, funding, and approvals manually.",
-  };
+function downloadTradePlan(plan) {
   const blob = new Blob([JSON.stringify(plan, null, 2)], { type: "application/json" });
   const url = window.URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = `coinbase-basis-${candidate.asset.toLowerCase()}-plan.json`;
+  link.download = `coinbase-basis-${String(plan.asset ?? "plan").toLowerCase()}-plan.json`;
   link.click();
   window.URL.revokeObjectURL(url);
 }
