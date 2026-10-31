@@ -42,6 +42,19 @@ npm run preview
 
 ## Self-improve loop
 
+Run all project gates once, including the root deploy checks, dashboard quality loop,
+and the `currency-hedge-llm` test/demo/readiness loop:
+
+```bash
+ALL_PROJECT_SELF_IMPROVE_LOOPS=1 npm run self-improve:all
+```
+
+For unattended repetition, opt in explicitly and interrupt when finished:
+
+```bash
+ALL_PROJECT_CONTINUOUS=true npm run self-improve:all
+```
+
 Run the BR3N dashboard loop with a quality threshold:
 
 ```bash
