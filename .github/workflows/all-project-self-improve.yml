@@ -1,0 +1,65 @@
+name: all-project-self-improve
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/all-project-self-improve.yml"
+      - "api/**"
+      - "currency-hedge-llm/**"
+      - "netlify/**"
+      - "public/**"
+      - "scripts/**"
+      - "server/**"
+      - "src/**"
+      - "README.md"
+      - "eslint.config.js"
+      - "index.html"
+      - "jsconfig.json"
+      - "netlify.toml"
+      - "package-lock.json"
+      - "package.json"
+      - "vercel.json"
+      - "vite.config.js"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/all-project-self-improve.yml"
+      - "api/**"
+      - "currency-hedge-llm/**"
+      - "netlify/**"
+      - "public/**"
+      - "scripts/**"
+      - "server/**"
+      - "src/**"
+      - "README.md"
+      - "eslint.config.js"
+      - "index.html"
+      - "jsconfig.json"
+      - "netlify.toml"
+      - "package-lock.json"
+      - "package.json"
+      - "vercel.json"
+      - "vite.config.js"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  self-improve:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.11"
+
+      - name: Run all-project self-improvement gate
+        run: ALL_PROJECT_SELF_IMPROVE_LOOPS=1 npm run self-improve:all

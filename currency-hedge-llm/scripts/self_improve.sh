@@ -12,6 +12,9 @@ if ! [[ "$LOOPS" =~ ^[0-9]+$ ]] || [[ "$LOOPS" -lt 1 ]]; then
   exit 2
 fi
 
+echo "=== self-improve setup: install package ==="
+"$PYTHON_BIN" -m pip install -e .
+
 for iteration in $(seq 1 "$LOOPS"); do
   echo "=== self-improve iteration ${iteration}/${LOOPS}: tests ==="
   "$PYTHON_BIN" -m pytest

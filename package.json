@@ -15,6 +15,7 @@
     "preview": "vite preview",
     "deploy:cloudflare": "npm run build && npx wrangler pages deploy dist --project-name=bowers-frontier-institute",
     "quality:dashboard": "node scripts/dashboard_quality.mjs",
+    "self-improve:all": "bash scripts/self_improve_all.sh",
     "self-improve:dashboard": "bash scripts/self_improve_dashboard.sh"
   },
   "dependencies": {
