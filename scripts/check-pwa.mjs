@@ -3,12 +3,24 @@ import { readFile } from "node:fs/promises";
 const failures = [];
 const fail = (message) => failures.push(message);
 
-const [indexHtml, manifestText, serviceWorker, vercelConfig, netlifyConfig] = await Promise.all([
+const [
+  indexHtml,
+  manifestText,
+  serviceWorker,
+  vercelConfig,
+  netlifyConfig,
+  cloudflareConfig,
+  cloudflareHeaders,
+  cloudflareRedirects,
+] = await Promise.all([
   readFile("index.html", "utf8"),
   readFile("public/manifest.webmanifest", "utf8"),
   readFile("public/service-worker.js", "utf8"),
   readFile("vercel.json", "utf8"),
   readFile("netlify.toml", "utf8"),
+  readFile("wrangler.toml", "utf8"),
+  readFile("public/_headers", "utf8"),
+  readFile("public/_redirects", "utf8"),
 ]);
 
 const manifest = JSON.parse(manifestText);
@@ -47,6 +59,18 @@ if (!vercelConfig.includes("\"outputDirectory\": \"dist\"")) {
 
 if (!netlifyConfig.includes("publish = \"dist\"")) {
   fail("Netlify config must publish dist.");
+}
+
+if (!cloudflareConfig.includes("pages_build_output_dir = \"dist\"")) {
+  fail("Cloudflare Pages config must publish dist.");
+}
+
+if (!cloudflareHeaders.includes("/service-worker.js") || !cloudflareHeaders.includes("must-revalidate")) {
+  fail("Cloudflare Pages headers must keep the service worker revalidating.");
+}
+
+if (!cloudflareRedirects.includes("/* /index.html 200")) {
+  fail("Cloudflare Pages redirects must keep deep links on the app shell.");
 }
 
 if (failures.length > 0) {
