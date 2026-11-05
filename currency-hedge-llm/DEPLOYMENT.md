@@ -76,6 +76,12 @@ The default risk config uses `backtest_years: 20` and writes both row-level
 history (`reports/model_backtest.csv`) and pair-level metrics
 (`reports/model_backtest_pair_metrics.csv`).
 
+Public ECB euro reference rates can be rebuilt into a versioned USD-major
+research CSV with `python -m currency_hedge_llm.cli build-ecb-history`.
+That extract is paper/research only (Source: ECB statistics) and is not a
+production market-data feed. The leakage-safe walk-forward on that file is a
+forecast evaluation, not a trading or execution result.
+
 ## Operational controls
 
 - No automatic trade execution.

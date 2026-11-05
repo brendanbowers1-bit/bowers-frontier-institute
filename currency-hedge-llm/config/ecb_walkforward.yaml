@@ -1,0 +1,24 @@
+data:
+  fx_rates_path: data/research/ecb_usd_majors_v1.csv
+  exposures_path: data/raw/sample_exposures.csv
+  forward_curve_path: data/raw/sample_forward_curve.csv
+  processed_features_path: data/processed/ecb_fx_features.csv
+
+model:
+  model_path: models/ecb_walk_forward_model.joblib
+  n_estimators: 80
+  random_state: 42
+  target_horizon_days: 1
+
+walk_forward:
+  predictions_path: data/research/walk_forward_v1_predictions.csv
+  fold_metrics_path: data/research/walk_forward_v1_fold_metrics.csv
+  pair_metrics_path: data/research/walk_forward_v1_pair_metrics.csv
+  summary_path: data/research/walk_forward_v1_summary.json
+  holdout_years: 2
+  min_train_years: 3
+  retrain_frequency_days: 252
+  n_estimators: 80
+
+llm:
+  provider: none

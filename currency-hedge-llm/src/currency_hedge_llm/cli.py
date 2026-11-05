@@ -19,9 +19,11 @@ from currency_hedge_llm.exposure_netting import generate_netted_exposures
 from currency_hedge_llm.hedge_recommender import generate_recommendations
 from currency_hedge_llm.ingestion import run_ingestion
 from currency_hedge_llm.memo_writer import write_memo
+from currency_hedge_llm.ecb_history import build_ecb_usd_major_history
 from currency_hedge_llm.risk_reports import generate_risk_reports
 from currency_hedge_llm.train_model import train_model
 from currency_hedge_llm.validation import validate_outputs
+from currency_hedge_llm.walk_forward import run_walk_forward
 
 
 def main() -> None:
@@ -121,7 +123,45 @@ def main() -> None:
         help="LLM provider for explanation text.",
     )
 
+    history_parser = subparsers.add_parser(
+        "build-ecb-history",
+        help="Download ECB euro reference rates and write a versioned USD-major history.",
+    )
+    history_parser.add_argument(
+        "--output-dir",
+        default="data/research",
+        help="Directory for the versioned CSV and provenance manifest.",
+    )
+    history_parser.add_argument(
+        "--source-zip",
+        default=None,
+        help="Optional local eurofxref-hist.zip path. Downloads from ECB when omitted.",
+    )
+
+    walk_parser = subparsers.add_parser(
+        "walk-forward",
+        help="Run a leakage-safe expanding-window backtest with a frozen holdout.",
+    )
+    walk_parser.add_argument("--config", required=True, help="Path to YAML config.")
+
     args = parser.parse_args()
+    if args.command == "build-ecb-history":
+        result = build_ecb_usd_major_history(
+            args.output_dir, source_zip_path=args.source_zip
+        )
+        print(
+            "ECB history complete: "
+            f"dataset={result.dataset_id}, "
+            f"pairs={len(result.pair_universe)} "
+            f"({', '.join(result.pair_universe)}), "
+            f"rows={result.row_count}, "
+            f"window={result.date_start}..{result.date_end}, "
+            f"csv={result.csv_path}, "
+            f"manifest={result.manifest_path}. "
+            "Source: ECB statistics. Paper/research only; no trade execution."
+        )
+        return
+
     config = load_config(args.config)
 
     if args.command == "ingest":
@@ -215,6 +255,18 @@ def main() -> None:
         print(
             "Memo complete: "
             f"provider={result.llm_provider}, memo={result.memo_path}"
+        )
+    elif args.command == "walk-forward":
+        result = run_walk_forward(config)
+        print(
+            "Walk-forward complete: "
+            f"prediction_rows={result.prediction_rows}, "
+            f"folds={result.fold_count}, "
+            f"pairs={', '.join(result.pair_universe)}, "
+            f"walk_forward={result.walk_forward_start}..{result.walk_forward_end}, "
+            f"frozen_holdout={result.holdout_start}..{result.holdout_end}, "
+            f"summary={result.summary_path}. "
+            "Paper/research only; no trade execution."
         )
     else:
         parser.error(f"Unknown command: {args.command}")

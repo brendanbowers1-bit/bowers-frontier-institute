@@ -209,10 +209,37 @@ Reports include:
 - VaR/CVaR-style residual-risk estimates for treasury review
 
 The bundled sample file is intentionally small and covers only EURUSD for demo
-execution. To run a true all-pair 20-year backtest, point `data.fx_rates_path` or
-the ingestion exports at an approved 20-year FX history CSV that contains all
-required pairs. The model and risk reports will automatically include every pair
-present in that file.
+execution. It is not a 20-year multi-pair market history.
+
+## ECB USD-major research history
+
+Paper/research only. Source: ECB statistics.
+
+A reproducible builder downloads the public ECB daily euro reference rates
+(1999-present), derives USD-based majors, validates weekday gaps/holidays
+without interpolation, and writes a versioned CSV plus provenance manifest:
+
+```bash
+python -m currency_hedge_llm.cli build-ecb-history --output-dir data/research
+```
+
+EURUSD is the ECB USD reference. USDJPY, GBPUSD, AUDUSD, NZDUSD, USDCAD, and
+USDCHF are derived crosses, not official ECB USD quotes. Missing TARGET
+business days are recorded in the manifest and are not filled.
+
+Run the leakage-safe expanding-window backtest with a frozen holdout:
+
+```bash
+python -m currency_hedge_llm.cli walk-forward --config config/ecb_walkforward.yaml
+```
+
+That walk-forward trains only on dates strictly before each test window. The
+final two years are a frozen holdout and are never used for training. This is a
+forecast-evaluation study, not a trading record, live data feed, or execution
+track.
+
+The default `risk` command on sample data still scores a single fitted demo
+model and should not be read as the ECB research result.
 
 ## Validate generated workflow outputs
 
