@@ -15,11 +15,11 @@ from currency_hedge_llm.deployment import (
     format_readiness_report,
 )
 from currency_hedge_llm.doctor import format_doctor_report, run_doctor
+from currency_hedge_llm.ecb_history import build_ecb_usd_major_history
 from currency_hedge_llm.exposure_netting import generate_netted_exposures
 from currency_hedge_llm.hedge_recommender import generate_recommendations
 from currency_hedge_llm.ingestion import run_ingestion
 from currency_hedge_llm.memo_writer import write_memo
-from currency_hedge_llm.ecb_history import build_ecb_usd_major_history
 from currency_hedge_llm.risk_reports import generate_risk_reports
 from currency_hedge_llm.train_model import train_model
 from currency_hedge_llm.validation import validate_outputs

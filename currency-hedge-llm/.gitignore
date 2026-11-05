@@ -14,5 +14,6 @@ reports/*.csv
 reports/*.md
 reports/*.html
 data/processed/*.csv
+data/research/*predictions.csv
 
 !.gitkeep

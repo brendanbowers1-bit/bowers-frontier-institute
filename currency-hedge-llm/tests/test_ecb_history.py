@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import io
 import zipfile
 from pathlib import Path
 
@@ -68,3 +67,26 @@ def test_build_ecb_history_from_local_zip(tmp_path: Path) -> None:
     assert "Source: ECB statistics" in manifest
     assert '"paper_research_only": true' in manifest
     assert Path(result.manifest_path).is_file()
+
+
+def test_committed_ecb_history_covers_usd_majors_from_1999() -> None:
+    root = Path(__file__).resolve().parents[1]
+    history_path = root / "data/research/ecb_usd_majors_v1.csv"
+    manifest_path = root / "data/research/ecb_usd_majors_v1.manifest.json"
+    if not history_path.is_file():
+        return
+
+    history = pd.read_csv(history_path, parse_dates=["date"])
+    manifest = manifest_path.read_text(encoding="utf-8")
+    assert history["date"].min().date().isoformat() == "1999-01-04"
+    assert set(history["pair"]) == {
+        "AUDUSD",
+        "EURUSD",
+        "GBPUSD",
+        "NZDUSD",
+        "USDCAD",
+        "USDCHF",
+        "USDJPY",
+    }
+    assert "Source: ECB statistics" in manifest
+    assert history["source"].eq("Source: ECB statistics").all()

@@ -241,6 +241,24 @@ track.
 The default `risk` command on sample data still scores a single fitted demo
 model and should not be read as the ECB research result.
 
+Committed extract `data/research/ecb_usd_majors_v1.csv` (Source: ECB
+statistics) covers 1999-01-04 through 2026-11-04 for seven USD majors
+(EURUSD plus derived AUDUSD, GBPUSD, NZDUSD, USDCAD, USDCHF, USDJPY): 49,903
+published observations. Weekday gaps are TARGET holidays/non-publication days
+(134 missing weekdays, longest calendar gap 5 days) and are not interpolated.
+
+Leakage-safe expanding-window results on that extract, RandomForest 80 trees,
+3-year minimum train, retrain every 252 calendar days, frozen last 2 years:
+
+- Walk-forward OOS 2002-02-01 to 2024-11-01: 40,796 rows, MAE 0.00477,
+  direction accuracy 50.2%, R² -0.05.
+- Frozen holdout 2024-11-04 to 2026-11-03: 3,570 rows, MAE 0.00368,
+  direction accuracy 48.8%, R² -0.05.
+
+Those figures are next-day return forecast scores, not P&L. Direction
+accuracy near 50% and negative R² mean this baseline does not show usable
+daily directional skill. No costs, slippage, or execution are included.
+
 ## Validate generated workflow outputs
 
 ```bash
