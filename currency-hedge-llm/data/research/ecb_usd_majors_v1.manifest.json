@@ -1,0 +1,192 @@
+{
+  "dataset_id": "ecb_usd_majors_v1",
+  "attribution": "Source: ECB statistics",
+  "paper_research_only": true,
+  "no_trade_execution": true,
+  "source_name": "ECB euro foreign exchange reference rates",
+  "source_url": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.zip",
+  "source_resolved": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.zip",
+  "retrieved_at_utc": "2026-11-05T14:35:43+00:00",
+  "source_sha256": "971a5cbf650f9e96663cf1218801c3054249e2bb57070d427db5a44931393f59",
+  "output_csv": "ecb_usd_majors_v1.csv",
+  "output_sha256": "53b036099d590d7e5e0d80b6a5da5447e853662b4ecd0def5ceca2137a1dd081",
+  "quote_convention": "ECB publishes EUR-based reference rates (units of currency per EUR). EURUSD is the ECB USD reference. Other pairs are derived USD crosses and are not official ECB USD quotes.",
+  "pair_specs": {
+    "EURUSD": {
+      "kind": "ecb_eur_reference",
+      "formula": "USD"
+    },
+    "USDJPY": {
+      "kind": "derived_usd_cross",
+      "formula": "JPY / USD"
+    },
+    "GBPUSD": {
+      "kind": "derived_usd_cross",
+      "formula": "USD / GBP"
+    },
+    "AUDUSD": {
+      "kind": "derived_usd_cross",
+      "formula": "USD / AUD"
+    },
+    "NZDUSD": {
+      "kind": "derived_usd_cross",
+      "formula": "USD / NZD"
+    },
+    "USDCAD": {
+      "kind": "derived_usd_cross",
+      "formula": "CAD / USD"
+    },
+    "USDCHF": {
+      "kind": "derived_usd_cross",
+      "formula": "CHF / USD"
+    }
+  },
+  "pair_universe": [
+    "AUDUSD",
+    "EURUSD",
+    "GBPUSD",
+    "NZDUSD",
+    "USDCAD",
+    "USDCHF",
+    "USDJPY"
+  ],
+  "pair_coverage": [
+    {
+      "pair": "AUDUSD",
+      "rows": 7129,
+      "date_start": "1999-01-04",
+      "date_end": "2026-11-04"
+    },
+    {
+      "pair": "EURUSD",
+      "rows": 7129,
+      "date_start": "1999-01-04",
+      "date_end": "2026-11-04"
+    },
+    {
+      "pair": "GBPUSD",
+      "rows": 7129,
+      "date_start": "1999-01-04",
+      "date_end": "2026-11-04"
+    },
+    {
+      "pair": "NZDUSD",
+      "rows": 7129,
+      "date_start": "1999-01-04",
+      "date_end": "2026-11-04"
+    },
+    {
+      "pair": "USDCAD",
+      "rows": 7129,
+      "date_start": "1999-01-04",
+      "date_end": "2026-11-04"
+    },
+    {
+      "pair": "USDCHF",
+      "rows": 7129,
+      "date_start": "1999-01-04",
+      "date_end": "2026-11-04"
+    },
+    {
+      "pair": "USDJPY",
+      "rows": 7129,
+      "date_start": "1999-01-04",
+      "date_end": "2026-11-04"
+    }
+  ],
+  "row_count": 49903,
+  "date_start": "1999-01-04",
+  "date_end": "2026-11-04",
+  "calendar_note": "Publication calendar is ECB TARGET business days, not a US market calendar. Gap validation treats weekends as expected closures and reports missing weekdays as holiday-or-unpublished days. Missing days are not interpolated.",
+  "gap_report": {
+    "pairs": [
+      {
+        "pair": "AUDUSD",
+        "observations": 7129,
+        "date_start": "1999-01-04",
+        "date_end": "2026-11-04",
+        "expected_weekdays": 7263,
+        "missing_weekdays": 134,
+        "missing_weekday_share": 0.01845,
+        "longest_calendar_gap_days": 5,
+        "weekend_gaps_expected": true,
+        "interpolation": "none"
+      },
+      {
+        "pair": "EURUSD",
+        "observations": 7129,
+        "date_start": "1999-01-04",
+        "date_end": "2026-11-04",
+        "expected_weekdays": 7263,
+        "missing_weekdays": 134,
+        "missing_weekday_share": 0.01845,
+        "longest_calendar_gap_days": 5,
+        "weekend_gaps_expected": true,
+        "interpolation": "none"
+      },
+      {
+        "pair": "GBPUSD",
+        "observations": 7129,
+        "date_start": "1999-01-04",
+        "date_end": "2026-11-04",
+        "expected_weekdays": 7263,
+        "missing_weekdays": 134,
+        "missing_weekday_share": 0.01845,
+        "longest_calendar_gap_days": 5,
+        "weekend_gaps_expected": true,
+        "interpolation": "none"
+      },
+      {
+        "pair": "NZDUSD",
+        "observations": 7129,
+        "date_start": "1999-01-04",
+        "date_end": "2026-11-04",
+        "expected_weekdays": 7263,
+        "missing_weekdays": 134,
+        "missing_weekday_share": 0.01845,
+        "longest_calendar_gap_days": 5,
+        "weekend_gaps_expected": true,
+        "interpolation": "none"
+      },
+      {
+        "pair": "USDCAD",
+        "observations": 7129,
+        "date_start": "1999-01-04",
+        "date_end": "2026-11-04",
+        "expected_weekdays": 7263,
+        "missing_weekdays": 134,
+        "missing_weekday_share": 0.01845,
+        "longest_calendar_gap_days": 5,
+        "weekend_gaps_expected": true,
+        "interpolation": "none"
+      },
+      {
+        "pair": "USDCHF",
+        "observations": 7129,
+        "date_start": "1999-01-04",
+        "date_end": "2026-11-04",
+        "expected_weekdays": 7263,
+        "missing_weekdays": 134,
+        "missing_weekday_share": 0.01845,
+        "longest_calendar_gap_days": 5,
+        "weekend_gaps_expected": true,
+        "interpolation": "none"
+      },
+      {
+        "pair": "USDJPY",
+        "observations": 7129,
+        "date_start": "1999-01-04",
+        "date_end": "2026-11-04",
+        "expected_weekdays": 7263,
+        "missing_weekdays": 134,
+        "missing_weekday_share": 0.01845,
+        "longest_calendar_gap_days": 5,
+        "weekend_gaps_expected": true,
+        "interpolation": "none"
+      }
+    ],
+    "max_missing_weekdays": 134,
+    "max_longest_calendar_gap_days": 5,
+    "holiday_note": "Missing weekdays are consistent with ECB TARGET holidays and other non-publication days. They are recorded, not filled."
+  }
+}

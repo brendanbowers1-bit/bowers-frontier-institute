@@ -124,8 +124,8 @@ export function Br3nDashboard() {
         </nav>
         <div className="br3n-sidebar-card">
           <Radio size={16} />
-          <span>Live API ready</span>
-          <small>Bloomberg / Snowflake / FRED adapters can be mounted behind the data layer.</small>
+          <span>Mock data · adapter-ready</span>
+          <small>Bloomberg / Snowflake / FRED adapters can be mounted later behind the data layer.</small>
         </div>
       </aside>
 
@@ -224,8 +224,8 @@ export function Br3nDashboard() {
           </div>
           <div>
             <Activity size={16} />
-            <span>Optimizer</span>
-            <strong>Profit / floor / liquidity</strong>
+            <span>Dataset</span>
+            <strong>Mock data · no live feeds</strong>
           </div>
           <div>
             <Shield size={16} />
@@ -281,7 +281,7 @@ export function Br3nDashboard() {
           </Panel>
         </section>
 
-        <section className="br3n-grid br3n-grid--three">
+        <section className="br3n-grid br3n-grid--three" id="rates">
           <Panel eyebrow="Foreign exchange" title="FX rates">
             <div className="br3n-fx-list">
               {fxRates.map((rate) => (

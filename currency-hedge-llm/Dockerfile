@@ -8,12 +8,19 @@ WORKDIR /app
 
 COPY pyproject.toml README.md ./
 COPY DEPLOYMENT.md SECURITY.md ./
-COPY src ./src
 COPY config ./config
 COPY data ./data
 COPY scripts ./scripts
+COPY src ./src
 
-RUN python -m pip install --upgrade pip \
-    && python -m pip install -e .
+RUN python -m pip install --no-cache-dir --upgrade pip \
+    && python -m pip install --no-cache-dir .
 
-CMD ["bash", "scripts/run_demo.sh"]
+RUN useradd --create-home --shell /usr/sbin/nologin appuser \
+    && mkdir -p /app/models /app/reports /app/data/processed \
+    && chown -R appuser:appuser /app
+
+USER appuser
+
+ENTRYPOINT ["currency-hedge-llm"]
+CMD ["--help"]

@@ -55,10 +55,27 @@ class RiskConfig(BaseModel):
     """Backtesting and scenario-risk report settings."""
 
     backtest_path: Path = Path("reports/model_backtest.csv")
+    pair_metrics_path: Path = Path("reports/model_backtest_pair_metrics.csv")
     scenario_path: Path = Path("reports/scenario_analysis.csv")
     risk_summary_path: Path = Path("reports/risk_summary.csv")
+    backtest_years: int = 20
     var_confidence_level: float = 0.95
-    scenario_shocks: list[float] = Field(default_factory=lambda: [-0.05, -0.025, 0.025, 0.05])
+    scenario_shocks: list[float] = Field(
+        default_factory=lambda: [-0.05, -0.025, 0.025, 0.05]
+    )
+
+
+class WalkForwardConfig(BaseModel):
+    """Leakage-safe expanding-window research backtest settings."""
+
+    predictions_path: Path = Path("data/research/walk_forward_v1_predictions.csv")
+    fold_metrics_path: Path = Path("data/research/walk_forward_v1_fold_metrics.csv")
+    pair_metrics_path: Path = Path("data/research/walk_forward_v1_pair_metrics.csv")
+    summary_path: Path = Path("data/research/walk_forward_v1_summary.json")
+    holdout_years: int = 2
+    min_train_years: int = 3
+    retrain_frequency_days: int = 252
+    n_estimators: int | None = 80
 
 
 class MemoConfig(BaseModel):
@@ -100,6 +117,7 @@ class AppConfig(BaseModel):
     model: ModelConfig = Field(default_factory=ModelConfig)
     recommendation: RecommendationConfig = Field(default_factory=RecommendationConfig)
     risk: RiskConfig = Field(default_factory=RiskConfig)
+    walk_forward: WalkForwardConfig = Field(default_factory=WalkForwardConfig)
     memo: MemoConfig = Field(default_factory=MemoConfig)
     dashboard: DashboardConfig = Field(default_factory=DashboardConfig)
     approval: ApprovalConfig = Field(default_factory=ApprovalConfig)
@@ -151,9 +169,24 @@ def load_config(config_path: str | Path) -> AppConfig:
         project_root, config.recommendation.netted_exposures_path
     )
     config.risk.backtest_path = _resolve_path(project_root, config.risk.backtest_path)
+    config.risk.pair_metrics_path = _resolve_path(
+        project_root, config.risk.pair_metrics_path
+    )
     config.risk.scenario_path = _resolve_path(project_root, config.risk.scenario_path)
     config.risk.risk_summary_path = _resolve_path(
         project_root, config.risk.risk_summary_path
+    )
+    config.walk_forward.predictions_path = _resolve_path(
+        project_root, config.walk_forward.predictions_path
+    )
+    config.walk_forward.fold_metrics_path = _resolve_path(
+        project_root, config.walk_forward.fold_metrics_path
+    )
+    config.walk_forward.pair_metrics_path = _resolve_path(
+        project_root, config.walk_forward.pair_metrics_path
+    )
+    config.walk_forward.summary_path = _resolve_path(
+        project_root, config.walk_forward.summary_path
     )
     config.memo.memo_path = _resolve_path(project_root, config.memo.memo_path)
     config.dashboard.dashboard_path = _resolve_path(

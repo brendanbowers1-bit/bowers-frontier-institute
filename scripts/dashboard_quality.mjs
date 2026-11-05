@@ -20,6 +20,12 @@ const checks = [
   phraseCheck("Glass/metal styling", "src/components/Br3nDashboard.css", "backdrop-filter", 6),
   phraseCheck("Cinematic loading", "src/components/Br3nDashboard.jsx", "Br3nLoader", 5),
   phraseCheck("No execution language", "src/components/Br3nDashboard.jsx", "No execution surface", 6),
+  phraseCheck("Mock-data disclosure", "src/components/Br3nDashboard.jsx", "Mock data · no live feeds", 6),
+  phraseCheck("Rates navigation target", "src/components/Br3nDashboard.jsx", 'id="rates"', 4),
+  phraseCheck("Accessible mobile navigation", "src/components/Br3nDashboard.jsx", "aria-expanded", 4),
+  phraseCheck("Visible focus states", "src/components/Br3nDashboard.css", ":focus-visible", 4),
+  prohibitedPhraseCheck("No unsupported live API claim", "src/components/Br3nDashboard.jsx", "Live API ready", 4),
+  prohibitedPhraseCheck("No unsupported latency claim", "src/components/Br3nDashboard.jsx", "18ms render path", 4),
   fileCheck("FX data module", "src/data/fxRates.js", 3),
   fileCheck("Portfolio data module", "src/data/portfolioPerformance.js", 3),
   fileCheck("Exposure data module", "src/data/currencyExposure.js", 3),
@@ -68,5 +74,20 @@ function phraseCheck(name, relativePath, phrase, points) {
     points,
     passed,
     detail: passed ? `Found "${phrase}"` : `Missing "${phrase}"`,
+  };
+}
+
+function prohibitedPhraseCheck(name, relativePath, phrase, points) {
+  const path = join(root, relativePath);
+  if (!existsSync(path)) {
+    return { name, points, passed: false, detail: `Missing ${relativePath}` };
+  }
+  const text = readFileSync(path, "utf8");
+  const passed = !text.includes(phrase);
+  return {
+    name,
+    points,
+    passed,
+    detail: passed ? `Did not find "${phrase}"` : `Found prohibited phrase "${phrase}"`,
   };
 }

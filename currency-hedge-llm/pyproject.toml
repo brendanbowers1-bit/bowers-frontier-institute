@@ -17,10 +17,13 @@ dependencies = [
     "python-dotenv",
     "requests",
     "joblib",
-    "pytest",
 ]
 
 [project.optional-dependencies]
+dev = [
+    "build",
+    "pytest",
+]
 fine-tuning = [
     "transformers",
     "datasets",
