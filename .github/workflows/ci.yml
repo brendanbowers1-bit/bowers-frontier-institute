@@ -14,21 +14,28 @@ jobs:
     name: Frontend lint and build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
           cache: npm
 
       - run: npm ci
       - run: npm audit --omit=dev
+      - run: npm audit --audit-level=high
       - run: npm run lint
+      - run: npm test
       - run: npm run check:trade
+      - run: npm run check:collars
+      - run: npm run check:pwa
+      - run: npm run check:a11y
       - run: npm run quality:dashboard
       - run: npm run build
       - run: npm run build:pages
       - run: node scripts/smoke-pages-build.mjs
+      - run: npm run check:budget
+      - run: npm run check:production
 
   currency-hedge-llm:
     name: Currency hedge package
@@ -37,9 +44,9 @@ jobs:
       run:
         working-directory: currency-hedge-llm
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.11"
           cache: pip

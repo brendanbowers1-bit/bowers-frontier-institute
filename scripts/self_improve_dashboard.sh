@@ -15,6 +15,12 @@ for iteration in $(seq 1 "$LOOPS"); do
   echo "=== BR3N dashboard loop ${iteration}/${LOOPS}: lint ==="
   npm run lint
 
+  echo "=== BR3N dashboard loop ${iteration}/${LOOPS}: tests ==="
+  npm test
+
+  echo "=== BR3N dashboard loop ${iteration}/${LOOPS}: accessibility ==="
+  npm run check:a11y
+
   echo "=== BR3N dashboard loop ${iteration}/${LOOPS}: trade framework ==="
   npm run check:trade
 

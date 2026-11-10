@@ -29,11 +29,26 @@ jobs:
       - name: Audit production dependencies
         run: npm audit --omit=dev
 
+      - name: Audit high and critical advisories
+        run: npm audit --audit-level=high
+
       - name: Lint frontend
         run: npm run lint
 
+      - name: Core path tests
+        run: npm test
+
       - name: Validate trade framework
         run: npm run check:trade
+
+      - name: Validate credit collars
+        run: npm run check:collars
+
+      - name: Validate PWA publish metadata
+        run: npm run check:pwa
+
+      - name: Accessibility source check
+        run: npm run check:a11y
 
       - name: Score dashboard quality
         run: npm run quality:dashboard
@@ -46,6 +61,12 @@ jobs:
 
       - name: Smoke test GitHub Pages artifact
         run: node scripts/smoke-pages-build.mjs
+
+      - name: Bundle budget
+        run: npm run check:budget
+
+      - name: Production readiness score
+        run: npm run check:production
 
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:

@@ -62,9 +62,16 @@ tooling and is not imported by the deployed React application.
 Post-remediation audit result:
 
 ```bash
+npm audit --omit=dev
+# 0 vulnerabilities in production dependencies
+
 npm audit --audit-level=high
-# found 0 vulnerabilities
+# 0 high/critical remaining
 ```
+
+Moderate/low findings remain in eslint and shadcn CLI tooling. They are not
+shipped in the GitHub Pages runtime bundle. The full `npm audit` tree is
+therefore not "zero remaining vulnerabilities."
 
 ## Deferred dependency updates
 

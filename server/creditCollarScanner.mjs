@@ -42,7 +42,7 @@ export async function scanCreditCollars({ symbols = DEFAULT_SYMBOLS, maxPerSymbo
   };
 }
 
-function normalizeSymbols(symbols) {
+export function normalizeSymbols(symbols) {
   const normalize = (symbol) => String(symbol).trim().toUpperCase();
   const isValidSymbol = (symbol) => SYMBOL_PATTERN.test(symbol);
 

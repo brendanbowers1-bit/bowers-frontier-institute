@@ -1,4 +1,5 @@
 import { scanCreditCollars } from "../../server/creditCollarScanner.mjs";
+import { logServerError } from "../../server/runtimeLog.mjs";
 
 const ALLOWED_ORIGINS = new Set([
   "https://brendanbowers1-bit.github.io",
@@ -39,7 +40,7 @@ export async function handler(event) {
       body: JSON.stringify(payload),
     };
   } catch (error) {
-    console.error("Unable to scan credit collars", error);
+    logServerError("credit_collar_scan", error, { service: "credit-collar-netlify" });
     return {
       statusCode: 500,
       headers,

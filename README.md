@@ -28,11 +28,17 @@ http://localhost:5173
 ## Validate
 
 ```bash
+npm test
 npm run lint
+npm run check:a11y
 npm run check:pwa
 npm run build
 npm run quality:dashboard
+npm run check:production
 ```
+
+Honest production limits (host, research-only, no execution, remaining tooling
+advisories, no APM on GitHub Pages) are in `docs/PRODUCTION_LIMITS.md`.
 
 Preview production build:
 
@@ -116,9 +122,10 @@ npm run build:pages
 
 Pull requests and pushes to `main` run CI for:
 
-- frontend lint
-- local Vite production build
-- GitHub Pages Vite production build
+- frontend lint, core-path tests, accessibility source check
+- production dependency audit (`npm audit --omit=dev`)
+- local Vite production build and GitHub Pages Vite production build
+- bundle budget and production-readiness score
 - `currency-hedge-llm` Python package tests and deterministic demo smoke test
 
 The GitHub Pages deploy workflow also runs frontend lint before uploading the
@@ -127,10 +134,12 @@ Pages artifact.
 Deployment and trade-framework readiness gates:
 
 ```bash
-npm run check:trade   # validates trade scorecard, tiers, gates, and example note
-npm run check:collars # validates positive-credit collar scoring and risk bounds
-npm run check:pwa     # validates install metadata, service worker, and deploy configs
-npm run check:deploy  # audit + lint + trade check + builds + GitHub Pages smoke test
+npm run check:trade       # validates trade scorecard, tiers, gates, and example note
+npm run check:collars     # validates positive-credit collar scoring and risk bounds
+npm run check:pwa         # validates install metadata, service worker, and deploy configs
+npm run check:a11y        # skip link, focus, reduced motion, no autofocus
+npm run check:production  # honest 100-point production-readiness rubric
+npm run check:deploy      # ci + audits + tests + gates + dual builds + smoke + budget
 ```
 
 ## Publish
