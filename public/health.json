@@ -1,0 +1,7 @@
+{
+  "status": "ok",
+  "service": "br3n-web",
+  "mode": "static",
+  "researchOnly": true,
+  "noTradeExecution": true
+}

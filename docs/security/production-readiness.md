@@ -1,6 +1,16 @@
 # Production readiness
 
-Date: 2026-08-16
+Date: 2026-11-10
+
+## Honest score (2026-11-10)
+
+- Earlier local `deployment-readiness` 100/100 was a Python packaging checklist,
+  not production readiness for the site.
+- Honest before this pass: **70/100**.
+- Honest after this pass: **90/100** (`npm run check:production`).
+- Remaining deductions: no APM on GitHub Pages, no browser e2e, moderate
+  eslint/shadcn tooling advisories, main does not run this CI until merge,
+  no Lighthouse CI / self-hosted fonts.
 
 ## Current deployment status
 
@@ -65,13 +75,22 @@ critical. The remediated vulnerable transitive packages are:
 Current audit status:
 
 ```bash
+npm audit --omit=dev
+# 0 vulnerabilities in production dependencies
+
 npm audit --audit-level=high
-# found 0 vulnerabilities
+# 0 high/critical; moderate/low remain in eslint/shadcn tooling
 ```
+
+The previous claim that the full tree had zero remaining vulnerabilities was
+incorrect. Production (`--omit=dev`) is the runtime bar for GitHub Pages.
 
 ## Vulnerabilities remaining
 
-No npm audit vulnerabilities remain after remediation.
+Moderate and low npm advisories remain in development tooling (`eslint`,
+`shadcn` / `@shadcn/registry`, `minimatch`, `deepmerge`). Those packages are
+not imported by the deployed React app. They are accepted for this pass rather
+than force-upgrading the lint toolchain.
 
 Some direct dependencies still have newer non-security releases available. They
 are intentionally unresolved in this pass because they are not required for the
@@ -108,21 +127,20 @@ upgrade.
 These checks are part of the hardening validation set:
 
 ```bash
+npm test
 npm run lint
-npm run build
-GITHUB_PAGES=true npm run build
+npm run check:a11y
 npm run check:trade
 npm run check:collars
 npm run check:pwa
-node scripts/smoke-pages-build.mjs
 npm run quality:dashboard
+npm audit --omit=dev
 npm audit --audit-level=high
-node --input-type=module # content-type guard check
-rm -rf node_modules
-npm ci
 npm run build
-GITHUB_PAGES=true npm run build
-npm audit --audit-level=high
+npm run build:pages
+node scripts/smoke-pages-build.mjs
+npm run check:budget
+npm run check:production
 ```
 
 Result: all checks passed. The GitHub Pages smoke test verified base-prefixed
@@ -134,6 +152,10 @@ before parsing.
 
 ## Manual checks still requiring Brendan
 
+- Merge this PR so `main` actually runs the unified PR/main CI workflow. Until
+  then, main only has Pages deploy + path-filtered package CI.
+- Attach a hosted error tracker / APM if dashboard failures should be paged.
+  GitHub Pages has no server process; `health.json` is static.
 - Review the live site visually on target mobile devices, especially iPhone
   Safari PWA install behavior.
 - Decide whether to self-host current Google Font faces to reduce third-party
@@ -146,6 +168,8 @@ before parsing.
   live quotes as production-grade data.
 - Rotate pinned GitHub Action SHAs during normal dependency maintenance, or
   enable an update tool that can open reviewed PRs for pinned actions.
+- Do not merge other open PRs (#11 Cloudflare, #16 Coinbase, #19 availability
+  demo) until this branch is in. See the PR description for overlap and order.
 
 ## Recommended next engineering milestone
 

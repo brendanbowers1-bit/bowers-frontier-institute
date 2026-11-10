@@ -1,4 +1,5 @@
 import { scanCreditCollars } from "../server/creditCollarScanner.mjs";
+import { logServerError } from "../server/runtimeLog.mjs";
 
 const ALLOWED_ORIGINS = new Set([
   "https://brendanbowers1-bit.github.io",
@@ -26,7 +27,7 @@ export default async function handler(request, response) {
     response.setHeader("Cache-Control", "s-maxage=30, stale-while-revalidate=120");
     response.status(200).json(payload);
   } catch (error) {
-    console.error("Unable to scan credit collars", error);
+    logServerError("credit_collar_scan", error, { service: "credit-collar-api" });
     response.status(500).json({
       error: "Unable to scan credit collars",
       message: "The research feed is temporarily unavailable.",

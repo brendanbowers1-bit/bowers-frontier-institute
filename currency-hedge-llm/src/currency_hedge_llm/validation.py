@@ -154,7 +154,13 @@ def validate_backtest_frame(
 ) -> None:
     """Validate backtest output."""
 
-    required_columns = {"target_next_return", "predicted_next_return", "absolute_error"}
+    required_columns = {
+        "pair",
+        "backtest_window_years",
+        "target_next_return",
+        "predicted_next_return",
+        "absolute_error",
+    }
     _require_columns(
         backtest,
         required_columns,
@@ -168,6 +174,8 @@ def validate_backtest_frame(
         return
     if backtest["absolute_error"].isna().any():
         failures.append("backtest contains missing absolute errors")
+    if backtest["pair"].nunique() < 1:
+        failures.append("backtest does not include any currency pairs")
     if backtest["absolute_error"].mean() > 0.05:
         warnings.append("average backtest absolute error is unusually high")
 

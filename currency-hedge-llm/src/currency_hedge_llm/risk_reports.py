@@ -18,9 +18,11 @@ class RiskReportResult:
     """Summary of risk report generation."""
 
     backtest_path: str
+    pair_metrics_path: str
     scenario_path: str
     risk_summary_path: str
     backtest_rows: int
+    pair_metrics_rows: int
     scenario_rows: int
     risk_summary_rows: int
 
@@ -29,20 +31,25 @@ def generate_risk_reports(config: AppConfig) -> RiskReportResult:
     """Generate backtest, scenario, and VaR/CVaR residual-risk reports."""
 
     backtest = generate_backtest_frame(config)
+    pair_metrics = generate_pair_backtest_metrics(backtest)
     scenario = generate_scenario_frame(config)
     risk_summary = generate_risk_summary_frame(config)
 
     config.risk.backtest_path.parent.mkdir(parents=True, exist_ok=True)
+    config.risk.pair_metrics_path.parent.mkdir(parents=True, exist_ok=True)
     config.risk.scenario_path.parent.mkdir(parents=True, exist_ok=True)
     config.risk.risk_summary_path.parent.mkdir(parents=True, exist_ok=True)
     backtest.to_csv(config.risk.backtest_path, index=False)
+    pair_metrics.to_csv(config.risk.pair_metrics_path, index=False)
     scenario.to_csv(config.risk.scenario_path, index=False)
     risk_summary.to_csv(config.risk.risk_summary_path, index=False)
     return RiskReportResult(
         backtest_path=str(config.risk.backtest_path),
+        pair_metrics_path=str(config.risk.pair_metrics_path),
         scenario_path=str(config.risk.scenario_path),
         risk_summary_path=str(config.risk.risk_summary_path),
         backtest_rows=len(backtest),
+        pair_metrics_rows=len(pair_metrics),
         scenario_rows=len(scenario),
         risk_summary_rows=len(risk_summary),
     )
@@ -58,6 +65,7 @@ def generate_backtest_frame(config: AppConfig) -> pd.DataFrame:
     )
     feature_columns: list[str] = bundle["feature_columns"]
     scored = features.dropna(subset=feature_columns + ["target_next_return"]).copy()
+    scored = _filter_backtest_window(scored, config.risk.backtest_years)
     scored["predicted_next_return"] = bundle["model"].predict(scored[feature_columns])
     scored["prediction_error"] = (
         scored["predicted_next_return"] - scored["target_next_return"]
@@ -67,10 +75,16 @@ def generate_backtest_frame(config: AppConfig) -> pd.DataFrame:
         np.sign(scored["predicted_next_return"])
         == np.sign(scored["target_next_return"])
     )
+    scored["backtest_window_years"] = int(config.risk.backtest_years)
+    scored["backtest_start_date"] = scored["date"].min().date().isoformat()
+    scored["backtest_end_date"] = scored["date"].max().date().isoformat()
     output_columns = [
         "date",
         "pair",
         "spot",
+        "backtest_window_years",
+        "backtest_start_date",
+        "backtest_end_date",
         "target_next_return",
         "predicted_next_return",
         "prediction_error",
@@ -84,6 +98,41 @@ def generate_backtest_frame(config: AppConfig) -> pd.DataFrame:
     return scored[
         [column for column in output_columns if column in scored.columns]
     ].reset_index(drop=True)
+
+
+def generate_pair_backtest_metrics(backtest: pd.DataFrame) -> pd.DataFrame:
+    """Aggregate backtest quality and data coverage by currency pair."""
+
+    if backtest.empty:
+        return pd.DataFrame(
+            columns=[
+                "pair",
+                "rows",
+                "start_date",
+                "end_date",
+                "mean_absolute_error",
+                "direction_accuracy",
+                "mean_predicted_next_return",
+                "mean_realized_next_return",
+            ]
+        )
+
+    metrics = (
+        backtest.groupby("pair", as_index=False)
+        .agg(
+            rows=("pair", "size"),
+            start_date=("date", "min"),
+            end_date=("date", "max"),
+            mean_absolute_error=("absolute_error", "mean"),
+            direction_accuracy=("correct_direction", "mean"),
+            mean_predicted_next_return=("predicted_next_return", "mean"),
+            mean_realized_next_return=("target_next_return", "mean"),
+        )
+        .sort_values("pair")
+    )
+    metrics["start_date"] = pd.to_datetime(metrics["start_date"]).dt.date.astype(str)
+    metrics["end_date"] = pd.to_datetime(metrics["end_date"]).dt.date.astype(str)
+    return metrics.reset_index(drop=True)
 
 
 def generate_scenario_frame(config: AppConfig) -> pd.DataFrame:
@@ -169,6 +218,19 @@ def _load_or_generate_recommendations(config: AppConfig) -> pd.DataFrame:
 
     generate_recommendations(config)
     return pd.read_csv(config.recommendation.recommendation_path)
+
+
+def _filter_backtest_window(scored: pd.DataFrame, backtest_years: int) -> pd.DataFrame:
+    if backtest_years < 1:
+        raise ValueError("risk.backtest_years must be at least 1")
+    max_date = scored["date"].max()
+    start_date = max_date - pd.DateOffset(years=backtest_years)
+    filtered = scored[scored["date"] >= start_date].copy()
+    if filtered.empty:
+        raise ValueError(
+            f"No scored FX rows are available inside the last {backtest_years} years."
+        )
+    return filtered
 
 
 def _normal_z_score(confidence_level: float) -> float:

@@ -1,3 +1,5 @@
+import { appVersion, runtimeLog } from "./lib/runtimeLog.js";
+
 export function registerServiceWorker() {
   if (!("serviceWorker" in navigator) || import.meta.env.DEV) return;
 
@@ -7,8 +9,8 @@ export function registerServiceWorker() {
       import.meta.env.VITE_APP_VERSION,
     )}`;
 
-    navigator.serviceWorker.register(serviceWorkerUrl, { scope: baseUrl }).catch(() => {
-      // Registration is opportunistic; the app still works as a normal web page.
+    navigator.serviceWorker.register(serviceWorkerUrl, { scope: baseUrl }).catch((error) => {
+      runtimeLog.error("service_worker_register", error, { version: appVersion() });
     });
   });
 }

@@ -24,6 +24,10 @@ class TrainingResult:
     feature_columns: list[str]
     holdout_mae: float
     holdout_r2: float
+    pair_count: int
+    pair_universe: list[str]
+    training_start_date: str
+    training_end_date: str
 
 
 def train_model(config: AppConfig) -> TrainingResult:
@@ -42,6 +46,9 @@ def train_model(config: AppConfig) -> TrainingResult:
         raise ValueError(
             "Not enough training rows after feature engineering; provide more FX history."
         )
+    pair_universe = sorted(training_frame["pair"].unique())
+    training_start_date = training_frame["date"].min().date().isoformat()
+    training_end_date = training_frame["date"].max().date().isoformat()
 
     x = training_frame[feature_columns]
     y = training_frame["target_next_return"]
@@ -75,6 +82,10 @@ def train_model(config: AppConfig) -> TrainingResult:
                 "holdout_mae": holdout_mae,
                 "holdout_r2": holdout_r2,
                 "target_horizon_days": config.model.target_horizon_days,
+                "pair_count": len(pair_universe),
+                "pair_universe": pair_universe,
+                "training_start_date": training_start_date,
+                "training_end_date": training_end_date,
             },
         },
         config.model.model_path,
@@ -86,6 +97,10 @@ def train_model(config: AppConfig) -> TrainingResult:
         feature_columns=feature_columns,
         holdout_mae=holdout_mae,
         holdout_r2=holdout_r2,
+        pair_count=len(pair_universe),
+        pair_universe=pair_universe,
+        training_start_date=training_start_date,
+        training_end_date=training_end_date,
     )
 
 
