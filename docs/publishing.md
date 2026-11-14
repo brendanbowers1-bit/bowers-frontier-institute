@@ -1,7 +1,7 @@
-# Publishing BR3N Credit Collar Feed
+# Publishing Bowers Frontier Institute
 
-This app is publish-ready as a mobile web application and progressive web app (PWA). It also includes
-serverless live-feed adapters for hosts that support functions.
+This site is publish-ready as a mobile web application and progressive web app (PWA) for
+`https://www.bowersfrontier.com`. It also includes serverless live-feed adapters for hosts that support functions.
 
 ## Launch path
 
@@ -11,10 +11,38 @@ serverless live-feed adapters for hosts that support functions.
    npm run check:deploy
    ```
 
-2. Deploy the mobile web app.
+2. Deploy the website and connect `www.bowersfrontier.com` as the production domain.
 3. Open it on iPhone Safari and use **Share -> Add to Home Screen**.
 4. Connect a production market-data entitlement before presenting live quotes as production-grade data.
 5. Wrap with Capacitor for App Store distribution after the web app experience is stable.
+
+## Custom domain (Cloudflare)
+
+`www.bowersfrontier.com` is registered on Cloudflare. HTTP 530 means the origin behind the proxy is down
+or misconfigured. Point the domain at the live deployment:
+
+### Option A — Cloudflare Pages (recommended with Cloudflare DNS)
+
+1. In Cloudflare Dashboard → Workers & Pages → Create → Pages → Connect to Git.
+2. Select `brendanbowers1-bit/bowers-frontier-institute`, production branch `main`.
+3. Build command: `npm run build` · Output directory: `dist` · Root: `/`.
+4. Pages → Custom domains → Add `www.bowersfrontier.com` (and optionally `bowersfrontier.com`).
+5. Cloudflare will create/update the CNAME for `www` to `<project>.pages.dev`.
+6. Apex (`bowersfrontier.com`): use a CNAME flatten to the same Pages hostname, or an HTTP redirect to `www`.
+
+### Option B — GitHub Pages behind Cloudflare
+
+1. Enable GitHub Pages from `main` / `/ (root)` or the Pages workflow artifact.
+2. In Cloudflare DNS for `bowersfrontier.com`:
+   - `www` → CNAME → `brendanbowers1-bit.github.io` (proxied or DNS-only).
+   - Apex → redirect to `www`, or ALIAS/CNAME to the same Pages target if supported.
+3. Add a repository `CNAME` file / Pages custom domain for `www.bowersfrontier.com` and complete HTTPS.
+4. If you see 530, switch the record to DNS-only temporarily to confirm origin reachability, then re-enable proxy once SSL is valid.
+
+### Apex redirect
+
+Netlify/Vercel configs in this repo already 301 `bowersfrontier.com` → `www.bowersfrontier.com`.
+On Cloudflare Pages, add a bulk redirect or Redirect Rule for the same apex → www behavior.
 
 ## Vercel
 
@@ -73,7 +101,7 @@ Use the PWA as the product core first. When ready for TestFlight/App Store packa
 
 ```bash
 npm install @capacitor/core @capacitor/cli @capacitor/ios
-npx cap init "BR3N Collars" "com.br3n.collars" --web-dir=dist
+npx cap init "Bowers Frontier" "com.bowersfrontier.app" --web-dir=dist
 npm run build
 npx cap add ios
 npx cap sync ios
