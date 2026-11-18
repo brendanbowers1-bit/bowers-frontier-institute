@@ -29,4 +29,6 @@ jobs:
       - name: Install exact-arithmetic dependency
         run: python -m pip install sympy
       - name: Run independent verifiers
-        run: python research/scripts/verify_595.py
+        run: |
+          python research/scripts/verify_595.py
+          python research/scripts/verify_596_pointcount.py

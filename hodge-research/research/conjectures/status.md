@@ -16,9 +16,20 @@ Nothing in this laboratory is a proof of the unrestricted statement.
 - The flop graph of the base-changed \(A_1\) singularity specializes to a
   reflection and is not a Čech transition isomorphism.
 
+## Computed in iteration 596, not a Picard-rank theorem
+
+The resolved model of the specialization \(S_3\) was counted over
+\(\mathbb F_{7^k}\) through \(k=7\). The exceptional-point corrections agree
+with blow-ups at nine good primes. Subtracting the rank-10 Néron–Severi module
+read off from the component orbits does not leave a weight-2 Weil polynomial,
+and no integer algebraic trace of corank \(2\) through \(12\) does either.
+Details and the trace table are in `research/audits/iteration_596.md`.
+
 ## Open, in the order that blocks further claims
 
-1. Prove or falsify that the Mordell–Weil rank of a very general \(S_s\) is zero.
+1. Explain the Weil obstruction, or replace the trace sequence by one that
+   comes from a K3 Frobenius. Until that happens, the point counts do not
+   prove that the Mordell–Weil rank is zero.
 2. Determine the minimal polynomial of the correspondence on the full
    transcendental lattice and check the Rosati adjoint.
 3. Only after those two, compare the resulting Hodge classes with any
