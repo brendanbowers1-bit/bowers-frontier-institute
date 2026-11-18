@@ -1,0 +1,113 @@
+PASS: Eisenstein prime divides lower terms
+PASS: Eisenstein at 2: square does not divide the constant term
+PASS: minimal polynomial is t^4-4t^2+2
+PASS: P(-2)=2
+PASS: P(-1)=-1
+PASS: P(0)=2
+PASS: P(1)=-1
+PASS: P(2)=2
+PASS: P has four real roots by the intermediate-value sign pattern
+PASS: beta^2 = 4 - alpha^2
+PASS: beta is not ±alpha
+PASS: sigma(alpha)=alpha^3-3alpha
+PASS: sigma^2(alpha)=-alpha
+PASS: sigma^3(alpha)=-beta
+PASS: sigma^4(alpha)=alpha
+PASS: sigma does not have order dividing 2
+PASS: E=Q[t]/(t^4-4t^2+2) is a totally real cyclic quartic
+PASS: epsilon = zeta_16^2 has order dividing 8
+PASS: epsilon^4 = -1
+PASS: epsilon^6 = -i
+PASS: lambda^4 equals the A-scaling epsilon^6
+PASS: lambda^6 equals the B-scaling epsilon
+PASS: kappa = lambda^3/epsilon = zeta_16^7
+PASS: mu = zeta_16 + zeta_16^{-1}
+PASS: prompt eigenvalue alpha equals -mu
+PASS: adversarial control: alpha is not the holomorphic eigenvalue
+PASS: sheet-sum numerator cancels (v-1) exactly
+PASS: trace multiplier epsilon(1+epsilon)/lambda equals mu
+PASS: inverse lambda has fourth power i
+PASS: inverse lambda has sixth power epsilon^{-1}
+PASS: inverse correspondence has the same H^{2,0} eigenvalue mu
+PASS: constant term of P is 2
+PASS: quadratic obstruction discriminant is 32
+PASS: 32 is not a square, so mu is not in Q(sqrt(2))
+PASS: no height <= 8 rational puts the square class in Q
+PASS: holomorphic eigenvalue is mu=zeta_16+zeta_16^{-1}, not the prompt value alpha
+PASS: cleared A-scaling monomials commute
+PASS: P(v+1/v)=(v^8+1)/v^4
+PASS: d*du/dv simplifies to v-1
+PASS: A d^4 = -3 s^2 v^6 at v=3, s=5
+PASS: P(v+1/v)=v^4+v^{-4} at v=3
+PASS: B d^6 matches the integral model at v=3, s=5
+PASS: B(-v)=-B(v) at v=3, s=5
+PASS: A d^4 = -3 s^2 v^6 at v=5, s=3
+PASS: P(v+1/v)=v^4+v^{-4} at v=5
+PASS: B d^6 matches the integral model at v=5, s=3
+PASS: B(-v)=-B(v) at v=5, s=3
+PASS: A d^4 = -3 s^2 v^6 at v=7, s=1
+PASS: P(v+1/v)=v^4+v^{-4} at v=7
+PASS: B d^6 matches the integral model at v=7, s=1
+PASS: B(-v)=-B(v) at v=7, s=1
+PASS: A d^4 = -3 s^2 v^6 at v=4, s=9
+PASS: P(v+1/v)=v^4+v^{-4} at v=4
+PASS: B d^6 matches the integral model at v=4, s=9
+PASS: B(-v)=-B(v) at v=4, s=9
+PASS: A d^4 = -3 s^2 v^6 at v=9, s=2
+PASS: P(v+1/v)=v^4+v^{-4} at v=9
+PASS: B d^6 matches the integral model at v=9, s=2
+PASS: B(-v)=-B(v) at v=9, s=2
+PASS: base-change Weierstrass scaling and holomorphic-form coefficient
+PASS: 4A^3+27B^2 = 27 u^6 P(u-2)^2 (P(u-2)^2-4s^3)
+PASS: P(-2)=2
+PASS: I0* cofactor constant term 432
+PASS: I0* cofactor s^3 coefficient -432
+PASS: I0* cofactor depends only on 1 and s^3
+PASS: I0* root discriminant is 432(s^3-1)
+PASS: infinity leading polynomial has Q(0)=1
+PASS: infinity polynomial is integral
+PASS: Kodaira Euler numbers sum to 24
+PASS: Shioda-Tate trivial lattice has rank 10
+PASS: discriminant factorization and Kodaira input data
+PASS: graph point (1, 2, 3) lies over one conifold point
+PASS: conifold equation at (1, 2, 3)
+PASS: equation is homogeneous
+PASS: graph point (2, -3, 4) lies over one conifold point
+PASS: conifold equation at (2, -3, 4)
+PASS: equation is homogeneous
+PASS: graph point (5, 7, -2) lies over one conifold point
+PASS: conifold equation at (5, 7, -2)
+PASS: equation is homogeneous
+PASS: graph point (-4, 6, 1) lies over one conifold point
+PASS: conifold equation at (-4, 6, 1)
+PASS: equation is homogeneous
+PASS: exceptional point r=0 maps to the node
+PASS: flopped exceptional point p=0 maps to the node
+PASS: exceptional point r=1 maps to the node
+PASS: flopped exceptional point p=0 maps to the node
+PASS: exceptional point r=0 maps to the node
+PASS: flopped exceptional point p=1 maps to the node
+PASS: exceptional point r=3 maps to the node
+PASS: flopped exceptional point p=-5 maps to the node
+PASS: exceptional point r=8 maps to the node
+PASS: flopped exceptional point p=13 maps to the node
+PASS: both graph points lie over the node
+PASS: distinct exceptional parameters map to the same conifold point
+PASS: the two graph points are distinct in Y-
+PASS: direction has nonzero second component
+PASS: direction has nonzero second component
+PASS: flop birational map has path-dependent limits along E+
+PASS: Atiyah graph equation at (3, 1, 4)
+PASS: Atiyah graph equation at (5, -2, 2)
+PASS: Atiyah graph equation at (1, 0, 1)
+PASS: derivative c-b is nonzero
+PASS: special-fiber equation has x-degree 1
+PASS: no squared factor of x
+PASS: exceptional curve has self-intersection -2
+PASS: reflection sends E to -E
+PASS: reflection sends a transverse class H to H+E
+PASS: reflection is an involution
+PASS: reflection is not the identity
+PASS: ordinary graph plus E×E acts as the reflection
+PASS: flop graph fiber is a reduced P^1×P^1 and does not give a Čech isomorphism
+ALL_STDLIB_CHECKS_PASSED

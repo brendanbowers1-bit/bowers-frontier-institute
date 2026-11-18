@@ -1,0 +1,33 @@
+PASS: sympy: P is irreducible over Q
+PASS: sympy: four real roots
+PASS: minimal polynomial of sqrt(2+sqrt(2)) is P
+PASS: prompt root -mu also satisfies P
+PASS: mu has degree 4, so it lies outside Q(sqrt(2))
+PASS: Q(sqrt(2)) is quadratic
+PASS: mu^2 = 2+sqrt(2), so Q(sqrt(2)) is the unique quadratic subfield
+PASS: high precision: mu = zeta_16+zeta_16^{-1}
+PASS: high precision: prompt alpha = -mu
+PASS: high precision adversarial gap between alpha and mu
+PASS: sympy simplifies the sheet sum to epsilon(1+epsilon)/lambda
+PASS: numerical sheet sum is constant
+PASS: numerical trace equals mu, not alpha
+PASS: sympy/mpmath eigenvalue audit
+PASS: sympy: integral A-coefficient is -3 s^2 v^6
+PASS: sympy: integral B-coefficient matches
+PASS: A(eps v)/A(v) = eps^6
+PASS: B(eps v)/B(v) = eps when (eps v)^8=v^8
+PASS: scaled Weierstrass point satisfies the moved equation
+PASS: sympy/mpmath Weierstrass lift
+PASS: sympy factors the discriminant core
+PASS: cubic discriminant 432*(s - 1)*(s**2 + s + 1)
+PASS: infinity chart has leading coefficient 1
+PASS: sympy discriminant factorization
+PASS: Groebner fiber generators {v2, u2, v1, u1}
+PASS: r and p are free on the special fiber
+PASS: special-fiber equation u2 is already radical
+PASS: Atiyah special fiber is principal
+PASS: Atiyah generator b*x - c*x is the reduced polynomial x(c-b)
+PASS: two distinct linear factors
+PASS: factor multiplicities (-1, [(x, 1), (b - c, 1)])
+PASS: Groebner basis of the flop special fiber
+ALL_SYMPY_CHECKS_PASSED
