@@ -1,0 +1,24 @@
+{
+  "iteration": 595,
+  "status": "passed",
+  "python": "3.12.3",
+  "implementation": "CPython",
+  "verifiers": [
+    "research/scripts/verify_595_stdlib.py",
+    "research/scripts/verify_595_sympy.py"
+  ],
+  "theorems": {
+    "field": "E=Q[t]/(t^4-4t^2+2) is a totally real cyclic quartic",
+    "eigenvalue": "pi_* Psi^* pi^* acts on H^{2,0} by mu=zeta_16+zeta_16^{-1}",
+    "prompt_eigenvalue_alpha": "zeta_16^7+zeta_16^9 = -mu",
+    "kodaira": "I0*+4 I2+8 I1+II for s^3 not in {0,1}",
+    "trivial_lattice_rank": 10,
+    "flop": "special fiber of the Atiyah graph is the identity graph plus a reduced P^1 x P^1"
+  },
+  "not_proved": [
+    "Mordell-Weil rank zero",
+    "Picard rank exactly 10",
+    "full Rosati self-adjointness on H^2",
+    "unrestricted rational Hodge conjecture"
+  ]
+}

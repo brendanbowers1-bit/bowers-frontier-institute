@@ -1,0 +1,9 @@
+[project]
+name = "hodge-research"
+version = "0.595.0"
+description = "Exact verification for the rational Hodge conjecture research notes"
+requires-python = ">=3.11"
+dependencies = ["sympy>=1.12"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
