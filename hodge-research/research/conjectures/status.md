@@ -29,10 +29,19 @@ times a root of unity. The geometric Picard number of the reduction of \(S_3\)
 at \(p=7\) is 14, so the geometric Picard number over \(\mathbb C\) lies
 between 10 and 14. Details are in `research/audits/iteration_597.md`.
 
+## Computed in iteration 598
+
+At the good prime \(11\) the characteristic polynomial of Frobenius on \(H^2\)
+is uniquely determined. Exactly 14 roots are \(11\) times a root of unity, four
+of them coming from \(T^4+11^4\) beyond the rank-10 trivial lattice. The
+geometric Picard number of this reduction is 14. The interval over
+\(\mathbb C\) is unchanged. Details are in `research/audits/iteration_598.md`.
+
 ## Open, in the order that blocks further claims
 
 1. Decide which integer from 10 through 14 is the geometric Picard number of
-   \(S_3\) over \(\mathbb C\). The reduction at 7 only supplies the upper bound.
+   \(S_3\) over \(\mathbb C\). The reductions at 7 and at 11 both have Picard
+   number 14, so neither one lowers the upper bound.
 2. Determine the minimal polynomial of the correspondence on the full
    transcendental lattice and check the Rosati adjoint.
 3. Only after those two, compare the resulting Hodge classes with any
