@@ -1,0 +1,14 @@
+{
+  "claim_type": "maker_spread_capture_queue_adverse_selection",
+  "experiment_id": "kalshi-maker-spread-queue-as-v1",
+  "hypothesis": "Resting as a Kalshi maker on the recorded public tape, joining the reconstructed last-trade touch on both sides, size 100, behind a queue of 100 contracts, marking one-sided leftovers at the last print, and paying published Kalshi maker fees, has strictly positive mean after-fee expected value on the frozen primary holdout.",
+  "live_orders": false,
+  "paper_only": true,
+  "windows": {
+    "holdout": {
+      "window_end_gte": "2026-10-01T00:00:00Z",
+      "window_end_lt": "2026-11-10T00:00:00Z"
+    }
+  },
+  "sourceSha": "fb287bc0e11bda904c5484c8ca66c3af05dd8356"
+}

@@ -20,7 +20,9 @@
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="BR3N credit collar research board — paper/research only" />
     <title>BR3N Credit Collar Trades</title>
+    <script src="./i18n-page.js" defer></script>
     <style>
       :root {
         color-scheme: dark;
@@ -237,19 +239,23 @@
   <body>
     <main>
       <header>
-        <p class="kicker">BR3N · Credit collar optimizer</p>
-        <h1>Trade board that loads on iPhone.</h1>
+        <p class="kicker" data-i18n="kicker">BR3N · Credit collar optimizer</p>
+        <h1 data-i18n="heading">Trade board that loads on iPhone.</h1>
         <p class="intro">
-          Positive-credit collar candidates using conservative pricing: sell call at bid, buy put at ask.
-          These are research candidates for owned shares or ETFs, not trade instructions.
-          <a href="./">Return to the main dashboard.</a>
+          <span data-i18n="intro">Positive-credit collar candidates using conservative pricing: sell call at bid, buy put at ask. These are research candidates for owned shares or ETFs, not trade instructions.</span>
+          <a href="./" data-i18n="back">Return to the main dashboard.</a>
         </p>
+        <nav aria-label="Language">
+          <a href="./trades.html?lang=en">English</a>
+          ·
+          <a href="./trades.html?lang=pt-PT">Português</a>
+        </nav>
       </header>
 
       <section class="topline" aria-label="Feed summary">
-        <span><small class="meta">Feed</small><strong>Static fallback</strong></span>
-        <span><small class="meta">Universe</small><strong>Index + AI</strong></span>
-        <span><small class="meta">Rule</small><strong>Credit only</strong></span>
+        <span><small class="meta" data-i18n="feed">Feed</small><strong data-i18n="feedValue">Static fallback</strong></span>
+        <span><small class="meta" data-i18n="universe">Universe</small><strong data-i18n="universeValue">Index + AI</strong></span>
+        <span><small class="meta" data-i18n="rule">Rule</small><strong data-i18n="ruleValue">Credit only</strong></span>
       </section>
 
       <section class="grid">
@@ -260,14 +266,14 @@
             <strong class="spot">$204.25</strong>
           </div>
           <div class="legs">
-            <span class="box"><small class="meta">Buy put</small><strong>180P</strong><small>@ $7.90</small></span>
-            <span class="box"><small class="meta">Sell call</small><strong>220C</strong><small>@ $11.20</small></span>
-            <span class="box credit"><small class="meta">Net credit</small><strong>+$3.30</strong><small>1.62% of spot</small></span>
+            <span class="box"><small class="meta" data-i18n="buyPut">Buy put</small><strong>180P</strong><small>@ $7.90</small></span>
+            <span class="box"><small class="meta" data-i18n="sellCall">Sell call</small><strong>220C</strong><small>@ $11.20</small></span>
+            <span class="box credit"><small class="meta" data-i18n="netCredit">Net credit</small><strong>+$3.30</strong><small>1.62% of spot</small></span>
           </div>
           <div class="risk">
-            <span class="box"><small class="meta">Floor</small><strong>$183.30</strong><small>10.3% below spot</small></span>
-            <span class="box"><small class="meta">Cap</small><strong>9.3%</strong><small>to call + credit</small></span>
-            <span class="box"><small class="meta">Expiration</small><strong>Oct 16</strong><small>88 DTE</small></span>
+            <span class="box"><small class="meta" data-i18n="floor">Floor</small><strong>$183.30</strong><small>10.3% below spot</small></span>
+            <span class="box"><small class="meta" data-i18n="cap">Cap</small><strong>9.3%</strong><small>to call + credit</small></span>
+            <span class="box"><small class="meta" data-i18n="expiration">Expiration</small><strong>Oct 16</strong><small>88 DTE</small></span>
           </div>
           <div class="chips"><span class="chip">High liquidity</span><span class="chip">Semiconductor</span><span class="chip">AI leader</span></div>
         </article>
@@ -279,14 +285,14 @@
             <strong class="spot">$247.40</strong>
           </div>
           <div class="legs">
-            <span class="box"><small class="meta">Buy put</small><strong>220P</strong><small>@ $5.25</small></span>
-            <span class="box"><small class="meta">Sell call</small><strong>265C</strong><small>@ $9.50</small></span>
-            <span class="box credit"><small class="meta">Net credit</small><strong>+$4.25</strong><small>1.72% of spot</small></span>
+            <span class="box"><small class="meta" data-i18n="buyPut">Buy put</small><strong>220P</strong><small>@ $5.25</small></span>
+            <span class="box"><small class="meta" data-i18n="sellCall">Sell call</small><strong>265C</strong><small>@ $9.50</small></span>
+            <span class="box credit"><small class="meta" data-i18n="netCredit">Net credit</small><strong>+$4.25</strong><small>1.72% of spot</small></span>
           </div>
           <div class="risk">
-            <span class="box"><small class="meta">Floor</small><strong>$224.25</strong><small>9.4% below spot</small></span>
-            <span class="box"><small class="meta">Cap</small><strong>8.8%</strong><small>to call + credit</small></span>
-            <span class="box"><small class="meta">Expiration</small><strong>Sep 18</strong><small>60 DTE</small></span>
+            <span class="box"><small class="meta" data-i18n="floor">Floor</small><strong>$224.25</strong><small>9.4% below spot</small></span>
+            <span class="box"><small class="meta" data-i18n="cap">Cap</small><strong>8.8%</strong><small>to call + credit</small></span>
+            <span class="box"><small class="meta" data-i18n="expiration">Expiration</small><strong>Sep 18</strong><small>60 DTE</small></span>
           </div>
           <div class="chips"><span class="chip">AWS</span><span class="chip">Mega-cap</span><span class="chip">Credit first</span></div>
         </article>
@@ -298,14 +304,14 @@
             <strong class="spot">$392.42</strong>
           </div>
           <div class="legs">
-            <span class="box"><small class="meta">Buy put</small><strong>350P</strong><small>@ $8.60</small></span>
-            <span class="box"><small class="meta">Sell call</small><strong>420C</strong><small>@ $16.65</small></span>
-            <span class="box credit"><small class="meta">Net credit</small><strong>+$8.05</strong><small>2.05% of spot</small></span>
+            <span class="box"><small class="meta" data-i18n="buyPut">Buy put</small><strong>350P</strong><small>@ $8.60</small></span>
+            <span class="box"><small class="meta" data-i18n="sellCall">Sell call</small><strong>420C</strong><small>@ $16.65</small></span>
+            <span class="box credit"><small class="meta" data-i18n="netCredit">Net credit</small><strong>+$8.05</strong><small>2.05% of spot</small></span>
           </div>
           <div class="risk">
-            <span class="box"><small class="meta">Floor</small><strong>$358.05</strong><small>8.8% below spot</small></span>
-            <span class="box"><small class="meta">Cap</small><strong>9.1%</strong><small>to call + credit</small></span>
-            <span class="box"><small class="meta">Expiration</small><strong>Sep 18</strong><small>60 DTE</small></span>
+            <span class="box"><small class="meta" data-i18n="floor">Floor</small><strong>$358.05</strong><small>8.8% below spot</small></span>
+            <span class="box"><small class="meta" data-i18n="cap">Cap</small><strong>9.1%</strong><small>to call + credit</small></span>
+            <span class="box"><small class="meta" data-i18n="expiration">Expiration</small><strong>Sep 18</strong><small>60 DTE</small></span>
           </div>
           <div class="chips"><span class="chip">Cloud</span><span class="chip">Mega-cap</span><span class="chip">Balanced</span></div>
         </article>
@@ -317,23 +323,22 @@
             <strong class="spot">$700.42</strong>
           </div>
           <div class="legs">
-            <span class="box"><small class="meta">Buy put</small><strong>620P</strong><small>@ $12.35</small></span>
-            <span class="box"><small class="meta">Sell call</small><strong>745C</strong><small>@ $14.61</small></span>
-            <span class="box credit"><small class="meta">Net credit</small><strong>+$2.26</strong><small>0.32% of spot</small></span>
+            <span class="box"><small class="meta" data-i18n="buyPut">Buy put</small><strong>620P</strong><small>@ $12.35</small></span>
+            <span class="box"><small class="meta" data-i18n="sellCall">Sell call</small><strong>745C</strong><small>@ $14.61</small></span>
+            <span class="box credit"><small class="meta" data-i18n="netCredit">Net credit</small><strong>+$2.26</strong><small>0.32% of spot</small></span>
           </div>
           <div class="risk">
-            <span class="box"><small class="meta">Floor</small><strong>$622.26</strong><small>11.2% below spot</small></span>
-            <span class="box"><small class="meta">Cap</small><strong>6.7%</strong><small>to call + credit</small></span>
-            <span class="box"><small class="meta">Expiration</small><strong>Oct 16</strong><small>88 DTE</small></span>
+            <span class="box"><small class="meta" data-i18n="floor">Floor</small><strong>$622.26</strong><small>11.2% below spot</small></span>
+            <span class="box"><small class="meta" data-i18n="cap">Cap</small><strong>6.7%</strong><small>to call + credit</small></span>
+            <span class="box"><small class="meta" data-i18n="expiration">Expiration</small><strong>Oct 16</strong><small>88 DTE</small></span>
           </div>
           <div class="chips"><span class="chip">Nasdaq</span><span class="chip">Index</span><span class="chip">ETF</span></div>
         </article>
       </section>
 
       <section class="notice">
-        <strong>Important:</strong>
-        Collars cap upside and can create assignment/tax considerations. Validate live quotes and suitability before
-        entering anything. This page is a mobile preview and research board only.
+        <strong data-i18n="noticeStrong">Important:</strong>
+        <span data-i18n="notice">Collars cap upside and can create assignment/tax considerations. Validate live quotes and suitability before entering anything. This page is a mobile preview and research board only.</span>
       </section>
     </main>
   </body>

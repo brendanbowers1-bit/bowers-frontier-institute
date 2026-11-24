@@ -1,0 +1,32 @@
+{
+  "paper_only": true,
+  "live_orders": false,
+  "spec_hash": "e0dac7785aa23f01cf504d3ad4be98e5bd439da03748f52b7b29404c7b14109b",
+  "spec_path": "pm_maker/frozen_spec.json",
+  "experiment_id": "kalshi-maker-spread-queue-as-v1",
+  "n_holdout": 327,
+  "n_second": 0,
+  "primary_ci_positive": false,
+  "second_holdout_scored": false,
+  "holdout": {
+    "holdout_n": 327,
+    "holdout_mean_net_bps": -111.0091743119266,
+    "holdout_mean_net_usd": -1.110091743119266,
+    "holdout_mean_net_usd_ci_low": -1.7155963302752293,
+    "holdout_mean_net_usd_ci_high": -0.5932721712538226,
+    "holdout_early_mean_net_usd": -0.20858895705521438,
+    "holdout_late_mean_net_usd": -2.00609756097561,
+    "holdout_two_sided_share": 0.07951070336391437,
+    "holdout_one_sided_share": 0.4740061162079511
+  },
+  "verdict": {
+    "pass": false,
+    "status": "falsified"
+  },
+  "source": {
+    "repo": "brendanbowers1-bit/bfi-arbitrage",
+    "sha": "fb287bc0e11bda904c5484c8ca66c3af05dd8356",
+    "path": "reports/pm_maker/snapshot.json",
+    "note": "Observations omitted from the vendored snapshot; summary fields only."
+  }
+}

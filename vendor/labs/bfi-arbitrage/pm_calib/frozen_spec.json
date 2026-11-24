@@ -1,0 +1,14 @@
+{
+  "claim_type": "calibration_and_after_fee_edge",
+  "experiment_id": "kalshi-fade-favorite-calibration-v1",
+  "hypothesis": "Kalshi last pre-close YES trade prices on settled binary markets overstate the favorite. Buying the underdog at that last pre-close price at size 100 with published quadratic taker fees has strictly positive mean after-fee expected value on the frozen holdout window.",
+  "live_orders": false,
+  "paper_only": true,
+  "windows": {
+    "holdout": {
+      "close_time_gte": "2026-09-01T00:00:00Z",
+      "close_time_lt": "2026-11-24T00:00:00Z"
+    }
+  },
+  "sourceSha": "fb287bc0e11bda904c5484c8ca66c3af05dd8356"
+}

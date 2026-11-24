@@ -1,0 +1,14 @@
+{
+  "claim_type": "cross_venue_lead_lag_not_arb",
+  "experiment_id": "pm-spot-leadlag-btc15m-v1",
+  "hypothesis": "The first 1-minute |Δp| ≥ 0.05 in Polymarket BTC 15m Up/Down predicts a profitable 4-minute BTCUSDT spot trade after 10+10 bps taker fees.",
+  "live_orders": false,
+  "paper_only": true,
+  "windows": {
+    "holdout": {
+      "window_end_gte": "2026-10-01T00:00:00Z",
+      "window_end_lt": "2026-11-24T00:00:00Z"
+    }
+  },
+  "sourceSha": "fb287bc0e11bda904c5484c8ca66c3af05dd8356"
+}

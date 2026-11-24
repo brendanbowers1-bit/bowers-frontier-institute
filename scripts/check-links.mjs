@@ -114,11 +114,16 @@ function toDistPath(absoluteOrPath) {
   let pathname = absoluteOrPath;
   if (absoluteOrPath.startsWith("http")) {
     pathname = new URL(absoluteOrPath).pathname;
+  } else {
+    pathname = pathname.split("?")[0].split("#")[0];
   }
   if (pathname.startsWith("/bowers-frontier-institute/")) {
     pathname = pathname.slice("/bowers-frontier-institute".length);
   }
-  if (pathname === "/" || pathname === "") {
+  if (pathname === "/" || pathname === "" || pathname === ".") {
+    pathname = "/index.html";
+  }
+  if (pathname === "./" || pathname === "./index.html") {
     pathname = "/index.html";
   }
   if (pathname.endsWith("/")) {

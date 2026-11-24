@@ -1,0 +1,33 @@
+{
+  "paper_research_only": true,
+  "no_trade_execution": true,
+  "experiment_id": "ecb-usd-major-walk-forward-v1",
+  "quality_gate": {
+    "research_only": true,
+    "trading_signal_allowed": false,
+    "robust_finding_supported": false
+  },
+  "run_summary": {
+    "pooled_n_obs": 40796,
+    "oos_direction": 0.502,
+    "oos_mae": 0.00477,
+    "oos_r2": -0.05,
+    "holdout_direction": 0.488,
+    "holdout_mae": 0.00368,
+    "holdout_r2": -0.05,
+    "holdout_rows": 3570,
+    "pairs": 7,
+    "attribution": "Source: ECB statistics"
+  },
+  "split": {
+    "walk_forward_start": "2002-02-01",
+    "walk_forward_end": "2024-11-01",
+    "holdout_start": "2024-11-04",
+    "holdout_end": "2026-11-03"
+  },
+  "source": {
+    "repo": "brendanbowers1-bit/bowers-frontier-institute",
+    "path": "currency-hedge-llm/data/research/walk_forward_v1_summary.json",
+    "prUrl": "https://github.com/brendanbowers1-bit/bowers-frontier-institute/pull/6"
+  }
+}

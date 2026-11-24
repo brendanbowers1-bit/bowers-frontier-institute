@@ -43,6 +43,14 @@ if (!indexHtml.includes("display=swap")) {
   fail("Web fonts must request font-display swap.");
 }
 
+if (!indexHtml.includes('property="og:image"') || !researchHtml.includes('property="og:image"')) {
+  fail("Dashboard and research pages must include an Open Graph image.");
+}
+
+if (!indexHtml.includes("og:image:alt") || !researchHtml.includes("og:image:alt")) {
+  fail("Open Graph images must include alt text.");
+}
+
 if (!dashboard.includes("aria-expanded")) {
   fail("Dashboard mobile navigation must expose aria-expanded.");
 }

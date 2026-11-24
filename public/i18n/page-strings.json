@@ -1,0 +1,58 @@
+{
+  "en": {
+    "trades": {
+      "title": "BR3N Credit Collar Trades",
+      "kicker": "BR3N · Credit collar optimizer",
+      "heading": "Trade board that loads on iPhone.",
+      "intro": "Positive-credit collar candidates using conservative pricing: sell call at bid, buy put at ask. These are research candidates for owned shares or ETFs, not trade instructions.",
+      "back": "Return to the main dashboard.",
+      "feed": "Feed",
+      "feedValue": "Static fallback",
+      "universe": "Universe",
+      "universeValue": "Index + AI",
+      "rule": "Rule",
+      "ruleValue": "Credit only",
+      "buyPut": "Buy put",
+      "sellCall": "Sell call",
+      "netCredit": "Net credit",
+      "floor": "Floor",
+      "cap": "Cap",
+      "expiration": "Expiration",
+      "noticeStrong": "Important:",
+      "notice": "Collars cap upside and can create assignment/tax considerations. Validate live quotes and suitability before entering anything. This page is a mobile preview and research board only."
+    },
+    "locale": {
+      "en": "English",
+      "pt-PT": "Português",
+      "switcher": "Language"
+    }
+  },
+  "pt-PT": {
+    "trades": {
+      "title": "BR3N Credit Collar Trades",
+      "kicker": "BR3N · Otimizador de collars de crédito",
+      "heading": "Quadro de operações que carrega no iPhone.",
+      "intro": "Candidatos a collar de crédito positivo com preços conservadores: vender call no bid, comprar put no ask. São candidatos de investigação para ações ou ETF detidos, não instruções de operação.",
+      "back": "Voltar ao painel principal.",
+      "feed": "Feed",
+      "feedValue": "Fallback estático",
+      "universe": "Universo",
+      "universeValue": "Índice + IA",
+      "rule": "Regra",
+      "ruleValue": "Só crédito",
+      "buyPut": "Comprar put",
+      "sellCall": "Vender call",
+      "netCredit": "Crédito líquido",
+      "floor": "Piso",
+      "cap": "Teto",
+      "expiration": "Expiração",
+      "noticeStrong": "Importante:",
+      "notice": "Os collars limitam a subida e podem criar considerações de exercício/impostos. Valide cotações e adequação antes de entrar em qualquer posição. Esta página é só pré-visualização móvel e quadro de investigação."
+    },
+    "locale": {
+      "en": "English",
+      "pt-PT": "Português",
+      "switcher": "Idioma"
+    }
+  }
+}

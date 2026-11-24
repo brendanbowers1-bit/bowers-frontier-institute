@@ -1,0 +1,25 @@
+{
+  "paper_only": true,
+  "live_orders": false,
+  "spec_hash": "88a8b92381e6b6726e1a47b3b0a02374dfe974285585f006c7bc285f31292d13",
+  "spec_path": "pm_calib/frozen_spec.json",
+  "experiment_id": "kalshi-fade-favorite-calibration-v1",
+  "n_holdout": 800,
+  "holdout": {
+    "holdout_n": 800,
+    "holdout_mean_net_bps": -706,
+    "holdout_mean_net_usd": -7.06,
+    "holdout_ece": 0.089,
+    "holdout_mean_net_usd_ci_entirely_below_zero": true
+  },
+  "verdict": {
+    "pass": false,
+    "status": "falsified"
+  },
+  "source": {
+    "repo": "brendanbowers1-bit/bfi-arbitrage",
+    "sha": "fb287bc0e11bda904c5484c8ca66c3af05dd8356",
+    "path": "reports/pm_calib/snapshot.json",
+    "prUrl": "https://github.com/brendanbowers1-bit/bfi-arbitrage/pull/10"
+  }
+}

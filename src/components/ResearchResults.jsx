@@ -4,6 +4,7 @@ import { dashboardHref } from "../i18n/messages.js";
 import { useLocale } from "../i18n/LocaleContext.jsx";
 import { LocaleSwitcher } from "./LocaleSwitcher.jsx";
 import { Br3nCrest } from "./Br3nCrest.jsx";
+import { ResearchStructuredData } from "./ResearchStructuredData.jsx";
 import "./ResearchResults.css";
 
 export function ResearchResults() {
@@ -17,6 +18,7 @@ export function ResearchResults() {
 
   return (
     <div className="research-page">
+      <ResearchStructuredData />
       <header className="research-top">
         <a className="research-brand" href={dashboardUrl}>
           <Br3nCrest compact />

@@ -69,10 +69,10 @@ const navItems = [
 ];
 
 const metrics = [
-  { label: "AUM monitored", value: "$2.84B", delta: "+4.8%", icon: CircleDollarSign },
-  { label: "Portfolio P&L", value: "$14.2M", delta: "+1.9%", icon: Activity },
-  { label: "Collar candidates", value: "10", delta: "credit only", icon: Shield },
-  { label: "Hedge ratio", value: "64%", delta: "+3 pts", icon: Gauge },
+  { labelKey: "dashboard.aum", label: "AUM monitored", value: "$2.84B", delta: "+4.8%", icon: CircleDollarSign },
+  { labelKey: "dashboard.pnl", label: "Portfolio P&L", value: "$14.2M", delta: "+1.9%", icon: Activity },
+  { labelKey: "dashboard.collarCandidates", label: "Collar candidates", value: "10", delta: "credit only", icon: Shield },
+  { labelKey: "dashboard.hedgeRatio", label: "Hedge ratio", value: "64%", delta: "+3 pts", icon: Gauge },
 ];
 
 export function Br3nDashboard() {
@@ -198,7 +198,7 @@ export function Br3nDashboard() {
             >
               <Br3nRibbonMark />
             </motion.div>
-            <div className="br3n-hero-tape" aria-label="Market overview">
+            <div className="br3n-hero-tape" aria-label={t("dashboard.marketOverview", "Market overview")}>
               {fxRates.slice(0, 4).map((rate) => (
                 <motion.div className="br3n-tape-item" key={rate.pair} whileHover={{ y: -3 }}>
                   <span>{rate.pair}</span>
@@ -250,17 +250,17 @@ export function Br3nDashboard() {
         >
           <div>
             <BarChart3 size={16} />
-            <span>Signal engine</span>
-            <strong>Credit collars ranked</strong>
+            <span>{t("dashboard.signalEngine", "Signal engine")}</span>
+            <strong>{t("dashboard.collarsRanked", "Credit collars ranked")}</strong>
           </div>
           <div>
             <Activity size={16} />
-            <span>Dataset</span>
+            <span>{t("dashboard.dataset", "Dataset")}</span>
             <strong>{t("disclosure.mockData", "Mock data · no live feeds")}</strong>
           </div>
           <div>
             <Shield size={16} />
-            <span>Governance</span>
+            <span>{t("dashboard.governance", "Governance")}</span>
             <strong>{t("disclosure.noExecution", "No execution surface · research only")}</strong>
           </div>
         </motion.section>
@@ -273,12 +273,12 @@ export function Br3nDashboard() {
 
         <section className="br3n-metric-grid">
           {metrics.map((metric, index) => (
-            <MetricCard index={index} key={metric.label} metric={metric} />
+            <MetricCard index={index} key={metric.labelKey} metric={metric} />
           ))}
         </section>
 
         <section className="br3n-grid br3n-grid--market" id="markets">
-          <Panel className="br3n-panel--wide" eyebrow="Market overview" title={`${assetClass} performance`}>
+          <Panel className="br3n-panel--wide" eyebrow={t("dashboard.marketOverview", "Market overview")} title={`${assetClass} ${t("dashboard.performance", "performance")}`}>
             <AnimatePresence mode="wait">
               <motion.div
                 animate={{ opacity: 1, filter: "blur(0px)" }}
@@ -307,13 +307,13 @@ export function Br3nDashboard() {
             </AnimatePresence>
           </Panel>
 
-          <Panel eyebrow="OHLC" title="EUR/USD candle tape">
+          <Panel eyebrow={t("dashboard.ohlc", "OHLC")} title={t("dashboard.eurUsdCandle", "EUR/USD candle tape")}>
             <CandleChart data={ohlcSeries.slice(-28)} />
           </Panel>
         </section>
 
         <section className="br3n-grid br3n-grid--three" id="rates">
-          <Panel eyebrow="Foreign exchange" title="FX rates">
+          <Panel eyebrow={t("dashboard.fx", "Foreign exchange")} title={t("dashboard.fxRates", "FX rates")}>
             <div className="br3n-fx-list">
               {fxRates.map((rate) => (
                 <motion.div className="br3n-fx-row" key={rate.pair} whileHover={{ x: 4 }}>
@@ -328,7 +328,7 @@ export function Br3nDashboard() {
             </div>
           </Panel>
 
-          <Panel eyebrow="Rates" title="Yield curve">
+          <Panel eyebrow={t("dashboard.rates", "Rates")} title={t("dashboard.yieldCurve", "Yield curve")}>
             <ChartFrame height={250}>
               <LineChart data={yieldCurve}>
                 <CartesianGrid stroke="rgba(255,255,255,0.06)" vertical={false} />
@@ -342,7 +342,7 @@ export function Br3nDashboard() {
             </ChartFrame>
           </Panel>
 
-          <Panel eyebrow="Volatility" title="Realized vs implied">
+          <Panel eyebrow={t("dashboard.volatility", "Volatility")} title={t("dashboard.realizedVsImplied", "Realized vs implied")}>
             <ChartFrame height={250}>
               <ComposedChart data={volatilityData}>
                 <CartesianGrid stroke="rgba(255,255,255,0.06)" vertical={false} />
@@ -357,11 +357,11 @@ export function Br3nDashboard() {
         </section>
 
         <section className="br3n-grid br3n-grid--risk" id="risk">
-          <Panel eyebrow="Risk dashboard" title="Drawdown / VaR / hedge posture">
+          <Panel eyebrow={t("dashboard.riskDashboard", "Risk dashboard")} title={t("dashboard.drawdownVar", "Drawdown / VaR / hedge posture")}>
             <div className="br3n-risk-stack">
-              <RiskLine label="Max drawdown" value="-4.8%" width="48%" />
-              <RiskLine label="VaR utilization" value="63%" width="63%" />
-              <RiskLine label="Hedge ratio" value="64%" width="64%" />
+              <RiskLine label={t("dashboard.maxDrawdown", "Max drawdown")} value="-4.8%" width="48%" />
+              <RiskLine label={t("dashboard.varUtilization", "VaR utilization")} value="63%" width="63%" />
+              <RiskLine label={t("dashboard.hedgeRatio", "Hedge ratio")} value="64%" width="64%" />
             </div>
             <ChartFrame height={220}>
               <AreaChart data={pnlCurve.slice(-periodLengths[period])}>
@@ -379,13 +379,13 @@ export function Br3nDashboard() {
             </ChartFrame>
           </Panel>
 
-          <Panel eyebrow="Correlation" title="Cross-asset heatmap">
+          <Panel eyebrow={t("dashboard.correlation", "Correlation")} title={t("dashboard.heatmap", "Cross-asset heatmap")}>
             <CorrelationHeatmap />
           </Panel>
         </section>
 
         <section className="br3n-grid br3n-grid--exposure" id="exposure">
-          <Panel eyebrow="Exposure" title="Currency exposure">
+          <Panel eyebrow={t("dashboard.exposure", "Exposure")} title={t("dashboard.currencyExposure", "Currency exposure")}>
             <ChartFrame height={300}>
               <BarChart data={currencyExposure} layout="vertical">
                 <CartesianGrid horizontal={false} stroke="rgba(255,255,255,0.06)" />
@@ -401,23 +401,23 @@ export function Br3nDashboard() {
             </ChartFrame>
           </Panel>
 
-          <Panel eyebrow="Capital at work" title="Exposure structure">
+          <Panel eyebrow={t("dashboard.capitalAtWork", "Capital at work")} title={t("dashboard.exposureStructure", "Exposure structure")}>
             <div className="br3n-exposure-summary">
-              <SummaryRow label="Gross exposure" value={formatUsd(exposureTotals.gross)} />
-              <SummaryRow label="Hedged notional" value={formatUsd(exposureTotals.hedged)} />
-              <SummaryRow label="Residual risk" value={formatUsd(exposureTotals.residual)} />
+              <SummaryRow label={t("dashboard.grossExposure", "Gross exposure")} value={formatUsd(exposureTotals.gross)} />
+              <SummaryRow label={t("dashboard.hedgedNotional", "Hedged notional")} value={formatUsd(exposureTotals.hedged)} />
+              <SummaryRow label={t("dashboard.residualRisk", "Residual risk")} value={formatUsd(exposureTotals.residual)} />
             </div>
             <div className="br3n-metal-card">
               <Layers size={18} />
-              <span>Modular data architecture</span>
-              <p>Mock files are separated by FX, performance, exposure, rates, volatility, and correlations for live API replacement.</p>
+              <span>{t("dashboard.modularData", "Modular data architecture")}</span>
+              <p>{t("dashboard.modularDataCopy", "Mock files are separated by FX, performance, exposure, rates, volatility, and correlations for live API replacement.")}</p>
             </div>
           </Panel>
         </section>
 
         <section className="br3n-grid br3n-grid--signals" id="signals">
-          <Panel className="br3n-panel--wide" eyebrow="Weekly trade discovery" title="Best-fit setup workflow">
-            <h3 className="br3n-signal-subhead">Weighted scorecard</h3>
+          <Panel className="br3n-panel--wide" eyebrow={t("dashboard.weeklyTradeDiscovery", "Weekly trade discovery")} title={t("dashboard.bestFitSetup", "Best-fit setup workflow")}>
+            <h3 className="br3n-signal-subhead">{t("dashboard.weightedScorecard", "Weighted scorecard")}</h3>
             <div className="br3n-signal-grid">
               {recommendationScorecard.map((metric) => (
                 <motion.div className="br3n-signal-card" key={metric.id} whileHover={{ y: -3 }}>
@@ -438,7 +438,7 @@ export function Br3nDashboard() {
               <h3>{exampleWeeklyTradeNote.setup}</h3>
               <p>{exampleWeeklyTradeNote.recommendation}</p>
             </div>
-            <h3 className="br3n-signal-subhead">Recommendation tiers</h3>
+            <h3 className="br3n-signal-subhead">{t("dashboard.recommendationTiers", "Recommendation tiers")}</h3>
             <div className="br3n-tier-list">
               {recommendationTiers.map((tier) => (
                 <span key={tier.id}>
@@ -447,7 +447,7 @@ export function Br3nDashboard() {
                 </span>
               ))}
             </div>
-            <h3 className="br3n-signal-subhead">Hard no-trade gates</h3>
+            <h3 className="br3n-signal-subhead">{t("dashboard.noTradeGates", "Hard no-trade gates")}</h3>
             <div className="br3n-gate-list">
               {noTradeGates.map((gate) => (
                 <span key={gate}>{gate}</span>
@@ -468,6 +468,7 @@ export function Br3nDashboard() {
 }
 
 function MetricCard({ metric, index }) {
+  const { t } = useLocale();
   const Icon = metric.icon;
   return (
     <motion.article
@@ -478,7 +479,7 @@ function MetricCard({ metric, index }) {
       whileHover={{ y: -4 }}
     >
       <Icon size={18} />
-      <span>{metric.label}</span>
+      <span>{t(metric.labelKey, metric.label)}</span>
       <strong>{metric.value}</strong>
       <em>{metric.delta}</em>
     </motion.article>
