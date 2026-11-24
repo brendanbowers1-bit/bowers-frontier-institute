@@ -64,6 +64,14 @@ system.
   decision.
 - Lighthouse CI asserts desktop performance (>= 0.70) and accessibility (>= 0.90)
   against the production `dist/` after `npm run build`.
+- Playwright runs axe-core WCAG 2.2 AA on `/` and `/research.html` (zero
+  violations), plus keyboard-only skip-link and reduced-motion checks.
+- `research.html` renders pre-registered lab hypotheses from
+  `data/research/hypotheses.json`. Falsified holdouts stay published. The page
+  is paper/research only: no live data, no orders, no signals.
+- European Portuguese (`pt-PT`) is a first-class locale for dashboard and
+  research chrome. A unit test fails if any English key is missing in `pt-PT`.
+- `npm run check:links` fails CI on broken local or source-PR URLs.
 
 ## Research / paper-only code
 
@@ -92,8 +100,8 @@ operator/product decisions that sit outside the engineering rubric:
    repo and whether the two-file brand board should keep publishing through
    GitHub Pages.
 
-Merge order: **#6 → #25 → this PR**. Then #11 / #16 / #19. Merging the stack is
-what turns `main` CI green; it is not a missing workflow.
+Merge order: **#6 → #25 → #28 → this PR**. Then #11 / #16 / #19. Merging the
+stack is what turns `main` CI green; it is not a missing workflow.
 
 ## Checks that must stay green
 
@@ -101,6 +109,7 @@ what turns `main` CI green; it is not a missing workflow.
 npm test
 npm run test:e2e
 npm run check:a11y
+npm run check:links
 npm run check:lighthouse
 npm run check:deploy
 npm run check:production

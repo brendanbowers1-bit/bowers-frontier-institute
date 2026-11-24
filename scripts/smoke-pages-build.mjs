@@ -9,6 +9,7 @@ const contentTypes = new Map([
   [".js", "text/javascript; charset=utf-8"],
   [".css", "text/css; charset=utf-8"],
   [".svg", "image/svg+xml"],
+  [".json", "application/json; charset=utf-8"],
 ]);
 
 const toDistPath = (urlPath) => {
@@ -96,6 +97,20 @@ try {
     if (!idPattern.test(combined)) {
       throw new Error(`Built output is missing nav target: #${anchor}`);
     }
+  }
+
+  const research = await fetchText(origin, `${basePath}/research.html`);
+  if (!research.includes('id="root"') || !/assets\/research-[^"]+\.js/.test(research)) {
+    throw new Error("Research HTML is missing the dedicated entry.");
+  }
+
+  const hypotheses = JSON.parse(await fetchText(origin, `${basePath}/research/hypotheses.json`));
+  if (hypotheses.hypotheses?.length < 4) {
+    throw new Error("Published hypotheses.json is missing holdout records.");
+  }
+  const fade = hypotheses.hypotheses.find((item) => item.id === "fade-the-favorite");
+  if (!fade?.metrics?.[0]?.value?.includes("−706")) {
+    throw new Error("Published hypotheses.json is missing the fade-the-favorite −706 bps verdict.");
   }
 
   console.log("GitHub Pages smoke test passed.");

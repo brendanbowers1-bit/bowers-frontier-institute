@@ -3,8 +3,9 @@ import { readFile } from "node:fs/promises";
 const failures = [];
 const fail = (message) => failures.push(message);
 
-const [indexHtml, dashboard, dashboardCss, indexCss] = await Promise.all([
+const [indexHtml, researchHtml, dashboard, dashboardCss, indexCss] = await Promise.all([
   readFile("index.html", "utf8"),
+  readFile("research.html", "utf8"),
   readFile("src/components/Br3nDashboard.jsx", "utf8"),
   readFile("src/components/Br3nDashboard.css", "utf8"),
   readFile("src/index.css", "utf8"),
@@ -20,6 +21,22 @@ if (!indexHtml.includes('name="viewport"')) {
 
 if (!indexHtml.includes("skip-link") || !indexHtml.includes('href="#overview"')) {
   fail("index.html must include a skip link to main content.");
+}
+
+if (!researchHtml.includes('lang="en"')) {
+  fail("research.html must set html lang.");
+}
+
+if (!researchHtml.includes('name="viewport"')) {
+  fail("research.html must include a viewport meta tag.");
+}
+
+if (!researchHtml.includes("skip-link") || !researchHtml.includes('href="#research-results"')) {
+  fail("research.html must include a skip link to research results.");
+}
+
+if (!researchHtml.includes("display=swap")) {
+  fail("Research page web fonts must request font-display swap.");
 }
 
 if (!indexHtml.includes("display=swap")) {

@@ -34,6 +34,7 @@ jobs:
       - run: npm run build
       - run: npm run build:pages
       - run: node scripts/smoke-pages-build.mjs
+      - run: npm run check:links
       - run: npm run check:budget
       - run: npm run check:production
 

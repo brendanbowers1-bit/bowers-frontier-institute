@@ -40,9 +40,13 @@ import {
   weeklyTradeOutput,
 } from "../data/weeklyTradeDiscovery";
 import { yieldCurve } from "../data/yieldCurve";
+import { useReducedMotion } from "../hooks/useReducedMotion";
+import { researchHref } from "../i18n/messages.js";
+import { useLocale } from "../i18n/LocaleContext.jsx";
 import { Br3nCrest } from "./Br3nCrest";
 import { Br3nRibbonMark } from "./Br3nRibbonMark";
 import { CreditCollarFeed } from "./CreditCollarFeed";
+import { LocaleSwitcher } from "./LocaleSwitcher.jsx";
 import { PwaInstallPrompt } from "./PwaInstallPrompt";
 import "./Br3nDashboard.css";
 
@@ -55,7 +59,14 @@ const periodLengths = {
   "1Y": 160,
 };
 
-const navItems = ["Overview", "Collars", "Markets", "Risk", "Exposure", "Signals"];
+const navItems = [
+  { id: "overview", key: "nav.overview", fallback: "Overview" },
+  { id: "collars", key: "nav.collars", fallback: "Collars" },
+  { id: "markets", key: "nav.markets", fallback: "Markets" },
+  { id: "risk", key: "nav.risk", fallback: "Risk" },
+  { id: "exposure", key: "nav.exposure", fallback: "Exposure" },
+  { id: "signals", key: "nav.signals", fallback: "Signals" },
+];
 
 const metrics = [
   { label: "AUM monitored", value: "$2.84B", delta: "+4.8%", icon: CircleDollarSign },
@@ -65,15 +76,24 @@ const metrics = [
 ];
 
 export function Br3nDashboard() {
+  const { t, locale } = useLocale();
+  const reducedMotion = useReducedMotion();
   const [period, setPeriod] = useState("3M");
   const [assetClass, setAssetClass] = useState("FX");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [introElapsed, setIntroElapsed] = useState(false);
 
   useEffect(() => {
-    const timeout = window.setTimeout(() => setLoading(false), 720);
+    if (reducedMotion) {
+      return undefined;
+    }
+    const timeout = window.setTimeout(() => setIntroElapsed(true), 720);
     return () => window.clearTimeout(timeout);
-  }, []);
+  }, [reducedMotion]);
+
+  const loading = !reducedMotion && !introElapsed;
+
+  const researchUrl = `${researchHref(import.meta.env.BASE_URL)}?lang=${encodeURIComponent(locale)}`;
 
   const closeSidebarOnMobile = () => {
     if (window.matchMedia("(max-width: 860px)").matches) {
@@ -104,27 +124,32 @@ export function Br3nDashboard() {
         <div className="br3n-brand">
           <Br3nCrest compact />
           <div>
-            <div className="br3n-wordmark">BR3N</div>
-            <div className="br3n-brandline">Macro Labs</div>
+            <div className="br3n-wordmark">{t("brand.wordmark", "BR3N")}</div>
+            <div className="br3n-brandline">{t("brand.line", "Macro Labs")}</div>
           </div>
         </div>
+        <LocaleSwitcher />
         <nav className="br3n-nav">
           {navItems.map((item, index) => (
             <a
               aria-current={index === 0 ? "page" : undefined}
               className={index === 0 ? "is-active" : ""}
-              href={`#${item.toLowerCase()}`}
-              key={item}
+              href={`#${item.id}`}
+              key={item.id}
               onClick={closeSidebarOnMobile}
             >
               <span>0{index + 1}</span>
-              {item}
+              {t(item.key, item.fallback)}
             </a>
           ))}
+          <a href={researchUrl} onClick={closeSidebarOnMobile}>
+            <span>07</span>
+            {t("nav.research", "Research")}
+          </a>
         </nav>
         <div className="br3n-sidebar-card">
           <Radio size={16} />
-          <span>Mock data · adapter-ready</span>
+          <span>{t("disclosure.adapter", "Mock data · adapter-ready")}</span>
           <small>Bloomberg / Snowflake / FRED adapters can be mounted later behind the data layer.</small>
         </div>
       </aside>
@@ -132,7 +157,11 @@ export function Br3nDashboard() {
       <button
         aria-controls="dashboard-nav"
         aria-expanded={sidebarOpen}
-        aria-label={sidebarOpen ? "Close dashboard navigation" : "Open dashboard navigation"}
+        aria-label={
+          sidebarOpen
+            ? t("nav.close", "Close dashboard navigation")
+            : t("nav.open", "Open dashboard navigation")
+        }
         className="br3n-mobile-toggle"
         onClick={() => setSidebarOpen((open) => !open)}
         type="button"
@@ -151,11 +180,13 @@ export function Br3nDashboard() {
             <div className="br3n-hero-brand">
               <Br3nCrest />
             </div>
-            <p className="br3n-kicker">Research · Regime · Risk</p>
-            <h1>Macro command for currency, risk, and capital decisions.</h1>
+            <p className="br3n-kicker">{t("brand.kicker", "Research · Regime · Risk")}</p>
+            <h1>{t("hero.title", "Macro command for currency, risk, and capital decisions.")}</h1>
             <p className="br3n-hero-copy">
-              A luxury-grade finance cockpit for market oversight, credit-collar discovery, rates,
-              volatility, drawdown, and hedge posture. Fast, intentional, and calm.
+              {t(
+                "hero.copy",
+                "A luxury-grade finance cockpit for market oversight, credit-collar discovery, rates, volatility, drawdown, and hedge posture. Fast, intentional, and calm.",
+              )}
             </p>
           </div>
           <div className="br3n-hero-right">
@@ -182,7 +213,7 @@ export function Br3nDashboard() {
           </div>
         </motion.header>
 
-        <section className="br3n-controls" id="overview">
+        <section className="br3n-controls" id="overview" tabIndex={-1}>
           <div className="br3n-filter-group">
             {periods.map((item) => (
               <button
@@ -225,12 +256,12 @@ export function Br3nDashboard() {
           <div>
             <Activity size={16} />
             <span>Dataset</span>
-            <strong>Mock data · no live feeds</strong>
+            <strong>{t("disclosure.mockData", "Mock data · no live feeds")}</strong>
           </div>
           <div>
             <Shield size={16} />
             <span>Governance</span>
-            <strong>No execution surface · research only</strong>
+            <strong>{t("disclosure.noExecution", "No execution surface · research only")}</strong>
           </div>
         </motion.section>
 
@@ -426,8 +457,10 @@ export function Br3nDashboard() {
         </section>
 
         <footer className="br3n-page-disclaimer">
-          Research only. Delayed and mock data are used throughout this dashboard; nothing here is
-          investment advice, trade execution, or a recommendation for any account.
+          {t(
+            "disclosure.footer",
+            "Research only. Delayed and mock data are used throughout this dashboard; nothing here is investment advice, trade execution, or a recommendation for any account.",
+          )}
         </footer>
       </main>
     </div>

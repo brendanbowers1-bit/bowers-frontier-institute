@@ -1,0 +1,31 @@
+.locale-switcher {
+  display: inline-flex;
+  gap: 0.35rem;
+  padding: 0.2rem;
+  border: 1px solid rgba(244, 244, 239, 0.45);
+  border-radius: 999px;
+}
+
+.locale-switcher button {
+  padding: 0.4rem 0.7rem;
+  color: #ddd8cc;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.locale-switcher button.is-active,
+.locale-switcher button[aria-pressed="true"] {
+  color: #050506;
+  background: #f4f4ef;
+}
+
+.locale-switcher button:focus-visible {
+  outline: 2px solid #f4f4ef;
+  outline-offset: 3px;
+}
+
+.br3n-sidebar .locale-switcher {
+  margin: 0.85rem 0.45rem 0;
+}

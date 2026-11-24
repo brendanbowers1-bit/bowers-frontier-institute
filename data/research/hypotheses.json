@@ -1,0 +1,84 @@
+{
+  "paperResearchOnly": true,
+  "noTradeExecution": true,
+  "noLiveOrders": true,
+  "noRealFunds": true,
+  "noExchangeApiKeys": true,
+  "noTradingSignals": true,
+  "updated": "2026-11-24",
+  "disclaimer": "Pre-registered lab hypotheses and holdout verdicts. Falsified results stay published. Nothing here is a live order, a trading signal, or advice.",
+  "hypotheses": [
+    {
+      "id": "fade-the-favorite",
+      "title": "Fade-the-favorite calibration",
+      "lab": "bfi-arbitrage",
+      "prUrl": "https://github.com/brendanbowers1-bit/bfi-arbitrage/pull/10",
+      "prLabel": "bfi-arbitrage#10",
+      "status": "falsified",
+      "hypothesis": "Settled Kalshi binaries are miscalibrated enough that fading the favorite has positive after-fee expected value on a frozen holdout.",
+      "holdout": "Settled binaries with close_time in [2026-09-01, 2026-11-24) UTC",
+      "n": 800,
+      "registrationHash": "sha256:88a8b92381e6b6726e1a47b3b0a02374dfe974285585f006c7bc285f31292d13",
+      "metrics": [
+        { "label": "Mean after-fee EV", "value": "−706 bps", "detail": "−$7.06 / 100 contracts" },
+        { "label": "ECE", "value": "0.089", "detail": "exceeds 0.03 miscalibration gate" },
+        { "label": "Bootstrap 95% CI", "value": "entirely below zero", "detail": "do not promote" }
+      ],
+      "verdict": "FALSIFIED. Miscalibration exists, but fade-the-favorite loses after fees. Do not promote."
+    },
+    {
+      "id": "pm-spot-lead-lag",
+      "title": "Polymarket → BTC spot lead/lag",
+      "lab": "bfi-arbitrage",
+      "prUrl": "https://github.com/brendanbowers1-bit/bfi-arbitrage/pull/13",
+      "prLabel": "bfi-arbitrage#13",
+      "status": "falsified",
+      "hypothesis": "The first 1-minute |Δp| ≥ 0.05 in Polymarket BTC 15m Up/Down predicts a profitable 4-minute BTCUSDT spot trade after 10+10 bps taker fees.",
+      "holdout": "Polymarket BTC 15m windows ending in [2026-10-01, 2026-11-24) UTC",
+      "n": 1057,
+      "registrationHash": "sha256:dab68591ce85a140e6bd4ef0266a9015c039a706e843fc475934a48cb4f26275",
+      "metrics": [
+        { "label": "Mean after-fee EV", "value": "−20.01 bps", "detail": "bootstrap 95% CI [−20.88, −19.16]" },
+        { "label": "Gross mean", "value": "−0.01 bps", "detail": "before taker fees" },
+        { "label": "Walk-forward halves", "value": "both lose", "detail": "do not revive fade-the-favorite" }
+      ],
+      "verdict": "FALSIFIED. Prediction-market lead/lag does not beat costs on this holdout. Do not promote."
+    },
+    {
+      "id": "fx-reversal-vs-random-walk",
+      "title": "5-day FX reversal vs random walk",
+      "lab": "bfi-finance-lab",
+      "prUrl": "https://github.com/brendanbowers1-bit/bfi-finance-lab/pull/9",
+      "prLabel": "bfi-finance-lab#9",
+      "status": "falsified",
+      "hypothesis": "A 5-day reversal of trailing ECB close returns (with a turn-of-month overlay) has lower after-cost MAE than a zero random walk on frozen-holdout FX majors.",
+      "holdout": "Pooled outer-fold n=40,824; origin 109 of each pair remained closed",
+      "n": 40824,
+      "registrationHash": null,
+      "metrics": [
+        { "label": "5-day reversal cost-adj MAE", "value": "0.0056835375", "detail": "1 bp charge" },
+        { "label": "Random walk MAE", "value": "0.0039386066", "detail": "lower is better" },
+        { "label": "Turn-of-month cost-adj MAE", "value": "0.0042753073", "detail": "still worse than random walk" }
+      ],
+      "verdict": "FALSIFIED. After a 1 bp charge, every candidate is worse than random walk on every pair. Not a trading signal."
+    },
+    {
+      "id": "ecb-usd-major-walk-forward",
+      "title": "ECB USD-major next-day return walk-forward",
+      "lab": "bowers-frontier-institute",
+      "prUrl": "https://github.com/brendanbowers1-bit/bowers-frontier-institute/pull/6",
+      "prLabel": "bowers-frontier-institute#6",
+      "status": "falsified",
+      "hypothesis": "A leakage-safe expanding-window RandomForest on ECB-derived USD majors forecasts next-day returns with usable directional skill.",
+      "holdout": "Frozen last 2 years 2024-11-04 to 2026-11-03; OOS 2002-02-01 to 2024-11-01",
+      "n": 40796,
+      "registrationHash": null,
+      "metrics": [
+        { "label": "Walk-forward OOS direction", "value": "50.2%", "detail": "MAE 0.00477, R² −0.05, 40,796 rows" },
+        { "label": "Frozen holdout direction", "value": "48.8%", "detail": "MAE 0.00368, R² −0.05, 3,570 rows" },
+        { "label": "Pairs / window", "value": "7 pairs, 1999–2026", "detail": "Source: ECB statistics" }
+      ],
+      "verdict": "FALSIFIED as a directional edge. Near-50% direction and negative R² mean this baseline has no usable daily skill. Paper/research only; not P&L."
+    }
+  ]
+}
