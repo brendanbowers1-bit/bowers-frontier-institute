@@ -2,7 +2,13 @@ const params = new URL(self.location.href).searchParams;
 const basePath = params.get("base") || "/";
 const version = params.get("v") || "dev";
 const cacheName = `br3n-collar-feed-${version}`;
-const appShell = [basePath, `${basePath}manifest.webmanifest`, `${basePath}favicon.svg`, `${basePath}app-icon.svg`];
+const appShell = [
+  basePath,
+  `${basePath}research.html`,
+  `${basePath}manifest.webmanifest`,
+  `${basePath}favicon.svg`,
+  `${basePath}app-icon.svg`,
+];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

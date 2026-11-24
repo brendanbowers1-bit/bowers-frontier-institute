@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "dashboardTitle": "Bowers Frontier Institute | BR3N Credit Collar Feed",
+    "researchTitle": "Bowers Frontier Institute | Research results"
+  },
+  "skip": {
+    "dashboard": "Skip to main content",
+    "research": "Skip to research results"
+  },
+  "locale": {
+    "en": "English",
+    "pt-PT": "Português",
+    "switcher": "Language"
+  },
+  "nav": {
+    "overview": "Overview",
+    "collars": "Collars",
+    "markets": "Markets",
+    "risk": "Risk",
+    "exposure": "Exposure",
+    "signals": "Signals",
+    "research": "Research",
+    "dashboard": "Dashboard",
+    "open": "Open dashboard navigation",
+    "close": "Close dashboard navigation"
+  },
+  "brand": {
+    "kicker": "Research · Regime · Risk",
+    "wordmark": "BR3N",
+    "line": "Macro Labs"
+  },
+  "hero": {
+    "title": "Macro command for currency, risk, and capital decisions.",
+    "copy": "A luxury-grade finance cockpit for market oversight, credit-collar discovery, rates, volatility, drawdown, and hedge posture. Fast, intentional, and calm."
+  },
+  "disclosure": {
+    "noExecution": "No execution surface · research only",
+    "mockData": "Mock data · no live feeds",
+    "footer": "Research only. Delayed and mock data are used throughout this dashboard; nothing here is investment advice, trade execution, or a recommendation for any account.",
+    "adapter": "Mock data · adapter-ready"
+  },
+  "research": {
+    "kicker": "Paper / research only",
+    "title": "Pre-registered hypotheses and verdicts",
+    "lede": "Holdout results from Bowers Frontier Institute labs. Falsified hypotheses stay on the board. This page does not place orders, hold funds, call exchange APIs, or emit trading signals.",
+    "statusFalsified": "Falsified",
+    "statusOpen": "Open",
+    "lab": "Lab",
+    "holdout": "Holdout",
+    "sample": "n",
+    "sourcePr": "Source PR",
+    "hypothesis": "Hypothesis",
+    "verdict": "Verdict",
+    "metrics": "Holdout metrics",
+    "hash": "Registration hash",
+    "back": "Back to dashboard",
+    "empty": "No hypotheses published."
+  },
+  "error": {
+    "title": "Dashboard unavailable. Refresh to retry.",
+    "researchOnly": "Research only. Nothing here executes trades.",
+    "retry": "Retry"
+  }
+}

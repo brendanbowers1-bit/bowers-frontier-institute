@@ -1688,3 +1688,21 @@
     min-height: 5.5rem;
   }
 }
+
+#overview:focus {
+  outline: none;
+}
+
+#overview:focus-visible {
+  outline: 2px solid #f4f4ef;
+  outline-offset: 4px;
+}
+
+/* WCAG 2.2 AA: keep muted luxury tones above 4.5:1 on #050506. */
+.br3n-crest-lockup em,
+.br3n-brandline,
+.br3n-loader p,
+.br3n-nav a,
+.br3n-nav a span {
+  color: #c9c4b8;
+}

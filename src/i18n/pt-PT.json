@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "dashboardTitle": "Bowers Frontier Institute | Feed de collars de crédito BR3N",
+    "researchTitle": "Bowers Frontier Institute | Resultados de investigação"
+  },
+  "skip": {
+    "dashboard": "Saltar para o conteúdo principal",
+    "research": "Saltar para os resultados de investigação"
+  },
+  "locale": {
+    "en": "English",
+    "pt-PT": "Português",
+    "switcher": "Idioma"
+  },
+  "nav": {
+    "overview": "Visão geral",
+    "collars": "Collars",
+    "markets": "Mercados",
+    "risk": "Risco",
+    "exposure": "Exposição",
+    "signals": "Sinais",
+    "research": "Investigação",
+    "dashboard": "Painel",
+    "open": "Abrir navegação do painel",
+    "close": "Fechar navegação do painel"
+  },
+  "brand": {
+    "kicker": "Investigação · Regime · Risco",
+    "wordmark": "BR3N",
+    "line": "Macro Labs"
+  },
+  "hero": {
+    "title": "Comando macro para decisões de divisas, risco e capital.",
+    "copy": "Um cockpit financeiro para supervisão de mercado, descoberta de collars de crédito, taxas, volatilidade, drawdown e postura de cobertura. Rápido, intencional e calmo."
+  },
+  "disclosure": {
+    "noExecution": "Sem superfície de execução · só investigação",
+    "mockData": "Dados simulados · sem feeds em tempo real",
+    "footer": "Só investigação. Este painel usa dados diferidos e simulados; nada aqui é aconselhamento de investimento, execução de operações ou recomendação para qualquer conta.",
+    "adapter": "Dados simulados · pronto para adaptadores"
+  },
+  "research": {
+    "kicker": "Papel / só investigação",
+    "title": "Hipóteses pré-registadas e vereditos",
+    "lede": "Resultados de holdout dos laboratórios do Bowers Frontier Institute. As hipóteses falsificadas permanecem publicadas. Esta página não coloca ordens, não detém fundos, não chama APIs de bolsa nem emite sinais de negociação.",
+    "statusFalsified": "Falsificada",
+    "statusOpen": "Em aberto",
+    "lab": "Laboratório",
+    "holdout": "Holdout",
+    "sample": "n",
+    "sourcePr": "PR de origem",
+    "hypothesis": "Hipótese",
+    "verdict": "Veredito",
+    "metrics": "Métricas de holdout",
+    "hash": "Hash de registo",
+    "back": "Voltar ao painel",
+    "empty": "Não há hipóteses publicadas."
+  },
+  "error": {
+    "title": "Painel indisponível. Atualize para tentar de novo.",
+    "researchOnly": "Só investigação. Nada aqui executa operações.",
+    "retry": "Tentar de novo"
+  }
+}
