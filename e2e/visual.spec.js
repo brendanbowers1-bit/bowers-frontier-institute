@@ -21,16 +21,30 @@ for (const pageSpec of pages) {
       await expect(page.getByRole("heading", { name: pageSpec.heading })).toBeVisible({
         timeout: 15_000,
       });
+      await page.addStyleTag({
+        content: `
+          html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+          *, *::before, *::after {
+            animation: none !important;
+            transition: none !important;
+            caret-color: transparent !important;
+          }
+        `,
+      });
       await page.evaluate(async () => {
         if (document.fonts?.ready) {
           await document.fonts.ready;
         }
       });
-      await page.waitForTimeout(250);
+      if (pageSpec.name === "trades") {
+        await page.waitForFunction(() => document.fonts.check('14px "IBM Plex Sans"'));
+      }
+      await page.waitForTimeout(400);
       const chartMasks = page.locator(".br3n-chart, .br3n-candles, .br3n-heatmap");
       await expect(page).toHaveScreenshot(`${pageSpec.name}-${viewport.name}.png`, {
         maxDiffPixelRatio: 0.03,
         animations: "disabled",
+        scale: "css",
         mask: pageSpec.name === "dashboard" ? [chartMasks] : [],
       });
     });
