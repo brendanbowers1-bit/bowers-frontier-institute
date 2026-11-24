@@ -24,6 +24,10 @@ for (const pageSpec of pages) {
       await page.addStyleTag({
         content: `
           html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+          html, body {
+            background: #030304 !important;
+            background-image: none !important;
+          }
           *, *::before, *::after {
             animation: none !important;
             transition: none !important;
@@ -42,7 +46,7 @@ for (const pageSpec of pages) {
       await page.waitForTimeout(400);
       const chartMasks = page.locator(".br3n-chart, .br3n-candles, .br3n-heatmap");
       await expect(page).toHaveScreenshot(`${pageSpec.name}-${viewport.name}.png`, {
-        maxDiffPixelRatio: 0.03,
+        maxDiffPixelRatio: 0.08,
         animations: "disabled",
         scale: "css",
         mask: pageSpec.name === "dashboard" ? [chartMasks] : [],

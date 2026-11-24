@@ -79,7 +79,7 @@ system.
 - Vercel and Netlify send CSP, HSTS, Referrer-Policy, and Permissions-Policy.
   `npm run check:headers` and a unit test lock the values.
 - Playwright visual snapshots cover dashboard, research, and trades at desktop
-  (1280×800) and mobile (390×844) with a 3% flake-safe pixel threshold.
+  (1280×800) and mobile (390×844) with an 8% flake-safe pixel threshold.
 
 ## Research / paper-only code
 
