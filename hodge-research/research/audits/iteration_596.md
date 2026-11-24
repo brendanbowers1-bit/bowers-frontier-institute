@@ -2,6 +2,11 @@
 
 Date: 17 November 2026 (America/Denver).
 
+Correction, 24 November 2026: the count `#X(F_{7^4}) = 5796137` below is 24 too
+large. The corrected count is 5796113, and the degree-12 quotient is a Weil
+polynomial. See `research/audits/iteration_597.md`. The counts for `k ≠ 4` in
+the table below were recomputed and still stand.
+
 The iteration-595 verifiers were rerun and still pass. This iteration attacks the
 open Picard-rank claim for the specialized K3 surface \(S_3\), the fiber
 \(s=3\) of the Weierstrass family. It does not prove that the Picard number is

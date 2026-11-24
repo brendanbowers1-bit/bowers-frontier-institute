@@ -16,7 +16,8 @@ a published theorem.
 
 ## Not settled
 
-- Picard rank of \(S_s\) may be larger than 10.
+- The reduction of \(S_3\) at \(p=7\) has geometric Picard number 14. Over
+  \(\mathbb C\) the geometric Picard number of \(S_3\) is between 10 and 14.
 - The correspondence is known on \(H^{2,0}\) only.
 - No synthetic fivefold class count has been recomputed in this checkout.
 - The unrestricted rational Hodge conjecture is open. Do not announce a proof
