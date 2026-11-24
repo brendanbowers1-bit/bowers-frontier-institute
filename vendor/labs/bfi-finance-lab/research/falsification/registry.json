@@ -1,0 +1,320 @@
+{
+  "datasets": [
+    {
+      "hypothesis_id": "fx-var-es-1d-v1",
+      "id": "ecb-major-pairs-dev-origins-1-108",
+      "n": 40824,
+      "note": "Six ECB euro pairs, origins 1-108, origin 109 frozen. Source: ECB statistics.",
+      "unit": "outer_walk_forward_days_pooled"
+    }
+  ],
+  "hypotheses": [
+    {
+      "dataset_id": "ecb-major-pairs-dev-origins-1-108",
+      "frozen_criteria": [
+        { "id": "n_outer", "metric": "pooled_n_obs", "op": ">=", "threshold": 30000 },
+        { "id": "mae_vs_rw", "metric": "pooled_candidate_cost_adjusted_mae_minus_rw", "op": "<", "threshold": 0.0 },
+        { "id": "holdout", "metric": "holdout_touched", "op": "==", "threshold": false }
+      ],
+      "hypothesis": "A locked lagged-return logistic selected on development origins 1-108 of six ECB euro pairs has strictly lower cost-adjusted MAE than a random-walk forecast on the same expanding walk-forward outer folds. Origin 109 stays frozen.",
+      "id": "major-pair-nested-logistic-v1",
+      "live_orders": false,
+      "paper_only": true,
+      "pr": 7,
+      "registration": "pre_registered",
+      "result": {
+        "candidate_cost_adjusted_mae": 0.0039862178,
+        "effect": 0.0001000091,
+        "effect_unit": "mae_minus_random_walk",
+        "gates_passed": 2,
+        "gates_total": 3,
+        "holdout_touched": false,
+        "n": 39690,
+        "random_walk_cost_adjusted_mae": 0.0038862087,
+        "verdict": "FALSIFIED"
+      },
+      "result_binding": {
+        "effect_field": "summary.pooled_candidate_cost_adjusted_mae_minus_random_walk",
+        "effect_unit": "mae_minus_random_walk",
+        "extra_fields": {
+          "candidate_cost_adjusted_mae": "summary.pooled_candidate_cost_adjusted_mae",
+          "holdout_touched": "summary.holdout_touched",
+          "random_walk_cost_adjusted_mae": "summary.pooled_random_walk_cost_adjusted_mae"
+        },
+        "n_field": "summary.pooled_n_obs",
+        "snapshot_path": "reports/modeling/phase133_major_pair_nested_selection_run.json"
+      },
+      "scored_at": "2026-11-24T18:30:00Z",
+      "sealed_at": "2026-11-24T18:00:00Z",
+      "snapshot_path": "reports/modeling/phase133_major_pair_nested_selection_run.json",
+      "spec_hash": "150f1966472dce29d8cf670617127f5d8a35d05aba29a4f055053e543e25072f",
+      "spec_path": "research/falsification/hypotheses/major-pair-nested-logistic-v1.json",
+      "status": "falsified",
+      "title": "Major-pair nested logistic vs random walk"
+    },
+    {
+      "dataset_id": "ecb-major-pairs-dev-origins-1-108",
+      "frozen_criteria": [
+        { "id": "mae_vs_rw", "metric": "pooled_candidate_cost_adjusted_mae_minus_rw", "op": "<", "threshold": 0.0 },
+        { "id": "holdout", "metric": "holdout_touched", "op": "==", "threshold": false }
+      ],
+      "hypothesis": "Leakage-safe nested ridge or multi-feature logistic on six ECB euro pairs has strictly lower cost-adjusted MAE than a random-walk forecast on development origins 1-108. Origin 109 stays frozen.",
+      "id": "leakage-safe-ml-screen-v1",
+      "live_orders": false,
+      "paper_only": true,
+      "pr": 8,
+      "registration": "pre_registered",
+      "result": {
+        "candidate_cost_adjusted_mae": 0.0039974452,
+        "effect": 0.0001112365,
+        "effect_unit": "mae_minus_random_walk",
+        "n": 39690,
+        "random_walk_cost_adjusted_mae": 0.0038862087,
+        "verdict": "FALSIFIED"
+      },
+      "result_binding": {
+        "effect_field": "summary.pooled_candidate_cost_adjusted_mae_minus_random_walk",
+        "effect_unit": "mae_minus_random_walk",
+        "extra_fields": {
+          "candidate_cost_adjusted_mae": "summary.pooled_candidate_cost_adjusted_mae",
+          "random_walk_cost_adjusted_mae": "summary.pooled_random_walk_cost_adjusted_mae"
+        },
+        "n_field": "summary.pooled_n_obs",
+        "snapshot_path": "reports/modeling/phase135_leakage_safe_ml_screen.json"
+      },
+      "snapshot_path": "reports/modeling/phase135_leakage_safe_ml_screen.json",
+      "spec_hash": "3661c6a0148e8b2519c546743416cff4450997b98b9e1148bf1f30d586742a9c",
+      "spec_path": "research/falsification/hypotheses/leakage-safe-ml-screen-v1.json",
+      "status": "falsified",
+      "title": "Leakage-safe ridge/logistic vs random walk"
+    },
+    {
+      "dataset_id": "ecb-major-pairs-dev-origins-1-108",
+      "frozen_criteria": [
+        { "id": "mae_vs_rw", "metric": "pooled_candidate_cost_adjusted_mae_minus_rw", "op": "<", "threshold": 0.0 },
+        { "id": "holdout", "metric": "holdout_touched", "op": "==", "threshold": false }
+      ],
+      "hypothesis": "Pre-registered carry, 21-day momentum, or a vol-regime filter of those signals has strictly lower cost-adjusted MAE than a random-walk forecast on six ECB euro pairs, development origins 1-108, using BIS policy-rate carry. Origin 109 stays frozen.",
+      "id": "carry-momentum-regime-v1",
+      "live_orders": false,
+      "paper_only": true,
+      "pr": 8,
+      "registration": "pre_registered",
+      "result": {
+        "candidate_cost_adjusted_mae": 0.0056057167,
+        "effect": 0.0016671101,
+        "effect_unit": "mae_minus_random_walk",
+        "n": 40824,
+        "random_walk_cost_adjusted_mae": 0.0039386066,
+        "verdict": "FALSIFIED"
+      },
+      "result_binding": {
+        "effect_field": "summary.pooled_candidate_cost_adjusted_mae_minus_random_walk",
+        "effect_unit": "mae_minus_random_walk",
+        "extra_fields": {
+          "candidate_cost_adjusted_mae": "summary.pooled_candidate_cost_adjusted_mae",
+          "random_walk_cost_adjusted_mae": "summary.pooled_random_walk_cost_adjusted_mae"
+        },
+        "n_field": "summary.pooled_n_obs",
+        "snapshot_path": "reports/modeling/phase136_carry_momentum_regime_wf.json"
+      },
+      "snapshot_path": "reports/modeling/phase136_carry_momentum_regime_wf.json",
+      "spec_hash": "f468995435ae92f6c4d73c607cf934066ec4484e7ee7480e10506fb00ac0c062",
+      "spec_path": "research/falsification/hypotheses/carry-momentum-regime-v1.json",
+      "status": "falsified",
+      "title": "Carry, momentum, and regime filter vs random walk"
+    },
+    {
+      "dataset_id": "ecb-major-pairs-dev-origins-1-108",
+      "frozen_criteria": [
+        { "id": "mae_vs_rw", "metric": "pooled_candidate_cost_adjusted_mae_minus_rw", "op": "<", "threshold": 0.0 },
+        { "id": "holdout", "metric": "holdout_touched", "op": "==", "threshold": false }
+      ],
+      "hypothesis": "A 5-day reversal, turn-of-month overlay, or reversal that skips turn-of-month has strictly lower cost-adjusted MAE than a random-walk forecast on six ECB euro pairs, development origins 1-108. Origin 109 stays frozen.",
+      "id": "fx-reversal-calendar-v1",
+      "live_orders": false,
+      "paper_only": true,
+      "pr": 9,
+      "registration": "pre_registered",
+      "result": {
+        "candidate_cost_adjusted_mae": 0.0056835375,
+        "effect": 0.0017449309,
+        "effect_unit": "mae_minus_random_walk",
+        "n": 40824,
+        "random_walk_mae": 0.0039386066,
+        "verdict": "FALSIFIED"
+      },
+      "result_binding": {
+        "effect_field": "summary.pooled_candidate_cost_adjusted_mae_minus_random_walk",
+        "effect_unit": "mae_minus_random_walk",
+        "extra_fields": {
+          "candidate_cost_adjusted_mae": "summary.pooled_candidate_cost_adjusted_mae",
+          "random_walk_mae": "summary.pooled_random_walk_mae"
+        },
+        "n_field": "summary.pooled_n_obs",
+        "snapshot_path": "reports/modeling/phase137_fx_reversal_calendar_wf.json"
+      },
+      "snapshot_path": "reports/modeling/phase137_fx_reversal_calendar_wf.json",
+      "spec_hash": "ef9c9f2fd1441e853565c1c9881a73665d573914ed02a655f6940fa2287882ca",
+      "spec_path": "research/falsification/hypotheses/fx-reversal-calendar-v1.json",
+      "status": "falsified",
+      "title": "5-day reversal and turn-of-month vs random walk"
+    },
+    {
+      "dataset_id": "ecb-major-pairs-dev-origins-1-108",
+      "frozen_criteria": [
+        { "id": "qlike_vs_naive", "metric": "pooled_har_rv_qlike_minus_naive", "op": "<", "threshold": 0.0 },
+        { "id": "mcs", "metric": "har_rv_in_pair_count_mcs", "op": "==", "threshold": true },
+        { "id": "holdout", "metric": "holdout_touched", "op": "==", "threshold": false }
+      ],
+      "hypothesis": "HAR-RV has strictly lower QLIKE than naive last RV and is included in the pair-count QLIKE model-confidence set (at least 4 of 6 ECB euro pairs) for 1-day close-to-close realized variance on development origins 1-108. Origin 109 stays frozen.",
+      "id": "fx-realized-vol-1d-v1",
+      "live_orders": false,
+      "paper_only": true,
+      "pr": 10,
+      "registration": "pre_registered",
+      "result": {
+        "effect": -9.5139086404,
+        "effect_unit": "qlike",
+        "ewma_qlike": -8.5487378809,
+        "mcs_included_models": ["ewma"],
+        "n": 40824,
+        "naive_qlike": 95.386936657,
+        "note": "HAR-RV has the best pooled QLIKE but is not in the pair-count MCS (2/6). EWMA alone is in the MCS. EURCHF is a composition effect. Robust finding unsupported.",
+        "verdict": "FALSIFIED"
+      },
+      "result_binding": {
+        "effect_field": "summary.pooled_har_rv_qlike",
+        "effect_unit": "qlike",
+        "extra_fields": {
+          "ewma_qlike": "summary.pooled_ewma_qlike",
+          "mcs_included_models": "summary.mcs_included_models",
+          "naive_qlike": "summary.pooled_naive_qlike"
+        },
+        "n_field": "summary.pooled_n_obs",
+        "snapshot_path": "reports/modeling/phase138_fx_realized_vol_wf.json"
+      },
+      "snapshot_path": "reports/modeling/phase138_fx_realized_vol_wf.json",
+      "spec_hash": "48fd3238ec69856deda644a92c4a06f917f4d2402a9c8859ef6d001ab53d5fd4",
+      "spec_path": "research/falsification/hypotheses/fx-realized-vol-1d-v1.json",
+      "status": "falsified",
+      "title": "HAR-RV vs GARCH vs EWMA vs naive 1-day RV"
+    },
+    {
+      "dataset_id": "ecb-major-pairs-dev-origins-1-108",
+      "frozen_criteria": [
+        { "id": "crps_vs_rw", "metric": "pooled_candidate_crps_minus_rw", "op": "<", "threshold": 0.0 },
+        { "id": "holdout", "metric": "holdout_touched", "op": "==", "threshold": false }
+      ],
+      "hypothesis": "A Gaussian density around a carry, momentum, regime, reversal, or turn-of-month point forecast has strictly lower mean CRPS than a random-walk density on six ECB euro pairs, development origins 1-108. Origin 109 stays frozen.",
+      "id": "direction-density-crps-v1",
+      "live_orders": false,
+      "paper_only": true,
+      "pr": 10,
+      "registration": "pre_registered",
+      "result": {
+        "effect": 0.0029601164,
+        "effect_unit": "crps",
+        "lowest_crps_method": "random_walk_fx",
+        "n": 40824,
+        "reversal_5d_mean_crps": 0.0039245563,
+        "verdict": "FALSIFIED"
+      },
+      "result_binding": {
+        "effect_field": "summary.pooled_random_walk_mean_crps",
+        "effect_unit": "crps",
+        "extra_fields": {
+          "lowest_crps_method": "summary.pooled_lowest_crps_method",
+          "reversal_5d_mean_crps": "summary.pooled_reversal_5d_mean_crps"
+        },
+        "n_field": "summary.pooled_n_obs",
+        "snapshot_path": "reports/modeling/phase138_direction_density_eval.json"
+      },
+      "snapshot_path": "reports/modeling/phase138_direction_density_eval.json",
+      "spec_hash": "bc4f4a8cf19a814f0492f98c75f270037a94e5df039364002adf48257845130b",
+      "spec_path": "research/falsification/hypotheses/direction-density-crps-v1.json",
+      "status": "falsified",
+      "title": "Direction-model Gaussian CRPS vs random walk"
+    },
+    {
+      "dataset_id": "ecb-major-pairs-dev-origins-1-108",
+      "frozen_criteria": [
+        { "id": "any_model", "metric": "any_model_statistically_adequate", "op": "==", "threshold": true },
+        { "id": "holdout", "metric": "holdout_touched", "op": "==", "threshold": false }
+      ],
+      "hypothesis": "At least one of EWMA, HAR-RV, or GARCH(1,1) 1-day Gaussian VaR/ES is statistically adequate at both 99% and 97.5% on all six ECB euro pairs under Kupiec unconditional coverage, Christoffersen conditional coverage, and Acerbi-Szekely Z2 (5%). Origin 109 stays frozen.",
+      "id": "fx-var-es-1d-v1",
+      "live_orders": false,
+      "paper_only": true,
+      "registration": "pre_registered",
+      "result": {
+        "effect": false,
+        "effect_unit": "any_model_statistically_adequate",
+        "holdout_touched": false,
+        "n": 40824,
+        "note": "EWMA 0/6 pairs at both levels. GARCH 1/6 at 99% and 2/6 at 97.5%. HAR-RV 4/6 at 99% and 2/6 at 97.5%. No model is adequate on all pairs at both levels.",
+        "verdict": "FALSIFIED"
+      },
+      "result_binding": {
+        "effect_field": "summary.any_model_statistically_adequate",
+        "effect_unit": "any_model_statistically_adequate",
+        "extra_fields": { "holdout_touched": "summary.holdout_touched" },
+        "n_field": "summary.pooled_n_obs",
+        "snapshot_path": "reports/modeling/phase139_fx_var_es_backtest.json"
+      },
+      "snapshot_path": "reports/modeling/phase139_fx_var_es_backtest.json",
+      "spec_hash": "3f13315dda68ad91932b20ad31f6037fb187ba024c403c25bb98c742e13ae536",
+      "spec_path": "research/falsification/hypotheses/fx-var-es-1d-v1.json",
+      "status": "falsified",
+      "title": "1-day 99%/97.5% VaR and ES backtests"
+    },
+    {
+      "dataset_id": "ecb-major-pairs-dev-origins-1-108",
+      "frozen_criteria": [
+        { "id": "ewma_in_mcs_h5", "metric": "ewma_in_mcs_h5", "op": "==", "threshold": true },
+        { "id": "ewma_in_mcs_h22", "metric": "ewma_in_mcs_h22", "op": "==", "threshold": true },
+        { "id": "holdout", "metric": "holdout_touched", "op": "==", "threshold": false }
+      ],
+      "hypothesis": "The 1-day pair-count QLIKE MCS inclusion of EWMA holds at weekly (5-day) and monthly (22-day) average realized-variance horizons on six ECB euro pairs, development origins 1-108. HAR is refit on the h-day target. GARCH uses iterated h-step mean variance. Origin 109 stays frozen.",
+      "id": "fx-rv-horizon-5-22-v1",
+      "live_orders": false,
+      "paper_only": true,
+      "registration": "pre_registered",
+      "result": {
+        "effect": true,
+        "effect_unit": "ewma_in_pair_count_mcs_both_horizons",
+        "ewma_in_mcs_h22": true,
+        "ewma_in_mcs_h5": true,
+        "h22_ewma_qlike": -8.6643464971,
+        "h5_ewma_qlike": -8.6303404982,
+        "n": 40800,
+        "note": "Pre-registered MCS-inclusion gates pass. Exclusive 1-day MCS (EWMA only) does not hold at 22 days because HAR joins. Pooled QLIKE remains a EURCHF composition effect. Evidence advancement denied.",
+        "verdict": "PASS"
+      },
+      "result_binding": {
+        "effect_field": "summary.ewma_edge_holds_beyond_1_day",
+        "effect_unit": "ewma_in_pair_count_mcs_both_horizons",
+        "extra_fields": {
+          "ewma_in_mcs_h22": "summary.ewma_in_mcs_h22",
+          "ewma_in_mcs_h5": "summary.ewma_in_mcs_h5",
+          "h22_ewma_qlike": "horizons.h22.pooled.summary.ewma_qlike",
+          "h5_ewma_qlike": "horizons.h5.pooled.summary.ewma_qlike"
+        },
+        "n_field": "horizons.h5.pooled.summary.n_obs",
+        "snapshot_path": "reports/modeling/phase139_fx_rv_horizon_wf.json"
+      },
+      "snapshot_path": "reports/modeling/phase139_fx_rv_horizon_wf.json",
+      "spec_hash": "e25f004cf2968880b04c5548b906dba67d64c30b6e450d526c1c334b1d1eadfb",
+      "spec_path": "research/falsification/hypotheses/fx-rv-horizon-5-22-v1.json",
+      "status": "pass",
+      "title": "Weekly and monthly RV: does EWMA MCS inclusion hold?"
+    }
+  ],
+  "lab": "bfi-finance-lab",
+  "live_orders": false,
+  "paper_only": true,
+  "schema_version": 1,
+  "source_registry": "research_portfolio/program_registry.yaml",
+  "updated_at": "2026-11-24T23:30:00Z",
+  "verdict_rule": "ALL frozen holdout gates must pass. Discovery cannot rescue a holdout fail. Thresholds cannot move after sealing. Insufficient n is a fail. No live orders, trading signals, or evidence advancement."
+}

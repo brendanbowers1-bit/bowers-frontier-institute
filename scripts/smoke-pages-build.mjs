@@ -121,6 +121,33 @@ try {
     throw new Error("Published hypotheses.json is missing the fade-the-favorite −706 bps verdict.");
   }
 
+  const falsificationPage = await fetchText(origin, `${basePath}/falsification.html`);
+  if (!falsificationPage.includes('id="root"') || !/assets\/falsification-[^"]+\.js/.test(falsificationPage)) {
+    throw new Error("Falsification HTML is missing the dedicated entry.");
+  }
+
+  const falsification = JSON.parse(await fetchText(origin, `${basePath}/research/falsification.json`));
+  if (falsification.notATradingEdge !== true || falsification.hypotheses?.length !== 14) {
+    throw new Error("Published falsification.json must be a pinned 14-row paper registry.");
+  }
+  const counts = falsification.statusCounts;
+  if (counts.FALSIFIED !== 10 || counts["FAIL-N"] !== 1 || counts.UNSCORED !== 2 || counts.PASS !== 1) {
+    throw new Error("Published falsification.json has unexpected status counts.");
+  }
+  const makerRow = falsification.hypotheses.find((item) => item.id === "kalshi-maker-spread-queue-as-v1");
+  if (makerRow?.displayStatus !== "FAIL-N" || makerRow.n !== 327) {
+    throw new Error("Maker row must display FAIL-N at n=327.");
+  }
+  const pass = falsification.hypotheses.find((item) => item.id === "fx-rv-horizon-5-22-v1");
+  if (pass?.displayStatus !== "PASS" || !/not a trading edge/i.test(pass.verdict)) {
+    throw new Error("Finance PASS row must deny a trading edge.");
+  }
+
+  const health = JSON.parse(await fetchText(origin, `${basePath}/health.json`));
+  if (health.registry?.hypothesisCount !== 14 || health.errorTrackerDsnConfigured !== false) {
+    throw new Error("Published health.json must report registry counts without a DSN.");
+  }
+
   console.log("GitHub Pages smoke test passed.");
 } finally {
   await close();

@@ -17,13 +17,17 @@ export default defineConfig({
   plugins: [
     react(),
     {
-      name: "copy-hypotheses-json",
+      name: "copy-research-json",
       closeBundle() {
         const destDir = path.resolve(__dirname, "dist/research");
         mkdirSync(destDir, { recursive: true });
         copyFileSync(
           path.resolve(__dirname, "data/research/hypotheses.json"),
           path.join(destDir, "hypotheses.json"),
+        );
+        copyFileSync(
+          path.resolve(__dirname, "data/research/falsification.json"),
+          path.join(destDir, "falsification.json"),
         );
       },
     },
@@ -38,6 +42,7 @@ export default defineConfig({
       input: {
         main: path.resolve(__dirname, "index.html"),
         research: path.resolve(__dirname, "research.html"),
+        falsification: path.resolve(__dirname, "falsification.html"),
       },
       output: {
         manualChunks(id) {

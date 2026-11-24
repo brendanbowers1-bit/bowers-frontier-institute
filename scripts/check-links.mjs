@@ -4,6 +4,7 @@ import { extname, join, normalize } from "node:path";
 const root = process.cwd();
 const distDir = join(root, "dist");
 const hypothesesPath = join(root, "data/research/hypotheses.json");
+const falsificationPath = join(root, "data/research/falsification.json");
 const pagesHost = "https://brendanbowers1-bit.github.io/bowers-frontier-institute";
 const skipHosts = new Set(["fonts.googleapis.com", "fonts.gstatic.com"]);
 const failures = [];
@@ -26,6 +27,13 @@ for (const file of htmlFiles) {
 
 const hypotheses = JSON.parse(await readFile(hypothesesPath, "utf8"));
 for (const item of hypotheses.hypotheses ?? []) {
+  if (item.prUrl) {
+    urls.add(item.prUrl);
+  }
+}
+
+const falsification = JSON.parse(await readFile(falsificationPath, "utf8"));
+for (const item of falsification.hypotheses ?? []) {
   if (item.prUrl) {
     urls.add(item.prUrl);
   }

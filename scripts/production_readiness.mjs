@@ -307,9 +307,9 @@ function scoreMonitoring() {
     earnedPoints += 3;
     notes.push("Client and server emit structured JSON error logs.");
   }
-  if (exists("public/health.json")) {
+  if (exists("public/health.json") && packageJson.scripts?.["check:health"]) {
     earnedPoints += 2;
-    notes.push("Static health.json ships with the Pages artifact.");
+    notes.push("Static health.json ships with DSN-free registry counts and a CI health check.");
   }
   if (appError.includes("componentDidCatch")) {
     earnedPoints += 1;

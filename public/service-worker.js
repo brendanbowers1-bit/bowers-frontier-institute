@@ -5,6 +5,8 @@ const cacheName = `br3n-collar-feed-${version}`;
 const appShell = [
   basePath,
   `${basePath}research.html`,
+  `${basePath}falsification.html`,
+  `${basePath}health.json`,
   `${basePath}manifest.webmanifest`,
   `${basePath}favicon.svg`,
   `${basePath}app-icon.svg`,

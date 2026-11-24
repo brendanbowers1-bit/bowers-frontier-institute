@@ -68,6 +68,9 @@ if (health) {
   if (payload.status !== "ok" || payload.researchOnly !== true || payload.noTradeExecution !== true) {
     fail("health.json must declare ok status and research-only / no-trade-execution.");
   }
+  if (payload.registry?.hypothesisCount !== 14 || payload.errorTrackerDsnConfigured !== false) {
+    fail("health.json must publish DSN-free registry counts for 14 falsification rows.");
+  }
 }
 
 if (failures.length > 0) {

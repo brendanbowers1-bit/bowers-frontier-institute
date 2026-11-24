@@ -4,6 +4,7 @@ import test from "node:test";
 import {
   catalogs,
   DEFAULT_LOCALE,
+  isFalsificationPath,
   isResearchPath,
   missingMessageKeys,
   SUPPORTED_LOCALES,
@@ -42,4 +43,12 @@ test("research path detection covers Pages and preview URLs", () => {
   assert.equal(isResearchPath("/bowers-frontier-institute/research.html/"), true);
   assert.equal(isResearchPath("/"), false);
   assert.equal(isResearchPath("/bowers-frontier-institute/"), false);
+});
+
+test("falsification path detection covers Pages and preview URLs", () => {
+  assert.equal(isFalsificationPath("/falsification.html"), true);
+  assert.equal(isFalsificationPath("/bowers-frontier-institute/falsification.html"), true);
+  assert.equal(isFalsificationPath("/bowers-frontier-institute/falsification.html/"), true);
+  assert.equal(isFalsificationPath("/research.html"), false);
+  assert.equal(isFalsificationPath("/"), false);
 });

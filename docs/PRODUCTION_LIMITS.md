@@ -49,11 +49,17 @@ system.
 
 - Client and serverless errors emit one-line JSON logs (`level`, `event`,
   `message`, `researchOnly`).
-- `health.json` is a static liveness document in the Pages artifact.
+- `health.json` is a static liveness document in the Pages artifact. It now
+  publishes DSN-free registry counts (`FALSIFIED` / `FAIL-N` / `UNSCORED` /
+  `PASS`) that CI asserts via `npm run check:health`.
+- `/falsification.html` and `/research/falsification.json` consume pinned Arb
+  `registry.v1.json` plus the finance lab registry. PASS is a statistical gate,
+  not a trading edge.
 - Client and serverless errors also call an env-flagged error-tracker hook.
   With no `VITE_ERROR_TRACKER_DSN` / `ERROR_TRACKER_DSN`, the hook is a no-op.
   Set those to an HTTPS ingest URL when Brendan picks a provider. Never commit a
-  live DSN. GitHub Pages still has no server process to scrape.
+  live DSN. GitHub Pages still has no server process to scrape. Do not re-ask
+  for a DSN; engineering readiness stays 99/100 until one is supplied.
 
 ## Accessibility and performance
 
@@ -64,18 +70,24 @@ system.
   decision.
 - Lighthouse CI asserts desktop performance (>= 0.70) and accessibility (>= 0.90)
   against the production `dist/` after `npm run build`.
-- Playwright runs axe-core WCAG 2.2 AA on `/` and `/research.html` (zero
-  violations), plus keyboard-only skip-link and reduced-motion checks.
+- Playwright runs axe-core WCAG 2.2 AA on `/`, `/research.html`, and
+  `/falsification.html` (zero violations), plus keyboard-only skip-link and
+  reduced-motion checks.
 - `research.html` renders pre-registered lab hypotheses from
   `data/research/hypotheses.json`. Falsified holdouts stay published. The page
   is paper/research only: no live data, no orders, no signals.
+- `falsification.html` renders the pinned falsification book
+  (`data/research/falsification.json`) with statuses FALSIFIED / FAIL-N /
+  UNSCORED / PASS. FAIL-N is a site display mapping when n < n_target. PASS is
+  not a trading edge.
 - European Portuguese (`pt-PT`) is a first-class locale for dashboard and
   research chrome. A unit test fails if any English key is missing in `pt-PT`.
 - `npm run check:links` fails CI on broken local or source-PR URLs.
 - `/research.html` is built from pinned vendored registry JSON in
   `vendor/labs/` (arb + finance lab SHAs in `PIN.json`). No live fetch at
   runtime. `npm run check:research-registry` schema-validates and diffs the
-  generated `data/research/hypotheses.json`.
+  generated `data/research/hypotheses.json`. `npm run check:falsification-registry`
+  does the same for `data/research/falsification.json` and `public/health.json`.
 - Vercel and Netlify send CSP, HSTS, Referrer-Policy, and Permissions-Policy.
   `npm run check:headers` and a unit test lock the values.
 - Playwright visual snapshots cover dashboard, research, and trades at desktop
@@ -90,13 +102,14 @@ skill. Do not present those numbers as a production trading edge.
 
 ## Remaining Brendan blockers
 
-These do **not** block merging #6, #25, and this stacked follow-up. They are
-operator/product decisions that sit outside the engineering rubric:
+These do **not** block merging #6, #25, #28, #29, #30, or this stacked
+follow-up. They are operator/product decisions that sit outside the
+engineering rubric. Do not re-ask for them:
 
 1. **Error tracker DSN** — set `VITE_ERROR_TRACKER_DSN` (client) and
    `ERROR_TRACKER_DSN` (server) to an HTTPS ingest URL when a provider is
    chosen. Empty = no-op. Never commit a live DSN. This is the only remaining
-   production-readiness point (monitoring 9/10).
+   production-readiness point (monitoring 9/10; site rubric capped at 99/100).
 2. **Self-host Google Fonts** — third-party `fonts.googleapis.com` /
    `fonts.gstatic.com` stylesheets remain until Brendan decides to vendor the
    faces. Lighthouse/a11y budgets already pass without that change.
@@ -108,8 +121,9 @@ operator/product decisions that sit outside the engineering rubric:
    repo and whether the two-file brand board should keep publishing through
    GitHub Pages.
 
-Merge order: **#6 → #25 → #28 → #29 → this PR**. Then #11 / #16 / #19. Merging
-the stack is what turns `main` CI green; it is not a missing workflow.
+Merge order: **#6 → #25 → #28 → #29 → #30 → this PR**. Then #11 / #16 / #19.
+Do not merge the stack without Brendan's yes. Merging is what turns `main` CI
+green; it is not a missing workflow.
 
 ## Checks that must stay green
 
@@ -120,6 +134,8 @@ npm run check:a11y
 npm run check:links
 npm run check:headers
 npm run check:research-registry
+npm run check:falsification-registry
+npm run check:health
 npm run check:lighthouse
 npm run check:deploy
 npm run check:production

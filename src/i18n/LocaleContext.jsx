@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import {
   catalogs,
   DEFAULT_LOCALE,
+  isFalsificationPath,
   isResearchPath,
   isSupportedLocale,
   STORAGE_KEY,
@@ -54,10 +55,21 @@ export function LocaleProvider({ children }) {
     }
 
     const research = isResearchPath(window.location.pathname);
-    document.title = translate(messages, research ? "meta.researchTitle" : "meta.dashboardTitle");
+    const falsification = isFalsificationPath(window.location.pathname);
+    const titleKey = falsification
+      ? "meta.falsificationTitle"
+      : research
+        ? "meta.researchTitle"
+        : "meta.dashboardTitle";
+    const skipKey = falsification
+      ? "skip.falsification"
+      : research
+        ? "skip.research"
+        : "skip.dashboard";
+    document.title = translate(messages, titleKey);
     const skip = document.querySelector(".skip-link");
     if (skip) {
-      skip.textContent = translate(messages, research ? "skip.research" : "skip.dashboard");
+      skip.textContent = translate(messages, skipKey);
     }
   }, [locale, messages]);
 

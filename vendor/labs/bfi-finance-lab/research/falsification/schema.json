@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bowersfrontier.example/schema/bfi-finance-lab-hypothesis-registry-v1.json",
+  "title": "BFI Finance Lab hypothesis registry",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "paper_only", "live_orders", "updated_at", "verdict_rule", "hypotheses", "datasets"],
+  "properties": {
+    "schema_version": { "type": "integer", "const": 1 },
+    "lab": { "type": "string" },
+    "paper_only": { "type": "boolean", "const": true },
+    "live_orders": { "type": "boolean", "const": false },
+    "updated_at": { "type": "string" },
+    "verdict_rule": { "type": "string" },
+    "source_registry": { "type": "string" },
+    "hypotheses": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/hypothesis" }
+    },
+    "datasets": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/dataset" }
+    }
+  },
+  "$defs": {
+    "hypothesis": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["id", "title", "registration", "status", "paper_only", "live_orders", "frozen_criteria", "spec_hash"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "title": { "type": "string" },
+        "hypothesis": { "type": "string" },
+        "registration": { "type": "string", "enum": ["pre_registered", "retrospective"] },
+        "status": { "type": "string", "enum": ["falsified", "pass", "pre_registered_unscored"] },
+        "paper_only": { "type": "boolean", "const": true },
+        "live_orders": { "type": "boolean", "const": false },
+        "spec_path": { "type": "string" },
+        "spec_hash": { "type": "string", "minLength": 64, "maxLength": 64 },
+        "frozen_criteria": { "type": "array" },
+        "result": { "type": "object" },
+        "power": { "type": "object" }
+      }
+    },
+    "dataset": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["id", "hypothesis_id"],
+      "properties": {
+        "id": { "type": "string" },
+        "hypothesis_id": { "type": "string" },
+        "n": { "type": ["number", "null"] },
+        "unit": { "type": "string" }
+      }
+    }
+  }
+}

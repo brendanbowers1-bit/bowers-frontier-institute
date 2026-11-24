@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bowers-frontier-institute.local/schemas/falsification-registry.schema.json",
+  "title": "Site-consumable falsification registry",
+  "description": "Pinned paper/research falsification book. Not a trading signal. No live orders.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "paperResearchOnly",
+    "noTradeExecution",
+    "noLiveOrders",
+    "noRealFunds",
+    "noExchangeApiKeys",
+    "noTradingSignals",
+    "noLiveFetchAtRuntime",
+    "notATradingEdge",
+    "disclaimer",
+    "statusCounts",
+    "hypotheses"
+  ],
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.0.0" },
+    "paperResearchOnly": { "type": "boolean", "const": true },
+    "noTradeExecution": { "type": "boolean", "const": true },
+    "noLiveOrders": { "type": "boolean", "const": true },
+    "noRealFunds": { "type": "boolean", "const": true },
+    "noExchangeApiKeys": { "type": "boolean", "const": true },
+    "noTradingSignals": { "type": "boolean", "const": true },
+    "noLiveFetchAtRuntime": { "type": "boolean", "const": true },
+    "notATradingEdge": { "type": "boolean", "const": true },
+    "updated": { "type": "string" },
+    "pin": { "type": "object" },
+    "disclaimer": { "type": "string", "minLength": 40 },
+    "statusCounts": {
+      "type": "object",
+      "required": ["FALSIFIED", "FAIL-N", "UNSCORED", "PASS"],
+      "properties": {
+        "FALSIFIED": { "type": "integer", "minimum": 0 },
+        "FAIL-N": { "type": "integer", "minimum": 0 },
+        "UNSCORED": { "type": "integer", "minimum": 0 },
+        "PASS": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "hypotheses": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "lab",
+          "displayStatus",
+          "labVerdict",
+          "hypothesis",
+          "holdout",
+          "metrics",
+          "verdict"
+        ],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "title": { "type": "string", "minLength": 1 },
+          "lab": { "type": "string", "minLength": 1 },
+          "prUrl": { "type": ["string", "null"] },
+          "prLabel": { "type": ["string", "null"] },
+          "displayStatus": {
+            "type": "string",
+            "enum": ["FALSIFIED", "FAIL-N", "UNSCORED", "PASS"]
+          },
+          "labVerdict": { "type": "string", "minLength": 1 },
+          "hypothesis": { "type": "string", "minLength": 1 },
+          "holdout": { "type": "string", "minLength": 1 },
+          "n": { "type": ["number", "null"] },
+          "nTarget": { "type": ["number", "null"] },
+          "registrationHash": { "type": ["string", "null"] },
+          "metrics": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["label", "value"],
+              "properties": {
+                "label": { "type": "string" },
+                "value": { "type": "string" },
+                "detail": { "type": "string" }
+              }
+            }
+          },
+          "verdict": { "type": "string", "minLength": 1 },
+          "note": { "type": "string" }
+        }
+      }
+    }
+  }
+}

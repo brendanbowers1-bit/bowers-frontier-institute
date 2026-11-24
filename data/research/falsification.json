@@ -1,0 +1,537 @@
+{
+  "schemaVersion": "1.0.0",
+  "paperResearchOnly": true,
+  "noTradeExecution": true,
+  "noLiveOrders": true,
+  "noRealFunds": true,
+  "noExchangeApiKeys": true,
+  "noTradingSignals": true,
+  "noLiveFetchAtRuntime": true,
+  "notATradingEdge": true,
+  "updated": "2026-11-24",
+  "pin": {
+    "schemaVersion": "1.0.0",
+    "paperResearchOnly": true,
+    "noLiveFetchAtRuntime": true,
+    "noTradeExecution": true,
+    "noLiveOrders": true,
+    "noRealFunds": true,
+    "noExchangeApiKeys": true,
+    "noTradingSignals": true,
+    "pinnedAt": "2026-11-24T21:13:43Z",
+    "sources": [
+      {
+        "lab": "bfi-arbitrage",
+        "repo": "brendanbowers1-bit/bfi-arbitrage",
+        "sha": "fb287bc0e11bda904c5484c8ca66c3af05dd8356",
+        "prUrl": "https://github.com/brendanbowers1-bit/bfi-arbitrage/pull/16",
+        "files": [
+          "pm_calib/frozen_spec.json",
+          "pm_leadlag/frozen_spec.json",
+          "pm_maker/frozen_spec.json",
+          "pm_calib/snapshot.summary.json",
+          "pm_leadlag/snapshot.summary.json",
+          "pm_maker/snapshot.summary.json",
+          "research/falsification/registry.v1.json",
+          "research/falsification/registry.v1.schema.json"
+        ],
+        "registrySha": "bcd83e80075d9dca750637d5c508123dbad82215",
+        "registryPrUrl": "https://github.com/brendanbowers1-bit/bfi-arbitrage/pull/20"
+      },
+      {
+        "lab": "bfi-finance-lab",
+        "repo": "brendanbowers1-bit/bfi-finance-lab",
+        "sha": "20887555116efb46629e0859e4d66e6e42e69a0f",
+        "prUrl": "https://github.com/brendanbowers1-bit/bfi-finance-lab/pull/10",
+        "files": [
+          "fx_reversal_calendar_wf.json",
+          "fx_realized_vol_wf.json",
+          "research/falsification/registry.json",
+          "research/falsification/schema.json"
+        ],
+        "registrySha": "81877a4de36d4d207efd467a5800f7c2abbf5b96",
+        "registryPrUrl": "https://github.com/brendanbowers1-bit/bfi-finance-lab/pull/11"
+      },
+      {
+        "lab": "bowers-frontier-institute",
+        "repo": "brendanbowers1-bit/bowers-frontier-institute",
+        "sha": "5cacb03f6765ba37c13c92d37665e05308cf6cb4",
+        "prUrl": "https://github.com/brendanbowers1-bit/bowers-frontier-institute/pull/6",
+        "files": [
+          "ecb_usd_major_walk_forward.json"
+        ]
+      }
+    ]
+  },
+  "disclaimer": "Pinned falsification book from Arb registry.v1.json and the finance lab registry. Statuses are FALSIFIED, FAIL-N (n below the frozen n_target), UNSCORED, or PASS. PASS is a pre-registered statistical gate only. Not a trading edge. Nothing here is a live order, fund transfer, or advice.",
+  "statusCounts": {
+    "FALSIFIED": 10,
+    "FAIL-N": 1,
+    "UNSCORED": 2,
+    "PASS": 1
+  },
+  "hypotheses": [
+    {
+      "id": "kalshi-fade-favorite-calibration-v1",
+      "title": "Kalshi fade-the-favorite calibration",
+      "lab": "bfi-arbitrage",
+      "prUrl": "https://github.com/brendanbowers1-bit/bfi-arbitrage/pull/10",
+      "prLabel": "bfi-arbitrage#10",
+      "displayStatus": "FALSIFIED",
+      "labVerdict": "FALSIFIED",
+      "hypothesis": "Kalshi fade-the-favorite calibration",
+      "holdout": "2026-09-01T00:00:00Z → 2026-11-24T00:00:00Z (UTC)",
+      "n": 800,
+      "nTarget": 400,
+      "registrationHash": "sha256:88a8b92381e6b6726e1a47b3b0a02374dfe974285585f006c7bc285f31292d13",
+      "metrics": [
+        {
+          "label": "Effect",
+          "value": "−$7.06 / 100 contracts",
+          "detail": "usd_per_100_contracts"
+        },
+        {
+          "label": "n / n_target",
+          "value": "800 / 400",
+          "detail": "frozen sample gate"
+        },
+        {
+          "label": "95% CI",
+          "value": "[−$9.26 / 100 contracts, −$4.76 / 100 contracts]",
+          "detail": "MDE 3.2200"
+        }
+      ],
+      "verdict": "FALSIFIED. Holdout did not clear the frozen gates. Effect −$7.06 / 100 contracts. Not a trading edge.",
+      "note": ""
+    },
+    {
+      "id": "pm-spot-leadlag-btc15m-v1",
+      "title": "Polymarket → BTC spot lead/lag",
+      "lab": "bfi-arbitrage",
+      "prUrl": "https://github.com/brendanbowers1-bit/bfi-arbitrage/pull/13",
+      "prLabel": "bfi-arbitrage#13",
+      "displayStatus": "FALSIFIED",
+      "labVerdict": "FALSIFIED",
+      "hypothesis": "Polymarket → BTC spot lead/lag",
+      "holdout": "2026-10-01T00:00:00Z → 2026-11-24T00:00:00Z (UTC)",
+      "n": 1057,
+      "nTarget": 400,
+      "registrationHash": "sha256:dab68591ce85a140e6bd4ef0266a9015c039a706e843fc475934a48cb4f26275",
+      "metrics": [
+        {
+          "label": "Effect",
+          "value": "−20.01 bps",
+          "detail": "bps_of_notional"
+        },
+        {
+          "label": "n / n_target",
+          "value": "1,057 / 400",
+          "detail": "frozen sample gate"
+        },
+        {
+          "label": "95% CI",
+          "value": "[−20.88 bps, −19.16 bps]",
+          "detail": "MDE 1.2141"
+        }
+      ],
+      "verdict": "FALSIFIED. Holdout did not clear the frozen gates. Effect −20.01 bps. Not a trading edge.",
+      "note": ""
+    },
+    {
+      "id": "kalshi-maker-spread-queue-as-v1",
+      "title": "Kalshi maker spread capture (queue + adverse selection)",
+      "lab": "bfi-arbitrage",
+      "prUrl": "https://github.com/brendanbowers1-bit/bfi-arbitrage/pull/16",
+      "prLabel": "bfi-arbitrage#16",
+      "displayStatus": "FAIL-N",
+      "labVerdict": "FALSIFIED",
+      "hypothesis": "Kalshi maker spread capture (queue + adverse selection)",
+      "holdout": "2026-10-01T00:00:00Z → 2026-11-10T00:00:00Z (UTC); primary holdout; second holdout 2026-11-10 to 2026-11-24 stayed sealed",
+      "n": 327,
+      "nTarget": 400,
+      "registrationHash": "sha256:e0dac7785aa23f01cf504d3ad4be98e5bd439da03748f52b7b29404c7b14109b",
+      "metrics": [
+        {
+          "label": "Effect",
+          "value": "−$1.11 / 100 contracts",
+          "detail": "usd_per_100_contracts"
+        },
+        {
+          "label": "n / n_target",
+          "value": "327 / 400",
+          "detail": "below frozen n_target"
+        },
+        {
+          "label": "95% CI",
+          "value": "[−$1.72 / 100 contracts, −$0.59 / 100 contracts]",
+          "detail": "MDE 0.80212871"
+        }
+      ],
+      "verdict": "FAIL-N. n=327 missed the frozen n_target=400. Lab verdict FALSIFIED is not promoted. Not a trading edge.",
+      "note": "primary holdout; second holdout 2026-11-10 to 2026-11-24 stayed sealed"
+    },
+    {
+      "id": "kalshi-buy-favorite-v1",
+      "title": "Kalshi buy-the-favorite (disjoint follow-up)",
+      "lab": "bfi-arbitrage",
+      "prUrl": null,
+      "prLabel": null,
+      "displayStatus": "UNSCORED",
+      "labVerdict": "UNSCORED",
+      "hypothesis": "Kalshi buy-the-favorite (disjoint follow-up)",
+      "holdout": "2026-06-01T00:00:00Z → 2026-09-01T00:00:00Z (UTC)",
+      "n": null,
+      "nTarget": 400,
+      "registrationHash": "sha256:27b5680626ecd2b3487fc4da796cf97c8cc0113f7210860cea4bdfe32b06cd78",
+      "metrics": [
+        {
+          "label": "Effect",
+          "value": "—",
+          "detail": "usd_per_100_contracts"
+        },
+        {
+          "label": "n / n_target",
+          "value": "— / 400",
+          "detail": "frozen sample gate"
+        },
+        {
+          "label": "95% CI",
+          "value": "—",
+          "detail": "MDE 4.5538"
+        }
+      ],
+      "verdict": "UNSCORED. No holdout score has been published yet. Not a trading edge.",
+      "note": ""
+    },
+    {
+      "id": "kalshi-resolution-delay-premium-v1",
+      "title": "Kalshi resolution-delay premium",
+      "lab": "bfi-arbitrage",
+      "prUrl": null,
+      "prLabel": null,
+      "displayStatus": "UNSCORED",
+      "labVerdict": "UNSCORED",
+      "hypothesis": "Kalshi resolution-delay premium",
+      "holdout": "2026-06-01T00:00:00Z → 2026-09-01T00:00:00Z (UTC)",
+      "n": null,
+      "nTarget": 200,
+      "registrationHash": "sha256:646c04fe6874b4816a714fe6e06603bab03e36b3ec46ecf75b51d87187f87049",
+      "metrics": [
+        {
+          "label": "Effect",
+          "value": "—",
+          "detail": "usd_per_100_contracts"
+        },
+        {
+          "label": "n / n_target",
+          "value": "— / 200",
+          "detail": "frozen sample gate"
+        },
+        {
+          "label": "95% CI",
+          "value": "—",
+          "detail": "MDE 6.4401"
+        }
+      ],
+      "verdict": "UNSCORED. No holdout score has been published yet. Not a trading edge.",
+      "note": ""
+    },
+    {
+      "id": "pm-arb-taker-taker-retrospective-v1",
+      "title": "Kalshi vs Polymarket taker/taker (retrospective)",
+      "lab": "bfi-arbitrage",
+      "prUrl": "https://github.com/brendanbowers1-bit/bfi-arbitrage/pull/6",
+      "prLabel": "bfi-arbitrage#6",
+      "displayStatus": "FALSIFIED",
+      "labVerdict": "FALSIFIED",
+      "hypothesis": "Kalshi vs Polymarket taker/taker (retrospective)",
+      "holdout": "unspecified → unspecified (UTC); retrospective two-snapshot public-book lock scored 2026-11-05; not a pre-registered window",
+      "n": 82,
+      "nTarget": 30,
+      "registrationHash": "sha256:8a4a0d575ba11f6d806b276b2d8e9e7ec88a5f7356d4a9339ee227cff524ffcf",
+      "metrics": [
+        {
+          "label": "Effect",
+          "value": "−164.03 bps",
+          "detail": "bps_of_notional"
+        },
+        {
+          "label": "n / n_target",
+          "value": "82 / 30",
+          "detail": "frozen sample gate"
+        },
+        {
+          "label": "95% CI",
+          "value": "[−407.98 bps, −5.38 bps]",
+          "detail": "MDE 287.7450"
+        }
+      ],
+      "verdict": "FALSIFIED. Holdout did not clear the frozen gates. Effect −164.03 bps. Not a trading edge.",
+      "note": "retrospective two-snapshot public-book lock scored 2026-11-05; not a pre-registered window"
+    },
+    {
+      "id": "major-pair-nested-logistic-v1",
+      "title": "Major-pair nested logistic vs random walk",
+      "lab": "bfi-finance-lab",
+      "prUrl": "https://github.com/brendanbowers1-bit/bfi-finance-lab/pull/7",
+      "prLabel": "bfi-finance-lab#7",
+      "displayStatus": "FALSIFIED",
+      "labVerdict": "FALSIFIED",
+      "hypothesis": "A locked lagged-return logistic selected on development origins 1-108 of six ECB euro pairs has strictly lower cost-adjusted MAE than a random-walk forecast on the same expanding walk-forward outer folds. Origin 109 stays frozen.",
+      "holdout": "Development origins 1–108; origin 109 frozen. Source: ECB statistics.",
+      "n": 39690,
+      "nTarget": null,
+      "registrationHash": "sha256:150f1966472dce29d8cf670617127f5d8a35d05aba29a4f055053e543e25072f",
+      "metrics": [
+        {
+          "label": "Effect",
+          "value": "0.00010001",
+          "detail": "mae_minus_random_walk"
+        },
+        {
+          "label": "n",
+          "value": "39,690",
+          "detail": "Source: ECB statistics"
+        },
+        {
+          "label": "Registration",
+          "value": "pre_registered",
+          "detail": "sha256:150f1966472d…"
+        }
+      ],
+      "verdict": "FALSIFIED. Not a trading edge.",
+      "note": ""
+    },
+    {
+      "id": "leakage-safe-ml-screen-v1",
+      "title": "Leakage-safe ridge/logistic vs random walk",
+      "lab": "bfi-finance-lab",
+      "prUrl": "https://github.com/brendanbowers1-bit/bfi-finance-lab/pull/8",
+      "prLabel": "bfi-finance-lab#8",
+      "displayStatus": "FALSIFIED",
+      "labVerdict": "FALSIFIED",
+      "hypothesis": "Leakage-safe nested ridge or multi-feature logistic on six ECB euro pairs has strictly lower cost-adjusted MAE than a random-walk forecast on development origins 1-108. Origin 109 stays frozen.",
+      "holdout": "Development origins 1–108; origin 109 frozen. Source: ECB statistics.",
+      "n": 39690,
+      "nTarget": null,
+      "registrationHash": "sha256:3661c6a0148e8b2519c546743416cff4450997b98b9e1148bf1f30d586742a9c",
+      "metrics": [
+        {
+          "label": "Effect",
+          "value": "0.00011124",
+          "detail": "mae_minus_random_walk"
+        },
+        {
+          "label": "n",
+          "value": "39,690",
+          "detail": "Source: ECB statistics"
+        },
+        {
+          "label": "Registration",
+          "value": "pre_registered",
+          "detail": "sha256:3661c6a0148e…"
+        }
+      ],
+      "verdict": "FALSIFIED. Not a trading edge.",
+      "note": ""
+    },
+    {
+      "id": "carry-momentum-regime-v1",
+      "title": "Carry, momentum, and regime filter vs random walk",
+      "lab": "bfi-finance-lab",
+      "prUrl": "https://github.com/brendanbowers1-bit/bfi-finance-lab/pull/8",
+      "prLabel": "bfi-finance-lab#8",
+      "displayStatus": "FALSIFIED",
+      "labVerdict": "FALSIFIED",
+      "hypothesis": "Pre-registered carry, 21-day momentum, or a vol-regime filter of those signals has strictly lower cost-adjusted MAE than a random-walk forecast on six ECB euro pairs, development origins 1-108, using BIS policy-rate carry. Origin 109 stays frozen.",
+      "holdout": "Development origins 1–108; origin 109 frozen. Source: ECB statistics.",
+      "n": 40824,
+      "nTarget": null,
+      "registrationHash": "sha256:f468995435ae92f6c4d73c607cf934066ec4484e7ee7480e10506fb00ac0c062",
+      "metrics": [
+        {
+          "label": "Effect",
+          "value": "0.00166711",
+          "detail": "mae_minus_random_walk"
+        },
+        {
+          "label": "n",
+          "value": "40,824",
+          "detail": "Source: ECB statistics"
+        },
+        {
+          "label": "Registration",
+          "value": "pre_registered",
+          "detail": "sha256:f468995435ae…"
+        }
+      ],
+      "verdict": "FALSIFIED. Not a trading edge.",
+      "note": ""
+    },
+    {
+      "id": "fx-reversal-calendar-v1",
+      "title": "5-day reversal and turn-of-month vs random walk",
+      "lab": "bfi-finance-lab",
+      "prUrl": "https://github.com/brendanbowers1-bit/bfi-finance-lab/pull/9",
+      "prLabel": "bfi-finance-lab#9",
+      "displayStatus": "FALSIFIED",
+      "labVerdict": "FALSIFIED",
+      "hypothesis": "A 5-day reversal, turn-of-month overlay, or reversal that skips turn-of-month has strictly lower cost-adjusted MAE than a random-walk forecast on six ECB euro pairs, development origins 1-108. Origin 109 stays frozen.",
+      "holdout": "Development origins 1–108; origin 109 frozen. Source: ECB statistics.",
+      "n": 40824,
+      "nTarget": null,
+      "registrationHash": "sha256:ef9c9f2fd1441e853565c1c9881a73665d573914ed02a655f6940fa2287882ca",
+      "metrics": [
+        {
+          "label": "Effect",
+          "value": "0.00174493",
+          "detail": "mae_minus_random_walk"
+        },
+        {
+          "label": "n",
+          "value": "40,824",
+          "detail": "Source: ECB statistics"
+        },
+        {
+          "label": "Registration",
+          "value": "pre_registered",
+          "detail": "sha256:ef9c9f2fd144…"
+        }
+      ],
+      "verdict": "FALSIFIED. Not a trading edge.",
+      "note": ""
+    },
+    {
+      "id": "fx-realized-vol-1d-v1",
+      "title": "HAR-RV vs GARCH vs EWMA vs naive 1-day RV",
+      "lab": "bfi-finance-lab",
+      "prUrl": "https://github.com/brendanbowers1-bit/bfi-finance-lab/pull/10",
+      "prLabel": "bfi-finance-lab#10",
+      "displayStatus": "FALSIFIED",
+      "labVerdict": "FALSIFIED",
+      "hypothesis": "HAR-RV has strictly lower QLIKE than naive last RV and is included in the pair-count QLIKE model-confidence set (at least 4 of 6 ECB euro pairs) for 1-day close-to-close realized variance on development origins 1-108. Origin 109 stays frozen.",
+      "holdout": "Development origins 1–108; origin 109 frozen. Source: ECB statistics.",
+      "n": 40824,
+      "nTarget": null,
+      "registrationHash": "sha256:48fd3238ec69856deda644a92c4a06f917f4d2402a9c8859ef6d001ab53d5fd4",
+      "metrics": [
+        {
+          "label": "Effect",
+          "value": "−9.5139",
+          "detail": "qlike"
+        },
+        {
+          "label": "n",
+          "value": "40,824",
+          "detail": "Source: ECB statistics"
+        },
+        {
+          "label": "Registration",
+          "value": "pre_registered",
+          "detail": "sha256:48fd3238ec69…"
+        }
+      ],
+      "verdict": "FALSIFIED. HAR-RV has the best pooled QLIKE but is not in the pair-count MCS (2/6). EWMA alone is in the MCS. EURCHF is a composition effect. Robust finding unsupported. Not a trading edge.",
+      "note": "HAR-RV has the best pooled QLIKE but is not in the pair-count MCS (2/6). EWMA alone is in the MCS. EURCHF is a composition effect. Robust finding unsupported."
+    },
+    {
+      "id": "direction-density-crps-v1",
+      "title": "Direction-model Gaussian CRPS vs random walk",
+      "lab": "bfi-finance-lab",
+      "prUrl": "https://github.com/brendanbowers1-bit/bfi-finance-lab/pull/10",
+      "prLabel": "bfi-finance-lab#10",
+      "displayStatus": "FALSIFIED",
+      "labVerdict": "FALSIFIED",
+      "hypothesis": "A Gaussian density around a carry, momentum, regime, reversal, or turn-of-month point forecast has strictly lower mean CRPS than a random-walk density on six ECB euro pairs, development origins 1-108. Origin 109 stays frozen.",
+      "holdout": "Development origins 1–108; origin 109 frozen. Source: ECB statistics.",
+      "n": 40824,
+      "nTarget": null,
+      "registrationHash": "sha256:bc4f4a8cf19a814f0492f98c75f270037a94e5df039364002adf48257845130b",
+      "metrics": [
+        {
+          "label": "Effect",
+          "value": "0.00296012",
+          "detail": "crps"
+        },
+        {
+          "label": "n",
+          "value": "40,824",
+          "detail": "Source: ECB statistics"
+        },
+        {
+          "label": "Registration",
+          "value": "pre_registered",
+          "detail": "sha256:bc4f4a8cf19a…"
+        }
+      ],
+      "verdict": "FALSIFIED. Not a trading edge.",
+      "note": ""
+    },
+    {
+      "id": "fx-var-es-1d-v1",
+      "title": "1-day 99%/97.5% VaR and ES backtests",
+      "lab": "bfi-finance-lab",
+      "prUrl": null,
+      "prLabel": null,
+      "displayStatus": "FALSIFIED",
+      "labVerdict": "FALSIFIED",
+      "hypothesis": "At least one of EWMA, HAR-RV, or GARCH(1,1) 1-day Gaussian VaR/ES is statistically adequate at both 99% and 97.5% on all six ECB euro pairs under Kupiec unconditional coverage, Christoffersen conditional coverage, and Acerbi-Szekely Z2 (5%). Origin 109 stays frozen.",
+      "holdout": "Development origins 1–108; origin 109 frozen. Source: ECB statistics.",
+      "n": 40824,
+      "nTarget": null,
+      "registrationHash": "sha256:3f13315dda68ad91932b20ad31f6037fb187ba024c403c25bb98c742e13ae536",
+      "metrics": [
+        {
+          "label": "Effect",
+          "value": "false",
+          "detail": "any_model_statistically_adequate"
+        },
+        {
+          "label": "n",
+          "value": "40,824",
+          "detail": "Source: ECB statistics"
+        },
+        {
+          "label": "Registration",
+          "value": "pre_registered",
+          "detail": "sha256:3f13315dda68…"
+        }
+      ],
+      "verdict": "FALSIFIED. EWMA 0/6 pairs at both levels. GARCH 1/6 at 99% and 2/6 at 97.5%. HAR-RV 4/6 at 99% and 2/6 at 97.5%. No model is adequate on all pairs at both levels. Not a trading edge.",
+      "note": "EWMA 0/6 pairs at both levels. GARCH 1/6 at 99% and 2/6 at 97.5%. HAR-RV 4/6 at 99% and 2/6 at 97.5%. No model is adequate on all pairs at both levels."
+    },
+    {
+      "id": "fx-rv-horizon-5-22-v1",
+      "title": "Weekly and monthly RV: does EWMA MCS inclusion hold?",
+      "lab": "bfi-finance-lab",
+      "prUrl": null,
+      "prLabel": null,
+      "displayStatus": "PASS",
+      "labVerdict": "PASS",
+      "hypothesis": "The 1-day pair-count QLIKE MCS inclusion of EWMA holds at weekly (5-day) and monthly (22-day) average realized-variance horizons on six ECB euro pairs, development origins 1-108. HAR is refit on the h-day target. GARCH uses iterated h-step mean variance. Origin 109 stays frozen.",
+      "holdout": "Development origins 1–108; origin 109 frozen. Source: ECB statistics.",
+      "n": 40800,
+      "nTarget": null,
+      "registrationHash": "sha256:e25f004cf2968880b04c5548b906dba67d64c30b6e450d526c1c334b1d1eadfb",
+      "metrics": [
+        {
+          "label": "Effect",
+          "value": "true",
+          "detail": "ewma_in_pair_count_mcs_both_horizons"
+        },
+        {
+          "label": "n",
+          "value": "40,800",
+          "detail": "Source: ECB statistics"
+        },
+        {
+          "label": "Registration",
+          "value": "pre_registered",
+          "detail": "sha256:e25f004cf296…"
+        }
+      ],
+      "verdict": "PASS of pre-registered MCS-inclusion gates only. Pre-registered MCS-inclusion gates pass. Exclusive 1-day MCS (EWMA only) does not hold at 22 days because HAR joins. Pooled QLIKE remains a EURCHF composition effect. Evidence advancement denied. Evidence advancement denied. Not a trading edge.",
+      "note": "Pre-registered MCS-inclusion gates pass. Exclusive 1-day MCS (EWMA only) does not hold at 22 days because HAR joins. Pooled QLIKE remains a EURCHF composition effect. Evidence advancement denied."
+    }
+  ]
+}
