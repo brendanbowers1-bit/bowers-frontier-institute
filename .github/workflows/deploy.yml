@@ -50,6 +50,12 @@ jobs:
       - name: Accessibility source check
         run: npm run check:a11y
 
+      - name: Security headers
+        run: npm run check:headers
+
+      - name: Research registry schema
+        run: npm run check:research-registry
+
       - name: Score dashboard quality
         run: npm run quality:dashboard
 

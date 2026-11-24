@@ -105,8 +105,16 @@ try {
   }
 
   const hypotheses = JSON.parse(await fetchText(origin, `${basePath}/research/hypotheses.json`));
-  if (hypotheses.hypotheses?.length < 4) {
-    throw new Error("Published hypotheses.json is missing holdout records.");
+  if (hypotheses.noLiveFetchAtRuntime !== true || hypotheses.hypotheses?.length !== 6) {
+    throw new Error("Published hypotheses.json must be a pinned 6-hypothesis registry.");
+  }
+  const maker = hypotheses.hypotheses.find((item) => item.id === "kalshi-maker-spread");
+  if (!maker?.metrics?.[0]?.value?.includes("−111") || maker.n !== 327) {
+    throw new Error("Published hypotheses.json is missing the Kalshi maker −111 bps / n=327 holdout.");
+  }
+  const fxRv = hypotheses.hypotheses.find((item) => item.id === "fx-realized-vol");
+  if (!/No robust winner/i.test(fxRv?.verdict ?? "")) {
+    throw new Error("Published hypotheses.json is missing the FX realized-vol no-robust-winner verdict.");
   }
   const fade = hypotheses.hypotheses.find((item) => item.id === "fade-the-favorite");
   if (!fade?.metrics?.[0]?.value?.includes("−706")) {

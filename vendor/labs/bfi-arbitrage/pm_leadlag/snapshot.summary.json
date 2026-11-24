@@ -1,0 +1,25 @@
+{
+  "paper_only": true,
+  "live_orders": false,
+  "spec_hash": "dab68591ce85a140e6bd4ef0266a9015c039a706e843fc475934a48cb4f26275",
+  "spec_path": "pm_leadlag/frozen_spec.json",
+  "experiment_id": "pm-spot-leadlag-btc15m-v1",
+  "n_holdout": 1057,
+  "holdout": {
+    "holdout_n": 1057,
+    "holdout_mean_net_bps": -20.01,
+    "holdout_mean_net_bps_ci_low": -20.88,
+    "holdout_mean_net_bps_ci_high": -19.16,
+    "holdout_gross_mean_bps": -0.01
+  },
+  "verdict": {
+    "pass": false,
+    "status": "falsified"
+  },
+  "source": {
+    "repo": "brendanbowers1-bit/bfi-arbitrage",
+    "sha": "fb287bc0e11bda904c5484c8ca66c3af05dd8356",
+    "path": "reports/pm_leadlag/snapshot.json",
+    "prUrl": "https://github.com/brendanbowers1-bit/bfi-arbitrage/pull/13"
+  }
+}

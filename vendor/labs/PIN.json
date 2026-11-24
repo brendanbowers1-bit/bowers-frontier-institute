@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0.0",
+  "paperResearchOnly": true,
+  "noLiveFetchAtRuntime": true,
+  "noTradeExecution": true,
+  "noLiveOrders": true,
+  "noRealFunds": true,
+  "noExchangeApiKeys": true,
+  "noTradingSignals": true,
+  "pinnedAt": "2026-11-24T21:13:43Z",
+  "sources": [
+    {
+      "lab": "bfi-arbitrage",
+      "repo": "brendanbowers1-bit/bfi-arbitrage",
+      "sha": "fb287bc0e11bda904c5484c8ca66c3af05dd8356",
+      "prUrl": "https://github.com/brendanbowers1-bit/bfi-arbitrage/pull/16",
+      "files": [
+        "pm_calib/frozen_spec.json",
+        "pm_leadlag/frozen_spec.json",
+        "pm_maker/frozen_spec.json",
+        "pm_calib/snapshot.summary.json",
+        "pm_leadlag/snapshot.summary.json",
+        "pm_maker/snapshot.summary.json"
+      ]
+    },
+    {
+      "lab": "bfi-finance-lab",
+      "repo": "brendanbowers1-bit/bfi-finance-lab",
+      "sha": "20887555116efb46629e0859e4d66e6e42e69a0f",
+      "prUrl": "https://github.com/brendanbowers1-bit/bfi-finance-lab/pull/10",
+      "files": [
+        "fx_reversal_calendar_wf.json",
+        "fx_realized_vol_wf.json"
+      ]
+    },
+    {
+      "lab": "bowers-frontier-institute",
+      "repo": "brendanbowers1-bit/bowers-frontier-institute",
+      "sha": "5cacb03f6765ba37c13c92d37665e05308cf6cb4",
+      "prUrl": "https://github.com/brendanbowers1-bit/bowers-frontier-institute/pull/6",
+      "files": [
+        "ecb_usd_major_walk_forward.json"
+      ]
+    }
+  ]
+}

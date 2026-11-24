@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { Download, Share, Smartphone, X } from "lucide-react";
+import { useLocale } from "../i18n/LocaleContext.jsx";
 
 const STORAGE_KEY = "br3n-pwa-install-dismissed";
 
 export function PwaInstallPrompt() {
+  const { t } = useLocale();
   const [installEvent, setInstallEvent] = useState(null);
   const [dismissed, setDismissed] = useState(() => window.localStorage.getItem(STORAGE_KEY) === "true");
   const [installed, setInstalled] = useState(() => window.matchMedia?.("(display-mode: standalone)").matches ?? false);
@@ -43,30 +45,30 @@ export function PwaInstallPrompt() {
   };
 
   return (
-    <aside className="br3n-install-prompt" aria-label="Install app prompt">
+    <aside className="br3n-install-prompt" aria-label={t("pwa.aria", "Install app prompt")}>
       <div>
         <Smartphone size={17} />
-        <span>Install BR3N Collars</span>
-        <strong>Add BR3N Collars to your home screen.</strong>
+        <span>{t("pwa.title", "Install BR3N Collars")}</span>
+        <strong>{t("pwa.lead", "Add BR3N Collars to your home screen.")}</strong>
         <p>
           {isiOS
-            ? "On iPhone, tap Share, then Add to Home Screen for a standalone app experience."
-            : "Install the app for a full-screen dashboard, fast reloads, and offline shell support."}
+            ? t("pwa.ios", "On iPhone, tap Share, then Add to Home Screen for a standalone app experience.")
+            : t("pwa.android", "Install the app for a full-screen dashboard, fast reloads, and offline shell support.")}
         </p>
       </div>
       <div className="br3n-install-actions">
         {installEvent ? (
           <button onClick={install} type="button">
             <Download size={14} />
-            Install
+            {t("pwa.install", "Install")}
           </button>
         ) : (
           <span>
             <Share size={14} />
-            Share → Add to Home Screen
+            {t("pwa.shareHint", "Share → Add to Home Screen")}
           </span>
         )}
-        <button aria-label="Dismiss install prompt" onClick={dismiss} type="button">
+        <button aria-label={t("pwa.dismiss", "Dismiss install prompt")} onClick={dismiss} type="button">
           <X size={14} />
         </button>
       </div>

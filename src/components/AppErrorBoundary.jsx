@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { appVersion, runtimeLog } from "../lib/runtimeLog.js";
+import { useLocale } from "../i18n/LocaleContext.jsx";
 
 export class AppErrorBoundary extends Component {
   state = { hasError: false };
@@ -14,23 +15,24 @@ export class AppErrorBoundary extends Component {
 
   render() {
     if (this.state.hasError) {
-      return (
-        <div className="br3n-loader" role="alert">
-          <div className="br3n-loader-card">
-            <p>Dashboard unavailable. Refresh to retry.</p>
-            <p>Research only. Nothing here executes trades.</p>
-            <button
-              className="br3n-error-retry"
-              onClick={() => this.setState({ hasError: false })}
-              type="button"
-            >
-              Retry
-            </button>
-          </div>
-        </div>
-      );
+      return <ErrorFallback onRetry={() => this.setState({ hasError: false })} />;
     }
 
     return this.props.children;
   }
+}
+
+function ErrorFallback({ onRetry }) {
+  const { t } = useLocale();
+  return (
+    <div className="br3n-loader" role="alert">
+      <div className="br3n-loader-card">
+        <p>{t("error.title", "Dashboard unavailable. Refresh to retry.")}</p>
+        <p>{t("error.researchOnly", "Research only. Nothing here executes trades.")}</p>
+        <button className="br3n-error-retry" onClick={onRetry} type="button">
+          {t("error.retry", "Retry")}
+        </button>
+      </div>
+    </div>
+  );
 }

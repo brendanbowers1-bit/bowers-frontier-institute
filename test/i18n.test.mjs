@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 import {
   catalogs,
@@ -8,6 +9,8 @@ import {
   SUPPORTED_LOCALES,
   translate,
 } from "../src/i18n/messages.js";
+import en from "../src/i18n/en.json" with { type: "json" };
+import pt from "../src/i18n/pt-PT.json" with { type: "json" };
 
 test("pt-PT catalog has every English string", () => {
   const { missingInTarget, extraInTarget, empty } = missingMessageKeys();
@@ -25,6 +28,12 @@ test("supported locales include English and European Portuguese", () => {
 test("translate falls back when a key is missing", () => {
   assert.equal(translate(catalogs.en, "does.not.exist", "fallback"), "fallback");
   assert.equal(translate(catalogs.en, "nav.research"), "Research");
+});
+
+test("static trades page strings stay in sync with catalogs", () => {
+  const page = JSON.parse(readFileSync("public/i18n/page-strings.json", "utf8"));
+  assert.deepEqual(page.en.trades, en.trades);
+  assert.deepEqual(page["pt-PT"].trades, pt.trades);
 });
 
 test("research path detection covers Pages and preview URLs", () => {

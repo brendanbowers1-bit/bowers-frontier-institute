@@ -30,6 +30,8 @@ jobs:
       - run: npm run check:collars
       - run: npm run check:pwa
       - run: npm run check:a11y
+      - run: npm run check:headers
+      - run: npm run check:research-registry
       - run: npm run quality:dashboard
       - run: npm run build
       - run: npm run build:pages

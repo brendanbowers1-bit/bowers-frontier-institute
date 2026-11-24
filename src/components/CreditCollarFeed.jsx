@@ -17,17 +17,19 @@ import {
   optimizeCreditCollars,
 } from "../data/creditCollars";
 import { fetchLiveCreditCollars } from "../lib/creditCollarFeedClient";
+import { useLocale } from "../i18n/LocaleContext.jsx";
 
 const WATCHLIST_KEY = "br3n-collar-watchlist";
 const ALERTS_KEY = "br3n-collar-alerts";
 const ALERT_THRESHOLD_KEY = "br3n-collar-alert-threshold";
 
 export function CreditCollarFeed() {
+  const { t } = useLocale();
   const [profileId, setProfileId] = useState("balanced");
   const [universe, setUniverse] = useState("All");
   const [feedCandidates, setFeedCandidates] = useState(creditCollarCandidates);
   const [feedMeta, setFeedMeta] = useState(collarFeedMeta);
-  const [feedStatus, setFeedStatus] = useState("Snapshot fallback");
+  const [feedStatus, setFeedStatus] = useState("snapshot");
   const [feedNotice, setFeedNotice] = useState("");
   const [refreshing, setRefreshing] = useState(false);
   const [watchlist, setWatchlist] = useState(() => readStoredArray(WATCHLIST_KEY));
@@ -47,11 +49,11 @@ export function CreditCollarFeed() {
         asOf: formatTimestamp(payload.asOf),
         source: payload.source ?? collarFeedMeta.source,
       });
-      setFeedStatus(payload.degraded ? "Live partial" : "Live feed");
-      setFeedNotice(payload.degraded ? "Live feed is partial — showing verified snapshot coverage where needed." : "");
+      setFeedStatus(payload.degraded ? "partial" : "live");
+      setFeedNotice(payload.degraded ? "partial" : "");
     } catch {
-      setFeedStatus("Snapshot fallback");
-      setFeedNotice("Live feed unavailable — showing the verified snapshot fallback.");
+      setFeedStatus("snapshot");
+      setFeedNotice("unavailable");
     } finally {
       setRefreshing(false);
     }
@@ -128,20 +130,22 @@ export function CreditCollarFeed() {
       <div className="br3n-collar-terminal">
         <div className="br3n-collar-hero">
           <div>
-            <p className="br3n-kicker">Credit collar optimizer</p>
-            <h2>Mobile feed for positive-credit downside hedges.</h2>
+            <p className="br3n-kicker">{t("collars.kicker", "Credit collar optimizer")}</p>
+            <h2>{t("collars.title", "Mobile feed for positive-credit downside hedges.")}</h2>
             <p>
-              Ranks collars by received credit, protected floor, liquidity, and upside room. Built for
-              owned-stock or ETF hedging research, not uncovered call selling.
+              {t(
+                "collars.copy",
+                "Ranks collars by received credit, protected floor, liquidity, and upside room. Built for owned-stock or ETF hedging research, not uncovered call selling.",
+              )}
             </p>
           </div>
           <div aria-label="Feed status" aria-live="polite" className="br3n-collar-status">
             <span>
               <Radio size={14} />
-              {feedStatus}
+              {statusLabel(feedStatus, t)}
             </span>
             <strong>{rankedCollars.length}</strong>
-            <small>qualified structures</small>
+            <small>{t("collars.qualified", "qualified structures")}</small>
           </div>
         </div>
 
@@ -179,14 +183,14 @@ export function CreditCollarFeed() {
         <div className="br3n-collar-automation">
           <button disabled={refreshing} onClick={() => refreshFeed()} type="button">
             <RefreshCw className={refreshing ? "is-spinning" : ""} size={14} />
-            {refreshing ? "Refreshing" : "Refresh live feed"}
+            {refreshing ? t("collars.refreshing", "Refreshing") : t("collars.refresh", "Refresh live feed")}
           </button>
           <button className={alertsEnabled ? "is-active" : ""} onClick={toggleAlerts} type="button">
             <Bell size={14} />
-            {alertsEnabled ? "Alerts on" : "Enable alerts"}
+            {alertsEnabled ? t("collars.alertsOn", "Alerts on") : t("collars.enableAlerts", "Enable alerts")}
           </button>
           <label>
-            Alert score
+            {t("collars.alertScore", "Alert score")}
             <input
               aria-valuemax="95"
               aria-valuemin="70"
@@ -202,7 +206,7 @@ export function CreditCollarFeed() {
           </label>
         </div>
 
-        {feedNotice ? <div className="br3n-collar-feed-note">{feedNotice}</div> : null}
+        {feedNotice ? <div className="br3n-collar-feed-note">{noticeLabel(feedNotice, t)}</div> : null}
 
         {primary ? (
           <PrimaryCollarCard
@@ -239,7 +243,7 @@ export function CreditCollarFeed() {
 
         <div className="br3n-collar-disclaimer">
           <ShieldCheck size={15} />
-          <p>{collarFeedMeta.disclaimer}</p>
+          <p>{t("collars.disclaimer", collarFeedMeta.disclaimer)}</p>
         </div>
       </div>
     </>
@@ -275,8 +279,7 @@ function PrimaryCollarCard({ collar, isWatched, onToggleWatchlist }) {
         </div>
 
         <div className="br3n-collar-legs">
-          <LegCard label="Buy put" strike={collar.putStrike} value={collar.putAsk} />
-          <LegCard label="Sell call" strike={collar.callStrike} value={collar.callBid} />
+          <TranslatedLegs collar={collar} />
           <LegCard accent label="Net credit" strike={collar.netCredit} value={collar.netCreditPct} />
         </div>
 
@@ -349,12 +352,41 @@ function RiskStat({ icon: Icon, label, sub, value }) {
 }
 
 function EmptyCollarState() {
+  const { t } = useLocale();
   return (
     <div className="br3n-collar-empty">
-      No positive-credit structures passed the current filter. Widen the universe or select a different
-      optimization profile.
+      {t(
+        "collars.empty",
+        "No positive-credit structures passed the current filter. Widen the universe or select a different optimization profile.",
+      )}
     </div>
   );
+}
+
+function TranslatedLegs({ collar }) {
+  const { t } = useLocale();
+  return (
+    <>
+      <LegCard label={t("collars.buyPut", "Buy put")} strike={collar.putStrike} value={collar.putAsk} />
+      <LegCard label={t("collars.sellCall", "Sell call")} strike={collar.callStrike} value={collar.callBid} />
+    </>
+  );
+}
+
+function statusLabel(status, t) {
+  if (status === "live") return t("collars.statusLive", "Live feed");
+  if (status === "partial") return t("collars.statusPartial", "Live partial");
+  return t("collars.statusSnapshot", "Snapshot fallback");
+}
+
+function noticeLabel(notice, t) {
+  if (notice === "partial") {
+    return t("collars.noticePartial", "Live feed is partial — showing verified snapshot coverage where needed.");
+  }
+  if (notice === "unavailable") {
+    return t("collars.noticeUnavailable", "Live feed unavailable — showing the verified snapshot fallback.");
+  }
+  return notice;
 }
 
 function formatCurrency(value) {

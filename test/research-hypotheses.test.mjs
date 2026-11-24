@@ -12,7 +12,21 @@ test("research JSON is paper-only with no live trading surface", () => {
 });
 
 test("falsified holdout verdicts stay published with source PRs", () => {
+  assert.equal(hypotheses.noLiveFetchAtRuntime, true);
+  assert.equal(hypotheses.hypotheses.length, 6);
   const byId = Object.fromEntries(hypotheses.hypotheses.map((item) => [item.id, item]));
+
+  const maker = byId["kalshi-maker-spread"];
+  assert.equal(maker.status, "falsified");
+  assert.equal(maker.n, 327);
+  assert.match(maker.metrics[0].value, /−111 bps/);
+  assert.equal(maker.prUrl, "https://github.com/brendanbowers1-bit/bfi-arbitrage/pull/16");
+
+  const fxRv = byId["fx-realized-vol"];
+  assert.equal(fxRv.status, "falsified");
+  assert.equal(fxRv.n, 40824);
+  assert.match(fxRv.verdict, /No robust winner/i);
+  assert.equal(fxRv.prUrl, "https://github.com/brendanbowers1-bit/bfi-finance-lab/pull/10");
 
   const fade = byId["fade-the-favorite"];
   assert.equal(fade.status, "falsified");

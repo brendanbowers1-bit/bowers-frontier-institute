@@ -72,6 +72,14 @@ system.
 - European Portuguese (`pt-PT`) is a first-class locale for dashboard and
   research chrome. A unit test fails if any English key is missing in `pt-PT`.
 - `npm run check:links` fails CI on broken local or source-PR URLs.
+- `/research.html` is built from pinned vendored registry JSON in
+  `vendor/labs/` (arb + finance lab SHAs in `PIN.json`). No live fetch at
+  runtime. `npm run check:research-registry` schema-validates and diffs the
+  generated `data/research/hypotheses.json`.
+- Vercel and Netlify send CSP, HSTS, Referrer-Policy, and Permissions-Policy.
+  `npm run check:headers` and a unit test lock the values.
+- Playwright visual snapshots cover dashboard, research, and trades at desktop
+  (1280×800) and mobile (390×844) with an 8% flake-safe pixel threshold.
 
 ## Research / paper-only code
 
@@ -100,8 +108,8 @@ operator/product decisions that sit outside the engineering rubric:
    repo and whether the two-file brand board should keep publishing through
    GitHub Pages.
 
-Merge order: **#6 → #25 → #28 → this PR**. Then #11 / #16 / #19. Merging the
-stack is what turns `main` CI green; it is not a missing workflow.
+Merge order: **#6 → #25 → #28 → #29 → this PR**. Then #11 / #16 / #19. Merging
+the stack is what turns `main` CI green; it is not a missing workflow.
 
 ## Checks that must stay green
 
@@ -110,6 +118,8 @@ npm test
 npm run test:e2e
 npm run check:a11y
 npm run check:links
+npm run check:headers
+npm run check:research-registry
 npm run check:lighthouse
 npm run check:deploy
 npm run check:production
