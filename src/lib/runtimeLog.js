@@ -1,10 +1,12 @@
+import { reportError } from "./errorTracker.js";
+
 const SERVICE = "br3n-web";
 
-export function createRuntimeLog({ sink = console, service = SERVICE } = {}) {
+export function createRuntimeLog({ sink = console, service = SERVICE, report = reportError } = {}) {
   const emit = (level, event, error, extra = {}) => {
     const payload = {
       level,
-      service,
+      service: extra.service ?? service,
       event,
       message: error instanceof Error ? error.message : String(error ?? event),
       researchOnly: true,
@@ -17,9 +19,14 @@ export function createRuntimeLog({ sink = console, service = SERVICE } = {}) {
     const line = JSON.stringify(payload);
     if (level === "error" && typeof sink.error === "function") {
       sink.error(line);
-      return;
+    } else {
+      sink.log?.(line);
     }
-    sink.log?.(line);
+    if (level === "error") {
+      Promise.resolve(report?.(event, error, extra)).catch(() => {
+        // Tracking is best-effort and must never break the dashboard.
+      });
+    }
   };
 
   return {

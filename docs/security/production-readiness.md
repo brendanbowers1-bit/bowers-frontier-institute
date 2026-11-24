@@ -1,16 +1,17 @@
 # Production readiness
 
-Date: 2026-11-10
+Date: 2026-11-24
 
-## Honest score (2026-11-10)
+## Honest score (2026-11-24)
 
 - Earlier local `deployment-readiness` 100/100 was a Python packaging checklist,
   not production readiness for the site.
-- Honest before this pass: **70/100**.
-- Honest after this pass: **90/100** (`npm run check:production`).
-- Remaining deductions: no APM on GitHub Pages, no browser e2e, moderate
-  eslint/shadcn tooling advisories, main does not run this CI until merge,
-  no Lighthouse CI / self-hosted fonts.
+- Honest before the 90% pass: **70/100**.
+- After PR #6 gates: **90/100**.
+- After Playwright, Lighthouse CI, safe audit override, and DSN-gated tracker:
+  **96/100**.
+- Remaining deductions: `main` CI only after #6 merges; no provider DSN yet;
+  Google Fonts still third-party; no React component renderer suite.
 
 ## Current deployment status
 
@@ -79,18 +80,20 @@ npm audit --omit=dev
 # 0 vulnerabilities in production dependencies
 
 npm audit --audit-level=high
-# 0 high/critical; moderate/low remain in eslint/shadcn tooling
+# 0 high/critical
+
+npm audit
+# 0 after a safe `minimatch` 11.0.9 override; do not force-downgrade shadcn
 ```
 
-The previous claim that the full tree had zero remaining vulnerabilities was
-incorrect. Production (`--omit=dev`) is the runtime bar for GitHub Pages.
+Production (`--omit=dev`) remains the runtime bar for GitHub Pages. The
+`minimatch` override remediates the remaining shadcn CLI glob advisory without
+`npm audit fix --force`.
 
 ## Vulnerabilities remaining
 
-Moderate and low npm advisories remain in development tooling (`eslint`,
-`shadcn` / `@shadcn/registry`, `minimatch`, `deepmerge`). Those packages are
-not imported by the deployed React app. They are accepted for this pass rather
-than force-upgrading the lint toolchain.
+None in the current `npm audit` tree after the minimatch override. Direct
+packages may still have newer non-security releases.
 
 Some direct dependencies still have newer non-security releases available. They
 are intentionally unresolved in this pass because they are not required for the
@@ -99,8 +102,8 @@ upgrade.
 
 ## Security hardening review
 
-- Secrets: no committed real `.env` file was found. The only `.env` file is
-  `currency-hedge-llm/.env.example`, which contains placeholder values.
+- Secrets: no committed real `.env` file was found. Tracked examples are
+  `.env.example` and `currency-hedge-llm/.env.example` (placeholders only).
 - HTML injection: no `dangerouslySetInnerHTML`, `innerHTML`, or dynamic script
   injection usage was found in the React app.
 - Client storage: `localStorage` is used for non-sensitive UI preferences only
@@ -128,8 +131,10 @@ These checks are part of the hardening validation set:
 
 ```bash
 npm test
+npm run test:e2e
 npm run lint
 npm run check:a11y
+npm run check:lighthouse
 npm run check:trade
 npm run check:collars
 npm run check:pwa
@@ -154,8 +159,8 @@ before parsing.
 
 - Merge this PR so `main` actually runs the unified PR/main CI workflow. Until
   then, main only has Pages deploy + path-filtered package CI.
-- Attach a hosted error tracker / APM if dashboard failures should be paged.
-  GitHub Pages has no server process; `health.json` is static.
+- Set `VITE_ERROR_TRACKER_DSN` / `ERROR_TRACKER_DSN` to an HTTPS ingest URL
+  when a provider is chosen. The hook is a no-op until then.
 - Review the live site visually on target mobile devices, especially iPhone
   Safari PWA install behavior.
 - Decide whether to self-host current Google Font faces to reduce third-party

@@ -38,18 +38,22 @@ system.
 ## Security and configuration
 
 - Runtime secrets must live in host environment variables, never in git.
-- The only tracked env file is `currency-hedge-llm/.env.example` (placeholders).
+- Tracked env files are placeholders only (`.env.example` and
+  `currency-hedge-llm/.env.example`).
 - Production npm audit (`npm audit --omit=dev`) is the runtime bar.
-- Remaining moderate/low npm findings live in eslint/shadcn tooling and are not
-  bundled into the Pages app. Do not describe the full tree as zero vulns.
+- `minimatch` is overridden to `11.0.9` so the shadcn CLI tree does not keep the
+  glob DoS advisory. Do not `npm audit fix --force`; that would downgrade
+  `shadcn` to 1.0.0.
 
 ## Observability
 
 - Client and serverless errors emit one-line JSON logs (`level`, `event`,
   `message`, `researchOnly`).
 - `health.json` is a static liveness document in the Pages artifact.
-- There is no hosted APM, uptime probe, or error tracker until Brendan attaches
-  one. GitHub Pages has no server process to scrape.
+- Client and serverless errors also call an env-flagged error-tracker hook.
+  With no `VITE_ERROR_TRACKER_DSN` / `ERROR_TRACKER_DSN`, the hook is a no-op.
+  Set those to an HTTPS ingest URL when Brendan picks a provider. Never commit a
+  live DSN. GitHub Pages still has no server process to scrape.
 
 ## Accessibility and performance
 
@@ -58,7 +62,8 @@ system.
 - Bundle size is gated after `build` / `build:pages`.
 - Google Fonts remain a third-party stylesheet. Self-hosting is a Brendan
   decision.
-- There is no Lighthouse CI budget.
+- Lighthouse CI asserts desktop performance (>= 0.70) and accessibility (>= 0.90)
+  against the production `dist/` after `npm run build`.
 
 ## Research / paper-only code
 
@@ -71,7 +76,9 @@ skill. Do not present those numbers as a production trading edge.
 
 ```bash
 npm test
+npm run test:e2e
 npm run check:a11y
+npm run check:lighthouse
 npm run check:deploy
 npm run check:production
 ```
