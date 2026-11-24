@@ -33,3 +33,4 @@ jobs:
           python research/scripts/verify_595.py
           python research/scripts/verify_596_pointcount.py
           python research/scripts/verify_597_weil.py
+          python research/scripts/verify_598_weil.py
