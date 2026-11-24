@@ -16,20 +16,23 @@ Nothing in this laboratory is a proof of the unrestricted statement.
 - The flop graph of the base-changed \(A_1\) singularity specializes to a
   reflection and is not a Čech transition isomorphism.
 
-## Computed in iteration 596, not a Picard-rank theorem
+## Corrected in iteration 597
 
-The resolved model of the specialization \(S_3\) was counted over
-\(\mathbb F_{7^k}\) through \(k=7\). The exceptional-point corrections agree
-with blow-ups at nine good primes. Subtracting the rank-10 Néron–Severi module
-read off from the component orbits does not leave a weight-2 Weil polynomial,
-and no integer algebraic trace of corank \(2\) through \(12\) does either.
-Details and the trace table are in `research/audits/iteration_596.md`.
+The count \(\#X(\mathbb F_{7^4})=5796137\) in iteration 596 is 24 too large.
+The corrected value is \(5796113\). The quotient of \(H^2\) by the rank-10
+trivial lattice then has a unique weight-2 Weil polynomial,
+\[
+(T^2+49)^2(T^8-154T^6+10633T^4-369754T^2+5764801).
+\]
+Together with the trivial lattice, exactly 14 Frobenius eigenvalues are \(7\)
+times a root of unity. The geometric Picard number of the reduction of \(S_3\)
+at \(p=7\) is 14, so the geometric Picard number over \(\mathbb C\) lies
+between 10 and 14. Details are in `research/audits/iteration_597.md`.
 
 ## Open, in the order that blocks further claims
 
-1. Explain the Weil obstruction, or replace the trace sequence by one that
-   comes from a K3 Frobenius. Until that happens, the point counts do not
-   prove that the Mordell–Weil rank is zero.
+1. Decide which integer from 10 through 14 is the geometric Picard number of
+   \(S_3\) over \(\mathbb C\). The reduction at 7 only supplies the upper bound.
 2. Determine the minimal polynomial of the correspondence on the full
    transcendental lattice and check the Rosati adjoint.
 3. Only after those two, compare the resulting Hodge classes with any

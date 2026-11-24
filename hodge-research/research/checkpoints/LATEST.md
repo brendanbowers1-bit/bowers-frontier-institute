@@ -1,6 +1,6 @@
-# Checkpoint 596
+# Checkpoint 597
 
-Date: 17 November 2026 (America/Denver).
+Date: 24 November 2026 (America/Denver).
 
 ## Proved, and still in force from iteration 595
 
@@ -11,22 +11,25 @@ Date: 17 November 2026 (America/Denver).
   not proved.
 - Theorem C. The flop graph is not a Čech transition isomorphism.
 
-## New computation
+## Corrected computation
 
-The resolved model of \(S_3\) was counted over \(\mathbb F_{7^k}\) for
-\(k\le 7\) and over \(\mathbb F_{17^k}\) for \(k\le 5\). Blow-ups at nine good
-primes reproduce the Kodaira exceptional-point formulas. At \(p=7\) the
-complement of the predicted rank-10 Néron–Severi module is not a Weil
-polynomial: its degree-6 polynomial in \(\lambda^2\) has real roots in
-\((-51,-50)\) and \((-48,-47)\). No integer algebraic trace of corank
-\(2,4,6,8,10,12\) repairs this. The count therefore does not prove that the
-geometric Picard number is 10.
+The resolved count of \(S_3\) over \(\mathbb F_{7^4}\) is \(5796113\), not the
+\(5796137\) recorded in checkpoint 596. The other counts through \(k=7\) stand.
+The quotient by the rank-10 trivial lattice has characteristic polynomial
+\[
+(T^2+49)^2(T^8-154T^6+10633T^4-369754T^2+5764801).
+\]
+An independent count over \(\mathbb F_{7^8}\) matches this polynomial. Exactly
+14 of the 22 Frobenius eigenvalues are \(7\) times a root of unity, so the
+geometric Picard number of the reduction at \(p=7\) is 14. Over \(\mathbb C\)
+the geometric Picard number of \(S_3\) is between 10 and 14.
 
 ## Verifiers
 
 ```text
 python3 research/scripts/verify_595.py
 python3 research/scripts/verify_596_pointcount.py
+python3 research/scripts/verify_597_weil.py
 ```
 
 ## Conjecture

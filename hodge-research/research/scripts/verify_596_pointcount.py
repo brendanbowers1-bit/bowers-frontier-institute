@@ -3,10 +3,10 @@
 
 The affine counts are recomputed. Exceptional corrections at rational double
 points are checked against an independent blow-up on the prime fields where the
-Kodaira type is the characteristic-zero type. The resulting trace sequence at
-p=7, with the Néron-Severi module predicted by the component orbits, does not
-come from a weight-2 Weil polynomial of degree 12. That failure is an integer
-sign change, not a floating-point test.
+Kodaira type is the characteristic-zero type. The k=4 count used for the Weil test in the first draft of this file was 24
+too large. Iteration 597 recomputes it and shows that the corrected quotient
+is a Weil polynomial. This script still checks the blow-ups and the counts
+through F_{7^3}, which were not affected.
 
 This script does not claim that the Picard number is 10, and it does not claim
 the Hodge conjecture.
@@ -229,77 +229,29 @@ def check_counts() -> dict[int, int]:
             fail(f"F_7^{k} resolved count {resolved} != {expected_n[k]}")
         counts[k] = resolved
         print(f"F_7^{k}: affine {affine}, resolved {resolved}")
-    # Recomputed by the same fiber correction in PARI for k = 4..7.
-    recorded = {4: 5796137, 5: 282525671, 6: 13841691256, 7: 678225543479}
-    counts.update(recorded)
     return counts
 
 
-def check_weil_obstruction(counts: dict[int, int]) -> None:
-    """The predicted rank-10 Néron-Severi module does not leave a Weil quotient."""
+def check_odd_traces(counts: dict[int, int]) -> None:
+    """Odd traces through k=3 match the rank-10 lattice. The old degree-12 obstruction is withdrawn."""
     p = 7
-    # Component orbits over F_7: section and fiber, the central I_0* component,
-    # one trivial character on the 3-cycle of legs, and one +1 from each of the
-    # two I_2 swap-orbits: six eigenvalues +p. Two swap-orbits contribute two
-    # eigenvalues -p. The 3-cycle contributes p*zeta_3 and p*zeta_3^2.
+
     def delta(k: int) -> int:
         return 2 if k % 3 == 0 else -1
 
-    def alpha(k: int) -> int:
-        return 6 + 2 * ((-1) ** k) + delta(k)
-
-    traces = []
-    transcendental = []
     for k, npoints in counts.items():
         trace = npoints - 1 - p ** (2 * k)
-        predicted = alpha(k) * p**k
-        transcendental.append(trace - predicted)
-        traces.append(trace)
+        predicted = (6 + 2 * ((-1) ** k) + delta(k)) * p**k
         if k % 2 == 1 and trace != predicted:
             fail(f"odd trace at k={k} is {trace}, predicted Néron-Severi trace {predicted}")
-    # transcendental power sums: 0, 112, 0, 14528, 0, -772436, 0
-    if transcendental != [0, 112, 0, 14528, 0, -772436, 0]:
-        fail(f"unexpected transcendental power sums {transcendental}")
-    s2, s4, s6 = 112, 14528, -772436
-    # Newton identities for an even degree-12 polynomial.
-    e2 = -s2 // 2
-    e4 = -(s4 + e2 * s2) // 4
-    e6 = -(s6 + e2 * s4 + e4 * s2) // 6
-    if (e2, e4, e6) != (-56, -2064, 302862):
-        fail(f"Newton coefficients {(e2, e4, e6)}")
-    e8 = p**4 * e4
-    e10 = p**8 * e2
-    e12 = p**12
-
-    def psi(u: int) -> int:
-        return (
-            u**6
-            + e2 * u**5
-            + e4 * u**4
-            + e6 * u**3
-            + e8 * u**2
-            + e10 * u
-            + e12
-        )
-
-    # Real roots in (-51, -50) and (-48, -47). A root of absolute value p^2 = 49
-    # on the negative axis would be -49, and psi(-49) is not zero.
-    if psi(-49) == 0:
-        fail("psi(-49) vanished")
-    if not (psi(-51) > 0 > psi(-50) and psi(-48) < 0 < psi(-47)):
-        fail(
-            "expected sign changes proving real roots off the circle of radius 49: "
-            f"{[psi(u) for u in range(-51, -46)]}"
-        )
-    print("degree-12 quotient is not a Weil polynomial: real roots off radius 49")
-    print(f"traces k=1..7: {traces}")
+    print("odd traces through k=3 match the rank-10 lattice; the k=4 obstruction is withdrawn")
 
 
 def main() -> None:
     blowup = load_blowup()
     check_blowups(blowup)
     counts = check_counts()
-    check_weil_obstruction(counts)
+    check_odd_traces(counts)
     print("ALL_596_CHECKS_PASSED")
 
 
