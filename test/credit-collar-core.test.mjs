@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { enrichCreditCollar, optimizeCreditCollars } from "../src/data/creditCollars.js";
-import { normalizeSymbols } from "../server/creditCollarScanner.mjs";
+import { normalizeSymbols, scanCreditCollars } from "../server/creditCollarScanner.mjs";
 
 test("normalizeSymbols drops invalid tickers and de-duplicates", () => {
   assert.deepEqual(normalizeSymbols("qqq, SPY, bad ticker, NVDA, spy"), ["QQQ", "SPY", "NVDA"]);
@@ -44,4 +44,31 @@ test("enrichCreditCollar floors drawdown from put plus net credit", () => {
   assert.equal(enriched.netCredit, 0.8);
   assert.equal(enriched.floorValue, 90.8);
   assert.ok(enriched.floorDrawdownPct > 0);
+});
+
+test("scanCreditCollars degrades to the static snapshot when upstream fails", async () => {
+  const payload = await scanCreditCollars({
+    symbols: "QQQ,SPY",
+    fetchImpl: async () => {
+      throw new Error("network down");
+    },
+  });
+  assert.equal(payload.degraded, true);
+  assert.match(payload.source, /snapshot fallback/i);
+  assert.ok(payload.candidates.length >= 8);
+  assert.ok(payload.candidates.every((candidate) => candidate.netCredit > 0));
+});
+
+test("scanCreditCollars treats aborted fetches as timeouts and still falls back", async () => {
+  const payload = await scanCreditCollars({
+    symbols: ["NVDA"],
+    fetchImpl: async (_url, init) => {
+      const error = new Error("aborted");
+      error.name = "AbortError";
+      init?.signal?.throwIfAborted?.();
+      throw error;
+    },
+  });
+  assert.equal(payload.degraded, true);
+  assert.match(payload.source, /snapshot fallback/i);
 });

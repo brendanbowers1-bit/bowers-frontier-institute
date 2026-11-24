@@ -19,10 +19,17 @@ const SYMBOL_META = {
 };
 
 const OPTION_SYMBOL_PATTERN = /^(.+?)(\d{6})([CP])(\d{8})$/;
+export const CBOE_FETCH_TIMEOUT_MS = 8_000;
 
-export async function scanCreditCollars({ symbols = DEFAULT_SYMBOLS, maxPerSymbol = 2 } = {}) {
+export async function scanCreditCollars({
+  symbols = DEFAULT_SYMBOLS,
+  maxPerSymbol = 2,
+  fetchImpl = fetch,
+} = {}) {
   const requestedSymbols = normalizeSymbols(symbols).slice(0, 20);
-  const settled = await Promise.allSettled(requestedSymbols.map((symbol) => scanSymbol(symbol, maxPerSymbol)));
+  const settled = await Promise.allSettled(
+    requestedSymbols.map((symbol) => scanSymbol(symbol, maxPerSymbol, fetchImpl)),
+  );
   const candidates = settled.flatMap((result) => (result.status === "fulfilled" ? result.value : []));
 
   if (candidates.length === 0) {
@@ -53,10 +60,19 @@ export function normalizeSymbols(symbols) {
   return [...new Set(symbols.map(normalize).filter(isValidSymbol))];
 }
 
-async function scanSymbol(symbol, maxPerSymbol) {
-  const response = await fetch(`https://cdn.cboe.com/api/global/delayed_quotes/options/${symbol}.json`, {
-    headers: { "User-Agent": "BR3N-Credit-Collar-Research/1.0" },
-  });
+async function scanSymbol(symbol, maxPerSymbol, fetchImpl) {
+  let response;
+  try {
+    response = await fetchImpl(`https://cdn.cboe.com/api/global/delayed_quotes/options/${symbol}.json`, {
+      headers: { "User-Agent": "BR3N-Credit-Collar-Research/1.0" },
+      signal: AbortSignal.timeout(CBOE_FETCH_TIMEOUT_MS),
+    });
+  } catch (error) {
+    if (error?.name === "TimeoutError" || error?.name === "AbortError") {
+      throw new Error(`Cboe timed out for ${symbol}`);
+    }
+    throw error;
+  }
 
   if (!response.ok) {
     throw new Error(`Cboe returned ${response.status} for ${symbol}`);

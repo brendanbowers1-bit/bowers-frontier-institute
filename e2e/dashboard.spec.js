@@ -3,13 +3,14 @@ import { expect, test } from "@playwright/test";
 const sections = ["overview", "collars", "markets", "risk", "exposure", "signals"];
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/");
-  await expect(page.locator("#overview")).toBeVisible({ timeout: 15_000 });
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+  await expect(page.getByRole("heading", { name: /Macro command/i })).toBeVisible({
+    timeout: 15_000,
+  });
 });
 
 test("dashboard home loads with research-only disclosure", async ({ page }) => {
   await expect(page).toHaveTitle(/Bowers Frontier Institute/i);
-  await expect(page.getByRole("heading", { name: /Macro command/i })).toBeVisible();
   await expect(page.getByText("No execution surface · research only")).toBeVisible();
   await expect(page.getByText("Mock data · no live feeds")).toBeVisible();
 });
@@ -29,7 +30,7 @@ test("main dashboard sections are reachable", async ({ page }) => {
 });
 
 test("period filters update pressed state", async ({ page }) => {
-  const year = page.getByRole("button", { name: "1Y" });
+  const year = page.locator("#overview").getByRole("button", { name: "1Y", exact: true });
   await year.click();
   await expect(year).toHaveAttribute("aria-pressed", "true");
 });

@@ -72,6 +72,29 @@ paper/research. Direction accuracy near 50% and negative R² on the ECB
 walk-forward mean the current baseline does not show usable daily directional
 skill. Do not present those numbers as a production trading edge.
 
+## Remaining Brendan blockers
+
+These do **not** block merging #6, #25, and this stacked follow-up. They are
+operator/product decisions that sit outside the engineering rubric:
+
+1. **Error tracker DSN** — set `VITE_ERROR_TRACKER_DSN` (client) and
+   `ERROR_TRACKER_DSN` (server) to an HTTPS ingest URL when a provider is
+   chosen. Empty = no-op. Never commit a live DSN. This is the only remaining
+   production-readiness point (monitoring 9/10).
+2. **Self-host Google Fonts** — third-party `fonts.googleapis.com` /
+   `fonts.gstatic.com` stylesheets remain until Brendan decides to vendor the
+   faces. Lighthouse/a11y budgets already pass without that change.
+3. **Cboe / market-data license** — delayed Cboe snapshots are research-only.
+   Do not present live quotes as production-grade data until entitlement is
+   confirmed. Upstream failures already time out and fall back to the static
+   snapshot.
+4. **Brand files** — confirm whether `brand/logo` source stays in this public
+   repo and whether the two-file brand board should keep publishing through
+   GitHub Pages.
+
+Merge order: **#6 → #25 → this PR**. Then #11 / #16 / #19. Merging the stack is
+what turns `main` CI green; it is not a missing workflow.
+
 ## Checks that must stay green
 
 ```bash

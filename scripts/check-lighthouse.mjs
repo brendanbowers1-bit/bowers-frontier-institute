@@ -9,7 +9,13 @@ if (!existsSync("dist/index.html")) {
 const result = spawnSync(
   "npx",
   ["--no-install", "lhci", "autorun", "--config=lighthouserc.json"],
-  { stdio: "inherit", env: { ...process.env, CHROME_FLAGS: "--no-sandbox --headless=new" } },
+  {
+    stdio: "inherit",
+    env: {
+      ...process.env,
+      CHROME_FLAGS: "--no-sandbox --headless=new --disable-gpu --disable-dev-shm-usage",
+    },
+  },
 );
 
 if (result.status !== 0) {

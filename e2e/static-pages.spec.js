@@ -10,7 +10,7 @@ test("static health document is research-only", async ({ request }) => {
 });
 
 test("static trades board is research-only", async ({ page }) => {
-  await page.goto("/trades.html");
+  await page.goto("/trades.html", { waitUntil: "domcontentloaded" });
   await expect(page).toHaveTitle(/Credit Collar Trades/i);
   await expect(page.locator("body")).toContainText(/research/i);
 });
