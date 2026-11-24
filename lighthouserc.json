@@ -6,7 +6,9 @@
       "settings": {
         "preset": "desktop",
         "onlyCategories": ["performance", "accessibility"],
-        "skipAudits": ["bf-cache", "uses-http2"]
+        "skipAudits": ["bf-cache", "uses-http2"],
+        "chromeFlags": "--no-sandbox --headless=new --disable-gpu --disable-dev-shm-usage",
+        "maxWaitForLoad": 45000
       }
     },
     "assert": {

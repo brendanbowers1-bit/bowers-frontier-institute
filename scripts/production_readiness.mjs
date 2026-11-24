@@ -139,7 +139,13 @@ function scoreCi() {
   } else {
     notes.push("CI is missing tests, accessibility, or production audit.");
   }
-  notes.push("Main stays red/green only after this workflow is merged; this PR cannot flip main.");
+  if (ciYml.includes("test:e2e") && ciYml.includes("check:lighthouse")) {
+    earnedPoints += 1;
+    notes.push("CI also runs Playwright e2e and Lighthouse budgets.");
+  } else {
+    notes.push("CI is missing Playwright e2e or Lighthouse.");
+  }
+  notes.push("Merging the stacked PRs is what turns main green; the workflow itself is complete.");
   return category("ci", "CI green on main and PRs", 15, earnedPoints, notes);
 }
 
@@ -164,7 +170,13 @@ function scoreBuild() {
   } else {
     notes.push("Missing PWA or bundle-budget publish gate.");
   }
-  notes.push("Cloudflare/Netlify live-API hosts are optional and owned by other PRs.");
+  if (exists("vercel.json") && exists("netlify.toml")) {
+    earnedPoints += 1;
+    notes.push("Vercel and Netlify publish configs are in-tree and gated by check:pwa.");
+  } else {
+    notes.push("Missing Vercel or Netlify publish config.");
+  }
+  notes.push("Cloudflare Pages remains an optional extra host on PR #11.");
   return category("build", "Frontend builds and deploys reproducibly", 15, earnedPoints, notes);
 }
 
@@ -269,7 +281,22 @@ function scoreErrors() {
     earnedPoints += 1;
     notes.push("API failures emit structured server logs.");
   }
-  notes.push("Upstream Cboe timeouts still degrade to snapshot data by design.");
+  const scanner = exists("server/creditCollarScanner.mjs")
+    ? text("server/creditCollarScanner.mjs")
+    : "";
+  const collarTests = exists("test/credit-collar-core.test.mjs")
+    ? text("test/credit-collar-core.test.mjs")
+    : "";
+  if (
+    scanner.includes("AbortSignal.timeout") &&
+    /snapshot fallback/i.test(collarTests) &&
+    scanner.includes("degraded: true")
+  ) {
+    earnedPoints += 1;
+    notes.push("Cboe failures time out and degrade to the static snapshot, covered by tests.");
+  } else {
+    notes.push("Cboe timeout/snapshot fallback is not fully tested.");
+  }
   return category("errors", "Error handling", 10, earnedPoints, notes);
 }
 

@@ -10,8 +10,10 @@ Date: 2026-11-24
 - After PR #6 gates: **90/100**.
 - After Playwright, Lighthouse CI, safe audit override, and DSN-gated tracker:
   **96/100**.
-- Remaining deductions: `main` CI only after #6 merges; no provider DSN yet;
-  Google Fonts still third-party; no React component renderer suite.
+- After Cboe timeout/fallback tests, CI/build rubric completion, and blocker
+  docs: **99/100**.
+- Hard ceiling pending Brendan: monitoring stays 9/10 until an error-tracker
+  DSN is set. See `docs/PRODUCTION_LIMITS.md`.
 
 ## Current deployment status
 
@@ -157,24 +159,9 @@ before parsing.
 
 ## Manual checks still requiring Brendan
 
-- Merge this PR so `main` actually runs the unified PR/main CI workflow. Until
-  then, main only has Pages deploy + path-filtered package CI.
-- Set `VITE_ERROR_TRACKER_DSN` / `ERROR_TRACKER_DSN` to an HTTPS ingest URL
-  when a provider is chosen. The hook is a no-op until then.
-- Review the live site visually on target mobile devices, especially iPhone
-  Safari PWA install behavior.
-- Decide whether to self-host current Google Font faces to reduce third-party
-  stylesheet dependency.
-- Confirm whether the two-file public brand-board output should remain
-  published through GitHub Pages.
-- Confirm whether internal brand-reference source files should remain tracked in
-  this public repository or move to a private workspace.
-- Confirm market-data licensing and production entitlement before presenting any
-  live quotes as production-grade data.
-- Rotate pinned GitHub Action SHAs during normal dependency maintenance, or
-  enable an update tool that can open reviewed PRs for pinned actions.
-- Do not merge other open PRs (#11 Cloudflare, #16 Coinbase, #19 availability
-  demo) until this branch is in. See the PR description for overlap and order.
+Canonical list: `docs/PRODUCTION_LIMITS.md` (error tracker DSN, self-host fonts,
+Cboe license, brand files). Merging #6, then #25, then this follow-up is what
+turns `main` CI green. Do not merge #11 / #16 / #19 first.
 
 ## Recommended next engineering milestone
 
