@@ -1,3 +1,5 @@
+import { reportServerError } from "./errorTracker.mjs";
+
 export function logServerError(event, error, extra = {}) {
   const payload = {
     level: "error",
@@ -9,4 +11,7 @@ export function logServerError(event, error, extra = {}) {
     ts: new Date().toISOString(),
   };
   console.error(JSON.stringify(payload));
+  Promise.resolve(reportServerError(event, error, extra)).catch(() => {
+    // Tracking is best-effort and must never change API responses.
+  });
 }

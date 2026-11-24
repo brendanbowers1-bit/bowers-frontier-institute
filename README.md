@@ -29,16 +29,18 @@ http://localhost:5173
 
 ```bash
 npm test
+npm run test:e2e
 npm run lint
 npm run check:a11y
+npm run check:lighthouse
 npm run check:pwa
 npm run build
 npm run quality:dashboard
 npm run check:production
 ```
 
-Honest production limits (host, research-only, no execution, remaining tooling
-advisories, no APM on GitHub Pages) are in `docs/PRODUCTION_LIMITS.md`.
+Honest production limits (host, research-only, no execution, DSN-gated error
+tracker, Lighthouse budgets) are in `docs/PRODUCTION_LIMITS.md`.
 
 Preview production build:
 
@@ -123,6 +125,8 @@ npm run build:pages
 Pull requests and pushes to `main` run CI for:
 
 - frontend lint, core-path tests, accessibility source check
+- Playwright e2e on the dashboard and static pages
+- Lighthouse CI performance and accessibility budgets
 - production dependency audit (`npm audit --omit=dev`)
 - local Vite production build and GitHub Pages Vite production build
 - bundle budget and production-readiness score
@@ -138,6 +142,8 @@ npm run check:trade       # validates trade scorecard, tiers, gates, and example
 npm run check:collars     # validates positive-credit collar scoring and risk bounds
 npm run check:pwa         # validates install metadata, service worker, and deploy configs
 npm run check:a11y        # skip link, focus, reduced motion, no autofocus
+npm run check:lighthouse  # Lighthouse CI performance and accessibility budgets
+npm run test:e2e          # Playwright against vite preview
 npm run check:production  # honest 100-point production-readiness rubric
 npm run check:deploy      # ci + audits + tests + gates + dual builds + smoke + budget
 ```

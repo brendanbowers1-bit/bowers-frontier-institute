@@ -69,9 +69,14 @@ npm audit --audit-level=high
 # 0 high/critical remaining
 ```
 
-Moderate/low findings remain in eslint and shadcn CLI tooling. They are not
-shipped in the GitHub Pages runtime bundle. The full `npm audit` tree is
-therefore not "zero remaining vulnerabilities."
+The remaining shadcn → ts-morph → minimatch glob advisory is remediated with an
+npm `overrides` pin of `minimatch@11.0.9`. `npm audit fix --force` is not used
+because it would downgrade `shadcn` to 1.0.0.
+
+```bash
+npm audit
+# 0 vulnerabilities
+```
 
 ## Deferred dependency updates
 
