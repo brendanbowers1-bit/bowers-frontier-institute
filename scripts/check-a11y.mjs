@@ -3,9 +3,10 @@ import { readFile } from "node:fs/promises";
 const failures = [];
 const fail = (message) => failures.push(message);
 
-const [indexHtml, researchHtml, dashboard, dashboardCss, indexCss] = await Promise.all([
+const [indexHtml, researchHtml, falsificationHtml, dashboard, dashboardCss, indexCss] = await Promise.all([
   readFile("index.html", "utf8"),
   readFile("research.html", "utf8"),
+  readFile("falsification.html", "utf8"),
   readFile("src/components/Br3nDashboard.jsx", "utf8"),
   readFile("src/components/Br3nDashboard.css", "utf8"),
   readFile("src/index.css", "utf8"),
@@ -39,15 +40,47 @@ if (!researchHtml.includes("display=swap")) {
   fail("Research page web fonts must request font-display swap.");
 }
 
+if (!falsificationHtml.includes('lang="en"')) {
+  fail("falsification.html must set html lang.");
+}
+
+if (!falsificationHtml.includes('name="viewport"')) {
+  fail("falsification.html must include a viewport meta tag.");
+}
+
+if (!falsificationHtml.includes("skip-link") || !falsificationHtml.includes('href="#falsification-registry"')) {
+  fail("falsification.html must include a skip link to the registry.");
+}
+
+if (!falsificationHtml.includes("display=swap")) {
+  fail("Falsification page web fonts must request font-display swap.");
+}
+
+if (!falsificationHtml.includes('property="og:image"') || !falsificationHtml.includes("og:image:alt")) {
+  fail("Falsification page must include an Open Graph image with alt text.");
+}
+
+if (!falsificationHtml.includes('rel="canonical"')) {
+  fail("falsification.html must include a canonical URL.");
+}
+
 if (!indexHtml.includes("display=swap")) {
   fail("Web fonts must request font-display swap.");
 }
 
-if (!indexHtml.includes('property="og:image"') || !researchHtml.includes('property="og:image"')) {
-  fail("Dashboard and research pages must include an Open Graph image.");
+if (
+  !indexHtml.includes('property="og:image"') ||
+  !researchHtml.includes('property="og:image"') ||
+  !falsificationHtml.includes('property="og:image"')
+) {
+  fail("Dashboard, research, and falsification pages must include an Open Graph image.");
 }
 
-if (!indexHtml.includes("og:image:alt") || !researchHtml.includes("og:image:alt")) {
+if (
+  !indexHtml.includes("og:image:alt") ||
+  !researchHtml.includes("og:image:alt") ||
+  !falsificationHtml.includes("og:image:alt")
+) {
   fail("Open Graph images must include alt text.");
 }
 

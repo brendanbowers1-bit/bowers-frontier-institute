@@ -56,9 +56,19 @@ export function isResearchPath(pathname = "") {
   return /(?:^|\/)research(?:\.html)?$/i.test(cleaned);
 }
 
+export function isFalsificationPath(pathname = "") {
+  const cleaned = pathname.replace(/\/+$/, "") || "/";
+  return /(?:^|\/)falsification(?:\.html)?$/i.test(cleaned);
+}
+
 export function researchHref(baseUrl = "/") {
   const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
   return `${base}research.html`;
+}
+
+export function falsificationHref(baseUrl = "/") {
+  const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+  return `${base}falsification.html`;
 }
 
 export function dashboardHref(baseUrl = "/") {

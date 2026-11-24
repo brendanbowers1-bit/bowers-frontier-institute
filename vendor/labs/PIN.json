@@ -20,8 +20,12 @@
         "pm_maker/frozen_spec.json",
         "pm_calib/snapshot.summary.json",
         "pm_leadlag/snapshot.summary.json",
-        "pm_maker/snapshot.summary.json"
-      ]
+        "pm_maker/snapshot.summary.json",
+        "research/falsification/registry.v1.json",
+        "research/falsification/registry.v1.schema.json"
+      ],
+      "registrySha": "bcd83e80075d9dca750637d5c508123dbad82215",
+      "registryPrUrl": "https://github.com/brendanbowers1-bit/bfi-arbitrage/pull/20"
     },
     {
       "lab": "bfi-finance-lab",
@@ -30,8 +34,12 @@
       "prUrl": "https://github.com/brendanbowers1-bit/bfi-finance-lab/pull/10",
       "files": [
         "fx_reversal_calendar_wf.json",
-        "fx_realized_vol_wf.json"
-      ]
+        "fx_realized_vol_wf.json",
+        "research/falsification/registry.json",
+        "research/falsification/schema.json"
+      ],
+      "registrySha": "81877a4de36d4d207efd467a5800f7c2abbf5b96",
+      "registryPrUrl": "https://github.com/brendanbowers1-bit/bfi-finance-lab/pull/11"
     },
     {
       "lab": "bowers-frontier-institute",

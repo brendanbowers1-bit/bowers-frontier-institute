@@ -1,0 +1,156 @@
+{
+  "version": "v1",
+  "paper_only": true,
+  "live_orders": false,
+  "updated_at": "2026-11-24T23:00:00Z",
+  "source": "research/falsification/registry.json",
+  "schema": "research/falsification/registry.v1.schema.json",
+  "not_a_trading_signal": true,
+  "hypotheses": [
+    {
+      "id": "kalshi-fade-favorite-calibration-v1",
+      "name": "Kalshi fade-the-favorite calibration",
+      "freeze_hash": "88a8b92381e6b6726e1a47b3b0a02374dfe974285585f006c7bc285f31292d13",
+      "criteria": [
+        { "id": "n_holdout", "metric": "n_holdout", "op": ">=", "threshold": 400 },
+        { "id": "ece", "metric": "holdout_ece", "op": ">", "threshold": 0.03 },
+        { "id": "mean_ev", "metric": "holdout_mean_net_usd", "op": ">", "threshold": 0.0 },
+        { "id": "ci_lo", "metric": "holdout_mean_net_usd_ci_low", "op": ">", "threshold": 0.0 },
+        { "id": "wf_early", "metric": "holdout_early_mean_net_usd", "op": ">", "threshold": 0.0 },
+        { "id": "wf_late", "metric": "holdout_late_mean_net_usd", "op": ">", "threshold": 0.0 },
+        { "id": "lookahead", "metric": "lookahead_violations", "op": "==", "threshold": 0 }
+      ],
+      "n": 800,
+      "n_target": 400,
+      "effect": -7.058087499999999,
+      "ci": [-9.259949999999986, -4.759162499999995],
+      "mde": 3.220026089305866,
+      "verdict": "FALSIFIED",
+      "holdout": { "start": "2026-09-01T00:00:00Z", "end": "2026-11-24T00:00:00Z", "timezone": "UTC" },
+      "pr": 10,
+      "pr_url": "https://github.com/brendanbowers1-bit/bfi-arbitrage/pull/10",
+      "effect_unit": "usd_per_100_contracts"
+    },
+    {
+      "id": "pm-spot-leadlag-btc15m-v1",
+      "name": "Polymarket → BTC spot lead/lag",
+      "freeze_hash": "dab68591ce85a140e6bd4ef0266a9015c039a706e843fc475934a48cb4f26275",
+      "criteria": [
+        { "id": "n_holdout", "metric": "n_holdout", "op": ">=", "threshold": 400 },
+        { "id": "mean_ev", "metric": "holdout_mean_net_bps", "op": ">", "threshold": 0.0 },
+        { "id": "ci_lo", "metric": "holdout_mean_net_bps_ci_low", "op": ">", "threshold": 0.0 },
+        { "id": "wf_early", "metric": "holdout_early_mean_net_bps", "op": ">", "threshold": 0.0 },
+        { "id": "wf_late", "metric": "holdout_late_mean_net_bps", "op": ">", "threshold": 0.0 },
+        { "id": "lookahead", "metric": "lookahead_violations", "op": "==", "threshold": 0 },
+        { "id": "pm_not_traded", "metric": "pm_orders", "op": "==", "threshold": 0 }
+      ],
+      "n": 1057,
+      "n_target": 400,
+      "effect": -20.014440295906038,
+      "ci": [-20.87805047025887, -19.1631030884952],
+      "mde": 1.2141101875064642,
+      "verdict": "FALSIFIED",
+      "holdout": { "start": "2026-10-01T00:00:00Z", "end": "2026-11-24T00:00:00Z", "timezone": "UTC" },
+      "pr": 13,
+      "pr_url": "https://github.com/brendanbowers1-bit/bfi-arbitrage/pull/13",
+      "effect_unit": "bps_of_notional"
+    },
+    {
+      "id": "kalshi-maker-spread-queue-as-v1",
+      "name": "Kalshi maker spread capture (queue + adverse selection)",
+      "freeze_hash": "e0dac7785aa23f01cf504d3ad4be98e5bd439da03748f52b7b29404c7b14109b",
+      "criteria": [
+        { "id": "n_holdout", "metric": "n_holdout", "op": ">=", "threshold": 400 },
+        { "id": "mean_ev", "metric": "holdout_mean_net_usd", "op": ">", "threshold": 0.0 },
+        { "id": "ci_lo", "metric": "holdout_mean_net_usd_ci_low", "op": ">", "threshold": 0.0 },
+        { "id": "wf_early", "metric": "holdout_early_mean_net_usd", "op": ">", "threshold": 0.0 },
+        { "id": "wf_late", "metric": "holdout_late_mean_net_usd", "op": ">", "threshold": 0.0 },
+        { "id": "lookahead", "metric": "lookahead_violations", "op": "==", "threshold": 0 },
+        { "id": "live_orders", "metric": "live_orders", "op": "==", "threshold": 0 },
+        { "id": "second_untouched", "metric": "second_holdout_scored_without_primary_ci", "op": "==", "threshold": 0 }
+      ],
+      "n": 327,
+      "n_target": 400,
+      "effect": -1.110091743119266,
+      "ci": [-1.7155963302752293, -0.5932721712538226],
+      "mde": 0.8021287122230749,
+      "verdict": "FALSIFIED",
+      "holdout": {
+        "start": "2026-10-01T00:00:00Z",
+        "end": "2026-11-10T00:00:00Z",
+        "timezone": "UTC",
+        "note": "primary holdout; second holdout 2026-11-10 to 2026-11-24 stayed sealed"
+      },
+      "pr": 16,
+      "pr_url": "https://github.com/brendanbowers1-bit/bfi-arbitrage/pull/16",
+      "effect_unit": "usd_per_100_contracts"
+    },
+    {
+      "id": "kalshi-buy-favorite-v1",
+      "name": "Kalshi buy-the-favorite (disjoint follow-up)",
+      "freeze_hash": "27b5680626ecd2b3487fc4da796cf97c8cc0113f7210860cea4bdfe32b06cd78",
+      "criteria": [
+        { "id": "n_holdout", "metric": "n_holdout", "op": ">=", "threshold": 400 },
+        { "id": "mean_ev", "metric": "holdout_mean_net_usd", "op": ">", "threshold": 0.0 },
+        { "id": "ci_lo", "metric": "holdout_mean_net_usd_ci_low", "op": ">", "threshold": 0.0 },
+        { "id": "wf_early", "metric": "holdout_early_mean_net_usd", "op": ">", "threshold": 0.0 },
+        { "id": "wf_late", "metric": "holdout_late_mean_net_usd", "op": ">", "threshold": 0.0 },
+        { "id": "lookahead", "metric": "lookahead_violations", "op": "==", "threshold": 0 }
+      ],
+      "n": null,
+      "n_target": 400,
+      "effect": null,
+      "ci": [null, null],
+      "mde": 4.5538045666915545,
+      "verdict": "UNSCORED",
+      "holdout": { "start": "2026-06-01T00:00:00Z", "end": "2026-09-01T00:00:00Z", "timezone": "UTC" },
+      "effect_unit": "usd_per_100_contracts"
+    },
+    {
+      "id": "kalshi-resolution-delay-premium-v1",
+      "name": "Kalshi resolution-delay premium",
+      "freeze_hash": "646c04fe6874b4816a714fe6e06603bab03e36b3ec46ecf75b51d87187f87049",
+      "criteria": [
+        { "id": "n_holdout", "metric": "n_holdout", "op": ">=", "threshold": 200 },
+        { "id": "mean_ev", "metric": "holdout_mean_net_usd", "op": ">", "threshold": 0.0 },
+        { "id": "ci_lo", "metric": "holdout_mean_net_usd_ci_low", "op": ">", "threshold": 0.0 },
+        { "id": "wf_early", "metric": "holdout_early_mean_net_usd", "op": ">", "threshold": 0.0 },
+        { "id": "wf_late", "metric": "holdout_late_mean_net_usd", "op": ">", "threshold": 0.0 },
+        { "id": "lookahead", "metric": "lookahead_violations", "op": "==", "threshold": 0 }
+      ],
+      "n": null,
+      "n_target": 200,
+      "effect": null,
+      "ci": [null, null],
+      "mde": 6.440052178611732,
+      "verdict": "UNSCORED",
+      "holdout": { "start": "2026-06-01T00:00:00Z", "end": "2026-09-01T00:00:00Z", "timezone": "UTC" },
+      "effect_unit": "usd_per_100_contracts"
+    },
+    {
+      "id": "pm-arb-taker-taker-retrospective-v1",
+      "name": "Kalshi vs Polymarket taker/taker (retrospective)",
+      "freeze_hash": "8a4a0d575ba11f6d806b276b2d8e9e7ec88a5f7356d4a9339ee227cff524ffcf",
+      "criteria": [
+        { "id": "n", "metric": "taker_n", "op": ">=", "threshold": 30 },
+        { "id": "mean_ev", "metric": "taker_mean_net_bps", "op": ">", "threshold": 0.0 },
+        { "id": "ci_lo", "metric": "taker_mean_ci_low", "op": ">", "threshold": 0.0 }
+      ],
+      "n": 82,
+      "n_target": 30,
+      "effect": -164.0297,
+      "ci": [-407.984, -5.3763],
+      "mde": 287.74502743813287,
+      "verdict": "FALSIFIED",
+      "holdout": {
+        "start": null,
+        "end": null,
+        "timezone": "UTC",
+        "note": "retrospective two-snapshot public-book lock scored 2026-11-05; not a pre-registered window"
+      },
+      "pr": 6,
+      "pr_url": "https://github.com/brendanbowers1-bit/bfi-arbitrage/pull/6",
+      "effect_unit": "bps_of_notional"
+    }
+  ]
+}

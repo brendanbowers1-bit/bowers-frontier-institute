@@ -3,5 +3,25 @@
   "service": "br3n-web",
   "mode": "static",
   "researchOnly": true,
-  "noTradeExecution": true
+  "noTradeExecution": true,
+  "noLiveOrders": true,
+  "noLiveFetchAtRuntime": true,
+  "errorTrackerDsnConfigured": false,
+  "updated": "2026-11-24",
+  "checks": {
+    "staticArtifact": true,
+    "falsificationRegistry": true,
+    "paperOnly": true
+  },
+  "registry": {
+    "route": "/research/falsification.json",
+    "page": "/falsification.html",
+    "hypothesisCount": 14,
+    "statusCounts": {
+      "FALSIFIED": 10,
+      "FAIL-N": 1,
+      "UNSCORED": 2,
+      "PASS": 1
+    }
+  }
 }

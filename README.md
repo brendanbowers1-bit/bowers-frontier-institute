@@ -142,6 +142,7 @@ npm run check:trade       # validates trade scorecard, tiers, gates, and example
 npm run check:collars     # validates positive-credit collar scoring and risk bounds
 npm run check:pwa         # validates install metadata, service worker, and deploy configs
 npm run check:a11y        # skip link, focus, reduced motion, no autofocus
+npm run check:health      # DSN-free health.json plus falsification registry counts
 npm run check:lighthouse  # Lighthouse CI performance and accessibility budgets
 npm run test:e2e          # Playwright against vite preview
 npm run check:production  # honest 100-point production-readiness rubric

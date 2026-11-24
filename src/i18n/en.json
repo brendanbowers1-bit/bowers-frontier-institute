@@ -1,11 +1,13 @@
 {
   "meta": {
     "dashboardTitle": "Bowers Frontier Institute | BR3N Credit Collar Feed",
-    "researchTitle": "Bowers Frontier Institute | Research results"
+    "researchTitle": "Bowers Frontier Institute | Research results",
+    "falsificationTitle": "Bowers Frontier Institute | Falsification registry"
   },
   "skip": {
     "dashboard": "Skip to main content",
-    "research": "Skip to research results"
+    "research": "Skip to research results",
+    "falsification": "Skip to falsification registry"
   },
   "locale": {
     "en": "English",
@@ -20,6 +22,7 @@
     "exposure": "Exposure",
     "signals": "Signals",
     "research": "Research",
+    "falsification": "Falsification",
     "dashboard": "Dashboard",
     "open": "Open dashboard navigation",
     "close": "Close dashboard navigation"
@@ -55,6 +58,19 @@
     "hash": "Registration hash",
     "back": "Back to dashboard",
     "empty": "No hypotheses published."
+  },
+  "falsification": {
+    "kicker": "Paper / research only",
+    "title": "Falsification registry",
+    "lede": "Pinned Arb registry.v1.json and finance-lab registry rows. Statuses are FALSIFIED, FAIL-N when n is below the frozen n_target, UNSCORED, or PASS. PASS is a pre-registered statistical gate only. This page does not claim a trading edge, place orders, hold funds, or call exchange APIs.",
+    "noEdge": "No trading edge is claimed",
+    "counts": "Registry status counts",
+    "statusFalsified": "FALSIFIED",
+    "statusFailN": "FAIL-N",
+    "statusUnscored": "UNSCORED",
+    "statusPass": "PASS",
+    "noPr": "No source PR",
+    "empty": "No falsification rows published."
   },
   "error": {
     "title": "Dashboard unavailable. Refresh to retry.",

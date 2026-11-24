@@ -21,6 +21,14 @@ test("dashboard meets WCAG 2.2 AA with zero axe violations", async ({ page }) =>
   await expectNoAxeViolations(page);
 });
 
+test("falsification registry meets WCAG 2.2 AA with zero axe violations", async ({ page }) => {
+  await page.goto("/falsification.html?lang=en", { waitUntil: "domcontentloaded" });
+  await expect(page.getByRole("heading", { name: /Falsification registry/i })).toBeVisible({
+    timeout: 15_000,
+  });
+  await expectNoAxeViolations(page);
+});
+
 test("research results meet WCAG 2.2 AA with zero axe violations", async ({ page }) => {
   await page.goto("/research.html?lang=en", { waitUntil: "domcontentloaded" });
   await expect(page.getByRole("heading", { name: /Pre-registered hypotheses/i })).toBeVisible({

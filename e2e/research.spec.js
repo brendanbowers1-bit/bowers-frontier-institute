@@ -55,4 +55,43 @@ test("Portuguese locale translates dashboard and research chrome", async ({ page
   await page.goto("/trades.html?lang=pt-PT", { waitUntil: "domcontentloaded" });
   await expect(page.getByRole("heading", { name: /Quadro de operações/i })).toBeVisible();
   await expect(page.locator("html")).toHaveAttribute("lang", "pt-PT");
+
+  await page.goto("/falsification.html?lang=pt-PT", { waitUntil: "domcontentloaded" });
+  await expect(page.getByRole("heading", { name: /Registo de falsificação/i })).toBeVisible();
+  await expect(page.getByText("Não se reivindica vantagem de negociação")).toBeVisible();
+  await expect(page.locator("html")).toHaveAttribute("lang", "pt-PT");
+});
+
+test("falsification registry publishes FAIL-N, UNSCORED, PASS without a trading edge", async ({
+  page,
+  request,
+}) => {
+  const json = await request.get("/research/falsification.json");
+  expect(json.ok()).toBeTruthy();
+  const payload = await json.json();
+  expect(payload.notATradingEdge).toBe(true);
+  expect(payload.statusCounts.FALSIFIED).toBe(10);
+  expect(payload.statusCounts["FAIL-N"]).toBe(1);
+  expect(payload.statusCounts.UNSCORED).toBe(2);
+  expect(payload.statusCounts.PASS).toBe(1);
+
+  await page.goto("/falsification.html?lang=en", { waitUntil: "domcontentloaded" });
+  await expect(page).toHaveTitle(/Falsification registry/i);
+  await expect(page.getByRole("heading", { name: /Falsification registry/i })).toBeVisible();
+  await expect(page.getByText("FAIL-N", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("UNSCORED", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("PASS", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("No trading edge is claimed")).toBeVisible();
+  await expect(page.getByRole("link", { name: "bfi-arbitrage#16" })).toHaveAttribute(
+    "href",
+    "https://github.com/brendanbowers1-bit/bfi-arbitrage/pull/16",
+  );
+  await expect(page.getByText("Evidence advancement denied").first()).toBeVisible();
+
+  const jsonLd = JSON.parse(
+    await page.locator('script[type="application/ld+json"]').evaluate((el) => el.textContent),
+  );
+  const types = (jsonLd["@graph"] ?? []).map((node) => node["@type"]);
+  expect(types).toContain("ResearchProject");
+  expect(types).toContain("Dataset");
 });

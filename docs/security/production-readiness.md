@@ -160,8 +160,9 @@ before parsing.
 ## Manual checks still requiring Brendan
 
 Canonical list: `docs/PRODUCTION_LIMITS.md` (error tracker DSN, self-host fonts,
-Cboe license, brand files). Merging #6, then #25, then this follow-up is what
-turns `main` CI green. Do not merge #11 / #16 / #19 first.
+Cboe license, brand files). Do not re-ask for a DSN; rubric stays 99/100.
+Merging #6 → #25 → #28 → #29 → #30 → this follow-up is what turns `main` CI
+green. Do not merge without Brendan's yes. Do not merge #11 / #16 / #19 first.
 
 ## Recommended next engineering milestone
 

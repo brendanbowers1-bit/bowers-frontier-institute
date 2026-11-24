@@ -1,11 +1,13 @@
 {
   "meta": {
     "dashboardTitle": "Bowers Frontier Institute | Feed de collars de crédito BR3N",
-    "researchTitle": "Bowers Frontier Institute | Resultados de investigação"
+    "researchTitle": "Bowers Frontier Institute | Resultados de investigação",
+    "falsificationTitle": "Bowers Frontier Institute | Registo de falsificação"
   },
   "skip": {
     "dashboard": "Saltar para o conteúdo principal",
-    "research": "Saltar para os resultados de investigação"
+    "research": "Saltar para os resultados de investigação",
+    "falsification": "Saltar para o registo de falsificação"
   },
   "locale": {
     "en": "English",
@@ -20,6 +22,7 @@
     "exposure": "Exposição",
     "signals": "Sinais",
     "research": "Investigação",
+    "falsification": "Falsificação",
     "dashboard": "Painel",
     "open": "Abrir navegação do painel",
     "close": "Fechar navegação do painel"
@@ -55,6 +58,19 @@
     "hash": "Hash de registo",
     "back": "Voltar ao painel",
     "empty": "Não há hipóteses publicadas."
+  },
+  "falsification": {
+    "kicker": "Papel / só investigação",
+    "title": "Registo de falsificação",
+    "lede": "Linhas afixadas de registry.v1.json do Arb e do registo do laboratório de finanças. Os estados são FALSIFIED, FAIL-N quando n fica abaixo do n_target congelado, UNSCORED ou PASS. PASS é só um portão estatístico pré-registado. Esta página não reivindica vantagem de negociação, não coloca ordens, não detém fundos nem chama APIs de bolsa.",
+    "noEdge": "Não se reivindica vantagem de negociação",
+    "counts": "Contagens de estado do registo",
+    "statusFalsified": "FALSIFIED",
+    "statusFailN": "FAIL-N",
+    "statusUnscored": "UNSCORED",
+    "statusPass": "PASS",
+    "noPr": "Sem PR de origem",
+    "empty": "Não há linhas de falsificação publicadas."
   },
   "error": {
     "title": "Painel indisponível. Atualize para tentar de novo.",

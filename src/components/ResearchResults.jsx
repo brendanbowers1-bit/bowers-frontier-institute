@@ -1,41 +1,15 @@
-import { useMemo } from "react";
 import hypothesesDoc from "../../data/research/hypotheses.json";
-import { dashboardHref } from "../i18n/messages.js";
 import { useLocale } from "../i18n/LocaleContext.jsx";
-import { LocaleSwitcher } from "./LocaleSwitcher.jsx";
-import { Br3nCrest } from "./Br3nCrest.jsx";
+import { ResearchChrome } from "./ResearchChrome.jsx";
 import { ResearchStructuredData } from "./ResearchStructuredData.jsx";
 import "./ResearchResults.css";
 
 export function ResearchResults() {
-  const { t, locale } = useLocale();
-  const dashboardUrl = useMemo(() => {
-    const href = dashboardHref(import.meta.env.BASE_URL);
-    return `${href}?lang=${encodeURIComponent(locale)}`;
-  }, [locale]);
-
+  const { t } = useLocale();
   const hypotheses = hypothesesDoc.hypotheses ?? [];
 
   return (
-    <div className="research-page">
-      <ResearchStructuredData />
-      <header className="research-top">
-        <a className="research-brand" href={dashboardUrl}>
-          <Br3nCrest compact />
-          <span>
-            <strong>{t("brand.wordmark", "BR3N")}</strong>
-            <em>{t("brand.line", "Macro Labs")}</em>
-          </span>
-        </a>
-        <nav className="research-nav" aria-label={t("nav.research", "Research")}>
-          <a href={dashboardUrl}>{t("nav.dashboard", "Dashboard")}</a>
-          <a aria-current="page" href="#research-results">
-            {t("nav.research", "Research")}
-          </a>
-        </nav>
-        <LocaleSwitcher />
-      </header>
-
+    <ResearchChrome current="research" structuredData={<ResearchStructuredData />}>
       <main className="research-main" id="research-results" tabIndex={-1}>
         <p className="research-kicker">{t("research.kicker", "Paper / research only")}</p>
         <h1>{t("research.title", "Pre-registered hypotheses and verdicts")}</h1>
@@ -103,11 +77,6 @@ export function ResearchResults() {
           </ol>
         )}
       </main>
-
-      <footer className="research-footer">
-        <a href={dashboardUrl}>{t("research.back", "Back to dashboard")}</a>
-        <p>{t("disclosure.footer")}</p>
-      </footer>
-    </div>
+    </ResearchChrome>
   );
 }

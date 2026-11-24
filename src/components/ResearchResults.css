@@ -116,12 +116,51 @@
   margin: 0 0 0.65rem;
 }
 
+.research-status-counts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.research-status-counts li {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.85rem 1rem;
+  background: #141416;
+  border: 1px solid #3a3a3f;
+  border-radius: 0.85rem;
+}
+
+.research-status-counts strong {
+  color: #f4f4ef;
+  font-size: 1.35rem;
+}
+
+.research-status-counts span {
+  color: #c9c4b8;
+}
+
 .research-status {
   padding: 0.25rem 0.65rem;
   font-size: 0.8rem;
   color: #050506;
   background: #f4f4ef;
   border-radius: 999px;
+}
+
+.research-status.is-fail-n {
+  background: #f0d9a0;
+}
+
+.research-status.is-unscored {
+  background: #d7d3c8;
+}
+
+.research-status.is-pass {
+  background: #cfcab8;
 }
 
 .research-meta {
